@@ -1,0 +1,7 @@
+{
+  "name": "LinkClean Jeju - Premium Cleaning Solutions",
+  "description": "A high-end cleaning service platform for Jeju Island, featuring an AI-powered quote assistant and service showcase.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
