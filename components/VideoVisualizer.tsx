@@ -57,7 +57,7 @@ const VideoVisualizer: React.FC = () => {
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-custom via-white to-sky-deep">영화처럼</span>
           </h2>
           <p className="text-gray-400 max-w-2xl mx-auto font-medium text-sm md:text-lg">
-            단순한 비포/애프터가 아닙니다. 링크클린의 마법이 펼쳐지는 순간을 시네마틱 영상으로 미리 체험해보세요.
+            링크클린이 제공하는 재미있는 시네마틱 영상으로 미리 체험해보세요.
           </p>
         </div>
 
@@ -137,8 +137,8 @@ const VideoVisualizer: React.FC = () => {
                     <Play size={32} className="text-gray-500 fill-gray-500/20 ml-1" />
                   </div>
                   <div>
-                    <p className="text-xl font-bold text-gray-400 mb-2">당신만을 위한 공간 시네마</p>
-                    <p className="text-sm text-gray-600 font-medium">상상하는 공간의 정결함을 영상으로 구현합니다.</p>
+                    <p className="text-xl font-bold text-gray-400 mb-2">당신을 위한 공간 시네마</p>
+                    <p className="text-sm text-gray-600 font-medium">상상하는 공간의 영상으로 구현합니다.</p>
                   </div>
                 </div>
               )}
