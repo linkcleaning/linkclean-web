@@ -18,7 +18,7 @@ const App: React.FC = () => {
         <AboutCompany />
         <SpaceVisualizer />
         <VideoVisualizer />
-        <QuoteAI />
+      
         
         {/* Floating Contact Bar - Side Right */}
         <div className="fixed right-3 md:right-6 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-3 md:gap-4 items-center scale-90 md:scale-100">
