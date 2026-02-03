@@ -4,7 +4,7 @@ import { Image as ImageIcon, Loader2, Sparkles, Key, AlertCircle, Search } from 
 import { generateCleanImage } from '../services/gemini';
 
 const PRESETS = [
-  { id: 'jeju', label: '제주 미니멀', prompt: 'Jeju island modern luxury house with volcanic stone walls and ocean view' },
+  { id: 'jeju', label: '타운하우스', prompt: 'Jeju island modern luxury house with volcanic stone walls and ocean view' },
   { id: 'luxury', label: '하이엔드 거실', prompt: 'Ultra-luxury penthouse living room with floor-to-ceiling windows and marble finish' },
   { id: 'kitchen', label: '시그니처 주방', prompt: 'Professional minimalist kitchen with high-end appliances and indirect lighting' }
 ];
@@ -64,8 +64,8 @@ const SpaceVisualizer: React.FC = () => {
                 <Sparkles size={14} className="animate-pulse" /> Visual Intelligence 3.0
               </span>
               <h2 className="text-3xl md:text-7xl font-black text-gray-900 leading-[1.2] md:leading-[1.1] tracking-tighter">
-                가장 정결한<br />
-                <span className="text-purple-custom italic">공간의 미학</span>을<br />미리 만나보세요.
+                가장 <br />
+                <span className="text-purple-custom italic">공간의 미학</span>을<br />만나보세요.
               </h2>
               <p className="mt-4 md:mt-8 text-gray-500 font-medium text-sm md:text-lg leading-relaxed">
                 Gemini 3 Pro 엔진이 <b>Google Search Grounding</b>을 통해 당신의 공간을 분석하고, 완벽한 청결이 구현된 이상적인 상태를 초고해상도로 렌더링합니다.
@@ -88,7 +88,7 @@ const SpaceVisualizer: React.FC = () => {
               <textarea 
                 value={prompt}
                 onChange={(e) => setPrompt(e.target.value)}
-                placeholder="어떤 공간이 깨끗해지길 원하시나요? (예: 제주의 돌담이 보이는 고즈넉한 침실)"
+                placeholder="어떤 공간이 깨끗해지길 원하시나요? (예: 30평형 거실)"
                 className="w-full p-5 md:p-6 bg-gray-50 rounded-[24px] md:rounded-[32px] border border-gray-100 focus:outline-none focus:border-purple-custom transition-all text-gray-800 font-medium min-h-[120px] md:min-h-[160px] resize-none text-sm md:text-base shadow-inner"
               />
 
