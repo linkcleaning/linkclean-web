@@ -27,30 +27,35 @@ const Footer: React.FC = () => {
             </div>
           </div>
 
-         <div className="flex flex-col gap-6"> {/* 전체 컨테이너 */}
+         <div className="flex flex-col gap-4"> {/* 지점 정보 컨테이너 */}
   
-  {/* 제주지점 섹션 */}
-  <div className="flex items-start gap-3">
-    <div className="text-purple-600 mt-1">
-      <LocationIcon /> {/* 아이콘 */}
+  <h2 className="text-sm font-bold tracking-widest uppercase mb-2">CUSTOMER CENTER</h2>
+
+  {/* 제주지점 한 줄 정렬 */}
+  <div className="flex items-center gap-2 text-sm text-gray-600">
+    <span className="font-bold text-purple-600 min-w-[70px]">📍 제주지점</span>
+    <span>제주특별자치도 제주시 도령북로 8 제일상가 2층</span>
+  </div>
+
+  {/* 서귀포지점 한 줄 정렬 */}
+  <div className="flex items-center gap-2 text-sm text-gray-600">
+    <span className="font-bold text-purple-600 min-w-[70px]">📍 서귀포지점</span>
+    <span>제주특별자치도 서귀포시 서호호근로 86-6</span>
+  </div>
+
+  {/* 연락처 및 이메일 */}
+  <div className="mt-2 space-y-2 text-sm text-gray-600">
+    <div className="flex items-center gap-2">
+      <span className="font-bold text-purple-600 min-w-[70px]">📞 전화번호</span>
+      <span className="font-semibold">064-763-4545</span>
     </div>
-    <div>
-      <h3 className="font-bold text-lg">제주지점</h3>
-      <p className="text-gray-600">제주특별자치도 제주시 도령북로 8 제일상가 2층</p>
+    <div className="flex items-center gap-2">
+      <span className="font-bold text-purple-600 min-w-[70px]">✉️ 이메일</span>
+      <a href="mailto:linkdole@naver.com" className="hover:underline">linkdole@naver.com</a>
     </div>
   </div>
 
-  {/* 서귀포지점 섹션 */}
-  <div className="flex items-start gap-3">
-    <div className="text-purple-600 mt-1">
-      <LocationIcon /> {/* 아이콘 */}
-    </div>
-    <div>
-      <h3 className="font-bold text-lg">서귀포지점</h3>
-      <p className="text-gray-600">제주특별자치도 서귀포시 서호호근로 86-6</p>
-    </div>
-  </div>
-
+</div>
 </div>
 
           <div>
