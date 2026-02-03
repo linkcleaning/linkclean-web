@@ -47,7 +47,7 @@ const App: React.FC = () => {
               <div className="absolute left-full top-1/2 -translate-y-1/2 border-[6px] border-transparent border-l-kakao"></div>
             </div>
             <a 
-              href="https://pf.kakao.com" 
+              href="https://pf.kakao.com/_xfxdrxmM" 
               target="_blank" 
               rel="noopener noreferrer"
               className="w-11 h-11 md:w-14 md:h-14 bg-kakao rounded-xl md:rounded-2xl flex items-center justify-center text-[#3A1D1D] shadow-xl hover:scale-110 transition-transform group"
@@ -64,7 +64,7 @@ const App: React.FC = () => {
               <div className="absolute left-full top-1/2 -translate-y-1/2 border-[6px] border-transparent border-l-[#d6249f]"></div>
             </div>
             <a 
-              href="https://instagram.com" 
+              href="https://www.instagram.com/linkcleaning?igsh=MWF3ZWgwcW1ib3ZwbA%3D%3D&utm_source=qr" 
               target="_blank" 
               rel="noopener noreferrer"
               className="w-11 h-11 md:w-14 md:h-14 insta-gradient rounded-xl md:rounded-2xl flex items-center justify-center text-white shadow-xl hover:scale-110 transition-transform group"
@@ -85,7 +85,7 @@ const App: React.FC = () => {
               target="_blank" 
               rel="noopener noreferrer"
               className="w-11 h-11 md:w-14 md:h-14 bg-naver rounded-xl md:rounded-2xl flex items-center justify-center text-white shadow-xl hover:scale-110 transition-transform group"
-              aria-label="Naver Blog"
+              aria-label="blog.naver.com/linkcleaning"
             >
               <Layout size={24} className="group-hover:rotate-12 transition-transform md:size-7" />
             </a>
