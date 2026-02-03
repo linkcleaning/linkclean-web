@@ -60,25 +60,7 @@ const AboutCompany: React.FC = () => {
         </div>
       </section>
 
-      {/* Section 2: CEO & Expert Message (Glassmorphism) */}
-      <section className="py-24 md:py-48 bg-slate-950 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/asfalt-dark.png')] opacity-30"></div>
-        <div className="container mx-auto px-6 md:px-8 relative z-10">
-          <div className="max-w-5xl mx-auto text-center space-y-12">
-            <Quote size={60} className="text-purple-custom/30 mx-auto" />
-            <h3 className="text-2xl md:text-5xl font-light text-white leading-snug tracking-tight italic">
-              "제주의 집은 육지의 집과 달라야 합니다. <br className="hidden md:block" />
-              높은 습도와 해풍에 노출 된 공간을 가장 잘 아는 "링크클린"이<br className="hidden md:block" />
-              당신의 주거공간을 가장 깨끗하게 지켜드립니다."
-            </h3>
-            <div className="pt-8">
-              <p className="text-white font-black text-xl md:text-2xl tracking-widest">CEO. 한승우</p>
-              <p className="text-purple-custom font-bold text-sm tracking-[0.3em] uppercase mt-2">LinkClean Jeju Master</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
+     
       {/* Section 3: Core Strengths (Grid) */}
       <section className="py-24 md:py-40 bg-gray-50">
         <div className="container mx-auto px-6 md:px-8">
