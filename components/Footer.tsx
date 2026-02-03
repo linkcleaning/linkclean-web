@@ -63,7 +63,7 @@ const Footer: React.FC = () => {
 
         {/* 하단 바 */}
         <div className="pt-12 border-t border-gray-200 flex flex-col md:flex-row justify-between items-center gap-8">
-          <p className="text-gray-500 font-medium">© 2025 LinkClean Jeju. All rights reserved.</p> {/* 텍스트 색상 변경 */}
+          <p className="text-gray-500 font-medium">© 2016 LinkClean Jeju. All rights reserved.</p> {/* 텍스트 색상 변경 */}
           <button 
             onClick={scrollToTop}
             className="group flex items-center gap-3 text-sm font-bold text-gray-900 hover:text-purple-600 transition-colors"
