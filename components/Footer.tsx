@@ -27,25 +27,31 @@ const Footer: React.FC = () => {
             </div>
           </div>
 
-          <div>
-            <h4 className="font-black text-gray-900 mb-8 uppercase tracking-[0.2em] text-sm">Customer Center</h4>
-            <ul className="space-y-6">
-              <li className="flex gap-4 text-gray-600 font-medium">
-                <MapPin className="text-purple-custom shrink-0" size={24} />
-                <p>제주지점 : 제주특별자치도 제주시 도령북로 8 제일상가 2층</p>
-                 <MapPin className="text-purple-custom shrink-0" size={24} />
-                <p>서귀포지점 : 제주특별자치도 서귀포시 서호호근로 86-6</p>
-              </li>
-              <li className="flex gap-4 text-gray-600 font-medium">
-                <PhoneCall className="text-purple-custom shrink-0" size={24} />
-                <span className="text-xl font-bold">064-763-4545</span>
-              </li>
-              <li className="flex gap-4 text-gray-600 font-medium underline underline-offset-4 decoration-purple-custom/30">
-                <Mail className="text-purple-custom shrink-0" size={24} />
-                <span>linkdole@naver.com</span>
-              </li>
-            </ul>
-          </div>
+         <div className="flex flex-col gap-6"> {/* 전체 컨테이너 */}
+  
+  {/* 제주지점 섹션 */}
+  <div className="flex items-start gap-3">
+    <div className="text-purple-600 mt-1">
+      <LocationIcon /> {/* 아이콘 */}
+    </div>
+    <div>
+      <h3 className="font-bold text-lg">제주지점</h3>
+      <p className="text-gray-600">제주특별자치도 제주시 도령북로 8 제일상가 2층</p>
+    </div>
+  </div>
+
+  {/* 서귀포지점 섹션 */}
+  <div className="flex items-start gap-3">
+    <div className="text-purple-600 mt-1">
+      <LocationIcon /> {/* 아이콘 */}
+    </div>
+    <div>
+      <h3 className="font-bold text-lg">서귀포지점</h3>
+      <p className="text-gray-600">제주특별자치도 서귀포시 서호호근로 86-6</p>
+    </div>
+  </div>
+
+</div>
 
           <div>
             <h4 className="font-black text-gray-900 mb-8 uppercase tracking-[0.2em] text-sm">Legal Info</h4>
