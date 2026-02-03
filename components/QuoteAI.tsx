@@ -6,7 +6,7 @@ import { ChatMessage } from '../types';
 
 const QuoteAI: React.FC = () => {
   const [messages, setMessages] = useState<ChatMessage[]>([
-    { role: 'model', text: '반갑습니다! 링크클린의 AI 시니어 컨설턴트입니다.\n\n공간의 유형이나 특별히 신경 쓰이는 부분을 말씀해 주시면 상세히 상담해 드리겠습니다. 😊' }
+    { role: 'model', text: '반갑습니다! 링크클린의 AI 컨설턴트입니다.\n\n청소의 유형이나 특별히 신경 쓰이는 부분을 말씀해 주시면 상세히 상담해 드리겠습니다. 😊' }
   ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
