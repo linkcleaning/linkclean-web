@@ -39,7 +39,7 @@ const Hero: React.FC = () => {
           {/* Main Typography */}
           <div className="space-y-2 mb-10">
             <h1 className="text-6xl sm:text-8xl md:text-[11rem] font-black leading-[0.85] tracking-tighter text-white animate-in fade-in slide-in-from-bottom-12 duration-1000 delay-200">
-              완벽을 넘어선<br />
+              완벽을 넘어<br />
               <span className="text-transparent bg-clip-text bg-gradient-to-b from-white via-white to-white/40">
                 순수의 미학
               </span>
@@ -51,7 +51,7 @@ const Hero: React.FC = () => {
             <p className="text-lg md:text-3xl text-gray-300 leading-tight font-light tracking-tight mb-12 border-l-2 border-purple-custom/30 pl-6">
               링크클린은 보이지 않는 먼지 너머,<br />
               <span className="text-white font-medium">공간이 지닌 본연의 가치와 숨결</span>을<br /> 
-              가장 정결한 상태로 복원하는 예술가입니다.
+              가장 청결한 상태로 복원하는 예술가입니다.
             </p>
           </div>
 
