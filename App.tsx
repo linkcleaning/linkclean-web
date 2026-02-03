@@ -85,7 +85,7 @@ const App: React.FC = () => {
               target="_blank" 
               rel="noopener noreferrer"
               className="w-11 h-11 md:w-14 md:h-14 bg-naver rounded-xl md:rounded-2xl flex items-center justify-center text-white shadow-xl hover:scale-110 transition-transform group"
-              aria-label="blog.naver.com/linkcleaning"
+              aria-label="https://blog.naver.com/linkcleaning"
             >
               <Layout size={24} className="group-hover:rotate-12 transition-transform md:size-7" />
             </a>
