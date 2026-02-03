@@ -15,8 +15,8 @@ const Footer: React.FC = () => {
               <span className="text-3xl font-black tracking-tighter text-gray-900">LINK CLEAN</span>
             </div>
             <p className="text-gray-500 max-w-md text-lg leading-relaxed mb-10 font-medium">
-              청소 전문가들이 제안하는 제주 라이프 스타일 케어 브랜드. 
-              단순한 오염 제거를 넘어 삶의 질을 높이는 프리미엄 클리닝 서비스를 제공합니다.
+              청소 전문가들이 제안하는 제주 라이프 케어 브랜드. 
+              단순한 오염 제거를 넘어 삶의 질을 높이는 프리미엄 클린서비스를 제공합니다.
             </p>
             <div className="flex gap-5">
               {[Instagram, Facebook, Mail].map((Icon, i) => (
@@ -32,8 +32,9 @@ const Footer: React.FC = () => {
             <ul className="space-y-6">
               <li className="flex gap-4 text-gray-600 font-medium">
                 <MapPin className="text-purple-custom shrink-0" size={24} />
-                <span>제주지점 : 제주특별자치도 제주시 도령북로 8<br />제일상가 2층</span>
-                <span>서귀포지점 : 제주특별자치도 서귀포시 서호호근로 86-6<br /></span>
+                <p>제주지점 : 제주특별자치도 제주시 도령북로 8 제일상가 2층</p>
+                 <MapPin className="text-purple-custom shrink-0" size={24} />
+                <p>서귀포지점 : 제주특별자치도 서귀포시 서호호근로 86-6</p>
               </li>
               <li className="flex gap-4 text-gray-600 font-medium">
                 <PhoneCall className="text-purple-custom shrink-0" size={24} />
@@ -53,7 +54,7 @@ const Footer: React.FC = () => {
               <p>대표: 한승우</p>
               <p>사업자등록번호: 687-54-00154</p>
               <p>청소 전문가 자격 인증 보유</p>
-              <p className="pt-4 text-purple-custom font-bold">영업시간: 09:00 - 18:00 (연중무휴)</p>
+              <p className="pt-4 text-purple-custom font-bold">영업시간: 08:00 - 18:00 (연중무휴)</p>
             </div>
           </div>
         </div>
