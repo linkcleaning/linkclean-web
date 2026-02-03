@@ -46,7 +46,7 @@ const AboutCompany: React.FC = () => {
                   <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center shadow-sm text-purple-custom">
                     <Microscope size={20} />
                   </div>
-                  <span className="font-bold text-gray-800">미세 오염 정밀 분석</span>
+                  <span className="font-bold text-gray-800">오염 정밀 분석</span>
                 </div>
                 <div className="flex items-center gap-3 px-6 py-4 bg-gray-50 rounded-2xl border border-gray-100">
                   <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center shadow-sm text-purple-custom">
@@ -68,8 +68,8 @@ const AboutCompany: React.FC = () => {
             <Quote size={60} className="text-purple-custom/30 mx-auto" />
             <h3 className="text-2xl md:text-5xl font-light text-white leading-snug tracking-tight italic">
               "제주의 집은 육지의 집과 달라야 합니다. <br className="hidden md:block" />
-              고습도와 해풍에 노출된 공간을 가장 잘 아는 전문가가 <br className="hidden md:block" />
-              당신의 일상을 가장 깨끗하게 지켜드립니다."
+              높은 습도와 해풍에 노출 된 공간을 가장 잘 아는 "링크클린"이<br className="hidden md:block" />
+              당신의 주거공간을 가장 깨끗하게 지켜드립니다."
             </h3>
             <div className="pt-8">
               <p className="text-white font-black text-xl md:text-2xl tracking-widest">CEO. 한승우</p>
@@ -90,10 +90,10 @@ const AboutCompany: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {/* Fix: Moved size prop directly to the icon components to resolve cloneElement typing error */}
             {[
-              { icon: <ShieldCheck size={32} />, title: "본사 직영 책임제", desc: "하청이나 용역 없이, 본사 정직원 마스터가 모든 현장을 직접 지휘합니다." },
-              { icon: <Award size={32} />, title: "전문 자격 기술팀", desc: "국가 공인 세탁/청소 자격증을 보유한 베테랑들로 구성된 전문 팀이 방문합니다." },
+              { icon: <ShieldCheck size={32} />, title: "본사 책임제", desc: "하청이나 용역 없이, 본사 정직원 마스터가 모든 현장을 직접 지휘합니다." },
+              { icon: <Award size={32} />, title: "전문 기술팀", desc: "국가 공인 세탁/청소 자격증을 보유한 베테랑들로 구성된 전문 팀이 방문합니다." },
               { icon: <Zap size={32} />, title: "하이엔드 장비", desc: "독일 카처 고압 세척기, 미국 컬럼비아 연마기 등 세계 최고의 장비만을 운용합니다." },
-              { icon: <Waves size={32} />, title: "제주 환경 최적화", desc: "제주 특유의 곰팡이와 염분 고착 현상을 완벽하게 해결하는 전용 솔루션을 보유합니다." }
+              { icon: <Waves size={32} />, title: "환경 최적화", desc: "제주 특유의 곰팡이와 염분 고착 현상을 완벽하게 해결하는 전용 솔루션을 보유합니다." }
             ].map((item, i) => (
               <div key={i} className="bg-white p-10 rounded-[40px] shadow-sm hover:shadow-2xl transition-all group border border-gray-100 hover:-translate-y-2">
                 <div className="w-16 h-16 bg-gray-50 rounded-2xl flex items-center justify-center mb-8 text-purple-custom group-hover:bg-purple-custom group-hover:text-white transition-all transform group-hover:rotate-6">
@@ -119,7 +119,7 @@ const AboutCompany: React.FC = () => {
                 불어넣을 준비가 되셨나요?
               </h2>
               <div className="flex flex-wrap gap-4">
-                {["이사청소", "입주청소", "상가관리", "에어컨살균"].map(tag => (
+                {["입주청소", "이사청소", "준공청소", "쓰레기집청소", "유품정리"].map(tag => (
                   <span key={tag} className="px-4 py-2 bg-white/10 backdrop-blur-md rounded-full text-white text-xs font-bold border border-white/20">#{tag}</span>
                 ))}
               </div>
@@ -131,10 +131,10 @@ const AboutCompany: React.FC = () => {
                 rel="noopener noreferrer"
                 className="bg-white text-purple-custom px-10 py-6 rounded-3xl font-black text-xl hover:scale-105 transition-all flex items-center justify-center gap-3 shadow-xl active:scale-95"
               >
-                포트폴리오 보러가기
+                포트폴리오 구경
                 <ArrowRight size={22} />
               </a>
-              <p className="text-white/60 text-center text-sm font-medium">제주 전 지역 무료 방문 견적 상담 진행 중</p>
+              <p className="text-white/60 text-center text-sm font-medium">제주 전 지역 방문 견적 상담 진행</p>
             </div>
           </div>
         </div>
