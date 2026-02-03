@@ -81,7 +81,7 @@ const App: React.FC = () => {
               <div className="absolute left-full top-1/2 -translate-y-1/2 border-[6px] border-transparent border-l-naver"></div>
             </div>
             <a 
-              href="https://blog.naver.com" 
+              href="https://blog.naver.com/linkcleaning" 
               target="_blank" 
               rel="noopener noreferrer"
               className="w-11 h-11 md:w-14 md:h-14 bg-naver rounded-xl md:rounded-2xl flex items-center justify-center text-white shadow-xl hover:scale-110 transition-transform group"
