@@ -1,78 +1,643 @@
-
 <!DOCTYPE html>
 <html lang="ko">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>링크클린 | 제주 프리미엄 청소 솔루션</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: {
-              'purple-custom': '#8E24AA', 
-              'purple-dark': '#6A1B9A',
-              'sky-custom': '#E3F2FD',   
-              'sky-deep': '#0288D1',
-              'kakao': '#FEE500',
-              'naver': '#03C75A',
-            },
-            fontFamily: { 
-              sans: ['Noto Sans KR', 'sans-serif'] 
-            },
-            animation: {
-              'bounce-slow': 'bounce 3s infinite',
-              'float': 'float 3s ease-in-out infinite',
-            },
-            keyframes: {
-              float: {
-                '0%, 100%': { transform: 'translateY(0)' },
-                '50%': { transform: 'translateY(-15px)' },
-              }
-            }
-          }
-        }
-      }
-    </script>
-    <style>
-      body {
-        font-family: 'Noto Sans KR', sans-serif;
-      }
-      .glass {
-        background: rgba(255, 255, 255, 0.85);
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-      }
-      ::-webkit-scrollbar {
-        width: 6px;
-      }
-      ::-webkit-scrollbar-track {
-        background: #f1f1f1;
-      }
-      ::-webkit-scrollbar-thumb {
-        background: #8E24AA;
-        border-radius: 10px;
-      }
-      .insta-gradient {
-        background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
-      }
-    </style>
-    <script type="importmap">
-    {
-      "imports": {
-        "react/": "https://esm.sh/react@^19.2.4/",
-        "react": "https://esm.sh/react@^19.2.4",
-        "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
-        "@google/genai": "https://esm.sh/@google/genai@^1.38.0",
-        "lucide-react": "https://esm.sh/lucide-react@^0.563.0"
-      }
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>링크클린 | 제주 청소 전문업체</title>
+<meta name="description" content="이사청소, 입주청소, 준공청소, 유리창청소, 상가청소, 쓰레기집청소, 폐기물처리, 유품정리 - 제주 전역 출장 가능">
+
+<!-- 한글 폰트: 실패해도 시스템 폰트로 자동 대체됩니다 -->
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
+
+<style>
+  :root{
+    --bg: #F5F6F4;
+    --bg-alt: #ECEEEA;
+    --ink: #16232A;
+    --ink-soft: #4A5A5F;
+    --brand: #2E5E5A;
+    --brand-dark: #16302E;
+    --accent: #E08E45;
+    --accent-dark: #C77530;
+    --line: #D9DDD8;
+    --radius: 10px;
+    --maxw: 1120px;
+    --font: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  body{
+    margin:0;
+    font-family: var(--font);
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  img{ max-width:100%; display:block; }
+  a{ color: inherit; }
+  .wrap{ max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
+
+  /* ---------- Header ---------- */
+  header{
+    position: sticky; top:0; z-index: 50;
+    background: rgba(245,246,244,0.92);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 16px 24px; max-width: var(--maxw); margin:0 auto;
+  }
+  .logo{ font-size: 20px; font-weight: 800; letter-spacing:-0.02em; color: var(--brand-dark); text-decoration:none; }
+  .logo span{ color: var(--accent-dark); }
+  .nav-links{ display:flex; gap:28px; list-style:none; margin:0; padding:0; }
+  .nav-links a{ text-decoration:none; font-size:15px; color: var(--ink-soft); font-weight:500; }
+  .nav-links a:hover{ color: var(--brand-dark); }
+  .nav-cta{
+    background: var(--brand); color:#fff; padding:10px 18px; border-radius: var(--radius);
+    text-decoration:none; font-weight:600; font-size:14px; white-space:nowrap;
+  }
+  .nav-cta:hover{ background: var(--brand-dark); }
+  .menu-toggle{ display:none; background:none; border:none; font-size:24px; cursor:pointer; color:var(--ink); }
+
+  @media (max-width: 760px){
+    .nav-links{
+      position:absolute; top:100%; left:0; right:0;
+      background: var(--bg); flex-direction:column; gap:0;
+      border-bottom:1px solid var(--line);
+      max-height:0; overflow:hidden; transition:max-height .25s ease;
     }
-    </script>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="index.tsx"></script>
-  </body>
+    .nav-links.open{ max-height: 300px; }
+    .nav-links li{ border-top:1px solid var(--line); }
+    .nav-links a{ display:block; padding:14px 24px; }
+    .menu-toggle{ display:block; }
+    .nav-cta{ display:none; }
+  }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    position: relative;
+    min-height: 78vh;
+    display:flex; align-items:flex-end;
+    padding: 0 0 72px;
+    color: #fff;
+    /* 실제 대표 사진으로 교체: background-image에 url() 추가 */
+    background:
+      linear-gradient(180deg, rgba(16,28,27,0.35) 0%, rgba(16,28,27,0.55) 55%, rgba(12,22,21,0.88) 100%),
+      linear-gradient(135deg, #24413E 0%, #163330 55%, #0F2624 100%);
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+  }
+  .hero::before{
+    content:"";
+    position:absolute; inset:0;
+    background-image: radial-gradient(circle at 15% 20%, rgba(255,255,255,0.06), transparent 40%),
+                       radial-gradient(circle at 85% 10%, rgba(255,255,255,0.05), transparent 35%);
+    pointer-events:none;
+  }
+  .hero-inner{ position:relative; max-width: 680px; }
+  .eyebrow{ color: var(--brand); font-weight:700; font-size:14px; margin-bottom:12px; }
+  .hero .eyebrow{
+    color: #EBD9C4; display:inline-flex; align-items:center; gap:8px;
+  }
+  .hero .eyebrow::before{ content:""; width:20px; height:1px; background:#EBD9C4; display:inline-block; }
+  h1{
+    font-size: clamp(32px, 4.2vw, 48px);
+    line-height:1.25; margin: 0 0 18px; letter-spacing:-0.02em; font-weight:800;
+    color: var(--ink);
+  }
+  .hero h1{ color:#fff; }
+  .hero p.lead{
+    font-size:17px; color: var(--ink-soft); margin: 0 0 28px; max-width: 46ch;
+  }
+  .hero .lead{ color: #DCE6E2; }
+  .btn-row{ display:flex; gap:12px; flex-wrap:wrap; }
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    padding: 14px 22px; border-radius: var(--radius);
+    font-weight:700; font-size:15px; text-decoration:none; border: none; cursor:pointer;
+  }
+  .btn-primary{ background: var(--accent); color:#fff; }
+  .btn-primary:hover{ background: var(--accent-dark); }
+  .btn-secondary{ background: rgba(255,255,255,0.08); color:#fff; border:1px solid rgba(255,255,255,0.4); }
+  .btn-secondary:hover{ background: rgba(255,255,255,0.16); }
+
+  .wave-divider{ display:block; width:100%; line-height:0; margin-top:-2px; }
+  .wave-divider svg{ width:100%; height:56px; display:block; }
+
+  /* 이미지 자리표시: 실제 사진 파일로 교체해서 사용하세요 */
+  .img-placeholder{
+    background: linear-gradient(135deg, var(--bg-alt), #DDE3DE);
+    border: 1px dashed #B9C2BC;
+    border-radius: var(--radius);
+    display:flex; align-items:center; justify-content:center;
+    color: #7C8B85; font-size:13px; text-align:center; padding: 20px;
+    min-height: 260px;
+  }
+
+  /* ---------- Section shared ---------- */
+  section{ padding: 64px 0; }
+  .section-head{ max-width: 560px; margin: 0 0 40px; }
+  .section-head .eyebrow{ margin-bottom:8px; }
+  h2{ font-size: clamp(26px, 3vw, 32px); margin:0 0 12px; font-weight:800; letter-spacing:-0.02em; }
+  .section-head p{ color: var(--ink-soft); margin:0; font-size:16px; }
+
+  .alt-bg{ background: var(--bg-alt); }
+
+  /* ---------- Services ---------- */
+  .service-groups{ display:grid; gap:48px; }
+  .group-banner{
+    position:relative; border-radius: 14px; overflow:hidden;
+    min-height: 120px; margin-bottom:18px;
+    display:flex; align-items:flex-end; padding: 20px 24px;
+    background: linear-gradient(120deg, var(--brand-dark), var(--brand));
+  }
+  .group-banner::after{
+    content:""; position:absolute; inset:0;
+    background-image: radial-gradient(circle at 90% 0%, rgba(255,255,255,0.12), transparent 55%);
+  }
+  .group-banner .group-title{
+    position:relative; color:#fff; font-size:16px; font-weight:700;
+    margin:0; padding:0; border:none;
+  }
+  .group-banner .group-note{
+    position:relative; color: #CFE0DA; font-size:13px; margin-top:4px;
+  }
+  .card-grid{
+    display:grid; grid-template-columns: repeat(3, 1fr); gap:16px;
+  }
+  .card{
+    background:#fff; border:1px solid var(--line); border-radius: var(--radius);
+    padding: 22px; opacity:0; transform: translateY(10px);
+    transition: opacity .5s ease, transform .5s ease;
+  }
+  .card.in-view{ opacity:1; transform: translateY(0); }
+  .card h3{ font-size:17px; margin:0 0 8px; font-weight:700; }
+  .card p{ font-size:14px; color: var(--ink-soft); margin:0; }
+
+  @media (max-width: 760px){
+    .card-grid{ grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 480px){
+    .card-grid{ grid-template-columns: 1fr; }
+  }
+
+  /* ---------- Process ---------- */
+  .process{
+    display:grid; grid-template-columns: repeat(4, 1fr); gap: 24px;
+    counter-reset: step;
+  }
+  .step{ position:relative; padding-top: 8px; }
+  .step-num{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:36px; height:36px; border-radius:50%;
+    background: var(--brand); color:#fff; font-weight:700; font-size:15px;
+    margin-bottom:14px;
+  }
+  .step h3{ font-size:16px; margin:0 0 6px; font-weight:700; }
+  .step p{ font-size:14px; color: var(--ink-soft); margin:0; }
+
+  @media (max-width: 760px){
+    .process{ grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 480px){
+    .process{ grid-template-columns: 1fr; }
+  }
+
+  /* ---------- Trust ---------- */
+  .trust-grid{
+    display:grid; grid-template-columns: repeat(3, 1fr); gap:16px;
+  }
+  .trust-card{
+    background:#fff; border:1px solid var(--line); border-radius: var(--radius); padding:24px;
+  }
+  .trust-card h3{ margin:0 0 8px; font-size:16px; }
+  .trust-card p{ margin:0; font-size:14px; color: var(--ink-soft); }
+
+  @media (max-width: 760px){ .trust-grid{ grid-template-columns: 1fr; } }
+
+  /* ---------- Gallery ---------- */
+  .gallery-grid{
+    display:grid; grid-template-columns: repeat(4, 1fr); gap:12px;
+  }
+  .gallery-grid .img-placeholder{ min-height: 140px; font-size:12px; }
+  @media (max-width: 760px){ .gallery-grid{ grid-template-columns: 1fr 1fr; } }
+
+  /* ---------- Contact ---------- */
+  .contact-box{
+    background: var(--brand-dark);
+    color: #fff;
+    border-radius: 16px;
+    padding: 48px 40px;
+    display:grid; grid-template-columns: 1.2fr 1fr; gap:40px; align-items:center;
+  }
+  .contact-box h2{ color:#fff; }
+  .contact-box p{ color: #C9D6D2; font-size:15px; }
+  .contact-methods{ display:flex; flex-direction:column; gap:12px; }
+  .contact-btn{
+    display:flex; align-items:center; justify-content:space-between;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: var(--radius);
+    padding: 16px 18px;
+    text-decoration:none; color:#fff; font-weight:600; font-size:15px;
+  }
+  .contact-btn:hover{ background: rgba(255,255,255,0.16); }
+  .contact-btn.kakao{ background: #FEE500; color:#3C1E1E; border-color:#FEE500; }
+  .contact-btn.kakao:hover{ background:#F6DC00; }
+  .contact-btn small{ font-weight:400; opacity:0.75; }
+
+  @media (max-width: 760px){
+    .contact-box{ grid-template-columns: 1fr; padding: 32px 24px; }
+  }
+
+  /* ---------- Footer ---------- */
+  footer{
+    border-top: 1px solid var(--line);
+    padding: 32px 0 100px;
+    font-size: 13px; color: var(--ink-soft);
+  }
+  footer .foot-grid{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:16px; }
+  footer p{ margin: 4px 0; }
+
+  /* ---------- Floating widget ---------- */
+  .floating-stack{
+    position: fixed; right: 20px; bottom: 20px; z-index: 60;
+    display:flex; flex-direction:column; align-items:flex-end; gap:10px;
+  }
+  .floating-bubble{
+    background:#fff; color: var(--ink);
+    border: 1px solid var(--line); border-radius: 14px;
+    padding: 14px 16px; max-width: 200px;
+    font-size:13px; line-height:1.5; font-weight:600;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+    position:relative;
+  }
+  .floating-bubble span{ display:block; color: var(--brand-dark); font-size:14px; margin-bottom:2px; }
+  .floating-bubble::after{
+    content:""; position:absolute; right:22px; bottom:-7px;
+    width:14px; height:14px; background:#fff;
+    border-right:1px solid var(--line); border-bottom:1px solid var(--line);
+    transform: rotate(45deg);
+  }
+  .floating-bubble .bubble-close{
+    position:absolute; top:6px; right:8px; border:none; background:none;
+    color:#9AA6A2; font-size:14px; cursor:pointer; line-height:1; padding:2px;
+  }
+  .floating-btns{ display:flex; flex-direction:column; gap:10px; align-items:flex-end; }
+  .floating-btn{
+    background: var(--brand-dark); color:#fff;
+    padding: 13px 18px; border-radius: 999px;
+    font-weight:700; font-size:14px; text-decoration:none;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.18);
+    display:flex; align-items:center; gap:8px;
+    border:none; cursor:pointer;
+  }
+  .floating-btn.quote{ background: var(--accent); }
+  .floating-btn.quote:hover{ background: var(--accent-dark); }
+  .floating-btn.kakao{ background:#FEE500; color:#3C1E1E; }
+  .floating-btn.kakao:hover{ background:#F6DC00; }
+  .floating-btn.call:hover{ background: var(--brand); }
+  .floating-btn.top{
+    background:#fff; color: var(--ink-soft); border:1px solid var(--line);
+    padding:10px; border-radius:50%; width:40px; height:40px; justify-content:center;
+    opacity:0; pointer-events:none; transition: opacity .2s ease;
+  }
+  .floating-btn.top.show{ opacity:1; pointer-events:auto; }
+
+  /* ---------- Quick service nav (hero) ---------- */
+  .quick-nav{
+    position:relative;
+    display:flex; flex-wrap:wrap; gap:10px; margin-top:32px;
+  }
+  .quick-nav a{
+    display:flex; align-items:center; gap:8px;
+    background: rgba(255,255,255,0.1);
+    border:1px solid rgba(255,255,255,0.35);
+    color:#fff; text-decoration:none;
+    padding:10px 16px; border-radius:999px;
+    font-size:13px; font-weight:600;
+  }
+  .quick-nav a:hover{ background: rgba(255,255,255,0.2); }
+  .quick-nav a .num{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:18px; height:18px; border-radius:50%;
+    background: var(--accent); color:#fff; font-size:11px; font-weight:700;
+  }
+
+  /* ---------- Testimonials ---------- */
+  .testi-grid{
+    display:grid; grid-template-columns: repeat(3, 1fr); gap:16px;
+  }
+  .testi-card{
+    background:#fff; border:1px solid var(--line); border-radius: var(--radius);
+    padding: 22px;
+  }
+  .testi-card p.quote{ font-size:14px; color: var(--ink); margin:0 0 14px; line-height:1.6; }
+  .testi-card .who{ font-size:13px; color: var(--ink-soft); font-weight:600; }
+  .testi-placeholder{
+    border: 1px dashed #B9C2BC; background: var(--bg-alt);
+    color: #7C8B85;
+  }
+  @media (max-width: 760px){ .testi-grid{ grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="nav">
+    <a href="#top" class="logo">링크<span>클린</span></a>
+    <button class="menu-toggle" id="menuToggle" aria-label="메뉴 열기">&#9776;</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#services">서비스</a></li>
+      <li><a href="#process">진행절차</a></li>
+      <li><a href="#reviews">후기</a></li>
+      <li><a href="#gallery">시공사례</a></li>
+      <li><a href="#contact">문의하기</a></li>
+    </ul>
+    <a href="#contact" class="nav-cta">💬 카카오톡 문의</a>
+  </nav>
+</header>
+
+<main id="top">
+
+  <!-- ---------- HERO ---------- -->
+  <!-- 대표 이미지로 교체: .hero의 background에 url('images/hero.jpg') 추가 -->
+  <section class="hero">
+    <div class="wrap hero-inner">
+      <div class="eyebrow">제주 프리미엄 청소 솔루션</div>
+      <h1>제주에서 이사·입주부터<br>특수청소까지, 링크클린</h1>
+      <p class="lead">이사청소, 입주청소, 준공청소, 유리창청소, 상가청소, 쓰레기집청소, 폐기물처리, 유품정리까지 — 사진 한 장으로 상담하고 견적을 받아보세요.</p>
+      <div class="btn-row">
+        <a href="#contact" class="btn btn-primary">💬 카카오톡으로 문의하기</a>
+        <a href="#services" class="btn btn-secondary">🧹 서비스 둘러보기</a>
+      </div>
+      <div class="quick-nav">
+        <a href="#svc-move">🏠 이사·입주청소</a>
+        <a href="#svc-space">🏢 공간관리 청소</a>
+        <a href="#svc-special">✨ 특수청소</a>
+      </div>
+    </div>
+  </section>
+  <div class="wave-divider">
+    <svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,30 C240,60 480,0 720,20 C960,40 1200,10 1440,30 L1440,60 L0,60 Z" fill="#F5F6F4"></path>
+    </svg>
+  </div>
+
+  <!-- ---------- SERVICES ---------- -->
+  <section id="services" class="alt-bg">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">SERVICES</div>
+        <h2>제공 서비스</h2>
+        <p>상황에 맞는 청소 서비스를 선택하시고, 카카오톡으로 사진을 보내주시면 정확한 견적을 안내드립니다.</p>
+      </div>
+
+      <div class="service-groups">
+        <div id="svc-move">
+          <!-- 그룹 배경 사진으로 교체: .group-banner 중 첫번째에 background-image 추가 -->
+          <div class="group-banner">
+            <div>
+              <div class="group-title">🏠 이사·입주 청소</div>
+              <div class="group-note">새로운 공간을 깨끗하게 시작할 수 있도록 준비합니다</div>
+            </div>
+          </div>
+          <div class="card-grid">
+            <div class="card"><h3>📦 이사청소</h3><p>이사 전후 묵은 먼지와 오염까지 꼼꼼하게 정리해드립니다.</p></div>
+            <div class="card"><h3>🏠 입주청소</h3><p>새 집 입주 전 건축 먼지와 잔여물을 제거해 깨끗하게 시작하도록 도와드립니다.</p></div>
+            <div class="card"><h3>🏗️ 준공청소</h3><p>건물 준공 직후 마감 청소로 인도 전 최종 상태를 정돈합니다.</p></div>
+          </div>
+        </div>
+
+        <div id="svc-space">
+          <div class="group-banner">
+            <div>
+              <div class="group-title">🏢 공간 관리 청소</div>
+              <div class="group-note">매장과 사무실을 꾸준히 깔끔한 상태로 유지합니다</div>
+            </div>
+          </div>
+          <div class="card-grid">
+            <div class="card"><h3>🏪 상가청소</h3><p>매장, 사무실의 정기 청소부터 수시 청소까지 상황에 맞게 진행합니다.</p></div>
+            <div class="card"><h3>🪟 유리창청소</h3><p>고층 포함 유리창 전문 장비로 얼룩 없이 깔끔하게 마무리합니다.</p></div>
+          </div>
+        </div>
+
+        <div id="svc-special">
+          <div class="group-banner">
+            <div>
+              <div class="group-title">✨ 특수 청소</div>
+              <div class="group-note">까다롭고 조심스러운 상황일수록 더 세심하게 다룹니다</div>
+            </div>
+          </div>
+          <div class="card-grid">
+            <div class="card"><h3>🧹 쓰레기집청소</h3><p>오래 방치된 공간도 분류·정리부터 청소까지 한 번에 해결합니다.</p></div>
+            <div class="card"><h3>♻️ 폐기물처리</h3><p>대형 폐기물과 생활 폐기물을 안전하게 수거·처리합니다.</p></div>
+            <div class="card"><h3>🤍 유품정리</h3><p>세심하고 정중한 태도로 유품을 정리해드립니다.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- PROCESS ---------- -->
+  <section id="process">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">HOW IT WORKS</div>
+        <h2>진행 절차</h2>
+        <p>문의부터 완료까지 4단계로 진행됩니다.</p>
+      </div>
+      <div class="process">
+        <div class="step">
+          <div class="step-num">1</div>
+          <h3>💬 카카오톡 문의</h3>
+          <p>청소할 공간 사진과 상황을 보내주세요.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <h3>📋 견적 안내</h3>
+          <p>공간과 상태를 확인해 정확한 견적을 드립니다.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <h3>🧽 청소 진행</h3>
+          <p>약속한 날짜에 방문해 작업을 진행합니다.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <h3>✅ 완료 확인</h3>
+          <p>작업 완료 후 함께 확인하고 A/S를 안내해드립니다.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- TRUST ---------- -->
+  <section class="alt-bg">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">WHY LINKCLEAN</div>
+        <h2>이런 점이 다릅니다</h2>
+      </div>
+      <div class="trust-grid">
+        <div class="trust-card">
+          <h3>📍 제주 전역 출장</h3>
+          <p>제주시, 서귀포 등 제주 전 지역 방문이 가능합니다.</p>
+        </div>
+        <div class="trust-card">
+          <h3>📸 사진 기반 빠른 견적</h3>
+          <p>카카오톡으로 사진만 보내주시면 빠르게 견적을 안내드립니다.</p>
+        </div>
+        <div class="trust-card">
+          <h3>🛠️ 작업 후 A/S 안내</h3>
+          <p>완료 후 문제가 있다면 다시 확인하고 조치해드립니다.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- REVIEWS ---------- -->
+  <!-- 실제 후기로 교체하세요: 카카오톡/네이버 리뷰에 남겨주신 실제 문구와 닉네임을 넣어주세요 -->
+  <section id="reviews">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">REVIEWS</div>
+        <h2>고객 후기</h2>
+        <p>실제 카카오톡·네이버 후기를 받으시면 이 자리에 그대로 옮겨 넣어주세요.</p>
+      </div>
+      <div class="testi-grid">
+        <div class="testi-card testi-placeholder">
+          <p class="quote">여기에 실제 고객 후기 문구를 넣어주세요.</p>
+          <div class="who">닉네임 · 서비스명</div>
+        </div>
+        <div class="testi-card testi-placeholder">
+          <p class="quote">여기에 실제 고객 후기 문구를 넣어주세요.</p>
+          <div class="who">닉네임 · 서비스명</div>
+        </div>
+        <div class="testi-card testi-placeholder">
+          <p class="quote">여기에 실제 고객 후기 문구를 넣어주세요.</p>
+          <div class="who">닉네임 · 서비스명</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- GALLERY ---------- -->
+  <section id="gallery">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">WORK</div>
+        <h2>시공 사례</h2>
+        <p>실제 작업 전/후 사진으로 교체해 넣어주세요.</p>
+      </div>
+      <div class="gallery-grid">
+        <div class="img-placeholder">사진 1<br>(작업 전/후)</div>
+        <div class="img-placeholder">사진 2<br>(작업 전/후)</div>
+        <div class="img-placeholder">사진 3<br>(작업 전/후)</div>
+        <div class="img-placeholder">사진 4<br>(작업 전/후)</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- CONTACT ---------- -->
+  <section id="contact">
+    <div class="wrap">
+      <div class="contact-box">
+        <div>
+          <h2>지금 카카오톡으로<br>문의해보세요</h2>
+          <p>청소할 공간 사진을 보내주시면 상황에 맞는 견적을 빠르게 안내해드립니다.</p>
+        </div>
+        <div class="contact-methods">
+          <!-- 실제 카카오톡 채널 링크로 교체하세요 -->
+          <a href="https://pf.kakao.com/_xxxxxx" class="contact-btn kakao">
+            💬 카카오톡 채널 상담
+            <small>바로가기</small>
+          </a>
+          <!-- 실제 네이버 톡톡 링크로 교체하세요 -->
+          <a href="https://talk.naver.com/xxxxxx" class="contact-btn">
+            💭 네이버 톡톡 상담
+            <small>바로가기</small>
+          </a>
+          <!-- 실제 전화번호로 교체하세요 -->
+          <a href="tel:0000000000" class="contact-btn">
+            📞 전화 문의
+            <small>064-000-0000</small>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap foot-grid">
+    <div>
+      <p><strong>링크클린</strong></p>
+      <p>제주특별자치도 (주소를 입력하세요)</p>
+      <p>사업자등록번호 000-00-00000 | 대표 000</p>
+    </div>
+    <div>
+      <p>운영시간: 매일 09:00 - 18:00</p>
+      <p>&copy; 2026 LinkClean. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- 우측 하단 견적상담 위젯: 전화번호/카카오톡 채널 링크를 실제 값으로 교체하세요 -->
+<div class="floating-stack">
+  <div class="floating-bubble" id="floatBubble">
+    <button class="bubble-close" id="bubbleClose" aria-label="닫기">&times;</button>
+    <span>💬 견적상담 도와드릴게요!</span>
+    사진 한 장이면 빠르게 안내해드려요
+  </div>
+  <div class="floating-btns">
+    <a href="#contact" class="floating-btn quote">💰 견적상담</a>
+    <a href="tel:0000000000" class="floating-btn call">📞 전화 상담</a>
+    <a href="https://pf.kakao.com/_xxxxxx" class="floating-btn kakao">💬 카카오톡 상담</a>
+    <button class="floating-btn top" id="scrollTop" aria-label="맨 위로">⬆️</button>
+  </div>
+</div>
+
+<script>
+  // 모바일 메뉴 토글
+  document.getElementById('menuToggle').addEventListener('click', function(){
+    document.getElementById('navLinks').classList.toggle('open');
+  });
+
+  // 서비스 카드 스크롤 등장 효과 (가벼운 IntersectionObserver, 실패해도 그냥 바로 보임)
+  try{
+    const cards = document.querySelectorAll('.card');
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){ e.target.classList.add('in-view'); }
+      });
+    }, { threshold: 0.15 });
+    cards.forEach(c => io.observe(c));
+  }catch(e){
+    document.querySelectorAll('.card').forEach(c => c.classList.add('in-view'));
+  }
+
+  // 견적상담 말풍선 닫기
+  document.getElementById('bubbleClose').addEventListener('click', function(){
+    document.getElementById('floatBubble').style.display = 'none';
+  });
+
+  // 맨 위로 버튼: 스크롤 내리면 표시
+  const topBtn = document.getElementById('scrollTop');
+  window.addEventListener('scroll', function(){
+    if(window.scrollY > 500){ topBtn.classList.add('show'); }
+    else{ topBtn.classList.remove('show'); }
+  });
+  topBtn.addEventListener('click', function(){
+    window.scrollTo({ top:0, behavior:'smooth' });
+  });
+</script>
+
+</body>
 </html>
