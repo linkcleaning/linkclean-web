@@ -63,13 +63,119 @@ export const HomeView: React.FC = () => {
   const visibleReviews = reviews.filter((r) => r.isVisible);
 
   return (
-    <div className="space-y-16 sm:space-y-20 pb-16 bg-[#F8FAFC]">
+    <div className="space-y-8 sm:space-y-16 pb-12 sm:pb-16 bg-[#F8FAFC]">
       {/* =========================================================================
-          SECTION 01 — HERO (BENTO GRID THEME)
-          Design HTML Bento Grid: 4 columns, modular cards, #0A1D37, #38BDF8
+          SECTION 01 — HERO (스마트폰 최적화 모바일 + 데스크톱 와이드 BENTO)
       ========================================================================= */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 sm:pt-8">
+        {/* MOBILE VIEW (sm:hidden) — 스크롤 피로도를 완전히 없앤 스마트폰 최적화 컴팩트 레이아웃 */}
+        <div className="sm:hidden space-y-2.5">
+          {/* Main Mobile Brand Card */}
+          <div className="bg-[#0A1D37] rounded-2xl p-5 text-white relative overflow-hidden shadow-md">
+            <div className="absolute top-0 right-0 w-44 h-44 bg-[#38BDF8] opacity-10 rounded-full -mr-14 -mt-14 pointer-events-none" />
+            <div className="relative z-10">
+              <div className="flex items-center justify-between mb-2">
+                <span className="bg-[#38BDF8] text-white px-2.5 py-0.5 rounded-full text-[10px] font-bold tracking-wider">
+                  PREMIUM CLEANING
+                </span>
+                <span className="text-[10px] text-blue-200 font-medium">
+                  서울·경기 전지역 방문
+                </span>
+              </div>
+              <h1 className="text-2xl font-black leading-tight mb-2 tracking-tight text-white">
+                청소가 필요한 순간,<br />
+                <span className="text-[#38BDF8]">링크클린</span>이 직접 찾아갑니다.
+              </h1>
+              <p className="text-slate-300 text-xs mb-4 leading-relaxed">
+                공간의 오염도와 구조를 직접 확인하고 정직한 견적을 안내합니다.
+              </p>
+
+              {/* Big Touch CTA Button */}
+              <button
+                onClick={() => goToReservationWithService('move-in')}
+                className="w-full bg-[#38BDF8] hover:bg-[#0EA5E9] text-white py-3 rounded-xl font-bold text-sm shadow-md transition-all flex items-center justify-center gap-2 active:scale-98 cursor-pointer"
+                id="mobile-hero-reserve-btn"
+              >
+                <Calendar className="w-4 h-4 text-white" />
+                <span>1분 방문 견적 신청하기</span>
+              </button>
+
+              {/* 3 Metrics Row */}
+              <div className="grid grid-cols-3 gap-2 pt-3.5 mt-3.5 border-t border-slate-700/70 text-center">
+                <div>
+                  <div className="text-base font-black text-white">100%</div>
+                  <div className="text-[10px] text-slate-400">현장 실측</div>
+                </div>
+                <div>
+                  <div className="text-base font-black text-[#38BDF8]">0원</div>
+                  <div className="text-[10px] text-slate-400">추가금 없음</div>
+                </div>
+                <div>
+                  <div className="text-base font-black text-white">4.9/5.0</div>
+                  <div className="text-[10px] text-slate-400">고객 만족도</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Mobile 4 Quick Navigation Cards (2x2) — 핵심 정보 1초 터치 */}
+          <div className="grid grid-cols-2 gap-2">
+            <button
+              onClick={() => setCurrentView('services')}
+              className="p-3 bg-white rounded-xl border border-slate-200/90 shadow-xs text-left flex items-center gap-2.5 active:bg-slate-50 cursor-pointer"
+            >
+              <div className="w-8 h-8 rounded-lg bg-blue-50 text-[#38BDF8] flex items-center justify-center shrink-0">
+                <Sparkles className="w-4 h-4" />
+              </div>
+              <div className="min-w-0">
+                <div className="text-xs font-bold text-[#0A1D37] truncate">맞춤 청소 6종</div>
+                <div className="text-[10px] text-slate-400 truncate">입주·이사·특수</div>
+              </div>
+            </button>
+
+            <button
+              onClick={() => setIsSonEopNeunNalModalOpen(true)}
+              className="p-3 bg-gradient-to-br from-white to-amber-50/60 rounded-xl border border-amber-200 shadow-xs text-left flex items-center gap-2.5 active:bg-amber-50 cursor-pointer"
+            >
+              <div className="w-8 h-8 rounded-lg bg-amber-100 text-amber-800 flex items-center justify-center shrink-0">
+                <Calendar className="w-4 h-4 text-amber-600" />
+              </div>
+              <div className="min-w-0">
+                <div className="text-xs font-bold text-amber-950 truncate">손없는 날 달력</div>
+                <div className="text-[10px] text-amber-700 truncate">{bentoMonth}월 길일 조회</div>
+              </div>
+            </button>
+
+            <button
+              onClick={() => setCurrentView('portfolio')}
+              className="p-3 bg-white rounded-xl border border-slate-200/90 shadow-xs text-left flex items-center gap-2.5 active:bg-slate-50 cursor-pointer"
+            >
+              <div className="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
+                <Eye className="w-4 h-4" />
+              </div>
+              <div className="min-w-0">
+                <div className="text-xs font-bold text-[#0A1D37] truncate">시공 전/후 비교</div>
+                <div className="text-[10px] text-slate-400 truncate">실제 사진 갤러리</div>
+              </div>
+            </button>
+
+            <button
+              onClick={() => setCurrentView('review')}
+              className="p-3 bg-white rounded-xl border border-slate-200/90 shadow-xs text-left flex items-center gap-2.5 active:bg-slate-50 cursor-pointer"
+            >
+              <div className="w-8 h-8 rounded-lg bg-rose-50 text-rose-500 flex items-center justify-center shrink-0">
+                <Star className="w-4 h-4 fill-rose-500" />
+              </div>
+              <div className="min-w-0">
+                <div className="text-xs font-bold text-[#0A1D37] truncate">고객 리얼 후기</div>
+                <div className="text-[10px] text-slate-400 truncate">평점 4.9 솔직 리뷰</div>
+              </div>
+            </button>
+          </div>
+        </div>
+
+        {/* DESKTOP BENTO GRID (hidden sm:grid) — 데스크톱에서는 4열 Bento Grid 고급 디자인 온전히 유지 */}
+        <div className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {/* Bento Cell 1: Main Brand Hero (col-span-2 row-span-2) */}
           <div className="col-span-1 md:col-span-2 lg:col-span-2 lg:row-span-2 bg-[#0A1D37] rounded-3xl p-8 sm:p-10 flex flex-col justify-between text-white relative overflow-hidden shadow-sm min-h-[420px]">
             <div className="absolute top-0 right-0 w-64 h-64 bg-[#38BDF8] opacity-10 rounded-full -mr-20 -mt-20 pointer-events-none" />
@@ -339,65 +445,65 @@ export const HomeView: React.FC = () => {
           Bento Card Grid: "청소업체, 아무 곳이나 선택하고 싶지는 않으니까."
       ========================================================================= */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-3xl mx-auto mb-10">
-          <span className="text-[10px] font-bold uppercase tracking-wider text-[#38BDF8] bg-blue-50 px-3 py-1 rounded-full border border-blue-100">
+        <div className="text-center max-w-3xl mx-auto mb-4 sm:mb-10">
+          <span className="text-[10px] font-bold uppercase tracking-wider text-[#38BDF8] bg-blue-50 px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full border border-blue-100">
             고객님의 고민과 불안
           </span>
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-[#0A1D37] tracking-tight mt-3">
+          <h2 className="text-xl sm:text-3xl font-extrabold text-[#0A1D37] tracking-tight mt-2 sm:mt-3">
             청소업체, 아무 곳이나 선택하고 싶지는 않으니까.
           </h2>
-          <p className="text-slate-500 text-xs sm:text-sm mt-1.5">
+          <p className="text-slate-500 text-xs sm:text-sm mt-1">
             청소를 맡기고 싶어도 어떤 업체를 선택해야 할지 고민되시죠?
           </p>
         </div>
 
-        {/* 4 Problem Cards in Bento Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+        {/* 4 Problem Cards in 2x2 Grid on Mobile (Dramatically cuts vertical scroll!) */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4 mb-4 sm:mb-8">
           {[
             {
               id: 'c-1',
               num: '01',
               icon: Eye,
-              title: '사진만 보고 받은 견적이 실제와 다를까 걱정되시나요?',
+              title: '사진만 보고 받은 견적,\n실제와 다를까 불안하신가요?',
               desc: '현장 환경은 평수만으로 알 수 없습니다. 창문 개수, 샷시 노후도, 오염도를 무시한 비대면 견적은 위험합니다.'
             },
             {
               id: 'c-2',
               num: '02',
               icon: DollarSign,
-              title: '처음 안내받은 금액과 실제 금액이 달라질까 걱정되시나요?',
-              desc: '청소 당일 현장에서 "기름때가 심하다, 베란다가 넓다"며 갑작스러운 추가금을 청구받는 불쾌한 경험을 방지합니다.'
+              title: '청소 당일 갑작스러운\n추가금 요구가 걱정되시나요?',
+              desc: '현장에서 "기름때가 심하다, 베란다가 넓다"며 강요하는 불쾌한 당일 추가금을 원천 차단합니다.'
             },
             {
               id: 'c-3',
               num: '03',
               icon: Search,
-              title: '눈에 보이는 곳만 대충 청소할까 걱정되시나요?',
-              desc: '서랍장 안쪽, 후드 필터 내부, 걸레받이 하부 시공 분진 등 손 닿기 힘든 구석은 대충 넘길까 불안하셨죠?'
+              title: '눈에 보이는 곳만\n대충 닦을까 봐 불안하신가요?',
+              desc: '서랍장 탈거 안쪽, 후드 필터 내부, 걸레받이 하부 분진 등 손 닿기 힘든 구석까지 정밀 청소합니다.'
             },
             {
               id: 'c-4',
               num: '04',
               icon: HelpCircle,
-              title: '내 공간에 어떤 청소가 필요한지 모르시겠나요?',
-              desc: '신축 분진 제거, 찌든 기름때 박리, 바닥 왁스 코팅 등 어떤 작업이 최적의 솔루션인지 전문가가 직접 진단합니다.'
+              title: '내 공간에 어떤 청소가\n필요한지 막막하신가요?',
+              desc: '신축 분진 제거, 찌든 기름때 박리, 바닥 코팅 등 최적의 솔루션을 전문가가 직접 진단합니다.'
             }
           ].map((item) => (
             <div
               key={item.id}
-              className="bg-white rounded-3xl p-6 border border-slate-100 shadow-sm hover:shadow-md hover:border-[#38BDF8]/40 transition-all flex flex-col justify-between"
+              className="bg-white rounded-2xl sm:rounded-3xl p-3.5 sm:p-6 border border-slate-100 shadow-2xs hover:shadow-md hover:border-[#38BDF8]/40 transition-all flex flex-col justify-between"
             >
               <div>
-                <div className="flex items-center justify-between mb-4">
-                  <span className="text-xs font-black text-slate-300 font-mono tracking-wider">{item.num}</span>
-                  <div className="w-10 h-10 rounded-xl bg-blue-50 text-[#38BDF8] flex items-center justify-center">
-                    <item.icon className="w-5 h-5" />
+                <div className="flex items-center justify-between mb-2 sm:mb-4">
+                  <span className="text-[11px] sm:text-xs font-black text-slate-300 font-mono tracking-wider">{item.num}</span>
+                  <div className="w-7 h-7 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-blue-50 text-[#38BDF8] flex items-center justify-center">
+                    <item.icon className="w-3.5 h-3.5 sm:w-5 sm:h-5" />
                   </div>
                 </div>
-                <h3 className="text-sm sm:text-base font-bold text-[#0A1D37] leading-snug mb-2.5">
+                <h3 className="text-xs sm:text-base font-bold text-[#0A1D37] leading-tight sm:leading-snug mb-1 sm:mb-2.5 whitespace-pre-line">
                   {item.title}
                 </h3>
-                <p className="text-xs text-slate-500 leading-relaxed">
+                <p className="text-[11px] sm:text-xs text-slate-500 leading-snug sm:leading-relaxed line-clamp-3 sm:line-clamp-none">
                   {item.desc}
                 </p>
               </div>
@@ -406,25 +512,25 @@ export const HomeView: React.FC = () => {
         </div>
 
         {/* Section 02 Bento Solution Block */}
-        <div className="rounded-3xl bg-[#0A1D37] text-white p-8 sm:p-10 text-center relative overflow-hidden shadow-sm">
+        <div className="rounded-2xl sm:rounded-3xl bg-[#0A1D37] text-white p-5 sm:p-10 text-center relative overflow-hidden shadow-sm">
           <div className="absolute top-0 right-0 w-64 h-64 bg-[#38BDF8] opacity-10 rounded-full pointer-events-none" />
-          <div className="relative z-10 max-w-2xl mx-auto space-y-3">
-            <span className="text-[#38BDF8] font-bold text-[10px] uppercase tracking-wider bg-[#38BDF8]/20 px-3 py-1 rounded-full">
+          <div className="relative z-10 max-w-2xl mx-auto space-y-2 sm:space-y-3">
+            <span className="text-[#38BDF8] font-bold text-[10px] uppercase tracking-wider bg-[#38BDF8]/20 px-2.5 py-0.5 rounded-full">
               링크클린의 해답
             </span>
-            <h3 className="text-xl sm:text-2xl font-black tracking-tight text-white">
+            <h3 className="text-lg sm:text-2xl font-black tracking-tight text-white">
               링크클린은 다르게 시작합니다.
             </h3>
             <p className="text-slate-300 text-xs sm:text-sm leading-relaxed">
               공간의 상태를 직접 확인하고 필요한 작업을 꼼꼼하게 살펴본 후 고객에게 꼭 맞는 청소를 안내합니다.
             </p>
-            <div className="pt-2">
+            <div className="pt-1.5 sm:pt-2">
               <button
                 onClick={() => goToReservationWithService('move-in')}
-                className="px-6 py-3 rounded-xl bg-[#38BDF8] hover:bg-[#0EA5E9] text-white font-bold text-xs sm:text-sm shadow-md transition-all cursor-pointer inline-flex items-center gap-2"
+                className="px-5 py-2.5 sm:px-6 sm:py-3 rounded-xl bg-[#38BDF8] hover:bg-[#0EA5E9] text-white font-bold text-xs sm:text-sm shadow-md transition-all cursor-pointer inline-flex items-center gap-2 active:scale-95"
                 id="problem-cta-btn"
               >
-                <Calendar className="w-4 h-4 text-white" />
+                <Calendar className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" />
                 방문 견적 예약하기
               </button>
             </div>
@@ -434,55 +540,55 @@ export const HomeView: React.FC = () => {
 
       {/* =========================================================================
           SECTION 03 — 링크클린의 차별점
-          "깨끗함의 기준을 높이겠습니다." (Bento 4개 카드)
+          "깨끗함의 기준을 높이겠습니다." (Bento 4개 카드 -> 모바일 2x2 그리드)
       ========================================================================= */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-2xl mx-auto mb-10">
-          <span className="text-[10px] font-bold uppercase tracking-wider text-[#38BDF8] bg-blue-50 px-3 py-1 rounded-full border border-blue-100">
+        <div className="text-center max-w-2xl mx-auto mb-4 sm:mb-10">
+          <span className="text-[10px] font-bold uppercase tracking-wider text-[#38BDF8] bg-blue-50 px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full border border-blue-100">
             WHY LINKCLEAN
           </span>
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-[#0A1D37] tracking-tight mt-3">
+          <h2 className="text-xl sm:text-3xl font-extrabold text-[#0A1D37] tracking-tight mt-2 sm:mt-3">
             깨끗함의 기준을 높이겠습니다.
           </h2>
-          <p className="text-slate-500 text-xs sm:text-sm mt-1.5">
+          <p className="text-slate-500 text-xs sm:text-sm mt-1">
             고객님이 믿고 맡기실 수 있도록 4가지 원칙을 철저히 지킵니다.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4">
           {[
             {
               num: '01',
               title: '꼼꼼한 현장 확인',
-              desc: '공간마다 오염도와 필요한 작업은 다릅니다. 링크클린은 현장 상태를 직접 확인하고 정직한 범위를 산정합니다.'
+              desc: '공간마다 오염도와 작업 환경이 다릅니다. 현장 상태를 직접 확인하고 정직한 범위를 산정합니다.'
             },
             {
               num: '02',
               title: '합리적인 견적',
-              desc: '불필요한 작업을 권하기보다 공간에 필요한 작업을 기준으로 정직한 견적을 안내합니다.'
+              desc: '불필요한 공정을 권하지 않고, 꼭 필요한 작업을 기준으로 투명하고 합리적인 견적을 냅니다.'
             },
             {
               num: '03',
               title: '디테일한 청소',
-              desc: '눈에 잘 보이는 곳뿐만 아니라 손이 자주 닿는 곳, 틈새와 구석까지 세심하게 확인합니다.'
+              desc: '손이 자주 닿는 곳뿐 아니라 서랍 안쪽, 후드 안, 틈새 구석까지 세심하게 케어합니다.'
             },
             {
               num: '04',
-              title: '끝까지 책임지는 서비스',
-              desc: '예약부터 방문 견적, 청소까지 고객이 불편하지 않도록 꼼꼼하게 안내합니다.'
+              title: '끝까지 책임지는 케어',
+              desc: '예약부터 방문 견적, 청소 시공 및 고객 검수까지 불편함 없도록 밀착 안내합니다.'
             }
           ].map((card) => (
             <div
               key={card.num}
-              className="bg-white rounded-3xl p-7 border border-slate-100 shadow-sm hover:shadow-md hover:border-[#38BDF8]/40 transition-all relative overflow-hidden group"
+              className="bg-white rounded-2xl sm:rounded-3xl p-3.5 sm:p-7 border border-slate-100 shadow-2xs hover:shadow-md hover:border-[#38BDF8]/40 transition-all relative overflow-hidden group"
             >
-              <div className="text-3xl sm:text-4xl font-black text-[#38BDF8] font-mono transition-colors mb-4">
+              <div className="text-xl sm:text-4xl font-black text-[#38BDF8] font-mono transition-colors mb-1.5 sm:mb-4">
                 {card.num}
               </div>
-              <h3 className="text-base font-bold text-[#0A1D37] mb-2">
+              <h3 className="text-xs sm:text-base font-bold text-[#0A1D37] mb-1 sm:mb-2">
                 {card.title}
               </h3>
-              <p className="text-xs text-slate-500 leading-relaxed">
+              <p className="text-[11px] sm:text-xs text-slate-500 leading-snug sm:leading-relaxed line-clamp-3 sm:line-clamp-none">
                 {card.desc}
               </p>
             </div>
@@ -608,26 +714,32 @@ export const HomeView: React.FC = () => {
       </section>
 
       {/* =========================================================================
-          SECTION 05 — 작업 프로세스 (Bento Container)
+          SECTION 05 — 작업 프로세스 (모바일 가로 스크롤 / 데스크톱 5열 그리드)
       ========================================================================= */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-[#0A1D37] text-white rounded-3xl p-8 sm:p-12 relative overflow-hidden shadow-sm">
+        <div className="bg-[#0A1D37] text-white rounded-2xl sm:rounded-3xl p-5 sm:p-12 relative overflow-hidden shadow-sm">
           <div className="absolute top-0 right-0 w-80 h-80 bg-[#38BDF8] opacity-10 rounded-full pointer-events-none" />
           <div className="relative z-10">
-            <div className="text-center max-w-2xl mx-auto mb-10">
-              <span className="text-[10px] font-bold uppercase tracking-wider text-[#38BDF8] bg-[#38BDF8]/20 px-3 py-1 rounded-full border border-[#38BDF8]/30">
-                STEP BY STEP PROCESS
-              </span>
-              <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight mt-3 text-white">
+            <div className="text-center max-w-2xl mx-auto mb-5 sm:mb-10">
+              <div className="flex items-center justify-center gap-2 mb-2">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-[#38BDF8] bg-[#38BDF8]/20 px-2.5 py-0.5 rounded-full border border-[#38BDF8]/30">
+                  STEP BY STEP PROCESS
+                </span>
+                <span className="sm:hidden text-[10px] text-blue-200 bg-white/10 px-2 py-0.5 rounded-full font-medium">
+                  옆으로 넘기기 👈 👉
+                </span>
+              </div>
+              <h2 className="text-xl sm:text-3xl font-extrabold tracking-tight text-white">
                 어렵게 생각하지 마세요.<br />
                 링크클린이 처음부터 안내해드립니다.
               </h2>
-              <p className="text-slate-300 text-xs sm:text-sm mt-1.5">
+              <p className="text-slate-300 text-xs sm:text-sm mt-1">
                 신청부터 청소 완료까지 투명하고 체계적인 5단계 프로세스를 진행합니다.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-5 gap-3">
+            {/* Mobile: 1-row scroll / Desktop: 5-col grid */}
+            <div className="flex overflow-x-auto snap-x snap-mandatory gap-2.5 pb-2 -mx-2 px-2 sm:mx-0 sm:px-0 sm:grid sm:grid-cols-5 sm:gap-3 sm:overflow-visible no-scrollbar">
               {[
                 {
                   step: 'STEP 01',
@@ -657,26 +769,26 @@ export const HomeView: React.FC = () => {
               ].map((p, index) => (
                 <div
                   key={p.step}
-                  className="bg-slate-800/80 rounded-2xl p-5 border border-slate-700/80 hover:border-[#38BDF8] transition-all flex flex-col justify-between"
+                  className="w-[175px] sm:w-auto shrink-0 snap-start bg-slate-800/80 rounded-xl sm:rounded-2xl p-4 sm:p-5 border border-slate-700/80 hover:border-[#38BDF8] transition-all flex flex-col justify-between"
                 >
                   <div>
-                    <div className="flex items-center justify-between mb-3">
+                    <div className="flex items-center justify-between mb-2 sm:mb-3">
                       <span className="font-mono text-[10px] font-black text-[#38BDF8] bg-[#38BDF8]/20 px-2 py-0.5 rounded border border-[#38BDF8]/30">
                         {p.step}
                       </span>
-                      <span className="text-slate-500 text-xs font-bold">0{index + 1}</span>
+                      <span className="text-slate-500 text-[11px] sm:text-xs font-bold">0{index + 1}</span>
                     </div>
-                    <h3 className="text-sm font-bold text-white mb-1.5">{p.title}</h3>
-                    <p className="text-xs text-slate-400 leading-relaxed">{p.desc}</p>
+                    <h3 className="text-xs sm:text-sm font-bold text-white mb-1">{p.title}</h3>
+                    <p className="text-[11px] sm:text-xs text-slate-400 leading-snug">{p.desc}</p>
                   </div>
                 </div>
               ))}
             </div>
 
-            <div className="text-center mt-10">
+            <div className="text-center mt-5 sm:mt-10">
               <button
                 onClick={() => goToReservationWithService('move-in')}
-                className="px-8 py-3.5 rounded-xl bg-white text-[#0A1D37] hover:bg-slate-100 font-bold text-xs sm:text-sm shadow-md transition-all inline-flex items-center gap-2 cursor-pointer"
+                className="w-full sm:w-auto px-8 py-3 rounded-xl bg-white text-[#0A1D37] hover:bg-slate-100 font-bold text-xs sm:text-sm shadow-md transition-all inline-flex items-center justify-center gap-2 cursor-pointer active:scale-98"
               >
                 <Calendar className="w-4 h-4 text-[#0A1D37]" />
                 지금 방문 견적 예약하기
@@ -696,25 +808,25 @@ export const HomeView: React.FC = () => {
           "말보다 결과로 보여드리겠습니다." (Bento Frame)
       ========================================================================= */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-2xl mx-auto mb-8">
-          <span className="text-[10px] font-bold uppercase tracking-wider text-[#38BDF8] bg-blue-50 px-3 py-1 rounded-full border border-blue-100">
+        <div className="text-center max-w-2xl mx-auto mb-4 sm:mb-8">
+          <span className="text-[10px] font-bold uppercase tracking-wider text-[#38BDF8] bg-blue-50 px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full border border-blue-100">
             PROVEN RESULTS
           </span>
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-[#0A1D37] tracking-tight mt-3">
+          <h2 className="text-xl sm:text-3xl font-extrabold text-[#0A1D37] tracking-tight mt-2 sm:mt-3">
             말보다 결과로 보여드리겠습니다.
           </h2>
-          <p className="text-slate-500 text-xs sm:text-sm mt-1.5">
+          <p className="text-slate-500 text-xs sm:text-sm mt-1">
             실제 시공 현장의 청소 전/후 차이를 슬라이더를 통해 확인하세요.
           </p>
         </div>
 
-        {/* Category Filter Tabs */}
-        <div className="flex flex-wrap items-center justify-center gap-2 mb-8">
+        {/* Category Filter Tabs (Mobile: Horizontal Scrollable) */}
+        <div className="flex overflow-x-auto gap-1.5 pb-2 -mx-4 px-4 sm:mx-0 sm:px-0 sm:flex-wrap sm:justify-center mb-4 sm:mb-8 no-scrollbar">
           {(['전체', '주방', '욕실', '거실', '창틀', '베란다', '상가', '쓰레기집', '기타'] as PortfolioCategory[]).map((cat) => (
             <button
               key={cat}
               onClick={() => setActiveBeforeAfterCategory(cat)}
-              className={`px-4 py-2 rounded-full text-xs font-bold transition-all cursor-pointer ${
+              className={`px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full text-xs font-bold transition-all cursor-pointer whitespace-nowrap shrink-0 ${
                 activeBeforeAfterCategory === cat
                   ? 'bg-[#0A1D37] text-white shadow-sm'
                   : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200'
@@ -726,7 +838,7 @@ export const HomeView: React.FC = () => {
         </div>
 
         {/* Featured Interactive Before/After Stage in Bento card */}
-        <div className="max-w-4xl mx-auto mb-8 bg-white rounded-3xl p-4 sm:p-6 border border-slate-100 shadow-sm">
+        <div className="max-w-4xl mx-auto mb-4 sm:mb-8 bg-white rounded-2xl sm:rounded-3xl p-3 sm:p-6 border border-slate-100 shadow-sm">
           {featuredItem ? (
             <BeforeAfterSlider
               beforeImage={featuredItem.beforeImage}
@@ -735,18 +847,18 @@ export const HomeView: React.FC = () => {
               description={featuredItem.description}
             />
           ) : (
-            <div className="text-center py-12 text-slate-400 text-sm">
+            <div className="text-center py-10 text-slate-400 text-xs sm:text-sm">
               해당 카테고리의 청소사례를 준비 중입니다.
             </div>
           )}
         </div>
 
         {/* CTA to Portfolio & Naver Blog Showcase */}
-        <div className="space-y-6 max-w-4xl mx-auto">
+        <div className="space-y-4 sm:space-y-6 max-w-4xl mx-auto">
           <div className="text-center">
             <button
               onClick={() => setCurrentView('portfolio')}
-              className="px-6 py-3 rounded-xl border border-slate-200 hover:bg-white text-[#0A1D37] font-bold text-xs transition-all inline-flex items-center gap-2 cursor-pointer shadow-xs"
+              className="w-full sm:w-auto px-6 py-2.5 sm:py-3 rounded-xl border border-slate-200 hover:bg-white text-[#0A1D37] font-bold text-xs transition-all inline-flex items-center justify-center gap-2 cursor-pointer shadow-2xs"
               id="home-view-all-portfolio-btn"
             >
               전체 청소사례 갤러리 보기
@@ -759,18 +871,23 @@ export const HomeView: React.FC = () => {
       </section>
 
       {/* =========================================================================
-          SECTION 07 — 고객후기 (Bento Review Cards)
+          SECTION 07 — 고객후기 (모바일 가로 스크롤 / 데스크톱 3열 그리드)
       ========================================================================= */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-4 sm:mb-8 gap-2 sm:gap-4">
           <div>
-            <span className="text-[10px] font-bold uppercase tracking-wider text-[#38BDF8] bg-blue-50 px-3 py-1 rounded-full border border-blue-100">
-              REAL TESTIMONIALS
-            </span>
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#0A1D37] tracking-tight mt-2">
+            <div className="flex items-center gap-2">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-[#38BDF8] bg-blue-50 px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full border border-blue-100">
+                REAL TESTIMONIALS
+              </span>
+              <span className="sm:hidden text-[10px] text-slate-400 bg-slate-100 px-2 py-0.5 rounded-full font-bold">
+                좌우 스크롤 👈 👉
+              </span>
+            </div>
+            <h2 className="text-xl sm:text-3xl font-extrabold text-[#0A1D37] tracking-tight mt-1.5 sm:mt-2">
               고객님이 직접 말해주신 링크클린의 이야기
             </h2>
-            <p className="text-slate-500 text-xs sm:text-sm mt-1">
+            <p className="text-slate-500 text-xs sm:text-sm mt-0.5 sm:mt-1">
               실제 방문 견적과 시공을 경험하신 고객님들의 진솔한 후기입니다.
             </p>
           </div>
@@ -783,14 +900,15 @@ export const HomeView: React.FC = () => {
           </button>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {/* Mobile: 1-row scroll / Desktop: 3-col grid */}
+        <div className="flex overflow-x-auto snap-x snap-mandatory gap-3 pb-3 pt-1 -mx-4 px-4 sm:mx-0 sm:px-0 sm:grid sm:grid-cols-2 lg:grid-cols-3 sm:gap-4 sm:overflow-visible no-scrollbar">
           {visibleReviews.slice(0, 3).map((rev) => (
             <div
               key={rev.id}
-              className="bg-white rounded-3xl p-6 border border-slate-100 shadow-sm hover:shadow-md transition-all flex flex-col justify-between"
+              className="w-[270px] sm:w-auto shrink-0 snap-start bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 border border-slate-100 shadow-2xs hover:shadow-md transition-all flex flex-col justify-between"
             >
               <div>
-                <div className="flex items-center justify-between mb-3">
+                <div className="flex items-center justify-between mb-2 sm:mb-3">
                   <div className="flex items-center gap-1 text-amber-400">
                     {[...Array(rev.rating)].map((_, i) => (
                       <Star key={i} className="w-3.5 h-3.5 fill-amber-400" />
@@ -799,12 +917,12 @@ export const HomeView: React.FC = () => {
                   <span className="text-[11px] text-slate-400 font-mono">{rev.date}</span>
                 </div>
 
-                <p className="text-xs text-slate-600 leading-relaxed mb-4 line-clamp-4">
+                <p className="text-xs text-slate-600 leading-relaxed mb-3 sm:mb-4 line-clamp-3 sm:line-clamp-4">
                   "{rev.content}"
                 </p>
 
                 {rev.photos.length > 0 && (
-                  <div className="mb-4 rounded-2xl overflow-hidden h-28 bg-slate-100">
+                  <div className="mb-3 sm:mb-4 rounded-xl sm:rounded-2xl overflow-hidden h-24 sm:h-28 bg-slate-100">
                     <img
                       src={rev.photos[0]}
                       alt="후기 사진"
@@ -815,9 +933,9 @@ export const HomeView: React.FC = () => {
                 )}
               </div>
 
-              <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
+              <div className="pt-2.5 sm:pt-3 border-t border-slate-100 flex items-center justify-between text-xs mt-auto">
                 <span className="font-bold text-[#0A1D37]">{rev.author}</span>
-                <span className="text-[#38BDF8] bg-blue-50 px-2.5 py-0.5 rounded-full font-semibold text-[11px] border border-blue-100">
+                <span className="text-[#38BDF8] bg-blue-50 px-2 py-0.5 rounded-full font-semibold text-[10px] sm:text-[11px] border border-blue-100">
                   {rev.serviceType}
                 </span>
               </div>
@@ -830,32 +948,32 @@ export const HomeView: React.FC = () => {
           SECTION 08 — FINAL CTA (Bento Box)
       ========================================================================= */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="rounded-3xl bg-[#0A1D37] text-white p-8 sm:p-14 text-center relative overflow-hidden shadow-sm border border-slate-800">
+        <div className="rounded-2xl sm:rounded-3xl bg-[#0A1D37] text-white p-6 sm:p-14 text-center relative overflow-hidden shadow-sm border border-slate-800">
           <div className="absolute -right-16 -top-16 w-64 h-64 bg-[#38BDF8] opacity-10 rounded-full pointer-events-none" />
           <div className="absolute -left-16 -bottom-16 w-64 h-64 bg-[#38BDF8] opacity-10 rounded-full pointer-events-none" />
 
-          <div className="relative z-10 max-w-2xl mx-auto space-y-5">
-            <span className="text-[#38BDF8] font-bold text-[10px] uppercase tracking-wider bg-[#38BDF8]/20 px-3 py-1 rounded-full">
+          <div className="relative z-10 max-w-2xl mx-auto space-y-3 sm:space-y-5">
+            <span className="text-[#38BDF8] font-bold text-[10px] uppercase tracking-wider bg-[#38BDF8]/20 px-2.5 py-0.5 rounded-full">
               간편하고 빠른 방문 예약
             </span>
 
-            <h2 className="text-2xl sm:text-4xl font-black tracking-tight text-white">
+            <h2 className="text-xl sm:text-4xl font-black tracking-tight text-white">
               깨끗한 공간을 원하시나요?
             </h2>
 
-            <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
+            <p className="text-slate-300 text-xs sm:text-base leading-relaxed">
               전화해서 기다릴 필요 없이<br />
               <strong className="text-white font-bold">원하는 날짜와 시간을 직접 선택하세요.</strong>
             </p>
 
-            <div className="text-lg sm:text-xl font-bold text-[#38BDF8]">
+            <div className="text-base sm:text-xl font-bold text-[#38BDF8]">
               링크클린이 직접 찾아가겠습니다.
             </div>
 
-            <div className="pt-2">
+            <div className="pt-1 sm:pt-2">
               <button
                 onClick={() => goToReservationWithService('move-in')}
-                className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-[#38BDF8] hover:bg-[#0EA5E9] text-white font-bold text-sm sm:text-base shadow-xl shadow-blue-400/30 hover:shadow-blue-400/40 hover:-translate-y-0.5 transition-all inline-flex items-center justify-center gap-2 cursor-pointer"
+                className="w-full sm:w-auto px-8 py-3.5 rounded-xl sm:rounded-full bg-[#38BDF8] hover:bg-[#0EA5E9] text-white font-bold text-sm sm:text-base shadow-xl shadow-blue-400/30 hover:shadow-blue-400/40 transition-all inline-flex items-center justify-center gap-2 cursor-pointer active:scale-98"
                 id="final-cta-reserve-btn"
               >
                 <Calendar className="w-4 h-4 text-white" />
