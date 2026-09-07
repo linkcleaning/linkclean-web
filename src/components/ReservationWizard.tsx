@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from 'react';
-import { useApp, STANDARD_TIME_SLOTS } from '../context/AppContext';
+import { useApp, STANDARD_TIME_SLOTS, isSeptemberDate } from '../context/AppContext';
 import { ServiceType, PropertyType, Reservation } from '../types';
+import { checkSonEopNeunNal } from '../utils/lunarCalendar';
 import {
   Calendar as CalendarIcon,
   Clock,
@@ -53,6 +54,15 @@ export const ReservationWizard: React.FC = () => {
 
   // Form State
   const [selectedDate, setSelectedDate] = useState<string>(() => {
+    try {
+      const pre = sessionStorage.getItem('linkclean_preselected_date');
+      if (pre) {
+        sessionStorage.removeItem('linkclean_preselected_date');
+        return pre;
+      }
+    } catch {
+      // ignore
+    }
     // default to tomorrow
     const d = new Date();
     d.setDate(d.getDate() + 1);
@@ -82,8 +92,34 @@ export const ReservationWizard: React.FC = () => {
 
   // Calendar navigation state (Year and Month)
   const today = useMemo(() => new Date(), []);
-  const [calendarYear, setCalendarYear] = useState(today.getFullYear());
-  const [calendarMonth, setCalendarMonth] = useState(today.getMonth()); // 0-indexed
+  const [calendarYear, setCalendarYear] = useState(() => {
+    try {
+      const parts = selectedDate.split('-');
+      if (parts.length === 3) return parseInt(parts[0], 10);
+    } catch {
+      // fallback
+    }
+    return today.getFullYear();
+  });
+  const [calendarMonth, setCalendarMonth] = useState(() => {
+    try {
+      const parts = selectedDate.split('-');
+      if (parts.length === 3) return parseInt(parts[1], 10) - 1;
+    } catch {
+      // fallback
+    }
+    return today.getMonth();
+  }); // 0-indexed
+
+  // Auto-select first available time slot if current selectedTime is empty or unavailable
+  React.useEffect(() => {
+    if (!selectedTime || !isSlotAvailable(selectedDate, selectedTime)) {
+      const firstAvailable = STANDARD_TIME_SLOTS.find((s) => isSlotAvailable(selectedDate, s));
+      if (firstAvailable) {
+        setSelectedTime(firstAvailable);
+      }
+    }
+  }, [selectedDate, isSlotAvailable, selectedTime]);
 
   // Generate days in month for calendar
   const calendarDays = useMemo(() => {
@@ -99,6 +135,7 @@ export const ReservationWizard: React.FC = () => {
       isSelectable: boolean;
       isAllFull: boolean;
       isHoliday: boolean;
+      isSonEopNeunNal: boolean;
     }[] = [];
 
     // Prev month padding
@@ -113,7 +150,8 @@ export const ReservationWizard: React.FC = () => {
         isPast: true,
         isSelectable: false,
         isAllFull: false,
-        isHoliday: false
+        isHoliday: false,
+        isSonEopNeunNal: false
       });
     }
 
@@ -132,6 +170,8 @@ export const ReservationWizard: React.FC = () => {
       const isAllFull = !isPast && !hasAnyAvailableSlot;
       const isSelectable = !isPast && !isHoliday && hasAnyAvailableSlot;
 
+      const sonInfo = checkSonEopNeunNal(calendarYear, calendarMonth + 1, d);
+
       days.push({
         dateString,
         dayNumber: d,
@@ -139,7 +179,8 @@ export const ReservationWizard: React.FC = () => {
         isPast,
         isSelectable,
         isAllFull,
-        isHoliday
+        isHoliday,
+        isSonEopNeunNal: sonInfo.isSonEopNeunNal
       });
     }
 
@@ -155,7 +196,8 @@ export const ReservationWizard: React.FC = () => {
         isPast: false,
         isSelectable: false,
         isAllFull: false,
-        isHoliday: false
+        isHoliday: false,
+        isSonEopNeunNal: false
       });
     }
 
@@ -454,21 +496,34 @@ export const ReservationWizard: React.FC = () => {
                       disabled={!day.isSelectable}
                       onClick={() => {
                         setSelectedDate(day.dateString);
-                        // reset selected time if it's no longer available
-                        if (selectedTime && !isSlotAvailable(day.dateString, selectedTime)) {
-                          setSelectedTime('');
+                        // reset or pick available time slot for newly selected date
+                        if (!selectedTime || !isSlotAvailable(day.dateString, selectedTime)) {
+                          const firstAvailable = STANDARD_TIME_SLOTS.find((s) => isSlotAvailable(day.dateString, s));
+                          setSelectedTime(firstAvailable || '');
                         }
                       }}
                       className={`h-11 sm:h-13 rounded-2xl flex flex-col items-center justify-center text-xs sm:text-sm font-semibold transition-all relative cursor-pointer ${buttonStyles}`}
                     >
-                      <span>{day.dayNumber}</span>
+                      <span className="relative z-10">{day.dayNumber}</span>
+                      {day.isSonEopNeunNal && day.isCurrentMonth && (
+                        <span
+                          className={`text-[8px] font-black px-1 rounded-sm leading-none mt-0.5 ${
+                            isSelected
+                              ? 'bg-amber-400 text-slate-950 font-black'
+                              : 'bg-amber-100 text-amber-800 border border-amber-300/70'
+                          }`}
+                          title="손없는 날 (이사 길일)"
+                        >
+                          손
+                        </span>
+                      )}
                       {day.isHoliday && (
                         <span className="text-[9px] text-red-400 font-normal">휴무</span>
                       )}
                       {day.isAllFull && (
                         <span className="text-[9px] text-slate-400 font-normal">마감</span>
                       )}
-                      {isSelected && (
+                      {isSelected && !day.isSonEopNeunNal && (
                         <div className="w-1.5 h-1.5 rounded-full bg-[#38BDF8] mt-0.5" />
                       )}
                     </button>
@@ -483,6 +538,10 @@ export const ReservationWizard: React.FC = () => {
                   <span>선택 날짜</span>
                 </div>
                 <div className="flex items-center gap-1.5">
+                  <span className="text-[9px] font-black px-1 rounded-sm bg-amber-400 text-slate-950">손</span>
+                  <span className="text-amber-700 font-bold">손없는 날 (이사 길일)</span>
+                </div>
+                <div className="flex items-center gap-1.5">
                   <div className="w-3 h-3 rounded-full bg-white border border-slate-300" />
                   <span>예약 가능</span>
                 </div>
@@ -495,13 +554,30 @@ export const ReservationWizard: React.FC = () => {
 
             {/* Time Slot Selection (Section 21) */}
             <div>
-              <div className="flex items-center justify-between mb-3">
+              <div className="flex items-center justify-between mb-2">
                 <h3 className="font-extrabold text-[#0A1D37] text-sm sm:text-base flex items-center gap-2">
                   <Clock className="w-4 h-4 text-[#38BDF8]" />
                   방문 희망 시간 선택 ({selectedDate})
                 </h3>
                 <span className="text-xs text-slate-500">마감된 시간대는 선택이 제한됩니다.</span>
               </div>
+
+              {/* 9월 한정: 하루 2타임 오픈 안내 */}
+              {isSeptemberDate(selectedDate) && (
+                <div className="mb-3 px-3.5 py-2.5 rounded-2xl bg-amber-50/90 border border-amber-200 text-xs flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 shadow-2xs">
+                  <div className="flex items-center gap-2">
+                    <span className="font-extrabold text-amber-800 bg-amber-200/90 px-2 py-0.5 rounded text-[11px] whitespace-nowrap">
+                      9월 예약 정책
+                    </span>
+                    <span className="text-slate-700 font-medium">
+                      현장 정밀 실측과 작업 품질을 위해 <strong className="text-amber-950 font-bold">하루 2타임(오전/오후)</strong>만 오픈됩니다.
+                    </span>
+                  </div>
+                  <span className="text-[11px] font-bold text-amber-700 whitespace-nowrap">
+                    (선택 가능 외 나머지 5개 시간대는 예약마감)
+                  </span>
+                </div>
+              )}
 
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
                 {STANDARD_TIME_SLOTS.map((time) => {

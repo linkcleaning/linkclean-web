@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useApp } from '../context/AppContext';
 import { PortfolioCategory, PortfolioItem } from '../types';
 import { BeforeAfterSlider } from '../components/BeforeAfterSlider';
+import { NaverBlogBanner } from '../components/NaverBlogBanner';
 import { Sparkles, Calendar, Filter, X, ArrowLeftRight } from 'lucide-react';
 
 const CATEGORIES: PortfolioCategory[] = [
@@ -169,6 +170,9 @@ export const PortfolioView: React.FC = () => {
           </div>
         </div>
       )}
+
+      {/* Naver Blog Showcase */}
+      <NaverBlogBanner />
 
       {/* Bottom CTA */}
       <div className="bg-[#0A1D37] text-white rounded-3xl p-8 sm:p-12 text-center space-y-5 border border-slate-800 shadow-sm relative overflow-hidden">

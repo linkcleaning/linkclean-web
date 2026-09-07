@@ -1,6 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useApp } from '../context/AppContext';
 import { BeforeAfterSlider } from '../components/BeforeAfterSlider';
+import { NaverBlogBanner } from '../components/NaverBlogBanner';
+import { SonEopNeunNalModal } from '../components/SonEopNeunNalModal';
+import { CleaningSoundboard } from '../components/CleaningSoundboard';
+import { getMonthlySonEopNeunNal } from '../utils/lunarCalendar';
 import { PortfolioCategory, ServiceType } from '../types';
 import {
   Calendar,
@@ -15,8 +19,10 @@ import {
   Search,
   Star,
   ChevronRight,
+  ChevronLeft,
   Clock,
-  PhoneCall
+  PhoneCall,
+  Gift
 } from 'lucide-react';
 
 export const HomeView: React.FC = () => {
@@ -29,6 +35,21 @@ export const HomeView: React.FC = () => {
   } = useApp();
 
   const [activeBeforeAfterCategory, setActiveBeforeAfterCategory] = useState<PortfolioCategory>('전체');
+  const [isSonEopNeunNalModalOpen, setIsSonEopNeunNalModalOpen] = useState<boolean>(false);
+
+  // Bento Cell 3 month navigation
+  const [bentoMonthOffset, setBentoMonthOffset] = useState<number>(0);
+  const bentoDate = useMemo(() => {
+    const d = new Date();
+    d.setMonth(d.getMonth() + bentoMonthOffset);
+    return d;
+  }, [bentoMonthOffset]);
+
+  const bentoYear = bentoDate.getFullYear();
+  const bentoMonth = bentoDate.getMonth() + 1;
+  const bentoAuspiciousDays = useMemo(() => {
+    return getMonthlySonEopNeunNal(bentoYear, bentoMonth);
+  }, [bentoYear, bentoMonth]);
 
   // Filter portfolio items
   const filteredPortfolio = activeBeforeAfterCategory === '전체'
@@ -142,14 +163,85 @@ export const HomeView: React.FC = () => {
             </button>
           </div>
 
-          {/* Bento Cell 3: 꼼꼼한 현장 확인 (col-span-1 row-span-1) */}
-          <div className="col-span-1 md:col-span-1 lg:col-span-1 lg:row-span-1 bg-white rounded-3xl p-6 border border-slate-100 shadow-sm flex flex-col justify-between min-h-[170px]">
-            <div className="w-10 h-10 bg-blue-50 rounded-xl flex items-center justify-center text-[#38BDF8]">
-              <Sparkles className="w-5 h-5 text-[#38BDF8]" />
-            </div>
+          {/* Bento Cell 3: 꼼꼼한 현장 확인 & 월별 손없는 날 (col-span-1 row-span-1) */}
+          <div
+            id="bento-cell-son-eop-neun-nal"
+            onClick={() => setIsSonEopNeunNalModalOpen(true)}
+            className="col-span-1 md:col-span-1 lg:col-span-1 lg:row-span-1 bg-gradient-to-br from-white via-slate-50/70 to-amber-50/40 rounded-3xl p-5 sm:p-6 border border-amber-200/70 hover:border-amber-400 shadow-sm hover:shadow-md transition-all flex flex-col justify-between min-h-[185px] cursor-pointer group relative overflow-hidden"
+          >
+            <div className="absolute top-0 right-0 w-28 h-28 bg-amber-400/10 rounded-full blur-xl pointer-events-none" />
+
+            {/* Header: Icon + Title */}
             <div>
-              <h4 className="font-bold text-[#0A1D37] text-base mb-1">꼼꼼한 현장 확인</h4>
-              <p className="text-xs text-slate-500 leading-relaxed">오염도에 따른 1:1 맞춤형<br />작업 범위를 산정합니다.</p>
+              <div className="flex items-center justify-between mb-2">
+                <div className="w-8 h-8 bg-amber-100 text-amber-800 rounded-xl flex items-center justify-center font-bold">
+                  <Sparkles className="w-4 h-4 text-amber-600" />
+                </div>
+                <span className="text-[10px] font-black bg-amber-400 text-slate-950 px-2 py-0.5 rounded-full shadow-2xs">
+                  손없는 날 달력 ✨
+                </span>
+              </div>
+
+              <h4 className="font-bold text-[#0A1D37] text-sm sm:text-base leading-tight group-hover:text-amber-800 transition-colors">
+                꼼꼼한 현장 확인
+              </h4>
+              <p className="text-[11px] text-slate-500 mt-0.5 leading-snug">
+                이사 길일에 맞춘 1:1 맞춤 실측
+              </p>
+            </div>
+
+            {/* Month & Auspicious Dates Preview */}
+            <div className="mt-2.5 pt-2 border-t border-slate-200/70">
+              <div className="flex items-center justify-between mb-1.5">
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setBentoMonthOffset((prev) => prev - 1);
+                  }}
+                  className="p-1 rounded-md hover:bg-slate-200 text-slate-600 transition-colors cursor-pointer"
+                  title="이전 달"
+                >
+                  <ChevronLeft className="w-3.5 h-3.5" />
+                </button>
+                <span className="text-xs font-black text-[#0A1D37]">
+                  {bentoYear}년 {bentoMonth}월 길일 ({bentoAuspiciousDays.length}일)
+                </span>
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setBentoMonthOffset((prev) => prev + 1);
+                  }}
+                  className="p-1 rounded-md hover:bg-slate-200 text-slate-600 transition-colors cursor-pointer"
+                  title="다음 달"
+                >
+                  <ChevronRight className="w-3.5 h-3.5" />
+                </button>
+              </div>
+
+              {/* Day chips */}
+              <div className="flex flex-wrap gap-1">
+                {bentoAuspiciousDays.slice(0, 4).map((d) => (
+                  <span
+                    key={d.dateString}
+                    className="text-[10px] font-bold text-amber-900 bg-amber-100/90 border border-amber-300/80 px-1.5 py-0.5 rounded-md"
+                  >
+                    {d.day}일({d.dayOfWeek})
+                  </span>
+                ))}
+                {bentoAuspiciousDays.length > 4 && (
+                  <span className="text-[10px] font-medium text-slate-500 bg-white border border-slate-200 px-1.5 py-0.5 rounded-md">
+                    +{bentoAuspiciousDays.length - 4}일
+                  </span>
+                )}
+              </div>
+            </div>
+
+            {/* Bottom link */}
+            <div className="mt-2 flex items-center justify-between text-[11px] font-bold text-[#38BDF8] group-hover:text-amber-700">
+              <span>한달씩 달력 크게보기</span>
+              <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
             </div>
           </div>
 
@@ -362,7 +454,7 @@ export const HomeView: React.FC = () => {
             {
               num: '01',
               title: '꼼꼼한 현장 확인',
-              desc: '공간마다 오염도와 필요한 작업은 다릅니다. 링크클린은 현장 상태를 직접 확인합니다.'
+              desc: '공간마다 오염도와 필요한 작업은 다릅니다. 링크클린은 현장 상태를 직접 확인하고 정직한 범위를 산정합니다.'
             },
             {
               num: '02',
@@ -460,7 +552,7 @@ export const HomeView: React.FC = () => {
               id: 'trash' as ServiceType,
               title: '쓰레기집청소',
               desc: '혼자서 해결하기 힘든 방치된 대량 폐기물 분리 배출과 악취 탈취, 100% 비밀보장 특수 정리입니다.',
-              img: 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=600&q=80'
+              img: '/images/trash_house_before.jpg'
             }
           ].map((svc) => (
             <div
@@ -589,6 +681,11 @@ export const HomeView: React.FC = () => {
       </section>
 
       {/* =========================================================================
+          MIDWAY INTERACTIVE SOUNDBOARD — 청소 마스터 ASMR 리얼 사운드박스 & 선물 이벤트
+      ========================================================================= */}
+      <CleaningSoundboard />
+
+      {/* =========================================================================
           SECTION 06 — BEFORE / AFTER
           "말보다 결과로 보여드리겠습니다." (Bento Frame)
       ========================================================================= */}
@@ -638,16 +735,20 @@ export const HomeView: React.FC = () => {
           )}
         </div>
 
-        {/* CTA to Portfolio */}
-        <div className="text-center">
-          <button
-            onClick={() => setCurrentView('portfolio')}
-            className="px-6 py-3 rounded-xl border border-slate-200 hover:bg-white text-[#0A1D37] font-bold text-xs transition-all inline-flex items-center gap-2 cursor-pointer shadow-xs"
-            id="home-view-all-portfolio-btn"
-          >
-            전체 청소사례 보기
-            <ChevronRight className="w-4 h-4 text-slate-400" />
-          </button>
+        {/* CTA to Portfolio & Naver Blog Showcase */}
+        <div className="space-y-6 max-w-4xl mx-auto">
+          <div className="text-center">
+            <button
+              onClick={() => setCurrentView('portfolio')}
+              className="px-6 py-3 rounded-xl border border-slate-200 hover:bg-white text-[#0A1D37] font-bold text-xs transition-all inline-flex items-center gap-2 cursor-pointer shadow-xs"
+              id="home-view-all-portfolio-btn"
+            >
+              전체 청소사례 갤러리 보기
+              <ChevronRight className="w-4 h-4 text-slate-400" />
+            </button>
+          </div>
+
+          <NaverBlogBanner />
         </div>
       </section>
 
@@ -763,25 +864,11 @@ export const HomeView: React.FC = () => {
         </div>
       </section>
 
-      {/* Floating Action Buttons matching Bento Mockup */}
-      <div className="fixed bottom-6 right-6 flex flex-col gap-3 z-30">
-        <a
-          href="tel:064-763-4545"
-          title="고객센터 전화 문의 (064-763-4545)"
-          className="w-12 h-12 sm:w-14 sm:h-14 bg-white text-[#0A1D37] rounded-full shadow-xl flex items-center justify-center hover:scale-105 transition-transform border border-slate-100 cursor-pointer"
-          id="floating-call-btn"
-        >
-          <PhoneCall className="w-5 h-5 sm:w-6 sm:h-6 text-[#0A1D37]" />
-        </a>
-        <button
-          onClick={() => goToReservationWithService('move-in')}
-          title="방문 견적 예약하기"
-          className="w-12 h-12 sm:w-14 sm:h-14 bg-[#38BDF8] text-white rounded-full shadow-xl shadow-blue-300/50 flex items-center justify-center hover:scale-105 transition-transform cursor-pointer"
-          id="floating-reserve-btn"
-        >
-          <Calendar className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
-        </button>
-      </div>
+      {/* Son-eop-neun-nal Monthly Calendar Modal */}
+      <SonEopNeunNalModal
+        isOpen={isSonEopNeunNalModalOpen}
+        onClose={() => setIsSonEopNeunNalModalOpen(false)}
+      />
     </div>
   );
 };

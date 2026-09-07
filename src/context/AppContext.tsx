@@ -25,6 +25,23 @@ export const STANDARD_TIME_SLOTS = [
   '17:00'
 ];
 
+/**
+ * 9월 한정: 일정 품질 및 이동 동선 확보를 위해 하루 2개의 시간대만 예약 가능하도록 설정
+ * (오전 1타임 + 오후 1타임, 최소 4~5시간 텀으로 서로 중복되지 않음)
+ */
+export const isSeptemberDate = (dateString: string): boolean => {
+  return /-09-/.test(dateString);
+};
+
+export const getSeptemberAllowedSlots = (dateString: string): string[] => {
+  const parts = dateString.split('-');
+  const day = parts.length === 3 ? parseInt(parts[2], 10) : 1;
+  const mod = day % 3;
+  if (mod === 0) return ['10:00', '14:00']; // 오전 10:00 & 오후 14:00 (4시간 간격)
+  if (mod === 1) return ['11:00', '16:00']; // 오전 11:00 & 오후 16:00 (5시간 간격)
+  return ['10:00', '15:00'];                // 오전 10:00 & 오후 15:00 (5시간 간격)
+};
+
 export type AppView = 
   | 'home'
   | 'about'
@@ -32,6 +49,7 @@ export type AppView =
   | 'service-detail'
   | 'portfolio'
   | 'review'
+  | 'event'
   | 'reservation'
   | 'login'
   | 'register'
@@ -228,12 +246,21 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   // Check if a time slot is available
   const isSlotAvailable = (date: string, time: string): boolean => {
     const config = timeSlotConfigs[date];
-    if (config?.isHoliday) {
+    if (config?.isHoliday || config?.isClosed) {
       return false;
     }
-    if (config?.closedTimes?.includes(time)) {
+    if (config?.closedTimes?.includes(time) || config?.unavailableHours?.includes(time)) {
       return false;
     }
+
+    // 9월 일정 규칙: 하루 2개의 시간대만 오픈, 나머지는 기본 예약마감 처리
+    if (isSeptemberDate(date)) {
+      const allowed = getSeptemberAllowedSlots(date);
+      if (!allowed.includes(time)) {
+        return false;
+      }
+    }
+
     // Check existing active reservations
     const existing = reservations.find(
       (r) => r.visit_date === date && r.visit_time === time && r.status !== 'CANCELLED'

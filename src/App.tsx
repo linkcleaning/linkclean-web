@@ -3,6 +3,7 @@ import { AppProvider, useApp } from './context/AppContext';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 import { MobileBottomBar } from './components/MobileBottomBar';
+import { FloatingQuickMenu } from './components/FloatingQuickMenu';
 import { ReservationWizard } from './components/ReservationWizard';
 import { HomeView } from './views/HomeView';
 import { AboutView } from './views/AboutView';
@@ -14,6 +15,8 @@ import { LoginView } from './views/LoginView';
 import { RegisterView } from './views/RegisterView';
 import { MyPageView } from './views/MyPageView';
 import { AdminView } from './views/AdminView';
+import { EventView } from './views/EventView';
+import { MascotScrollTrigger } from './components/MascotScrollTrigger';
 
 const AppContent: React.FC = () => {
   const { currentView } = useApp();
@@ -36,6 +39,7 @@ const AppContent: React.FC = () => {
         {currentView === 'service-detail' && <ServiceDetailView />}
         {currentView === 'portfolio' && <PortfolioView />}
         {currentView === 'review' && <ReviewView />}
+        {currentView === 'event' && <EventView />}
         {currentView === 'reservation' && <ReservationWizard />}
         {currentView === 'login' && <LoginView />}
         {currentView === 'register' && <RegisterView />}
@@ -45,6 +49,12 @@ const AppContent: React.FC = () => {
 
       {/* Footer */}
       <Footer />
+
+      {/* Mascot Scroll Trigger (Pops up when user scrolls down, links to EventView) */}
+      {currentView !== 'reservation' && currentView !== 'event' && <MascotScrollTrigger />}
+
+      {/* Floating Quick Action Menu (Phone, KakaoTalk, Instagram, Blog with hover tooltips) */}
+      {currentView !== 'reservation' && <FloatingQuickMenu />}
 
       {/* Fixed Mobile Bottom CTA Bar (Only visible on mobile, hidden during reservation wizard) */}
       {currentView !== 'reservation' && <MobileBottomBar />}

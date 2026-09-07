@@ -1,6 +1,6 @@
 import React from 'react';
 import { useApp } from '../context/AppContext';
-import { Sparkles, Phone, Mail, Clock, ShieldCheck, Award } from 'lucide-react';
+import { Sparkles, Phone, Mail, Clock, ShieldCheck, Award, ExternalLink, Instagram, MessageCircle } from 'lucide-react';
 import { BrandLogo } from './BrandLogo';
 
 export const Footer: React.FC = () => {
@@ -107,6 +107,48 @@ export const Footer: React.FC = () => {
                   className="hover:text-cyan-400 transition-colors cursor-pointer"
                 >
                   Before & After 청소사례
+                </button>
+              </li>
+              <li>
+                <a
+                  href="https://blog.naver.com/linkcleaning"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-emerald-400 hover:text-emerald-300 transition-colors cursor-pointer inline-flex items-center gap-1.5 font-medium"
+                >
+                  공식 네이버 블로그
+                  <ExternalLink className="w-3 h-3 text-emerald-400" />
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://pf.kakao.com/_xfxdrxmM?from=qr"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-amber-300 hover:text-amber-200 transition-colors cursor-pointer inline-flex items-center gap-1.5 font-medium"
+                >
+                  카카오톡 1:1 상담
+                  <ExternalLink className="w-3 h-3 text-amber-300" />
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://www.instagram.com/linkcleaning/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-pink-400 hover:text-pink-300 transition-colors cursor-pointer inline-flex items-center gap-1.5 font-medium"
+                >
+                  공식 인스타그램
+                  <ExternalLink className="w-3 h-3 text-pink-400" />
+                </a>
+              </li>
+              <li>
+                <button
+                  onClick={() => setCurrentView('event')}
+                  className="text-amber-300 hover:text-amber-200 transition-colors cursor-pointer inline-flex items-center gap-1 font-bold"
+                >
+                  <span>🎁 청소 마스터 선물 이벤트</span>
+                  <span className="text-[10px] bg-amber-400/20 text-amber-300 px-1.5 py-0.5 rounded">준비중</span>
                 </button>
               </li>
               <li>

@@ -254,7 +254,7 @@ export const SERVICE_DETAILS: Record<string, ServiceDetail> = {
     name: '쓰레기집청소',
     tagline: '혼자서 해결하기 힘든 방치된 공간, 100% 비밀보장과 신속한 특수 정리를 약속합니다.',
     description: '대량의 생활 폐기물 수거 및 분리 배출, 악취 제거를 위한 특수 탈취 소독, 찌든 오염과 해충 방제까지 원스톱으로 깨끗한 일상의 공간으로 되돌려드립니다.',
-    mainImage: 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=1200&q=80',
+    mainImage: '/images/trash_house_before.jpg',
     recommendedFor: [
       '바쁜 일상이나 개인 사정으로 쓰레기 배출이 누적되어 엄두가 안 나는 분',
       '이사를 앞두고 집안 내 방치된 대량의 쓰레기와 폐기물 정리가 시급한 고객',

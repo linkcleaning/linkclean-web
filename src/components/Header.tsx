@@ -13,6 +13,7 @@ export const Header: React.FC = () => {
     { id: 'services', label: '서비스' },
     { id: 'portfolio', label: '청소사례' },
     { id: 'review', label: '고객후기' },
+    { id: 'event', label: '🎁 이벤트' },
   ] as const;
 
   const handleNavClick = (viewId: any) => {
