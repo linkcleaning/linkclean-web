@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useApp } from '../context/AppContext';
 import { cleaningAudio } from '../utils/cleaningAudio';
 import { Sparkles, Flame, Wind, Waves, Volume2, Gift, ChevronRight } from 'lucide-react';
-import mascotImg from '../assets/images/cleaning_master_mascot_1788782482073.jpg';
+import mascotImg from '../assets/images/cleaning_master_mascot_1788782482073.png';
 
 interface SoundOption {
   id: 'steam' | 'vacuum' | 'wipe' | 'flush';

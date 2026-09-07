@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useApp } from '../context/AppContext';
 import { Gift, Sparkles, X, ChevronRight, Volume2 } from 'lucide-react';
-import mascotImg from '../assets/images/cleaning_master_mascot_1788782482073.jpg';
+import mascotImg from '../assets/images/cleaning_master_mascot_1788782482073.png';
 import { cleaningAudio } from '../utils/cleaningAudio';
 
 export const MascotScrollTrigger: React.FC = () => {
