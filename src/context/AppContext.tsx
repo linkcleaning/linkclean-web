@@ -130,43 +130,66 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       const saved = localStorage.getItem('linkclean_portfolio');
       if (saved) {
         const parsed: PortfolioItem[] = JSON.parse(saved);
+        // Replace mainland place names to Jeju locations in case user had legacy cached data
         let updated = parsed.map((item) => {
-          if (item.id === 'p-1') {
+          // If item matches an initial ID, ensure it has latest Jeju data
+          const initialMatch = INITIAL_PORTFOLIO.find((init) => init.id === item.id);
+          if (initialMatch) {
             return {
               ...item,
-              title: '주방 아일랜드 원형 후드 찌든 기름때 및 필터 완벽 분해 세척',
-              representativeImage: '/images/kitchen_hood_after.jpg?v=2',
-              beforeImage: '/images/kitchen_hood_before.jpg?v=2',
-              afterImage: '/images/kitchen_hood_after.jpg?v=2',
-              description: '흡입구와 원형 필터망에 찌들어 있던 끈적한 조리 기름때를 친환경 유지방 분해제와 고온 고압 스팀으로 완전 박리하여 신품 수준의 스테인리스 광택을 복원했습니다.'
+              title: initialMatch.title,
+              location: initialMatch.location,
+              category: initialMatch.category,
+              description: initialMatch.description,
+              representativeImage: initialMatch.representativeImage,
+              beforeImage: initialMatch.beforeImage,
+              afterImage: initialMatch.afterImage
             };
           }
-          if (item.id === 'p-2') {
-            return {
-              ...item,
-              title: '원룸·오피스텔 욕실 방치 쓰레기 수거 및 도기·타일 살균 딥클린',
-              representativeImage: '/images/bathroom_after.jpg?v=2',
-              beforeImage: '/images/bathroom_before.jpg?v=2',
-              afterImage: '/images/bathroom_after.jpg?v=2',
-              description: '바닥에 방치되었던 생활 쓰레기와 빈 용기를 깔끔하게 수거하고, 변기 내부 찌든 때와 타일 줄눈 물때를 친환경 세정제 및 고온 스팀으로 완벽 살균 세척했습니다.'
-            };
-          }
-          if (item.id === 'p-7') {
-            return {
-              ...item,
-              title: '원룸 생활 폐기물·배달 용기 전량 수거 및 멸균 바닥 청소',
-              representativeImage: '/images/trash_house_after.jpg?v=2',
-              beforeImage: '/images/trash_house_before.jpg?v=2',
-              afterImage: '/images/trash_house_after.jpg?v=2',
-              description: '방 안 가득 쌓여 있던 배달 음식 용기와 생활 쓰레기를 100% 비밀보장 비대면으로 완벽 반출하고, 찌든 바닥 얼룩 및 냄새를 스팀 살균 소독으로 쾌적하게 복원했습니다.'
-            };
-          }
-          return item;
+
+          // For any custom items, sanitize any mainland names to Jeju locations
+          let newTitle = item.title
+            .replace(/분당/g, '제주시 연동')
+            .replace(/강남/g, '제주시 노형동')
+            .replace(/성동구|성동/g, '서귀포시 서호동')
+            .replace(/영등포/g, '제주시 이도이동')
+            .replace(/마포/g, '제주시 아라동')
+            .replace(/판교/g, '제주시 애월읍')
+            .replace(/일산/g, '서귀포시 중문동');
+
+          let newDesc = item.description
+            .replace(/분당/g, '제주시 연동')
+            .replace(/강남/g, '제주시 노형동')
+            .replace(/성동구|성동/g, '서귀포시 서호동')
+            .replace(/영등포/g, '제주시 이도이동')
+            .replace(/마포/g, '제주시 아라동')
+            .replace(/판교/g, '제주시 애월읍')
+            .replace(/일산/g, '서귀포시 중문동');
+
+          let newLoc = item.location || '제주시';
+          newLoc = newLoc
+            .replace(/분당/g, '제주시 연동')
+            .replace(/강남/g, '제주시 노형동')
+            .replace(/성동구|성동/g, '서귀포시 서호동')
+            .replace(/영등포/g, '제주시 이도이동')
+            .replace(/마포/g, '제주시 아라동');
+
+          return {
+            ...item,
+            title: newTitle,
+            description: newDesc,
+            location: newLoc
+          };
         });
-        if (!updated.some((item) => item.id === 'p-7')) {
-          const p7 = INITIAL_PORTFOLIO.find((item) => item.id === 'p-7');
-          if (p7) updated.push(p7);
-        }
+
+        // Ensure all INITIAL_PORTFOLIO items are present
+        INITIAL_PORTFOLIO.forEach((initItem) => {
+          if (!updated.some((item) => item.id === initItem.id)) {
+            updated.push(initItem);
+          }
+        });
+
+        localStorage.setItem('linkclean_portfolio', JSON.stringify(updated));
         return updated;
       }
       return INITIAL_PORTFOLIO;

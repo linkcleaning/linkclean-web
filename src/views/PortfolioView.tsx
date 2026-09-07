@@ -3,7 +3,7 @@ import { useApp } from '../context/AppContext';
 import { PortfolioCategory, PortfolioItem } from '../types';
 import { BeforeAfterSlider } from '../components/BeforeAfterSlider';
 import { NaverBlogBanner } from '../components/NaverBlogBanner';
-import { Sparkles, Calendar, Filter, X, ArrowLeftRight } from 'lucide-react';
+import { Sparkles, Calendar, Filter, X, ArrowLeftRight, MapPin } from 'lucide-react';
 
 const CATEGORIES: PortfolioCategory[] = [
   '전체',
@@ -92,7 +92,15 @@ export const PortfolioView: React.FC = () => {
                 </div>
 
                 <div className="p-5 space-y-2">
-                  <div className="text-[11px] text-slate-400 font-mono">{item.createdAt}</div>
+                  <div className="flex items-center justify-between text-[11px] text-slate-400">
+                    <span className="font-mono">{item.createdAt}</span>
+                    {item.location && (
+                      <span className="inline-flex items-center gap-1 font-medium text-slate-600 bg-slate-100 px-2 py-0.5 rounded-full text-[10px]">
+                        <MapPin className="w-2.5 h-2.5 text-[#38BDF8]" />
+                        {item.location}
+                      </span>
+                    )}
+                  </div>
                   <h3 className="font-bold text-[#0A1D37] text-sm sm:text-base leading-snug line-clamp-2">
                     {item.title}
                   </h3>
@@ -133,8 +141,16 @@ export const PortfolioView: React.FC = () => {
             </button>
 
             <div>
-              <div className="inline-flex items-center gap-2 text-[10px] font-bold text-[#38BDF8] bg-blue-50 px-2.5 py-1 rounded-full border border-blue-100 mb-2">
-                {activeModalItem.category} 시공사례
+              <div className="flex flex-wrap items-center gap-2 mb-2">
+                <span className="inline-flex items-center gap-2 text-[10px] font-bold text-[#38BDF8] bg-blue-50 px-2.5 py-1 rounded-full border border-blue-100">
+                  {activeModalItem.category} 시공사례
+                </span>
+                {activeModalItem.location && (
+                  <span className="inline-flex items-center gap-1 text-[10px] font-bold text-slate-700 bg-slate-100 px-2.5 py-1 rounded-full border border-slate-200">
+                    <MapPin className="w-3 h-3 text-[#38BDF8]" />
+                    {activeModalItem.location}
+                  </span>
+                )}
               </div>
               <h2 className="text-xl sm:text-2xl font-extrabold text-[#0A1D37]">
                 {activeModalItem.title}

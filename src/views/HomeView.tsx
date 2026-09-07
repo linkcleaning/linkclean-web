@@ -79,7 +79,7 @@ export const HomeView: React.FC = () => {
                   PREMIUM CLEANING
                 </span>
                 <span className="text-[10px] text-blue-200 font-medium">
-                  서울·경기 전지역 방문
+                  제주 전지역 방문 (제주시·서귀포시)
                 </span>
               </div>
               <h1 className="text-2xl font-black leading-tight mb-2 tracking-tight text-white">

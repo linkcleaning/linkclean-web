@@ -79,6 +79,7 @@ export type PortfolioCategory = '전체' | '주방' | '욕실' | '거실' | '창
 export interface PortfolioItem {
   id: string;
   title: string;
+  location?: string;
   category: PortfolioCategory;
   representativeImage: string;
   beforeImage: string;

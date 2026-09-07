@@ -321,73 +321,102 @@ SERVICE_DETAILS['special'] = SERVICE_DETAILS['partial'];
 export const INITIAL_PORTFOLIO: PortfolioItem[] = [
   {
     id: 'p-1',
-    title: '주방 아일랜드 원형 후드 찌든 기름때 및 필터 완벽 분해 세척',
+    title: '[제주시 연동] 34평 아파트 주방 아일랜드 후드 찌든 기름때 및 필터 완벽 분해 세척',
+    location: '제주시 연동',
     category: '주방',
     representativeImage: '/images/kitchen_hood_after.jpg?v=2',
     beforeImage: '/images/kitchen_hood_before.jpg?v=2',
     afterImage: '/images/kitchen_hood_after.jpg?v=2',
-    description: '흡입구와 원형 필터망에 찌들어 있던 끈적한 조리 기름때를 친환경 유지방 분해제와 고온 고압 스팀으로 완전 박리하여 신품 수준의 스테인리스 광택을 복원했습니다.',
+    description: '제주시 연동 34평 아파트 입주 현장입니다. 흡입구와 원형 필터망에 찌들어 있던 끈적한 조리 기름때를 친환경 유지방 분해제와 고온 고압 스팀으로 완전 박리하여 신품 수준의 스테인리스 광택을 복원했습니다.',
     createdAt: '2026-09-02'
   },
   {
     id: 'p-2',
-    title: '원룸·오피스텔 욕실 방치 쓰레기 수거 및 도기·타일 살균 딥클린',
+    title: '[제주시 노형동] 원룸·오피스텔 욕실 방치 쓰레기 수거 및 도기·타일 살균 딥클린',
+    location: '제주시 노형동',
     category: '욕실',
     representativeImage: '/images/bathroom_after.jpg?v=2',
     beforeImage: '/images/bathroom_before.jpg?v=2',
     afterImage: '/images/bathroom_after.jpg?v=2',
-    description: '바닥에 방치되었던 생활 쓰레기와 빈 용기를 깔끔하게 수거하고, 변기 내부 찌든 때와 타일 줄눈 물때를 친환경 세정제 및 고온 스팀으로 완벽 살균 세척했습니다.',
+    description: '제주시 노형동 소재 오피스텔 욕실입니다. 바닥에 방치되었던 생활 쓰레기와 빈 용기를 깔끔하게 수거하고, 변기 내부 찌든 때와 타일 줄눈 물때를 친환경 세정제 및 고온 스팀으로 완벽 살균 세척했습니다.',
     createdAt: '2026-08-28'
   },
   {
     id: 'p-3',
-    title: '애월 48평형 거실 통창문 및 창틀 묵은 흑먼지 딥클린',
+    title: '[제주시 애월읍] 48평 전원주택 거실 통창문 및 창틀 묵은 흑먼지 딥클린',
+    location: '제주시 애월읍',
     category: '창틀',
     representativeImage: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80',
     beforeImage: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=800&q=80',
     afterImage: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80',
-    description: '수년간 굳어있던 샷시 레일의 모래와 미세먼지를 특수 진공 노즐로 흡입하고 고온 스팀과 실리콘 전용 세척포로 순백색을 되찾았습니다.',
+    description: '제주시 애월읍 해안가 주택으로 바닷바람과 모래로 수년간 굳어있던 샷시 레일의 흑먼지를 특수 진공 노즐로 흡입하고 고온 스팀과 실리콘 전용 세척포로 순백색을 되찾았습니다.',
     createdAt: '2026-08-25'
   },
   {
     id: 'p-4',
-    title: '노형동 공유오피스 라운지 및 카페트 묵은 오염 세척',
+    title: '[제주시 이도이동] 벤처타운 공유오피스 라운지 및 카페트 묵은 오염 세척',
+    location: '제주시 이도이동',
     category: '상가',
     representativeImage: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80',
     beforeImage: 'https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=800&q=80',
     afterImage: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80',
-    description: '커피와 음료 얼룩으로 변색된 60평 오피스 타일 카페트를 산업용 추출 세척기로 완벽하게 복원하고 실내 피톤치드 방역을 마쳤습니다.',
+    description: '제주시 이도이동 60평 오피스 공간입니다. 커피와 음료 얼룩으로 변색된 타일 카페트를 산업용 추출 세척기로 완벽하게 복원하고 실내 피톤치드 방역을 마쳤습니다.',
     createdAt: '2026-08-20'
   },
   {
     id: 'p-5',
-    title: '서귀포시 중문 아파트 안방 베란다 결로 곰팡이 박멸 및 코팅',
+    title: '[서귀포시 중문동] 아파트 안방 베란다 결로 곰팡이 박멸 및 코팅',
+    location: '서귀포시 중문동',
     category: '베란다',
     representativeImage: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=800&q=80',
     beforeImage: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=800&q=80',
     afterImage: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=800&q=80',
-    description: '겨울철 결로로 인해 탄성코트 벽면에 번진 검은 곰팡이를 전용 살균 중화제로 말끔히 없애고 곰팡이 재발 방지 항균 코팅을 진행했습니다.',
+    description: '서귀포시 중문동 아파트 현장입니다. 겨울철 결로와 습기로 탄성코트 벽면에 번진 검은 곰팡이를 전용 살균 중화제로 말끔히 없애고 곰팡이 재발 방지 항균 코팅을 진행했습니다.',
     createdAt: '2026-08-15'
   },
   {
     id: 'p-6',
-    title: '외도 30평대 거실 원목마루 오염 박리 및 천연 왁스 코팅',
+    title: '[제주시 외도동] 32평 아파트 거실 원목마루 오염 박리 및 천연 왁스 코팅',
+    location: '제주시 외도동',
     category: '거실',
     representativeImage: 'https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?auto=format&fit=crop&w=800&q=80',
     beforeImage: 'https://images.unsplash.com/photo-1507652313519-d4e9174996dd?auto=format&fit=crop&w=800&q=80',
     afterImage: 'https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?auto=format&fit=crop&w=800&q=80',
-    description: '마루 표면의 생활 묵은 때를 목재 전용 중성 세제로 세척하고 친환경 목재 보호 왁스를 2회 도포하여 은은한 고급 광택을 살렸습니다.',
+    description: '제주시 외도동 32평형 세대입니다. 마루 표면의 생활 묵은 때를 목재 전용 중성 세제로 세척하고 친환경 목재 보호 왁스를 2회 도포하여 은은한 고급 광택을 살렸습니다.',
     createdAt: '2026-08-10'
   },
   {
     id: 'p-7',
-    title: '원룸 생활 폐기물·배달 용기 전량 수거 및 멸균 바닥 청소',
+    title: '[제주시 아라동] 원룸 생활 폐기물·배달 용기 전량 수거 및 멸균 바닥 청소',
+    location: '제주시 아라동',
     category: '쓰레기집',
     representativeImage: '/images/trash_house_after.jpg?v=2',
     beforeImage: '/images/trash_house_before.jpg?v=2',
     afterImage: '/images/trash_house_after.jpg?v=2',
-    description: '방 안 가득 쌓여 있던 배달 음식 용기와 생활 쓰레기를 100% 비밀보장 비대면으로 완벽 반출하고, 찌든 바닥 얼룩 및 냄새를 스팀 살균 소독으로 쾌적하게 복원했습니다.',
+    description: '제주시 아라동 대학가 원룸 현장입니다. 방 안 가득 쌓여 있던 배달 음식 용기와 생활 쓰레기를 100% 비밀보장 비대면으로 완벽 반출하고, 찌든 바닥 얼룩 및 냄새를 스팀 살균 소독으로 쾌적하게 복원했습니다.',
     createdAt: '2026-08-05'
+  },
+  {
+    id: 'p-8',
+    title: '[서귀포시 서호동] 혁신도시 신축 아파트 입주청소 시공분진·도배풀 완벽 제거',
+    location: '서귀포시 서호동',
+    category: '거실',
+    representativeImage: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80',
+    beforeImage: 'https://images.unsplash.com/photo-1507652313519-d4e9174996dd?auto=format&fit=crop&w=800&q=80',
+    afterImage: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80',
+    description: '서귀포시 서호동 혁신도시 신축 아파트 입주 현장입니다. 몰딩과 걸레받이, 전등갓, 수납장 서랍 안쪽까지 깊숙이 침투해 있던 미세 시공 분진과 도배풀 가루를 전용 집진기로 3회 이상 완벽 흡입 및 닦아냈습니다.',
+    createdAt: '2026-08-01'
+  },
+  {
+    id: 'p-9',
+    title: '[서귀포시 안덕면] 오션뷰 베이커리 카페 오픈 전 주방 닥트 및 타일 위생 세척',
+    location: '서귀포시 안덕면',
+    category: '상가',
+    representativeImage: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=800&q=80',
+    beforeImage: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=800&q=80',
+    afterImage: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=800&q=80',
+    description: '서귀포시 안덕면 카페 오픈 현장입니다. 주방 배기 닥트와 오븐 주변 조리대 기름때를 전용 케미컬로 분해하고, 홀 바닥 미끄럼 방지 논슬립 세척을 완료했습니다.',
+    createdAt: '2026-07-28'
   }
 ];
 
