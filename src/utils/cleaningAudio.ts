@@ -69,8 +69,8 @@ class CleaningAudioEngine {
 
       const gain = ctx.createGain();
       gain.gain.setValueAtTime(0.01, now);
-      gain.gain.exponentialRampToValueAtTime(0.35, now + 0.08);
-      gain.gain.linearRampToValueAtTime(0.3, now + 0.7);
+      gain.gain.exponentialRampToValueAtTime(0.18, now + 0.08);
+      gain.gain.linearRampToValueAtTime(0.15, now + 0.7);
       gain.gain.exponentialRampToValueAtTime(0.001, now + duration);
 
       noise.connect(bpf);
@@ -118,8 +118,8 @@ class CleaningAudioEngine {
 
       const motorGain = ctx.createGain();
       motorGain.gain.setValueAtTime(0.01, now);
-      motorGain.gain.linearRampToValueAtTime(0.2, now + 0.2);
-      motorGain.gain.setValueAtTime(0.2, now + 1.1);
+      motorGain.gain.linearRampToValueAtTime(0.1, now + 0.2);
+      motorGain.gain.setValueAtTime(0.1, now + 1.1);
       motorGain.gain.exponentialRampToValueAtTime(0.001, now + duration);
 
       osc1.connect(motorFilter);
@@ -141,8 +141,8 @@ class CleaningAudioEngine {
 
       const noiseGain = ctx.createGain();
       noiseGain.gain.setValueAtTime(0.01, now);
-      noiseGain.gain.linearRampToValueAtTime(0.25, now + 0.25);
-      noiseGain.gain.setValueAtTime(0.22, now + 1.1);
+      noiseGain.gain.linearRampToValueAtTime(0.12, now + 0.25);
+      noiseGain.gain.setValueAtTime(0.1, now + 1.1);
       noiseGain.gain.exponentialRampToValueAtTime(0.001, now + duration);
 
       noise.connect(noiseFilter);
@@ -171,9 +171,9 @@ class CleaningAudioEngine {
       const now = ctx.currentTime;
 
       // 1st stroke "쓱" (Friction noise + quick chirp)
-      this.triggerSqueakStroke(ctx, now, 1100, 1600, 0.18, 0.22);
+      this.triggerSqueakStroke(ctx, now, 1100, 1600, 0.18, 0.12);
       // 2nd stroke "싹" (Return rub)
-      this.triggerSqueakStroke(ctx, now + 0.28, 1400, 1000, 0.18, 0.22);
+      this.triggerSqueakStroke(ctx, now + 0.28, 1400, 1000, 0.18, 0.12);
       // 3rd squeak "뽀드득!" (High pitch polished clean squeak)
       this.triggerHighCleanSqueak(ctx, now + 0.58);
       this.triggerHighCleanSqueak(ctx, now + 0.78);
@@ -216,7 +216,7 @@ class CleaningAudioEngine {
 
     const gain = ctx.createGain();
     gain.gain.setValueAtTime(0.001, startTime);
-    gain.gain.linearRampToValueAtTime(0.28, startTime + 0.03);
+    gain.gain.linearRampToValueAtTime(0.14, startTime + 0.03);
     gain.gain.exponentialRampToValueAtTime(0.001, startTime + 0.16);
 
     osc.connect(gain);
@@ -242,7 +242,7 @@ class CleaningAudioEngine {
       clickOsc.frequency.setValueAtTime(320, now);
       clickOsc.frequency.exponentialRampToValueAtTime(80, now + 0.06);
       const clickGain = ctx.createGain();
-      clickGain.gain.setValueAtTime(0.3, now);
+      clickGain.gain.setValueAtTime(0.16, now);
       clickGain.gain.exponentialRampToValueAtTime(0.001, now + 0.06);
       clickOsc.connect(clickGain);
       clickGain.connect(ctx.destination);
@@ -263,8 +263,8 @@ class CleaningAudioEngine {
 
       const waterGain = ctx.createGain();
       waterGain.gain.setValueAtTime(0.01, now);
-      waterGain.gain.linearRampToValueAtTime(0.4, now + 0.25);
-      waterGain.gain.setValueAtTime(0.35, now + 1.0);
+      waterGain.gain.linearRampToValueAtTime(0.2, now + 0.25);
+      waterGain.gain.setValueAtTime(0.18, now + 1.0);
       waterGain.gain.exponentialRampToValueAtTime(0.001, now + duration);
 
       waterNoise.connect(waterFilter);
@@ -284,7 +284,7 @@ class CleaningAudioEngine {
 
       const splashGain = ctx.createGain();
       splashGain.gain.setValueAtTime(0.001, now);
-      splashGain.gain.linearRampToValueAtTime(0.18, now + 0.3);
+      splashGain.gain.linearRampToValueAtTime(0.1, now + 0.3);
       splashGain.gain.exponentialRampToValueAtTime(0.001, now + duration);
 
       splashNoise.connect(splashFilter);

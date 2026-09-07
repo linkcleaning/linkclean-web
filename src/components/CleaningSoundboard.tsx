@@ -88,79 +88,79 @@ export const CleaningSoundboard: React.FC = () => {
   };
 
   return (
-    <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
-      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#0A1D37] via-[#0E294E] to-[#0A1D37] p-6 sm:p-10 border border-[#38BDF8]/40 shadow-2xl">
+    <section className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-10">
+      <div className="relative overflow-hidden rounded-2xl sm:rounded-3xl bg-gradient-to-br from-[#0A1D37] via-[#0E294E] to-[#0A1D37] p-3.5 sm:p-8 border border-[#38BDF8]/40 shadow-xl">
         {/* Ambient background glows */}
         <div className="absolute -right-16 -top-16 w-80 h-80 bg-[#38BDF8]/15 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute -left-16 -bottom-16 w-72 h-72 bg-amber-400/15 rounded-full blur-3xl pointer-events-none" />
 
         <div className="relative z-10">
           {/* Section Header */}
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 mb-4 sm:mb-6">
             <div>
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-400/20 text-amber-300 text-xs font-black mb-2 border border-amber-400/30">
-                <Volume2 className="w-3.5 h-3.5 animate-pulse" />
+              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-amber-400/20 text-amber-300 text-[11px] font-black mb-1 border border-amber-400/30">
+                <Volume2 className="w-3 h-3 animate-pulse" />
                 <span>ASMR 리얼 사운드박스</span>
               </div>
-              <h2 className="text-xl sm:text-3xl font-black text-white tracking-tight flex items-center gap-2.5">
-                <span>청소 마스터의 생생한 현장 사운드</span>
-                <span className="text-xs font-bold text-[#38BDF8] bg-sky-950/70 border border-[#38BDF8]/40 px-2 py-0.5 rounded-md hidden sm:inline-block">
-                  사운드 ON 🔊
+              <h2 className="text-base sm:text-2xl font-black text-white tracking-tight flex items-center gap-2">
+                <span>청소 마스터 현장 사운드</span>
+                <span className="text-[10px] sm:text-xs font-bold text-[#38BDF8] bg-sky-950/70 border border-[#38BDF8]/40 px-1.5 py-0.5 rounded">
+                  클릭해서 듣기 🔊
                 </span>
               </h2>
-              <p className="text-xs sm:text-sm text-slate-300 mt-1.5 font-normal max-w-xl">
-                청소 달인의 6개 손이 바쁘게 움직이는 소리! 버튼을 누르면 짧고 통쾌한 현장 청소음이 울려 퍼집니다.
-              </p>
             </div>
 
             {/* Link to Event Page */}
             <button
               onClick={() => setCurrentView('event')}
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-gradient-to-r from-amber-400 to-amber-300 hover:from-amber-300 hover:to-amber-200 text-[#0A1D37] text-xs sm:text-sm font-black transition-transform hover:scale-105 cursor-pointer shadow-lg shadow-amber-400/20 shrink-0 self-start md:self-auto"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gradient-to-r from-amber-400 to-amber-300 hover:from-amber-300 hover:to-amber-200 text-[#0A1D37] text-xs font-black transition-transform hover:scale-105 cursor-pointer shadow-md shadow-amber-400/20 shrink-0 self-start sm:self-auto"
             >
-              <Gift className="w-4 h-4 text-[#0A1D37]" />
-              <span>선물 이벤트 페이지 가기</span>
-              <ChevronRight className="w-4 h-4 text-[#0A1D37]" />
+              <Gift className="w-3.5 h-3.5 text-[#0A1D37]" />
+              <span>선물 이벤트</span>
+              <ChevronRight className="w-3.5 h-3.5 text-[#0A1D37]" />
             </button>
           </div>
 
           {/* Center Stage: Mascot + Sound Buttons */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
-            {/* Mascot Interactive Profile (Left Column) */}
-            <div className="lg:col-span-4 flex flex-col items-center text-center p-5 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-xs">
-              <div className="relative mb-3 group">
-                <div className={`w-32 h-32 sm:w-40 sm:h-40 rounded-3xl p-2 bg-gradient-to-tr from-[#38BDF8] via-amber-300 to-rose-400 shadow-2xl transition-all duration-300 ${activeSound ? 'scale-110 rotate-2 ring-4 ring-amber-300' : 'group-hover:scale-105'}`}>
-                  <div className="w-full h-full rounded-2xl overflow-hidden bg-white flex items-center justify-center p-1">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-3 sm:gap-6 items-center">
+            {/* Mascot Interactive Profile (Left Column - compact horizontal on mobile) */}
+            <div className="lg:col-span-4 flex flex-row lg:flex-col items-center gap-3 p-2.5 sm:p-4 rounded-xl sm:rounded-2xl bg-white/5 border border-white/10 backdrop-blur-xs">
+              <div className="relative shrink-0 group">
+                <div className={`w-14 h-14 sm:w-32 sm:h-32 rounded-2xl p-1 bg-gradient-to-tr from-[#38BDF8] via-amber-300 to-rose-400 shadow-lg transition-all duration-300 ${activeSound ? 'scale-108 rotate-2 ring-2 ring-amber-300' : 'group-hover:scale-105'}`}>
+                  <div className="w-full h-full rounded-xl overflow-hidden bg-white flex items-center justify-center p-0.5">
                     <img
                       src={mascotImg}
-                      alt="링크클린 멀티 청소 마스터 마스코트"
+                      alt="링크클린 청소 마스터"
                       referrerPolicy="no-referrer"
                       className="w-full h-full object-contain"
                     />
                   </div>
                 </div>
 
-                <div className="absolute -bottom-2 inset-x-0 flex justify-center">
-                  <span className="bg-[#0A1D37] text-amber-300 border border-amber-300/40 text-[11px] font-black px-3 py-0.5 rounded-full shadow-md whitespace-nowrap flex items-center gap-1">
-                    <span>링크클린 청소 마스터</span>
-                    <Sparkles className="w-3 h-3 text-amber-300 fill-amber-300" />
+                <div className="absolute -bottom-1.5 inset-x-0 hidden sm:flex justify-center">
+                  <span className="bg-[#0A1D37] text-amber-300 border border-amber-300/40 text-[10px] font-black px-2 py-0.5 rounded-full shadow-md whitespace-nowrap flex items-center gap-1">
+                    <span>청소 마스터</span>
+                    <Sparkles className="w-2.5 h-2.5 text-amber-300 fill-amber-300" />
                   </span>
                 </div>
               </div>
 
               {/* Dynamic Speech Bubble */}
-              <div className="mt-3 px-4 py-2.5 rounded-xl bg-slate-900/80 border border-[#38BDF8]/40 text-xs text-white max-w-xs transition-all">
-                <p className="font-extrabold text-[#38BDF8] text-[11px] mb-0.5">
-                  {activeSound ? '💥 사운드 발동 중!' : '💬 마스터의 한마디'}
-                </p>
-                <p className="font-medium leading-tight">
+              <div className="flex-1 lg:w-full lg:mt-2 px-3 py-2 rounded-xl bg-slate-900/80 border border-[#38BDF8]/40 text-xs text-white transition-all">
+                <div className="flex items-center justify-between">
+                  <p className="font-extrabold text-[#38BDF8] text-[10px] sm:text-[11px]">
+                    {activeSound ? '💥 재생 중' : '💬 마스터 톡'}
+                  </p>
+                  <span className="text-[10px] text-amber-300 font-bold sm:hidden">청소 마스터</span>
+                </div>
+                <p className="font-medium leading-tight text-xs text-slate-200 mt-0.5 line-clamp-2">
                   {soundFeedback}
                 </p>
               </div>
             </div>
 
-            {/* 4 Fun Interactive Sound Buttons (Right Column) */}
-            <div className="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+            {/* 4 Fun Interactive Sound Buttons (Right Column - 2x2 grid on all screens) */}
+            <div className="lg:col-span-8 grid grid-cols-2 gap-2 sm:gap-3">
               {sounds.map((sound) => {
                 const isPlaying = activeSound === sound.id;
                 return (
@@ -169,42 +169,39 @@ export const CleaningSoundboard: React.FC = () => {
                     onClick={() => handlePlaySound(sound)}
                     id={`sound-btn-${sound.id}`}
                     type="button"
-                    className={`relative p-5 rounded-2xl text-left border transition-all duration-200 cursor-pointer overflow-hidden group select-none ${
+                    className={`relative p-2.5 sm:p-4 rounded-xl sm:rounded-2xl text-left border transition-all duration-200 cursor-pointer overflow-hidden group select-none ${
                       isPlaying
-                        ? `bg-gradient-to-r ${sound.activeColor} scale-102 ring-4 shadow-xl border-transparent`
+                        ? `bg-gradient-to-r ${sound.activeColor} scale-[1.02] ring-2 sm:ring-4 shadow-lg border-transparent`
                         : `bg-slate-900/60 border-slate-700/80 text-white ${sound.bgGradient}`
                     }`}
                   >
                     {/* Ripple sound wave visual when playing */}
                     {isPlaying && (
-                      <div className="absolute -right-6 -top-6 w-24 h-24 rounded-full bg-white/20 animate-ping pointer-events-none" />
+                      <div className="absolute -right-4 -top-4 w-16 h-16 rounded-full bg-white/20 animate-ping pointer-events-none" />
                     )}
 
-                    <div className="flex items-start justify-between mb-3">
-                      <div className={`w-11 h-11 rounded-xl flex items-center justify-center transition-colors ${isPlaying ? 'bg-white/20 text-white' : 'bg-white/10 text-white'}`}>
+                    <div className="flex items-center justify-between mb-1.5 sm:mb-2.5">
+                      <div className={`w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl flex items-center justify-center transition-colors ${isPlaying ? 'bg-white/20 text-white' : 'bg-white/10 text-white'}`}>
                         {sound.icon}
                       </div>
-                      <span className={`text-[11px] font-black px-2.5 py-1 rounded-full ${isPlaying ? 'bg-white text-slate-900' : 'bg-slate-800/90 text-amber-300 border border-slate-700'}`}>
-                        {isPlaying ? '재생 중 🔊' : 'CLICK ▶'}
+                      <span className={`text-[10px] sm:text-[11px] font-black px-1.5 sm:px-2 py-0.5 rounded-full ${isPlaying ? 'bg-white text-slate-900' : 'bg-slate-800/90 text-amber-300 border border-slate-700'}`}>
+                        {isPlaying ? 'ON 🔊' : 'CLICK'}
                       </span>
                     </div>
 
                     <div>
-                      <h4 className="text-base sm:text-lg font-black tracking-tight flex items-center gap-1.5">
+                      <h4 className="text-xs sm:text-base font-black tracking-tight flex items-center gap-1">
                         <span>{sound.title}</span>
-                        <span className="text-xs font-semibold opacity-80">({sound.bubbleEmoji})</span>
+                        <span className="text-[10px] sm:text-xs opacity-75">{sound.bubbleEmoji}</span>
                       </h4>
-                      <p className={`text-xs mt-0.5 ${isPlaying ? 'text-white/90 font-medium' : 'text-slate-400'}`}>
+                      <p className={`text-[11px] sm:text-xs line-clamp-1 mt-0.5 ${isPlaying ? 'text-white/90 font-medium' : 'text-slate-400'}`}>
                         {sound.subText}
                       </p>
                     </div>
 
-                    <div className="mt-3 pt-2.5 border-t border-white/10 flex items-center justify-between text-xs">
-                      <span className={`font-extrabold ${isPlaying ? 'text-white underline underline-offset-4' : 'text-[#38BDF8]'}`}>
+                    <div className="mt-2 pt-1.5 border-t border-white/10 flex items-center justify-between text-[11px] sm:text-xs">
+                      <span className={`font-extrabold line-clamp-1 ${isPlaying ? 'text-white underline underline-offset-2' : 'text-[#38BDF8]'}`}>
                         "{sound.soundLabel}"
-                      </span>
-                      <span className="text-[10px] text-slate-400 group-hover:text-white transition-colors">
-                        소리 듣기 🎧
                       </span>
                     </div>
                   </button>
