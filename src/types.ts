@@ -124,3 +124,62 @@ export interface ServiceDetail {
     answer: string;
   }[];
 }
+
+// ==========================================
+// 제주 날씨 & 청소 지수 모델
+// ==========================================
+export type JejuCityType = 'jeju' | 'seogwipo';
+
+export interface JejuDailyWeather {
+  date: string;         // '2026-09-08'
+  dayOfWeek: string;    // '월', '화', ...
+  dayLabel: string;     // '오늘', '내일', '모레', ...
+  condition: 'sunny' | 'cloudy' | 'rain' | 'windy' | 'fog';
+  conditionText: string;
+  tempHigh: number;
+  tempLow: number;
+  humidity: number;     // %
+  windSpeed: number;    // m/s
+  rainProb: number;     // %
+  cleaningIndex: '매우좋음' | '좋음' | '보통' | '주의';
+  cleaningTip: string;  // 추천 청소 팁
+}
+
+// ==========================================
+// 정보성/홍보성 통합 청소 팁 & 매거진 모델
+// ==========================================
+export type TipPostType = 'info' | 'promo'; // 정보성 vs 홍보성
+
+export type TipCategory = 
+  | 'kitchen'     // 주방 케어
+  | 'bathroom'    // 욕실·물때
+  | 'mold'        // 결로·곰팡이
+  | 'window'      // 창틀·유리창
+  | 'movein'      // 입주·이사 분진
+  | 'aircon'      // 에어컨·가전
+  | 'event';      // 이벤트·프로모션
+
+export interface CleaningTipPost {
+  id: string;
+  type: TipPostType;
+  category: TipCategory;
+  categoryLabel: string;
+  title: string;
+  summary: string;
+  content: string;
+  keyPoints?: string[]; // 핵심 요약 팁 리스트
+  authorName: string;
+  authorRole: string;
+  authorAvatar?: string;
+  date: string;
+  views: number;
+  likes: number;
+  tags: string[];
+  badge?: string;
+  imageUrl?: string;
+  // 홍보성 전용 필드
+  promoActionText?: string;
+  promoBadge?: string;
+  serviceLink?: ServiceType;
+}
+

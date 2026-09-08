@@ -131,7 +131,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       if (saved) {
         const parsed: PortfolioItem[] = JSON.parse(saved);
         // Replace mainland place names to Jeju locations in case user had legacy cached data
-        let updated = parsed.map((item) => {
+        let updated: PortfolioItem[] = parsed.map((item: PortfolioItem): PortfolioItem => {
           // If item matches an initial ID, ensure it has latest Jeju data
           const initialMatch = INITIAL_PORTFOLIO.find((init) => init.id === item.id);
           if (initialMatch) {

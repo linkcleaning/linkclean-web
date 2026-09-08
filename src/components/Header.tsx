@@ -68,6 +68,18 @@ export const Header: React.FC = () => {
     },
     {
       type: 'internal',
+      label: '청소 팁 & 매거진',
+      desc: '제주 맞춤 청소 노하우 & 이벤트 소식',
+      icon: Sparkles,
+      action: () => {
+        setCurrentView('home');
+        setTimeout(() => {
+          document.getElementById('cleaning-tips-board')?.scrollIntoView({ behavior: 'smooth' });
+        }, 100);
+      },
+    },
+    {
+      type: 'internal',
       label: '회사소개 (브랜드 철학)',
       desc: '현장 실측 & 불합리 추가금 0원',
       icon: Shield,
@@ -115,6 +127,7 @@ export const Header: React.FC = () => {
   ];
 
   const handleNavClick = (viewId: any) => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     setCurrentView(viewId);
     setMobileMenuOpen(false);
     setActiveDropdown(null);

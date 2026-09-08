@@ -17,6 +17,7 @@ import { MyPageView } from './views/MyPageView';
 import { AdminView } from './views/AdminView';
 import { EventView } from './views/EventView';
 import { MascotScrollTrigger } from './components/MascotScrollTrigger';
+import { ScrollToTopButton } from './components/ScrollToTopButton';
 
 const AppContent: React.FC = () => {
   const { currentView } = useApp();
@@ -55,6 +56,9 @@ const AppContent: React.FC = () => {
 
       {/* Floating Quick Action Menu (Phone, KakaoTalk, Instagram, Blog with hover tooltips) */}
       {currentView !== 'reservation' && <FloatingQuickMenu />}
+
+      {/* Quick Scroll To Top Button (Shows reading progress & smooth scrolls to top) */}
+      <ScrollToTopButton />
 
       {/* Fixed Mobile Bottom CTA Bar (Only visible on mobile, hidden during reservation wizard) */}
       {currentView !== 'reservation' && <MobileBottomBar />}

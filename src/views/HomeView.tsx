@@ -4,6 +4,8 @@ import { BeforeAfterSlider } from '../components/BeforeAfterSlider';
 import { NaverBlogBanner } from '../components/NaverBlogBanner';
 import { SonEopNeunNalModal } from '../components/SonEopNeunNalModal';
 import { CleaningSoundboard } from '../components/CleaningSoundboard';
+import { JejuWeatherWidget } from '../components/JejuWeatherWidget';
+import { CleaningTipsBoard } from '../components/CleaningTipsBoard';
 import { getMonthlySonEopNeunNal } from '../utils/lunarCalendar';
 import { PortfolioCategory, ServiceType } from '../types';
 import {
@@ -351,19 +353,8 @@ export const HomeView: React.FC = () => {
             </div>
           </div>
 
-          {/* Bento Cell 4: 전문가 매칭 100% (col-span-1 row-span-1) */}
-          <div className="col-span-1 md:col-span-1 lg:col-span-1 lg:row-span-1 bg-[#38BDF8] rounded-3xl p-6 flex flex-col justify-between text-white relative overflow-hidden shadow-sm min-h-[170px]">
-            <div className="absolute -bottom-4 -right-4 text-white opacity-20 pointer-events-none">
-              <ShieldCheck className="w-24 h-24" />
-            </div>
-            <div className="z-10">
-              <p className="text-xs font-bold mb-1 opacity-90">전문가 매칭</p>
-              <h4 className="text-3xl font-black">100%</h4>
-            </div>
-            <p className="text-[11px] font-medium leading-tight opacity-95 z-10">
-              숙련된 베테랑 팀장이 직접<br />모든 현장을 총괄합니다.
-            </p>
-          </div>
+          {/* Bento Cell 4: 제주도 날씨 & 1주일 청소 예보 (제주시 / 서귀포시) */}
+          <JejuWeatherWidget />
 
           {/* Bento Cell 5: 간편한 5단계 예약 프로세스 (col-span-2 row-span-1) */}
           <div className="col-span-1 md:col-span-2 lg:col-span-2 lg:row-span-1 bg-white rounded-3xl p-6 sm:p-7 border border-slate-100 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
@@ -869,6 +860,11 @@ export const HomeView: React.FC = () => {
           <NaverBlogBanner />
         </div>
       </section>
+
+      {/* =========================================================================
+          SECTION 06.5 — 전문가 청소 팁 & 프로모션 통합 게시판 (정보성/홍보성)
+      ========================================================================= */}
+      <CleaningTipsBoard />
 
       {/* =========================================================================
           SECTION 07 — 고객후기 (모바일 가로 스크롤 / 데스크톱 3열 그리드)
