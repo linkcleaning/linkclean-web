@@ -15,14 +15,22 @@ import {
   ShieldCheck,
   Phone,
   Mail,
-  Home
+  Home,
+  UserX,
+  AlertTriangle
 } from 'lucide-react';
 
 export const MyPageView: React.FC = () => {
-  const { currentUser, userReservations, cancelReservation, logout, setCurrentView, goToReservationWithService } = useApp();
+  const { currentUser, userReservations, cancelReservation, logout, setCurrentView, goToReservationWithService, withdrawAccount, openRenewalNotice } = useApp();
   const [selectedRes, setSelectedRes] = useState<Reservation | null>(null);
   const [cancelReason, setCancelReason] = useState('');
   const [showCancelModal, setShowCancelModal] = useState<string | null>(null);
+
+  // Membership withdrawal state
+  const [showWithdrawModal, setShowWithdrawModal] = useState(false);
+  const [withdrawReason, setWithdrawReason] = useState('홈페이지 리뉴얼 준비 중');
+  const [withdrawAgree, setWithdrawAgree] = useState(false);
+  const [withdrawSuccessMsg, setWithdrawSuccessMsg] = useState<string | null>(null);
 
   if (!currentUser) {
     return (
@@ -83,8 +91,47 @@ export const MyPageView: React.FC = () => {
     setCancelReason('');
   };
 
+  const handleConfirmWithdraw = () => {
+    if (!withdrawAgree) return;
+    const res = withdrawAccount(withdrawReason);
+    setShowWithdrawModal(false);
+    if (res.message) {
+      alert(res.message);
+    }
+  };
+
   return (
     <div className="py-12 sm:py-16 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+      {/* Website Renewal Alert Banner inside MyPage */}
+      <div className="bg-gradient-to-r from-[#0A1D37] via-[#132742] to-[#0A1D37] rounded-3xl p-5 sm:p-6 text-white shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4 border border-slate-800">
+        <div className="space-y-1">
+          <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-amber-400 text-[#0A1D37] text-[11px] font-black">
+            🛠️ 서비스 안내
+          </div>
+          <h2 className="text-base sm:text-lg font-bold text-white">
+            현재 홈페이지 리뉴얼 작업으로 온라인 예약 및 이벤트가 준비 중입니다
+          </h2>
+          <p className="text-xs text-slate-300">
+            진행 중인 청소 예약 확인이나 추가 견적 문의는 대표전화(064-763-4545)로 연락 주시면 즉시 상담해 드립니다.
+          </p>
+        </div>
+        <div className="flex items-center gap-2 shrink-0">
+          <a
+            href="tel:064-763-4545"
+            className="px-4 py-2.5 rounded-xl bg-[#38BDF8] hover:bg-[#0EA5E9] text-[#0A1D37] text-xs font-black transition-all flex items-center gap-1.5 shadow-sm"
+          >
+            <Phone className="w-3.5 h-3.5" />
+            064-763-4545 전화하기
+          </a>
+          <button
+            onClick={openRenewalNotice}
+            className="px-3.5 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-bold transition-all cursor-pointer"
+          >
+            안내창 보기
+          </button>
+        </div>
+      </div>
+
       {/* User Header Profile Card */}
       <div className="bg-white rounded-3xl border border-slate-100 p-6 sm:p-8 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
         <div className="flex items-center gap-4">
@@ -370,6 +417,117 @@ export const MyPageView: React.FC = () => {
                 className="px-4 py-2 rounded-full text-xs font-bold bg-red-600 text-white hover:bg-red-700 cursor-pointer"
               >
                 취소 확정
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Account Settings & Membership Withdrawal Card */}
+      <div className="bg-white rounded-3xl border border-slate-100 p-6 sm:p-7 shadow-xs space-y-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="space-y-1">
+            <h3 className="text-sm sm:text-base font-extrabold text-[#0A1D37] flex items-center gap-2">
+              <ShieldCheck className="w-4 h-4 text-slate-500" />
+              계정 관리 및 회원탈퇴
+            </h3>
+            <p className="text-xs text-slate-500 leading-relaxed">
+              링크클린 서비스를 더 이상 이용하지 않으시거나 개인정보 파기를 원하실 경우 언제든지 회원 탈퇴가 가능합니다.
+            </p>
+          </div>
+          <button
+            type="button"
+            onClick={() => {
+              setWithdrawAgree(false);
+              setShowWithdrawModal(true);
+            }}
+            className="px-4 py-2 rounded-xl border border-red-200 text-red-600 hover:bg-red-50 text-xs font-bold transition-colors cursor-pointer self-start sm:self-auto flex items-center gap-1.5"
+            id="mypage-withdraw-btn"
+          >
+            <UserX className="w-3.5 h-3.5" />
+            회원탈퇴
+          </button>
+        </div>
+      </div>
+
+      {/* Membership Withdrawal Modal */}
+      {showWithdrawModal && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          className="fixed inset-0 z-50 bg-[#0A1D37]/80 backdrop-blur-xs flex items-center justify-center p-4 animate-in fade-in duration-200"
+        >
+          <div className="bg-white rounded-3xl border border-slate-100 max-w-md w-full p-6 sm:p-7 space-y-5 shadow-2xl animate-in zoom-in-95 duration-200">
+            <div className="flex items-center gap-3 text-red-600">
+              <div className="w-10 h-10 rounded-2xl bg-red-50 flex items-center justify-center shrink-0">
+                <AlertTriangle className="w-5 h-5 text-red-600" />
+              </div>
+              <div>
+                <h3 className="text-base font-extrabold text-slate-900">회원 탈퇴 안내</h3>
+                <p className="text-xs text-slate-500">회원 탈퇴 시 유의사항을 반드시 확인해주세요.</p>
+              </div>
+            </div>
+
+            <div className="bg-red-50/60 rounded-2xl p-4 border border-red-100 text-xs text-slate-700 space-y-2 leading-relaxed">
+              <p className="font-bold text-red-900">⚠️ 탈퇴 전 반드시 확인해 주세요:</p>
+              <ul className="list-disc list-inside space-y-1 text-slate-600 text-[11px]">
+                <li>회원 탈퇴 시 고객님의 가입 정보 및 견적 예약 조회 권한이 즉시 영구 삭제됩니다.</li>
+                <li>진행 중이거나 예정된 방문 청소 일정이 있으신 경우, 대표 전화(<strong className="text-slate-900 font-bold">064-763-4545</strong>)로 연락 주시면 즉시 일정 확인이 가능합니다.</li>
+                <li>탈퇴 후 언제든지 동일한 정보로 재가입하실 수 있습니다.</li>
+              </ul>
+            </div>
+
+            <div className="space-y-1.5">
+              <label className="block text-xs font-bold text-slate-700">
+                탈퇴 사유 (선택)
+              </label>
+              <select
+                value={withdrawReason}
+                onChange={(e) => setWithdrawReason(e.target.value)}
+                className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs text-slate-700 focus:outline-none focus:ring-2 focus:ring-red-400 bg-white"
+              >
+                <option value="홈페이지 리뉴얼 준비 중">홈페이지 리뉴얼 준비 중</option>
+                <option value="청소 서비스 이용 완료">청소 서비스 이용 완료</option>
+                <option value="다른 청소 업체 이용">다른 청소 업체 이용</option>
+                <option value="개인정보 삭제 요청">개인정보 삭제 요청</option>
+                <option value="기타 사유">기타 사유</option>
+              </select>
+            </div>
+
+            <div className="p-3 bg-slate-50 rounded-xl border border-slate-100">
+              <label className="flex items-start gap-2.5 cursor-pointer select-none">
+                <input
+                  type="checkbox"
+                  checked={withdrawAgree}
+                  onChange={(e) => setWithdrawAgree(e.target.checked)}
+                  className="mt-0.5 w-4 h-4 text-red-600 rounded border-slate-300 focus:ring-red-500 cursor-pointer"
+                />
+                <span className="text-xs text-slate-700 font-medium">
+                  [필수] 안내사항을 모두 확인하였으며, 이에 동의하여 회원 탈퇴를 진행합니다.
+                </span>
+              </label>
+            </div>
+
+            <div className="flex items-center justify-end gap-2 pt-2 border-t border-slate-100">
+              <button
+                type="button"
+                onClick={() => setShowWithdrawModal(false)}
+                className="px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:bg-slate-100 transition-colors cursor-pointer"
+              >
+                취소 (계정 유지)
+              </button>
+              <button
+                type="button"
+                disabled={!withdrawAgree}
+                onClick={handleConfirmWithdraw}
+                className={`px-5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                  withdrawAgree
+                    ? 'bg-red-600 hover:bg-red-700 text-white shadow-sm'
+                    : 'bg-slate-200 text-slate-400 cursor-not-allowed'
+                }`}
+                id="mypage-confirm-withdraw-btn"
+              >
+                회원탈퇴 확정
               </button>
             </div>
           </div>

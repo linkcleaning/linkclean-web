@@ -83,6 +83,11 @@ interface AppContextType {
   register: (params: { name: string; phone: string; email: string; password?: string }) => boolean;
   registerUser: (name: string, phone: string, email: string) => boolean;
   logout: () => void;
+  withdrawAccount: (reason?: string) => { success: boolean; message: string };
+  // Renewal Notice Popup
+  isRenewalNoticeOpen: boolean;
+  setIsRenewalNoticeOpen: (open: boolean) => void;
+  openRenewalNotice: () => void;
   // CMS
   addPortfolioItem: (item: Omit<PortfolioItem, 'id' | 'createdAt'>) => void;
   updatePortfolioItem: (item: PortfolioItem) => void;
@@ -115,6 +120,19 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       return null;
     }
   });
+
+  // Renewal Notice Popup State (defaults to true on first visit, respects "오늘 하루 보지 않기")
+  const [isRenewalNoticeOpen, setIsRenewalNoticeOpen] = useState<boolean>(() => {
+    try {
+      const today = new Date().toISOString().split('T')[0];
+      const dismissedDate = localStorage.getItem('linkclean_dismiss_renewal_date');
+      return dismissedDate !== today;
+    } catch {
+      return true;
+    }
+  });
+
+  const openRenewalNotice = () => setIsRenewalNoticeOpen(true);
 
   const [reservations, setReservations] = useState<Reservation[]>(() => {
     try {
@@ -468,6 +486,47 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setCurrentView('home');
   };
 
+  const withdrawAccount = (reason?: string): { success: boolean; message: string } => {
+    if (!currentUser) {
+      return { success: false, message: '로그인되어 있지 않습니다.' };
+    }
+
+    const targetUserId = currentUser.id;
+    const targetEmail = currentUser.email;
+
+    // 1. Clear session
+    setCurrentUser(null);
+    try {
+      localStorage.removeItem('linkclean_user');
+
+      // 2. Anonymize/purge user reservations to protect personal data
+      setReservations((prev) => {
+        const remaining = prev.filter(
+          (r) =>
+            r.user_id !== targetUserId &&
+            r.userId !== targetUserId &&
+            r.email !== targetEmail
+        );
+        try {
+          localStorage.setItem('linkclean_reservations', JSON.stringify(remaining));
+        } catch {
+          // ignore
+        }
+        return remaining;
+      });
+    } catch {
+      // ignore
+    }
+
+    // 3. Move back to home view
+    setCurrentView('home');
+
+    return {
+      success: true,
+      message: '회원 탈퇴가 안전하게 처리되었습니다. 그동안 링크클린을 이용해 주셔서 진심으로 감사드립니다.'
+    };
+  };
+
   // Normalized reservations to supply both snake_case and camelCase getters
   const normalizedReservations: Reservation[] = reservations.map((r) => ({
     ...r,
@@ -589,6 +648,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         register,
         registerUser,
         logout,
+        withdrawAccount,
+        isRenewalNoticeOpen,
+        setIsRenewalNoticeOpen,
+        openRenewalNotice,
         addPortfolioItem,
         updatePortfolioItem,
         deletePortfolioItem,

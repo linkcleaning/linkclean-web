@@ -46,7 +46,8 @@ export const ReservationWizard: React.FC = () => {
     currentUser,
     setCurrentView,
     preselectedReservationService,
-    timeSlotConfigs
+    timeSlotConfigs,
+    openRenewalNotice
   } = useApp();
 
   // Wizard Step: 1 -> 2 -> 3 -> 4 -> 5 -> 6(Confirmed)
@@ -376,6 +377,40 @@ export const ReservationWizard: React.FC = () => {
         <p className="text-slate-600 text-xs sm:text-sm mt-2 max-w-xl mx-auto leading-relaxed">
           원하는 날짜와 시간을 직접 선택하세요. 현장을 직접 확인하고 투명한 견적을 안내해드립니다.
         </p>
+      </div>
+
+      {/* Website Renewal Notice Banner */}
+      <div className="mb-8 bg-gradient-to-r from-[#0A1D37] via-[#132742] to-[#0A1D37] rounded-3xl p-5 sm:p-6 text-white border border-slate-800 shadow-md">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div className="space-y-1.5">
+            <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-amber-400 text-[#0A1D37] text-[11px] font-black">
+              🛠️ 홈페이지 리뉴얼 진행 중 안내
+            </div>
+            <h2 className="text-base sm:text-lg font-bold text-white">
+              현재 온라인 예약 시스템 리뉴얼 준비 중입니다
+            </h2>
+            <p className="text-xs text-slate-300 leading-relaxed">
+              더욱 신속하고 편리한 견적 예약을 위해 시스템 리뉴얼이 진행되고 있습니다.
+              방문 견적 예약 및 일정 조율은 <strong className="text-[#38BDF8] font-bold">대표 전화</strong>로 문의 주시면 대기 없이 <strong className="text-white underline">즉시 친절한 상담 및 예약 접수</strong>가 가능합니다.
+            </p>
+          </div>
+          <div className="flex items-center gap-2 shrink-0">
+            <a
+              href="tel:064-763-4545"
+              className="px-5 py-3 rounded-2xl bg-[#38BDF8] hover:bg-[#0EA5E9] text-[#0A1D37] text-xs font-black transition-all flex items-center gap-2 shadow-md cursor-pointer"
+            >
+              <Phone className="w-4 h-4" />
+              <span>전화 예약: 064-763-4545</span>
+            </a>
+            <button
+              type="button"
+              onClick={openRenewalNotice}
+              className="px-4 py-3 rounded-2xl bg-white/10 hover:bg-white/20 text-white text-xs font-bold transition-all cursor-pointer"
+            >
+              안내창 보기
+            </button>
+          </div>
+        </div>
       </div>
 
       {/* 5-Step Stepper Progress Bar */}

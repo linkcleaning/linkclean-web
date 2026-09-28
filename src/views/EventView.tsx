@@ -14,7 +14,8 @@ import {
   ShoppingBag,
   Flame,
   Trees,
-  Volume2
+  Volume2,
+  Phone
 } from 'lucide-react';
 import mascotImg from '../assets/images/cleaning_master_mascot_1788782482073.png';
 import { cleaningAudio } from '../utils/cleaningAudio';
@@ -32,7 +33,7 @@ interface GiftTeaser {
 }
 
 export const EventView: React.FC = () => {
-  const { setCurrentView, currentUser, goToReservationWithService } = useApp();
+  const { setCurrentView, currentUser, goToReservationWithService, openRenewalNotice } = useApp();
 
   // State for interactive gift preview modal
   const [selectedGift, setSelectedGift] = useState<GiftTeaser | null>(null);
@@ -139,6 +140,39 @@ export const EventView: React.FC = () => {
             <Gift className="w-3.5 h-3.5 text-[#38BDF8]" />
             링크클린 특별 감사 이벤트
           </span>
+        </div>
+
+        {/* Website Renewal Alert Banner */}
+        <div className="mb-6 bg-gradient-to-r from-[#0A1D37] via-[#132742] to-[#0A1D37] rounded-3xl p-5 sm:p-6 text-white border border-slate-800 shadow-md">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div className="space-y-1.5">
+              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-amber-400 text-[#0A1D37] text-[11px] font-black">
+                🛠️ 홈페이지 리뉴얼 진행 중 안내
+              </div>
+              <h2 className="text-base sm:text-lg font-bold text-white">
+                이벤트 시스템 리뉴얼로 온라인 이벤트 참여가 준비 중입니다
+              </h2>
+              <p className="text-xs text-slate-300 leading-relaxed">
+                현재 홈페이지 리뉴얼 중으로 온라인 신청은 준비 중이나, <strong className="text-[#38BDF8] font-bold">대표 전화(064-763-4545)</strong>로 문의 주실 때 '이벤트 보고 연락드렸습니다'라고 말씀해 주시면 상품권·피톤치드 등 <strong className="text-white underline">모든 혜택을 100% 동일하게 빠짐없이 적용</strong>해 드립니다!
+              </p>
+            </div>
+            <div className="flex items-center gap-2 shrink-0">
+              <a
+                href="tel:064-763-4545"
+                className="px-5 py-3 rounded-2xl bg-[#38BDF8] hover:bg-[#0EA5E9] text-[#0A1D37] text-xs font-black transition-all flex items-center gap-2 shadow-md cursor-pointer"
+              >
+                <Phone className="w-4 h-4" />
+                <span>혜택 전화문의: 064-763-4545</span>
+              </a>
+              <button
+                type="button"
+                onClick={openRenewalNotice}
+                className="px-4 py-3 rounded-2xl bg-white/10 hover:bg-white/20 text-white text-xs font-bold transition-all cursor-pointer"
+              >
+                공지 새창
+              </button>
+            </div>
+          </div>
         </div>
 
         {/* Hero Event Banner */}

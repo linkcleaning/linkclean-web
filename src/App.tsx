@@ -18,9 +18,10 @@ import { AdminView } from './views/AdminView';
 import { EventView } from './views/EventView';
 import { MascotScrollTrigger } from './components/MascotScrollTrigger';
 import { ScrollToTopButton } from './components/ScrollToTopButton';
+import { RenewalNoticeModal } from './components/RenewalNoticeModal';
 
 const AppContent: React.FC = () => {
-  const { currentView } = useApp();
+  const { currentView, isRenewalNoticeOpen, setIsRenewalNoticeOpen } = useApp();
 
   // Scroll to top when view changes
   useEffect(() => {
@@ -62,6 +63,12 @@ const AppContent: React.FC = () => {
 
       {/* Fixed Mobile Bottom CTA Bar (Only visible on mobile, hidden during reservation wizard) */}
       {currentView !== 'reservation' && <MobileBottomBar />}
+
+      {/* Website Renewal Small Popup Notice (조그마한 새창) */}
+      <RenewalNoticeModal
+        isOpen={isRenewalNoticeOpen}
+        onClose={() => setIsRenewalNoticeOpen(false)}
+      />
     </div>
   );
 };

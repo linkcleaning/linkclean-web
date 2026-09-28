@@ -43,7 +43,7 @@ export const MascotScrollTrigger: React.FC = () => {
   return (
     <aside
       aria-label="링크클린 마스코트 깜짝 선물 이벤트"
-      className="fixed left-4 sm:left-7 bottom-20 sm:bottom-7 z-40 flex flex-col items-start select-none animate-in fade-in slide-in-from-bottom-6 duration-300"
+      className="fixed left-3 sm:left-7 bottom-16 sm:bottom-7 z-40 flex flex-col items-start select-none animate-in fade-in slide-in-from-bottom-6 duration-300"
     >
       <div className="relative group">
         {/* Close / Dismiss Button */}
@@ -53,7 +53,7 @@ export const MascotScrollTrigger: React.FC = () => {
             setIsDismissed(true);
           }}
           title="이벤트 알림 닫기"
-          className="absolute -top-2.5 -right-2.5 z-20 w-5 h-5 rounded-full bg-slate-800/80 hover:bg-slate-900 text-slate-300 hover:text-white flex items-center justify-center text-xs shadow-md cursor-pointer transition-colors border border-white/20"
+          className="absolute -top-2 -right-2 z-20 w-5 h-5 rounded-full bg-slate-900/90 hover:bg-slate-900 text-slate-300 hover:text-white flex items-center justify-center text-xs shadow-md cursor-pointer transition-colors border border-white/20"
         >
           <X className="w-3 h-3" />
         </button>
@@ -61,26 +61,27 @@ export const MascotScrollTrigger: React.FC = () => {
         {/* Floating Speech Bubble */}
         <div
           onClick={handleMascotClick}
-          className="mb-2.5 bg-gradient-to-r from-[#0A1D37] via-[#0F284E] to-[#0A1D37] text-white px-3.5 py-2.5 rounded-2xl shadow-2xl border border-[#38BDF8]/40 cursor-pointer transition-all duration-200 hover:scale-105 active:scale-98 max-w-[210px] sm:max-w-[240px]"
+          className="mb-1.5 sm:mb-2.5 bg-gradient-to-r from-[#0A1D37] via-[#0F284E] to-[#0A1D37] text-white px-2.5 py-1.5 sm:px-3.5 sm:py-2.5 rounded-xl sm:rounded-2xl shadow-xl border border-[#38BDF8]/40 cursor-pointer transition-all duration-200 hover:scale-105 active:scale-98 max-w-[165px] sm:max-w-[240px]"
         >
-          <div className="flex items-center gap-1.5 text-[#38BDF8] text-[11px] font-extrabold tracking-wide mb-0.5">
-            <Sparkles className="w-3.5 h-3.5 animate-pulse text-[#38BDF8]" />
-            <span>깜짝 선물 이벤트 발견!</span>
+          <div className="flex items-center gap-1 sm:gap-1.5 text-[#38BDF8] text-[10px] sm:text-[11px] font-extrabold tracking-tight mb-0.5">
+            <Sparkles className="w-3 h-3 sm:w-3.5 sm:h-3.5 animate-pulse text-[#38BDF8] shrink-0" />
+            <span className="truncate">깜짝 선물 이벤트 발견!</span>
           </div>
-          <p className="text-xs font-bold text-white leading-snug flex items-center gap-1">
-            <span>마스코트를 눌러 선물을 확인하세요!</span>
+          <p className="text-[11px] sm:text-xs font-bold text-white leading-tight sm:leading-snug">
+            <span className="hidden sm:inline">마스코트를 눌러 선물을 확인하세요!</span>
+            <span className="sm:hidden">터치하여 선물 확인!</span>
           </p>
-          <div className="mt-1.5 pt-1 border-t border-slate-700/60 flex items-center justify-between text-[10px] text-slate-300">
-            <span className="text-amber-300 font-semibold flex items-center gap-1">
-              <Gift className="w-3 h-3 text-amber-300" />
-              선물 준비중 (Coming Soon)
+          <div className="mt-1 pt-1 border-t border-slate-700/60 flex items-center justify-between text-[9px] sm:text-[10px] text-slate-300">
+            <span className="text-amber-300 font-semibold flex items-center gap-0.5 sm:gap-1">
+              <Gift className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-amber-300 shrink-0" />
+              <span>선물 준비중</span>
             </span>
-            <ChevronRight className="w-3 h-3 text-[#38BDF8] group-hover:translate-x-0.5 transition-transform" />
+            <ChevronRight className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-[#38BDF8] group-hover:translate-x-0.5 transition-transform shrink-0" />
           </div>
 
           {/* Speech bubble beak / arrow */}
           <div
-            className="absolute left-6 -bottom-1.5 w-3 h-3 bg-[#0A1D37] border-r border-b border-[#38BDF8]/40 rotate-45"
+            className="absolute left-5 sm:left-6 -bottom-1 sm:-bottom-1.5 w-2.5 h-2.5 sm:w-3 sm:h-3 bg-[#0A1D37] border-r border-b border-[#38BDF8]/40 rotate-45"
             aria-hidden="true"
           />
         </div>
@@ -90,10 +91,10 @@ export const MascotScrollTrigger: React.FC = () => {
           onClick={handleMascotClick}
           id="mascot-event-trigger-btn"
           title="클릭하고 특별 선물 이벤트 페이지로 이동하기"
-          className="relative block w-18 h-18 sm:w-22 sm:h-22 rounded-full p-1 bg-gradient-to-tr from-[#38BDF8] via-sky-300 to-amber-200 shadow-xl shadow-cyan-500/25 hover:shadow-cyan-500/45 cursor-pointer transform transition-all duration-300 hover:scale-110 active:scale-95 group focus:outline-none focus:ring-4 focus:ring-[#38BDF8]/40"
+          className="relative block w-13 h-13 sm:w-20 sm:h-20 rounded-full p-0.5 sm:p-1 bg-gradient-to-tr from-[#38BDF8] via-sky-300 to-amber-200 shadow-lg sm:shadow-xl shadow-cyan-500/25 hover:shadow-cyan-500/45 cursor-pointer transform transition-all duration-300 hover:scale-110 active:scale-95 group focus:outline-none focus:ring-4 focus:ring-[#38BDF8]/40"
         >
           {/* Animated Glow Halo */}
-          <div className="absolute inset-0 rounded-full bg-[#38BDF8]/30 blur-md animate-pulse -z-10" />
+          <div className="absolute inset-0 rounded-full bg-[#38BDF8]/30 blur-sm sm:blur-md animate-pulse -z-10" />
 
           {/* Mascot Image Circle */}
           <div className="w-full h-full rounded-full overflow-hidden bg-white border-2 border-white shadow-inner flex items-center justify-center relative">
@@ -105,7 +106,7 @@ export const MascotScrollTrigger: React.FC = () => {
             />
 
             {/* Gift Badge Pill */}
-            <span className="absolute bottom-0 inset-x-0 bg-gradient-to-r from-amber-500 to-rose-500 text-white text-[9px] sm:text-[10px] font-black py-0.5 text-center shadow-xs">
+            <span className="absolute bottom-0 inset-x-0 bg-gradient-to-r from-amber-500 to-rose-500 text-white text-[7.5px] sm:text-[10px] font-black py-0.2 sm:py-0.5 text-center shadow-xs">
               EVENT 🎁
             </span>
           </div>
