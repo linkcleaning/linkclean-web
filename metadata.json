@@ -1,6 +1,6 @@
 {
   "name": "링크클린 (LINKCLEAN)",
-  "description": "공간의 상태를 직접 확인하고 합리적인 견적을 안내하는 믿을 수 있는 전문 청소업체 링크클린 - 방문 견적 실시간 예약 및 관리 시스템",
+  "description": "제주 전지역 입주·이사·숙박업소 청소. 작업 전후 사진 리포트로 멀리서도 안심. 무료견적 064-763-4545",
   "requestFramePermissions": [],
   "majorCapabilities": [
     "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"

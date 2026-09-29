@@ -8,6 +8,10 @@ import { JejuWeatherWidget } from '../components/JejuWeatherWidget';
 import { CleaningTipsBoard } from '../components/CleaningTipsBoard';
 import { getMonthlySonEopNeunNal } from '../utils/lunarCalendar';
 import { PortfolioCategory, ServiceType } from '../types';
+import { PricingGuideSection } from '../components/PricingGuideSection';
+import { FourStepProcessSection } from '../components/FourStepProcessSection';
+import { HomeFaqSection } from '../components/HomeFaqSection';
+import { QuickQuoteFormSection } from '../components/QuickQuoteFormSection';
 import {
   Calendar,
   CheckCircle2,
@@ -24,7 +28,8 @@ import {
   ChevronLeft,
   Clock,
   PhoneCall,
-  Gift
+  Gift,
+  MessageCircle
 } from 'lucide-react';
 
 export const HomeView: React.FC = () => {
@@ -105,44 +110,68 @@ export const HomeView: React.FC = () => {
             <div className="absolute top-0 right-0 w-44 h-44 bg-[#38BDF8] opacity-10 rounded-full -mr-14 -mt-14 pointer-events-none" />
             <div className="relative z-10">
               <div className="flex items-center justify-between mb-2">
-                <span className="bg-[#38BDF8] text-white px-2.5 py-0.5 rounded-full text-[10px] font-bold tracking-wider">
-                  PREMIUM CLEANING
+                <span className="bg-[#38BDF8] text-[#0A1D37] px-2.5 py-0.5 rounded-full text-[10px] font-black tracking-wider">
+                  제주 전지역 방문 실측
                 </span>
                 <span className="text-[10px] text-blue-200 font-medium">
-                  제주 전지역 방문 (제주시·서귀포시)
+                  비대면 사진 리포트 안심 시공
                 </span>
               </div>
-              <h1 className="text-2xl font-black leading-tight mb-2 tracking-tight text-white">
-                청소가 필요한 순간,<br />
-                <span className="text-[#38BDF8]">링크클린</span>이 직접 찾아갑니다.
+              <h1 className="text-xl sm:text-2xl font-black leading-tight mb-2 tracking-tight text-white">
+                "제주에 없어도 괜찮아요.<br />
+                <span className="text-[#38BDF8]">청소 전·후를 사진으로</span> 보내드립니다."
               </h1>
-              <p className="text-slate-300 text-xs mb-4 leading-relaxed">
-                공간의 오염도와 구조를 직접 확인하고 정직한 견적을 안내합니다.
+              <p className="text-slate-300 text-xs mb-3.5 leading-relaxed">
+                육지에서도, 멀리서도 100% 안심! 주방·욕실·창틀 구역별 실시간 고화질 사진 전송 &amp; 검수 후 결제
               </p>
 
-              {/* Big Touch CTA Button */}
-              <button
-                onClick={() => goToReservationWithService('move-in')}
-                className="w-full bg-[#38BDF8] hover:bg-[#0EA5E9] text-white py-3 rounded-xl font-bold text-sm shadow-md transition-all flex items-center justify-center gap-2 active:scale-98 cursor-pointer"
-                id="mobile-hero-reserve-btn"
-              >
-                <Calendar className="w-4 h-4 text-white" />
-                <span>1분 방문 견적 신청하기</span>
-              </button>
+              {/* 3 Buttons Grid (전화 / 카톡 / 1분견적) */}
+              <div className="grid grid-cols-3 gap-1.5 mb-3.5">
+                <a
+                  href="tel:064-763-4545"
+                  className="bg-white/10 hover:bg-white/20 text-white py-2.5 px-1 rounded-xl font-bold text-[11px] transition-all flex flex-col items-center justify-center gap-1 border border-white/20 active:scale-95"
+                  id="mobile-hero-phone-btn"
+                >
+                  <PhoneCall className="w-3.5 h-3.5 text-[#38BDF8]" />
+                  <span>전화 문의</span>
+                </a>
+                <a
+                  href="https://pf.kakao.com/_xfxdrxmM?from=qr"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-[#FEE500] text-[#371D1E] py-2.5 px-1 rounded-xl font-black text-[11px] transition-all flex flex-col items-center justify-center gap-1 active:scale-95"
+                  id="mobile-hero-kakao-btn"
+                >
+                  <MessageCircle className="w-3.5 h-3.5 fill-[#371D1E]" />
+                  <span>카톡 상담</span>
+                </a>
+                <button
+                  onClick={() => {
+                    const el = document.getElementById('quick-quote-section');
+                    if (el) el.scrollIntoView({ behavior: 'smooth' });
+                    else goToReservationWithService('move-in');
+                  }}
+                  className="bg-[#38BDF8] hover:bg-[#0EA5E9] text-[#0A1D37] py-2.5 px-1 rounded-xl font-black text-[11px] shadow-sm transition-all flex flex-col items-center justify-center gap-1 active:scale-95 cursor-pointer"
+                  id="mobile-hero-reserve-btn"
+                >
+                  <Calendar className="w-3.5 h-3.5 text-[#0A1D37]" />
+                  <span>1분 견적</span>
+                </button>
+              </div>
 
               {/* 3 Metrics Row */}
-              <div className="grid grid-cols-3 gap-2 pt-3.5 mt-3.5 border-t border-slate-700/70 text-center">
+              <div className="grid grid-cols-3 gap-2 pt-3 border-t border-slate-700/70 text-center">
                 <div>
                   <div className="text-base font-black text-white">100%</div>
-                  <div className="text-[10px] text-slate-400">현장 실측</div>
+                  <div className="text-[10px] text-slate-400">사진 리포트</div>
                 </div>
                 <div>
                   <div className="text-base font-black text-[#38BDF8]">0원</div>
-                  <div className="text-[10px] text-slate-400">추가금 없음</div>
+                  <div className="text-[10px] text-slate-400">당일 추가금</div>
                 </div>
                 <div>
-                  <div className="text-base font-black text-white">4.9/5.0</div>
-                  <div className="text-[10px] text-slate-400">고객 만족도</div>
+                  <div className="text-base font-black text-white">후불제</div>
+                  <div className="text-[10px] text-slate-400">검수 후 결제</div>
                 </div>
               </div>
             </div>
@@ -210,29 +239,47 @@ export const HomeView: React.FC = () => {
           <div className="col-span-1 md:col-span-2 lg:col-span-2 lg:row-span-2 bg-[#0A1D37] rounded-3xl p-8 sm:p-10 flex flex-col justify-between text-white relative overflow-hidden shadow-sm min-h-[420px]">
             <div className="absolute top-0 right-0 w-64 h-64 bg-[#38BDF8] opacity-10 rounded-full -mr-20 -mt-20 pointer-events-none" />
             <div className="relative z-10">
-              <span className="inline-block bg-[#38BDF8] text-white px-3 py-1 rounded-full text-[10px] font-bold mb-4 tracking-wider">
-                PREMIUM CLEANING
+              <span className="inline-block bg-[#38BDF8] text-[#0A1D37] px-3 py-1 rounded-full text-[11px] font-black mb-4 tracking-wider">
+                제주 전지역 • 비대면 사진 리포트 안심 시공
               </span>
-              <h1 className="text-3xl sm:text-5xl font-extrabold leading-[1.15] mb-5 tracking-tight text-white">
-                청소가 필요한 순간,<br />
-                <span className="text-[#38BDF8]">링크클린</span>이 직접 찾아갑니다.
+              <h1 className="text-3xl sm:text-4xl lg:text-[40px] font-black leading-[1.2] mb-5 tracking-tight text-white">
+                "제주에 없어도 괜찮아요.<br />
+                <span className="text-[#38BDF8]">청소 전·후를 사진으로</span> 보내드립니다."
               </h1>
-              <p className="text-slate-300 text-sm sm:text-base mb-8 max-w-md leading-relaxed">
-                내 집처럼 꼼꼼하게. 공간의 상태를 직접 확인하고<br className="hidden sm:block" />
-                합리적인 방문 견적을 안내해 드립니다.
+              <p className="text-slate-300 text-sm sm:text-base mb-7 max-w-lg leading-relaxed">
+                육지에서 이사 오시거나 현장에 직접 오지 못하셔도 걱정 마세요.<br />
+                구역별 실시간 고화질 사진 전송과 고객 확인 후 안심 결제로 멀리서도 100% 믿고 맡기실 수 있습니다.
               </p>
-              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+
+              {/* 3 Buttons Grid (전화 / 카톡 / 견적) */}
+              <div className="flex flex-wrap items-center gap-3">
+                <a
+                  href="tel:064-763-4545"
+                  className="bg-white/10 hover:bg-white/20 text-white px-5 py-3 rounded-2xl font-bold text-xs sm:text-sm transition-all flex items-center gap-2 border border-white/20"
+                >
+                  <PhoneCall className="w-4 h-4 text-[#38BDF8]" />
+                  <span>전화 문의 (064-763-4545)</span>
+                </a>
+                <a
+                  href="https://pf.kakao.com/_xfxdrxmM?from=qr"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-[#FEE500] hover:bg-[#FDD835] text-[#371D1E] px-5 py-3 rounded-2xl font-black text-xs sm:text-sm transition-all flex items-center gap-2"
+                >
+                  <MessageCircle className="w-4 h-4 fill-[#371D1E]" />
+                  <span>카톡 1:1 상담</span>
+                </a>
                 <button
-                  onClick={() => goToReservationWithService('move-in')}
-                  className="bg-white text-[#0A1D37] px-8 py-3.5 rounded-xl font-bold text-sm sm:text-base hover:bg-slate-100 transition-all shadow-md cursor-pointer flex items-center gap-2 active:scale-95"
-                  id="hero-bento-reserve-btn"
+                  onClick={() => {
+                    const el = document.getElementById('quick-quote-section');
+                    if (el) el.scrollIntoView({ behavior: 'smooth' });
+                    else goToReservationWithService('move-in');
+                  }}
+                  className="bg-[#38BDF8] hover:bg-[#0EA5E9] text-[#0A1D37] px-5 py-3 rounded-2xl font-black text-xs sm:text-sm shadow-md transition-all flex items-center gap-2 cursor-pointer active:scale-95"
                 >
                   <Calendar className="w-4 h-4 text-[#0A1D37]" />
-                  방문 견적 예약하기
+                  <span>1분 사진 견적 신청</span>
                 </button>
-                <div className="text-xs text-slate-300 leading-tight">
-                  원하는 날짜와 시간을<br className="hidden sm:block" /> 선택해 편하게 신청하세요.
-                </div>
               </div>
             </div>
 
@@ -460,7 +507,17 @@ export const HomeView: React.FC = () => {
       </section>
 
       {/* =========================================================================
-          SECTION 02 — 고객의 고민
+          SECTION 02 — 현장 맞춤 견적 기준 & 작업 범위 가이드 (분쟁 없는 정직 견적)
+      ========================================================================= */}
+      <PricingGuideSection />
+
+      {/* =========================================================================
+          SECTION 03 — 4단계 안심 진행 과정 (견적 -> 방문 -> 사진 리포트 -> 확인 후 결제)
+      ========================================================================= */}
+      <FourStepProcessSection />
+
+      {/* =========================================================================
+          SECTION 04 — 고객의 고민
           Bento Card Grid: "청소업체, 아무 곳이나 선택하고 싶지는 않으니까."
       ========================================================================= */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -967,6 +1024,16 @@ export const HomeView: React.FC = () => {
           ))}
         </div>
       </section>
+
+      {/* =========================================================================
+          SECTION 07.5 — 자주 묻는 질문 (FAQ)
+      ========================================================================= */}
+      <HomeFaqSection />
+
+      {/* =========================================================================
+          SECTION 07.8 — 1분 간편 견적폼 (평수, 지역, 희망일, 현장 사진 업로드)
+      ========================================================================= */}
+      <QuickQuoteFormSection />
 
       {/* =========================================================================
           SECTION 08 — FINAL CTA (Bento Box)
