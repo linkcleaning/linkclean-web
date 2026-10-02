@@ -272,8 +272,22 @@ export const ReservationWizard: React.FC = () => {
       });
 
       if (result.success && result.reservation) {
-        setCompletedReservation(result.reservation);
-        setCurrentStep(6); // Step 6: Confirmation Screen
+  setCompletedReservation(result.reservation);
+
+  const w = window as any;
+  if (w.wcs) {
+    if (!w.wcs_add) w.wcs_add = {};
+    w.wcs_add['wa'] = 's_274563371b48';
+
+    const _conv = {
+      type: 'schedule'
+    };
+
+    w.wcs.trans(_conv);
+  }
+
+  setCurrentStep(6); // Step 6: Confirmation Screen
+}
       } else {
         setSubmitError(result.error || '예약 처리 중 오류가 발생했습니다. 다시 시도해주세요.');
       }
