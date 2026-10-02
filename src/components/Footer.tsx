@@ -6,7 +6,20 @@ import { BrandLogo } from './BrandLogo';
 export const Footer: React.FC = () => {
   const { goToReservationWithService } = useApp();
   const [showDetails, setShowDetails] = useState(false);
+const naverPhoneConversion = () => {
+  const w = window as any;
 
+  if (w.wcs) {
+    if (!w.wcs_add) w.wcs_add = {};
+    w.wcs_add['wa'] = 's_274563371b48';
+
+    const _conv = {
+      type: 'custom001'
+    };
+
+    w.wcs.trans(_conv);
+  }
+};
   return (
     <footer className="bg-[#0A1D37] text-slate-400 py-6 lg:py-8 border-t border-slate-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -33,6 +46,7 @@ export const Footer: React.FC = () => {
           <div className="flex items-center gap-3 text-xs">
             <a
               href="tel:064-763-4545"
+              onClick={naverPhoneConversion}
               className="inline-flex items-center gap-1.5 text-white hover:text-[#38BDF8] font-bold transition-colors"
             >
               <Phone className="w-3.5 h-3.5 text-[#38BDF8]" />
