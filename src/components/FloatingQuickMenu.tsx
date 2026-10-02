@@ -17,7 +17,20 @@ interface FloatingMenuItem {
 
 export const FloatingQuickMenu: React.FC = () => {
   const [mobileExpanded, setMobileExpanded] = useState(false);
+const naverPhoneConversion = () => {
+  const w = window as any;
 
+  if (w.wcs) {
+    if (!w.wcs_add) w.wcs_add = {};
+    w.wcs_add['wa'] = 's_274563371b48';
+
+    const _conv = {
+      type: 'custom001'
+    };
+
+    w.wcs.trans(_conv);
+  }
+};
   const menuItems: FloatingMenuItem[] = [
     {
       id: 'floating-phone-btn',
@@ -102,7 +115,12 @@ export const FloatingQuickMenu: React.FC = () => {
             target={item.type === 'link' ? '_blank' : undefined}
             rel={item.type === 'link' ? 'noopener noreferrer' : undefined}
             title={`${item.title} - ${item.description}`}
-            onClick={() => setMobileExpanded(false)}
+                      onClick={() => {
+  if (item.id === 'floating-phone-btn') {
+    naverPhoneConversion();
+  }
+  setMobileExpanded(false);
+}}
             className="group relative flex items-center justify-end cursor-pointer"
           >
             {/* Tooltip on Hover (Desktop) or inline badge on mobile */}
