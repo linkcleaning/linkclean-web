@@ -138,7 +138,20 @@ export const Header: React.FC = () => {
     setMobileMenuOpen(false);
     setActiveDropdown(null);
   };
+const naverPhoneConversion = () => {
+  const w = window as any;
 
+  if (w.wcs) {
+    if (!w.wcs_add) w.wcs_add = {};
+    w.wcs_add['wa'] = 's_274563371b48';
+
+    const _conv = {
+      type: 'custom001'
+    };
+
+    w.wcs.trans(_conv);
+  }
+};
   return (
     <header className="sticky top-0 z-40 bg-white border-b border-slate-200 transition-all shadow-2xs" ref={dropdownRef}>
       {/* Website Renewal Notice Ticker */}
@@ -156,6 +169,7 @@ export const Header: React.FC = () => {
           <div className="shrink-0 flex items-center gap-2">
             <a
               href="tel:064-763-4545"
+              onClick={naverPhoneConversion}
               className="hidden md:inline-flex items-center gap-1 text-[11px] font-bold text-[#38BDF8] hover:text-white transition-colors"
             >
               📞 064-763-4545
