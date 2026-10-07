@@ -165,7 +165,7 @@ export const JejuWeatherWidget: React.FC<JejuWeatherWidgetProps> = ({ className 
         /* Bento Card: 제주도 날씨 & 1주일 청소 예보 (제주시 / 서귀포시 구분) */
       <div 
         id="jeju-weather-bento-card"
-        className={`col-span-1 md:col-span-1 lg:col-span-1 lg:row-span-1 bg-gradient-to-br from-[#0284C7] via-[#0369A1] to-[#0A1D37] rounded-3xl p-5 sm:p-5 text-white flex flex-col justify-between relative overflow-hidden shadow-sm hover:shadow-md transition-all group ${className}`}
+        className={`bg-gradient-to-br from-[#0284C7] via-[#0369A1] to-[#0A1D37] rounded-3xl p-5 sm:p-5 text-white flex flex-col justify-between relative overflow-hidden shadow-sm hover:shadow-md transition-all group ${className}`}
       >
         {/* Subtle background ambient elements */}
         <div className="absolute top-0 right-0 w-36 h-36 bg-sky-400/20 rounded-full blur-2xl pointer-events-none" />
