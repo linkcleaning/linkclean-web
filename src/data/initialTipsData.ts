@@ -51,7 +51,7 @@ export const INITIAL_TIPS_POSTS: CleaningTipPost[] = [
     likes: 0,
     tags: ['제주곰팡이', '결로', '욕실곰팡이', '습도관리'],
     badge: '필독 꿀팁',
-    imageUrl: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=800&q=80',
+    cover: { emoji: '💧', headline: '곰팡이, 지우기보다\n안 생기게', sub: '환기 · 제습 · 실리콘 관리', tone: 'teal' },
     serviceLink: 'residential',
   },
 
@@ -104,7 +104,7 @@ export const INITIAL_TIPS_POSTS: CleaningTipPost[] = [
     likes: 0,
     tags: ['입주청소', '검수체크리스트', '이사청소', '신축분진'],
     badge: '저장해두세요',
-    imageUrl: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80',
+    cover: { emoji: '📋', headline: '입주청소 후\n검수 체크리스트 12', sub: '놓치기 쉬운 곳까지 한 번에', tone: 'sky' },
     serviceLink: 'move-in',
   },
 
@@ -147,7 +147,7 @@ export const INITIAL_TIPS_POSTS: CleaningTipPost[] = [
     likes: 0,
     tags: ['새집증후군', '베이크아웃', '신축입주', '환기'],
     badge: '입주 전 필수',
-    imageUrl: 'https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?auto=format&fit=crop&w=800&q=80',
+    cover: { emoji: '🏠', headline: '새집 냄새 줄이는\n베이크아웃', sub: '온도 · 환기 순서가 핵심', tone: 'amber' },
     serviceLink: 'move-in',
   },
 
@@ -185,7 +185,7 @@ export const INITIAL_TIPS_POSTS: CleaningTipPost[] = [
     likes: 0,
     tags: ['창틀청소', '해안가주택', '샤시관리', '방충망청소'],
     badge: '실전 노하우',
-    imageUrl: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80',
+    cover: { emoji: '🪟', headline: '창틀 모래·소금기\n물티슈로 닦지 마세요', sub: '바닷가 집 창틀 관리법', tone: 'indigo' },
     serviceLink: 'residential',
   },
 
@@ -232,7 +232,7 @@ export const INITIAL_TIPS_POSTS: CleaningTipPost[] = [
     likes: 0,
     tags: ['주방기름때', '후드필터', '인덕션청소', '과탄산소다'],
     badge: '생활 꿀팁',
-    imageUrl: '/images/kitchen_hood_after.jpg?v=2',
+    imageUrl: '/images/tips/hood.jpg',
     serviceLink: 'residential',
   },
 
@@ -280,7 +280,7 @@ export const INITIAL_TIPS_POSTS: CleaningTipPost[] = [
     likes: 0,
     tags: ['욕실물때', '샤워부스', '구연산', '분홍물때'],
     badge: '생활 꿀팁',
-    imageUrl: '/images/bathroom_after.jpg?v=2',
+    cover: { emoji: '🚿', headline: '하얀 물때 vs\n분홍 물때', sub: '종류별로 세제가 다릅니다', tone: 'rose' },
     serviceLink: 'residential',
   },
 
@@ -324,7 +324,7 @@ export const INITIAL_TIPS_POSTS: CleaningTipPost[] = [
     likes: 0,
     tags: ['에어컨냄새', '에어컨청소', '필터세척', '제주습기'],
     badge: '계절 관리',
-    imageUrl: 'https://images.unsplash.com/photo-1621905252507-b35482cd84b4?auto=format&fit=crop&w=800&q=80',
+    cover: { emoji: '❄️', headline: '에어컨 쉰내\n끄기 전 송풍 30분', sub: '여름·장마철 습관 하나', tone: 'emerald' },
     serviceLink: 'residential',
   },
 
@@ -365,7 +365,7 @@ export const INITIAL_TIPS_POSTS: CleaningTipPost[] = [
     likes: 0,
     tags: ['제주이사', '입주청소일정', '손없는날', '육지에서이사'],
     badge: '이사 준비',
-    imageUrl: 'https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?auto=format&fit=crop&w=800&q=80',
+    cover: { emoji: '📅', headline: '제주 이사\n청소 일정 잡는 법', sub: '이사 전 체크 순서', tone: 'orange' },
     serviceLink: 'move-in',
   },
 
@@ -404,7 +404,7 @@ export const INITIAL_TIPS_POSTS: CleaningTipPost[] = [
     likes: 0,
     tags: ['사진리포트', '비대면청소', '후불결제', '육지고객'],
     badge: '상시 진행',
-    imageUrl: '/images/bathroom_after.jpg?v=2',
+    cover: { emoji: '📸', headline: '구역별 전·후\n사진 리포트', sub: '예약금 · 검수 후 잔금', tone: 'navy' },
     promoActionText: '사진 견적 신청하기',
     promoBadge: '상시 진행',
     serviceLink: 'move-in',
@@ -442,7 +442,7 @@ export const INITIAL_TIPS_POSTS: CleaningTipPost[] = [
     likes: 0,
     tags: ['원룸청소', '쓰레기집', '비밀보장', '비대면청소'],
     badge: '비밀보장',
-    imageUrl: '/images/trash_house_after.jpg?v=2',
+    imageUrl: '/images/tips/trash_room.jpg',
     promoActionText: '비밀보장 비대면 상담 예약하기',
     promoBadge: '상시 15% 할인',
     serviceLink: 'trash',
