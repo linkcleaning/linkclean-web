@@ -15,6 +15,7 @@ import {
   INITIAL_REVIEWS
 } from '../data/initialData';
 import { notifyReservation } from '../utils/notifyReservation';
+import { fetchSheetPortfolio } from '../utils/sheetPortfolio';
 
 export const STANDARD_TIME_SLOTS = [
   '10:00',
@@ -302,6 +303,17 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       // ignore
     }
   }, [portfolio]);
+
+  // 사장님 구글 시트에 청소사례가 등록되어 있으면 그 내용으로 교체 (시트에서 직접 수정 가능)
+  useEffect(() => {
+    let cancelled = false;
+    fetchSheetPortfolio().then((items) => {
+      if (!cancelled && items) setPortfolio(items);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   useEffect(() => {
     try {
