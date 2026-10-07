@@ -37,16 +37,27 @@ export async function notifyReservation(r: Reservation): Promise<void> {
     website: '', // 스팸 봇 차단용 빈 칸 (봇이 채우면 무시)
   };
 
+  const body = JSON.stringify(payload);
+
+  // 1순위: sendBeacon — 브라우저가 백그라운드에서 확실히 보내주는 방식 (아이폰·안드로이드 모두 지원)
   try {
-    // text/plain + no-cors: Apps Script로 보낼 때 브라우저 사전 요청(CORS) 없이 전송
+    if (typeof navigator !== 'undefined' && typeof navigator.sendBeacon === 'function') {
+      const ok = navigator.sendBeacon(RESERVATION_NOTIFY_URL, new Blob([body], { type: 'text/plain;charset=utf-8' }));
+      if (ok) return;
+    }
+  } catch {
+    // 아래 fetch로 재시도
+  }
+
+  // 2순위: 일반 fetch (text/plain + no-cors: Apps Script로 보낼 때 사전 요청(CORS) 없이 전송)
+  try {
     await fetch(RESERVATION_NOTIFY_URL, {
       method: 'POST',
       mode: 'no-cors',
       headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-      body: JSON.stringify(payload),
-      keepalive: true,
+      body,
     });
-  } catch {
-    // 알림 실패는 무시 (예약 자체는 정상 처리)
+  } catch (err) {
+    console.warn('[예약 알림] 전송 실패', err);
   }
 }
