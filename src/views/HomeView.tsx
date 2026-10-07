@@ -255,7 +255,7 @@ export const HomeView: React.FC = () => {
                 <span className="text-[#38BDF8]">청소 전·후를 사진으로</span> 보내드립니다."
               </h1>
               <p className="text-slate-300 text-sm sm:text-base mb-7 max-w-lg lg:max-w-none leading-relaxed">
-                육지에서 이사 오시거나 현장에 직접 오지 못하셔도 걱정 마세요.<br className="lg:hidden" />{' '}
+                육지에서 이사 오시거나 현장에 직접 오지 못하셔도 걱정 마세요.<br />
                 구역별 실시간 고화질 사진 전송과 고객 확인 후 안심 결제로 멀리서도 100% 믿고 맡기실 수 있습니다.
               </p>
 
@@ -415,22 +415,38 @@ export const HomeView: React.FC = () => {
                 </button>
               </div>
 
-              {/* Day chips */}
-              <div className="flex flex-wrap gap-1">
-                {bentoAuspiciousDays.slice(0, 4).map((d) => (
-                  <span
-                    key={d.dateString}
-                    className="text-[10px] font-bold text-amber-900 bg-amber-100/90 border border-amber-300/80 px-1.5 py-0.5 rounded-md"
-                  >
-                    {d.day}일({d.dayOfWeek})
-                  </span>
-                ))}
-                {bentoAuspiciousDays.length > 4 && (
-                  <span className="text-[10px] font-medium text-slate-500 bg-white border border-slate-200 px-1.5 py-0.5 rounded-md">
-                    +{bentoAuspiciousDays.length - 4}일
-                  </span>
-                )}
-              </div>
+              {/* 미니 달력: 손없는 날 표시 */}
+              {(() => {
+                const first = new Date(bentoYear, bentoMonth - 1, 1).getDay();
+                const total = new Date(bentoYear, bentoMonth, 0).getDate();
+                const good = new Set(bentoAuspiciousDays.map((d) => d.day));
+                const now = new Date();
+                const isThisMonth = now.getFullYear() === bentoYear && now.getMonth() + 1 === bentoMonth;
+                const cells: (number | null)[] = [...Array(first).fill(null), ...Array.from({ length: total }, (_, i) => i + 1)];
+                return (
+                  <div className="grid grid-cols-7 gap-1 text-center">
+                    {['일', '월', '화', '수', '목', '금', '토'].map((w, i) => (
+                      <span key={w} className={`text-[10px] font-bold ${i === 0 ? 'text-rose-400' : i === 6 ? 'text-sky-500' : 'text-slate-400'}`}>
+                        {w}
+                      </span>
+                    ))}
+                    {cells.map((d, i) => (
+                      <span
+                        key={i}
+                        className={`text-[11px] leading-6 rounded-md ${
+                          d === null
+                            ? ''
+                            : good.has(d)
+                            ? 'bg-amber-400 text-slate-950 font-black'
+                            : 'text-slate-600'
+                        } ${d !== null && isThisMonth && d === now.getDate() ? 'ring-2 ring-[#38BDF8]' : ''}`}
+                      >
+                        {d ?? ''}
+                      </span>
+                    ))}
+                  </div>
+                );
+              })()}
             </div>
 
             {/* Bottom link */}
