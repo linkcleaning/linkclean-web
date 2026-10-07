@@ -8,7 +8,9 @@ interface FaqItem {
 }
 
 export const HomeFaqSection: React.FC = () => {
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const [showAll, setShowAll] = useState(false);
+  const MOBILE_VISIBLE = 3;
 
   const faqs: FaqItem[] = [
     {
@@ -45,36 +47,38 @@ export const HomeFaqSection: React.FC = () => {
 
   return (
     <section id="faq-section" className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10">
-      <div className="text-center mb-6 sm:mb-10">
+      <div className="text-center mb-4 sm:mb-10">
         <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-[#38BDF8] bg-blue-50 px-3 py-1 rounded-full border border-blue-100">
           FAQ
         </span>
-        <h2 className="text-2xl sm:text-3xl font-extrabold text-[#0A1D37] tracking-tight mt-2">
+        <h2 className="text-xl sm:text-3xl font-extrabold text-[#0A1D37] tracking-tight mt-2">
           자주 묻는 질문
         </h2>
-        <p className="text-slate-500 text-xs sm:text-sm mt-1.5">
+        <p className="hidden sm:block text-slate-500 text-sm mt-1.5">
           제주 입주·이사·숙소 청소와 관련해 고객님들께서 가장 많이 문의하시는 내용입니다.
         </p>
       </div>
 
-      <div className="space-y-3">
+      <div className="space-y-2 sm:space-y-3">
         {faqs.map((faq, index) => {
           const isOpen = openIndex === index;
+          // 휴대폰에서는 처음 3개만 보이고 나머지는 '더보기'로
+          const hiddenOnMobile = !showAll && index >= MOBILE_VISIBLE;
           return (
             <div
               key={index}
-              className={`rounded-2xl border transition-all duration-200 overflow-hidden bg-white ${
+              className={`${hiddenOnMobile ? 'hidden sm:block ' : ''}rounded-2xl border transition-all duration-200 overflow-hidden bg-white ${
                 isOpen ? 'border-[#38BDF8]/60 shadow-sm' : 'border-slate-200/80 hover:border-slate-300'
               }`}
             >
               <button
                 type="button"
                 onClick={() => setOpenIndex(isOpen ? null : index)}
-                className="w-full p-4 sm:p-5 text-left flex items-start justify-between gap-3 cursor-pointer"
+                className="w-full px-4 py-3 sm:p-5 text-left flex items-start justify-between gap-3 cursor-pointer"
                 aria-expanded={isOpen}
               >
                 <div className="flex items-start gap-2.5">
-                  <span className="text-xs font-bold px-2 py-0.5 rounded bg-slate-100 text-[#0A1D37] shrink-0 mt-0.5">
+                  <span className="hidden sm:inline text-xs font-bold px-2 py-0.5 rounded bg-slate-100 text-[#0A1D37] shrink-0 mt-0.5">
                     {faq.category}
                   </span>
                   <span className="text-xs sm:text-sm font-extrabold text-[#0A1D37] leading-snug">
@@ -99,6 +103,16 @@ export const HomeFaqSection: React.FC = () => {
           );
         })}
       </div>
+
+      {!showAll && faqs.length > MOBILE_VISIBLE && (
+        <button
+          type="button"
+          onClick={() => setShowAll(true)}
+          className="sm:hidden mt-2 w-full py-2.5 rounded-xl border border-slate-200 bg-white text-xs font-bold text-slate-600 cursor-pointer"
+        >
+          질문 {faqs.length - MOBILE_VISIBLE}개 더보기 ▾
+        </button>
+      )}
 
     </section>
   );
