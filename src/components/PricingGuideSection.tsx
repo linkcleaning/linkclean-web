@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useApp } from '../context/AppContext';
 import { Check, AlertCircle, Phone, Calendar, ShieldCheck, Scale, Sparkles, Building, Home } from 'lucide-react';
 import { ServiceType } from '../types';
+import { MobileCollapse } from './MobileCollapse';
 
 export const PricingGuideSection: React.FC = () => {
   const { goToReservationWithService } = useApp();
@@ -198,8 +199,10 @@ export const PricingGuideSection: React.FC = () => {
           </div>
         </div>
 
+        {/* 모바일: 견적 기준·작업 범위는 접어두고 버튼으로 펼침 */}
+        <MobileCollapse label="견적 기준 · 작업 범위 자세히 보기" className="mt-5 sm:mt-0">
         {/* 4 Core Estimation Factors Grid */}
-        <div className="my-6">
+        <div className="mb-6 sm:my-6">
           <div className="text-xs font-bold text-slate-700 mb-3 flex items-center gap-1.5">
             <Sparkles className="w-3.5 h-3.5 text-[#38BDF8]" />
             <span>정직한 견적 산정 4대 기준</span>
@@ -283,6 +286,7 @@ export const PricingGuideSection: React.FC = () => {
             </ul>
           </div>
         </div>
+        </MobileCollapse>
 
         {/* CTA Bar */}
         <div className="mt-6 pt-5 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">

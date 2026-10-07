@@ -12,6 +12,7 @@ import { PricingGuideSection } from '../components/PricingGuideSection';
 import { FourStepProcessSection } from '../components/FourStepProcessSection';
 import { HomeFaqSection } from '../components/HomeFaqSection';
 import { QuickQuoteFormSection } from '../components/QuickQuoteFormSection';
+import { MobileCollapse } from '../components/MobileCollapse';
 import {
   Calendar,
   CheckCircle2,
@@ -533,8 +534,9 @@ export const HomeView: React.FC = () => {
           </p>
         </div>
 
-        {/* 4 Problem Cards in 2x2 Grid on Mobile (Dramatically cuts vertical scroll!) */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4 mb-4 sm:mb-8">
+        {/* 4 Problem Cards — 모바일에서는 접어둠 */}
+        <MobileCollapse label="고객님들의 고민 4가지 보기" className="mb-4 sm:mb-8">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4">
           {[
             {
               id: 'c-1',
@@ -586,6 +588,7 @@ export const HomeView: React.FC = () => {
             </div>
           ))}
         </div>
+        </MobileCollapse>
 
         {/* Section 02 Bento Solution Block */}
         <div className="rounded-2xl sm:rounded-3xl bg-[#0A1D37] text-white p-5 sm:p-10 text-center relative overflow-hidden shadow-sm">
@@ -631,6 +634,7 @@ export const HomeView: React.FC = () => {
           </p>
         </div>
 
+        <MobileCollapse label="링크클린의 4가지 원칙 보기">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4">
           {[
             {
@@ -670,6 +674,7 @@ export const HomeView: React.FC = () => {
             </div>
           ))}
         </div>
+        </MobileCollapse>
       </section>
 
       {/* =========================================================================
