@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Phone, X, ChevronRight, MessageCircle } from 'lucide-react';
+import { X, ChevronRight } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 
 /**
@@ -68,116 +68,90 @@ export const RenewalNoticeModal: React.FC<RenewalNoticeModalProps> = ({ isOpen, 
       role="dialog"
       aria-modal="true"
       aria-labelledby="notice-modal-title"
-      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-900/70 backdrop-blur-xs animate-in fade-in duration-200"
+      className="fixed inset-0 z-50 flex items-end sm:items-center justify-center sm:p-4 bg-slate-900/60 animate-in fade-in duration-200"
       onClick={handleDismiss}
     >
+      {/* 모바일: 아래에서 올라오는 작은 카드 / PC: 가운데 작은 창 */}
       <div
         onClick={(e) => e.stopPropagation()}
-        className="relative w-full max-w-[420px] max-h-[90vh] overflow-y-auto bg-white rounded-3xl shadow-2xl border border-slate-100 animate-in zoom-in-95 duration-200"
+        className="relative w-full sm:max-w-[380px] bg-white rounded-t-3xl sm:rounded-3xl shadow-2xl animate-in slide-in-from-bottom-8 sm:zoom-in-95 duration-200"
       >
-        {/* Header */}
-        <div className="bg-[#0A1D37] text-white px-5 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
-            <span className="text-[11px] font-bold text-[#38BDF8] tracking-wider">공지사항 · EVENT</span>
-          </div>
-          <button
-            type="button"
-            onClick={handleDismiss}
-            aria-label="닫기"
-            className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white/80 hover:text-white flex items-center justify-center transition-colors cursor-pointer"
-          >
-            <X className="w-4 h-4" />
-          </button>
+        {/* 모바일 손잡이 */}
+        <div className="sm:hidden flex justify-center pt-2.5">
+          <span className="w-10 h-1 rounded-full bg-slate-200" />
         </div>
 
-        <div className="p-5 sm:p-6 space-y-4">
+        <button
+          type="button"
+          onClick={handleDismiss}
+          aria-label="닫기"
+          className="absolute top-3 right-3 w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center justify-center cursor-pointer"
+        >
+          <X className="w-4 h-4" />
+        </button>
+
+        <div className="px-5 pt-3 pb-4 sm:p-6 sm:pt-6">
           {/* Headline */}
-          <div className="text-center">
-            <div className="text-4xl mb-1" aria-hidden="true">☕🎁</div>
-            <h2 id="notice-modal-title" className="text-lg sm:text-xl font-black text-[#0A1D37] leading-snug">
-              고마운 마음,
-              <br />
-              커피 한 잔으로 전할게요!
-            </h2>
-            <p className="text-xs text-slate-500 mt-1">
-              지금 링크클린에서 <b className="text-[#0A1D37]">스타벅스 커피 이벤트</b>가 진행 중이에요
-            </p>
+          <div className="flex items-center gap-3 pr-8">
+            <span className="text-3xl shrink-0" aria-hidden="true">☕</span>
+            <div>
+              <span className="inline-flex items-center gap-1 text-[10px] font-black text-emerald-600">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                공지 · 이벤트 진행 중
+              </span>
+              <h2 id="notice-modal-title" className="text-base font-black text-[#0A1D37] leading-snug">
+                스타벅스 커피 1잔 드려요!
+              </h2>
+            </div>
           </div>
 
-          {/* Event cards */}
-          <div className="space-y-2.5">
+          {/* Events (한 줄씩) */}
+          <ul className="mt-3 space-y-1.5">
             {EVENTS.map((ev) => (
-              <button
-                key={ev.tag}
-                type="button"
-                onClick={goToEvent}
-                className={`w-full text-left rounded-2xl border p-3.5 flex items-start gap-3 hover:shadow-sm transition-shadow cursor-pointer ${ev.tone}`}
-              >
-                <span className="text-2xl leading-none mt-0.5" aria-hidden="true">{ev.emoji}</span>
-                <span className="flex-1">
-                  <span className={`inline-block text-[10px] font-black text-white px-2 py-0.5 rounded-full mb-1 ${ev.tagTone}`}>
-                    {ev.tag}
-                  </span>
-                  <span className="block text-sm font-extrabold text-[#0A1D37]">{ev.title}</span>
-                  <span className="block text-[11px] text-slate-600 leading-relaxed mt-0.5">{ev.desc}</span>
-                </span>
-                <ChevronRight className="w-4 h-4 text-slate-400 shrink-0 mt-1" />
-              </button>
+              <li key={ev.tag}>
+                <button
+                  type="button"
+                  onClick={goToEvent}
+                  className={`w-full text-left rounded-xl border px-3 py-2.5 flex items-center gap-2.5 cursor-pointer ${ev.tone}`}
+                >
+                  <span className="text-lg leading-none" aria-hidden="true">{ev.emoji}</span>
+                  <span className="flex-1 text-[13px] font-bold text-[#0A1D37]">{ev.title}</span>
+                  <ChevronRight className="w-4 h-4 text-slate-400 shrink-0" />
+                </button>
+              </li>
             ))}
-          </div>
+          </ul>
 
           <button
             type="button"
             onClick={goToEvent}
-            className="w-full py-3 rounded-xl bg-[#0A1D37] hover:bg-slate-800 text-white font-black text-sm transition-colors cursor-pointer shadow-md"
+            className="mt-3 w-full py-3 rounded-xl bg-[#0A1D37] hover:bg-slate-800 text-white font-black text-sm cursor-pointer"
           >
-            🎉 이벤트 자세히 보기
+            이벤트 자세히 보기
           </button>
 
-          {/* 예약 안내 */}
-          <div className="rounded-2xl bg-slate-50 border border-slate-100 p-3.5 text-[11px] text-slate-600 leading-relaxed">
-            📢 <b className="text-slate-800">견적·예약 문의</b>는 전화나 카카오톡으로 주시면 가장 빠르게 안내해 드려요.
-            <div className="flex gap-2 mt-2.5">
-              <a
-                href="tel:064-763-4545"
-                className="flex-1 py-2.5 rounded-xl bg-[#38BDF8] hover:bg-[#0EA5E9] text-[#0A1D37] font-black text-xs flex items-center justify-center gap-1.5"
-              >
-                <Phone className="w-3.5 h-3.5" />
-                064-763-4545
-              </a>
-              <a
-                href="https://pf.kakao.com/_xfxdrxmM?from=qr"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex-1 py-2.5 rounded-xl bg-[#FEE500] hover:brightness-95 text-[#3A1D1D] font-black text-xs flex items-center justify-center gap-1.5"
-              >
-                <MessageCircle className="w-3.5 h-3.5" />
-                카톡 상담
-              </a>
-            </div>
-          </div>
-
           {/* Footer */}
-          <div className="flex items-center justify-between pt-1">
-            <label className="flex items-center gap-2 cursor-pointer select-none">
+          <div className="mt-2.5 flex items-center justify-between">
+            <label className="flex items-center gap-1.5 cursor-pointer select-none py-1">
               <input
                 type="checkbox"
                 checked={dontShowToday}
                 onChange={(e) => setDontShowToday(e.target.checked)}
-                className="w-4 h-4 text-[#0284C7] rounded border-slate-300 focus:ring-[#38BDF8] cursor-pointer"
+                className="w-4 h-4 rounded border-slate-300 cursor-pointer"
               />
-              <span className="text-xs text-slate-500 font-medium hover:text-slate-800">오늘 하루 보지 않기</span>
+              <span className="text-xs text-slate-500">오늘 하루 보지 않기</span>
             </label>
             <button
               type="button"
               onClick={handleDismiss}
-              className="px-5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition-colors cursor-pointer"
+              className="text-xs font-bold text-slate-500 hover:text-slate-800 px-2 py-1 cursor-pointer"
             >
               닫기
             </button>
           </div>
         </div>
+        {/* 아이폰 하단 홈 바 영역 여백 */}
+        <div className="sm:hidden" style={{ height: 'env(safe-area-inset-bottom)' }} />
       </div>
     </div>
   );
