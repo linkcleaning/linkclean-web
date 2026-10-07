@@ -92,3 +92,32 @@ function sendViaHiddenForm(url: string, json: string) {
     iframe.remove();
   }, 60000);
 }
+
+/** 고객 후기 페이지 등에서 받은 간단 문의를 사장님 문자로 보냅니다 (예약 알림과 같은 경로). */
+export function notifyInquiry(q: { name: string; phone: string; message: string; source?: string }): void {
+  if (!RESERVATION_NOTIFY_URL) return;
+  const now = new Date();
+  const pad = (n: number) => String(n).padStart(2, '0');
+  const payload = {
+    reservation_id: `Q-${now.getFullYear()}${pad(now.getMonth() + 1)}${pad(now.getDate())}-${Math.floor(1000 + Math.random() * 9000)}`,
+    created_at: `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())} ${pad(now.getHours())}:${pad(now.getMinutes())}`,
+    customer_name: q.name || '고객(이름 미입력)',
+    phone: q.phone,
+    email: '',
+    service: `💬 고객 문의${q.source ? `(${q.source})` : ''}`,
+    visit_date: '',
+    visit_time: '',
+    address: '',
+    property_type: '',
+    area: '',
+    message: q.message,
+    photo_count: 0,
+    page: typeof window !== 'undefined' ? window.location.href : '',
+    website: '',
+  };
+  try {
+    sendViaHiddenForm(RESERVATION_NOTIFY_URL, JSON.stringify(payload));
+  } catch (err) {
+    console.warn('[문의 알림] 전송 실패', err);
+  }
+}
