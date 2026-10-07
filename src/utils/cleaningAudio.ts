@@ -5,14 +5,44 @@ class CleaningAudioEngine {
   private ctx: AudioContext | null = null;
 
   private getAudioContext(): AudioContext {
-    if (!this.ctx) {
+    // 아이폰: 무음 스위치가 켜져 있어도 소리가 나도록 '재생' 모드로 지정 (Safari 16.4+)
+    try {
+      const session = (navigator as unknown as { audioSession?: { type: string } }).audioSession;
+      if (session && session.type !== 'playback') session.type = 'playback';
+    } catch {
+      /* 지원 안 하는 브라우저는 무시 */
+    }
+
+    // 홍보송(오디오 태그)을 재생/정지하고 나면 아이폰에서 기존 오디오 엔진이
+    // 'interrupted' 또는 'closed' 상태로 멈춰 소리가 안 나는 문제가 있어 새로 만듭니다.
+    const state = this.ctx?.state as string | undefined;
+    if (!this.ctx || state === 'closed' || state === 'interrupted') {
+      if (this.ctx && state !== 'closed') {
+        try {
+          this.ctx.close();
+        } catch {
+          /* 무시 */
+        }
+      }
       const AudioCtxClass = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
       this.ctx = new AudioCtxClass();
     }
-    if (this.ctx.state === 'suspended') {
-      this.ctx.resume();
+    if (this.ctx.state !== 'running') {
+      this.ctx.resume().catch(() => undefined);
     }
     return this.ctx;
+  }
+
+  /** 다른 소리(홍보송 등)가 재생/정지된 뒤 호출 — 다음 버튼 터치 때 오디오 엔진을 새로 만듭니다. */
+  public reset(): void {
+    if (this.ctx) {
+      try {
+        this.ctx.close();
+      } catch {
+        /* 무시 */
+      }
+      this.ctx = null;
+    }
   }
 
   // Helper: Create a noise buffer (white noise)
