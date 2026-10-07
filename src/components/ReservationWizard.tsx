@@ -244,10 +244,12 @@ export const ReservationWizard: React.FC = () => {
   };
 
   // Form Validation per step
-  const canProceedStep1 = selectedDate && selectedTime;
-  const canProceedStep2 = !!serviceType;
-  const canProceedStep3 = propertyType && area.trim() && address.trim();
-  const canProceedStep4 = customerName.trim() && phone.trim() && email.trim() && agreePrivacy && agreeContact;
+  // 손님이 모든 칸을 채우지 않아도 다음 단계로 넘어갈 수 있게 함.
+  // 접수에 꼭 필요한 것은 연락처와 개인정보 동의뿐 (나머지는 상담 때 확인)
+  const canProceedStep1 = true;
+  const canProceedStep2 = true;
+  const canProceedStep3 = true;
+  const canProceedStep4 = phone.replace(/[^0-9]/g, '').length >= 9 && agreePrivacy && agreeContact;
 
   // Submit Final Reservation
   const handleSubmitReservation = async () => {
@@ -257,12 +259,12 @@ export const ReservationWizard: React.FC = () => {
     try {
       const result = await createReservation({
         user_id: currentUser ? currentUser.id : 'guest',
-        customer_name: customerName,
+        customer_name: customerName.trim() || '고객(이름 미입력)',
         phone,
-        email,
+        email: email.trim(),
         service_type: serviceType,
         visit_date: selectedDate,
-        visit_time: selectedTime,
+        visit_time: selectedTime || '협의',
         address,
         address_detail: addressDetail,
         property_type: propertyType,
@@ -760,7 +762,7 @@ export const ReservationWizard: React.FC = () => {
             {/* Property Type Selection */}
             <div>
               <label className="block text-xs font-extrabold text-[#0A1D37] mb-2">
-                건물 유형 <span className="text-[#38BDF8]">*</span>
+                건물 유형 <span className="text-slate-400 font-medium">(선택)</span>
               </label>
               <div className="flex flex-wrap gap-2">
                 {PROPERTY_TYPES.map((pt) => (
@@ -784,7 +786,7 @@ export const ReservationWizard: React.FC = () => {
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div>
                 <label className="block text-xs font-extrabold text-[#0A1D37] mb-1.5">
-                  공급 면적 (평수) <span className="text-[#38BDF8]">*</span>
+                  공급 면적 (평수) <span className="text-slate-400 font-medium">(선택)</span>
                 </label>
                 <input
                   type="text"
@@ -796,7 +798,7 @@ export const ReservationWizard: React.FC = () => {
               </div>
               <div className="sm:col-span-2">
                 <label className="block text-xs font-extrabold text-[#0A1D37] mb-1.5">
-                  기본 주소 <span className="text-[#38BDF8]">*</span>
+                  기본 주소 <span className="text-slate-400 font-medium">(선택)</span>
                 </label>
                 <input
                   type="text"
@@ -905,12 +907,15 @@ export const ReservationWizard: React.FC = () => {
               <p className="text-xs sm:text-sm text-slate-500 mt-1">
                 방문 일정 조율 및 견적 안내를 위해 연락 가능한 번호를 정확히 적어주세요.
               </p>
+              <p className="mt-2 inline-flex items-center gap-1.5 text-[11px] sm:text-xs font-bold text-emerald-700 bg-emerald-50 border border-emerald-100 px-3 py-1.5 rounded-full">
+                ✅ 휴대폰 번호만 있으면 접수돼요. 나머지는 상담 때 여쭤볼게요!
+              </p>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className="block text-xs font-extrabold text-[#0A1D37] mb-1.5">
-                  예약자 성함 <span className="text-[#38BDF8]">*</span>
+                  예약자 성함 <span className="text-slate-400 font-medium">(선택)</span>
                 </label>
                 <input
                   type="text"
@@ -937,7 +942,7 @@ export const ReservationWizard: React.FC = () => {
 
             <div>
               <label className="block text-xs font-extrabold text-[#0A1D37] mb-1.5">
-                이메일 주소 <span className="text-[#38BDF8]">*</span>
+                이메일 주소 <span className="text-slate-400 font-medium">(선택)</span>
               </label>
               <input
                 type="email"
@@ -995,6 +1000,11 @@ export const ReservationWizard: React.FC = () => {
                 <ChevronRight className="w-4 h-4" />
               </button>
             </div>
+            {!canProceedStep4 && (
+              <p className="text-right text-[11px] text-slate-400 -mt-3">
+                {phone.replace(/[^0-9]/g, '').length < 9 ? '휴대폰 번호를 입력하면 다음으로 넘어가요' : '필수 동의 2개에 체크해 주세요'}
+              </p>
+            )}
           </div>
         )}
 
@@ -1024,7 +1034,7 @@ export const ReservationWizard: React.FC = () => {
                   <span className="text-xs text-slate-400 font-medium block">방문 예정 일시</span>
                   <span className="font-extrabold text-sm sm:text-base text-[#0A1D37] flex items-center gap-1.5 mt-0.5">
                     <CalendarIcon className="w-4 h-4 text-[#38BDF8]" />
-                    {selectedDate} ({selectedTime})
+                    {selectedDate} ({selectedTime || '시간 협의'})
                   </span>
                 </div>
                 <div>
@@ -1039,13 +1049,13 @@ export const ReservationWizard: React.FC = () => {
                 <div>
                   <span className="text-xs text-slate-400 font-medium block">공간 유형 및 평수</span>
                   <span className="font-semibold text-xs sm:text-sm text-slate-700 mt-0.5 block">
-                    {propertyType} ({area})
+                    {propertyType} ({area.trim() || '평수 미입력'})
                   </span>
                 </div>
                 <div>
                   <span className="text-xs text-slate-400 font-medium block">방문 주소</span>
                   <span className="font-semibold text-xs sm:text-sm text-slate-700 mt-0.5 block">
-                    {address} {addressDetail}
+                    {address.trim() || addressDetail.trim() ? `${address} ${addressDetail}` : '미입력 (상담 시 확인)'}
                   </span>
                 </div>
               </div>
@@ -1053,12 +1063,12 @@ export const ReservationWizard: React.FC = () => {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pb-4 border-b border-slate-200/70">
                 <div>
                   <span className="text-xs text-slate-400 font-medium block">예약자명</span>
-                  <span className="font-semibold text-xs sm:text-sm text-slate-700 mt-0.5 block">{customerName}</span>
+                  <span className="font-semibold text-xs sm:text-sm text-slate-700 mt-0.5 block">{customerName.trim() || '미입력'}</span>
                 </div>
                 <div>
                   <span className="text-xs text-slate-400 font-medium block">연락처 / 이메일</span>
                   <span className="font-semibold text-xs sm:text-sm text-slate-700 mt-0.5 block">
-                    {phone} / {email}
+                    {phone}{email.trim() ? ` / ${email}` : ''}
                   </span>
                 </div>
               </div>

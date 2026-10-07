@@ -349,7 +349,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     data: Omit<Reservation, 'reservation_id' | 'created_at' | 'updated_at' | 'status' | 'admin_memo'>
   ) => {
     // 1. Double check availability
-    if (!isSlotAvailable(data.visit_date, data.visit_time)) {
+    // 시간을 고른 경우에만 마감 여부 확인 (시간 미선택 = '협의')
+    if (STANDARD_TIME_SLOTS.includes(data.visit_time) && !isSlotAvailable(data.visit_date, data.visit_time)) {
       return {
         success: false,
         error: '선택하신 방문 일시의 예약이 마감되었습니다. 다른 시간대를 선택해주세요.'
