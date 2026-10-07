@@ -884,13 +884,13 @@ export const HomeView: React.FC = () => {
           <h2 className="text-xl sm:text-3xl font-extrabold text-[#0A1D37] tracking-tight mt-2 sm:mt-3">
             말보다 결과로 보여드리겠습니다.
           </h2>
-          <p className="text-slate-500 text-xs sm:text-sm mt-1">
+          <p className="hidden sm:block text-slate-500 text-sm mt-1">
             실제 시공 현장의 청소 전/후 차이를 슬라이더를 통해 확인하세요.
           </p>
         </div>
 
         {/* Category Filter Tabs (Mobile: Horizontal Scrollable) */}
-        <div className="flex overflow-x-auto gap-1.5 pb-2 -mx-4 px-4 sm:mx-0 sm:px-0 sm:flex-wrap sm:justify-center mb-4 sm:mb-8 no-scrollbar">
+        <div className="flex overflow-x-auto gap-1.5 pb-2 -mx-4 px-4 sm:mx-0 sm:px-0 sm:flex-wrap sm:justify-center mb-3 sm:mb-8 no-scrollbar">
           {(['전체', '주방', '욕실', '거실', '창틀', '베란다', '상가', '쓰레기집', '기타'] as PortfolioCategory[]).map((cat) => (
             <button
               key={cat}
@@ -922,20 +922,26 @@ export const HomeView: React.FC = () => {
           )}
         </div>
 
-        {/* CTA to Portfolio & Naver Blog Showcase */}
-        <div className="space-y-4 sm:space-y-6 max-w-4xl mx-auto">
-          <div className="text-center">
-            <button
-              onClick={() => setCurrentView('portfolio')}
-              className="w-full sm:w-auto px-6 py-2.5 sm:py-3 rounded-xl border border-slate-200 hover:bg-white text-[#0A1D37] font-bold text-xs transition-all inline-flex items-center justify-center gap-2 cursor-pointer shadow-2xs"
-              id="home-view-all-portfolio-btn"
-            >
-              전체 청소사례 갤러리 보기
-              <ChevronRight className="w-4 h-4 text-slate-400" />
-            </button>
-          </div>
-
-          <NaverBlogBanner />
+        {/* 더 많은 사례: 갤러리 + 네이버 블로그 (한 줄) */}
+        <div className="max-w-4xl mx-auto grid grid-cols-2 gap-2 sm:gap-3">
+          <button
+            onClick={() => setCurrentView('portfolio')}
+            className="py-3 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-[#0A1D37] font-bold text-xs sm:text-sm inline-flex items-center justify-center gap-1 cursor-pointer shadow-2xs"
+            id="home-view-all-portfolio-btn"
+          >
+            청소사례 전체보기
+            <ChevronRight className="w-4 h-4 text-slate-400" />
+          </button>
+          <a
+            href="https://blog.naver.com/linkcleaning"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="py-3 rounded-xl bg-[#03C75A] hover:bg-[#02b350] text-white font-bold text-xs sm:text-sm inline-flex items-center justify-center gap-1.5 shadow-2xs"
+            id="naver-blog-external-link-btn"
+          >
+            <span className="w-4 h-4 rounded bg-white text-[#03C75A] flex items-center justify-center font-black text-[10px] leading-none">N</span>
+            블로그 사례 더보기
+          </a>
         </div>
       </section>
 
