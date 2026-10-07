@@ -31,7 +31,10 @@ export async function notifyReservation(r: Reservation): Promise<void> {
     address: [r.address, r.address_detail].filter(Boolean).join(' '),
     property_type: r.property_type,
     area: r.area,
-    message: r.customer_message,
+    message: [r.cleaning_date_hint ? `청소희망일: ${r.cleaning_date_hint}` : '', r.customer_message]
+      .filter(Boolean)
+      .join(' / '),
+    cleaning_date: r.cleaning_date_hint || '',
     photo_count: r.uploaded_images?.length || 0,
     page: typeof window !== 'undefined' ? window.location.href : '',
     website: '', // 스팸 봇 차단용 빈 칸 (봇이 채우면 무시)
