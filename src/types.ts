@@ -141,7 +141,8 @@ export interface JejuDailyWeather {
   tempLow: number;
   humidity: number;     // %
   windSpeed: number;    // m/s
-  rainProb: number;     // %
+  rainProb: number | null; // % (예보에 없으면 null)
+  rainMm?: number;      // 예상 강수량 mm
   cleaningIndex: '매우좋음' | '좋음' | '보통' | '주의';
   cleaningTip: string;  // 추천 청소 팁
 }
