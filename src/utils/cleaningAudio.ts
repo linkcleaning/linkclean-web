@@ -193,7 +193,7 @@ class CleaningAudioEngine {
       const ctx = this.getAudioContext();
       const t = ctx.currentTime + 0.02;
       const D = 2.3; // 분사 시간
-      const out = this.master(ctx, 1.0);
+      const out = this.master(ctx, 0.4);
 
       // ① 방아쇠 "딸깍"
       this.noiseTick(ctx, t, 3200, 1.2, 0.025, 0.35, out);
@@ -460,7 +460,7 @@ class CleaningAudioEngine {
     try {
       const ctx = this.getAudioContext();
       const t = ctx.currentTime + 0.02;
-      const out = this.master(ctx, 1.0);
+      const out = this.master(ctx, 0.4);
 
       // ① 레버 "철컥" (플라스틱 + 금속 체인)
       this.noiseTick(ctx, t, 2600, 2, 0.03, 0.4, out);
