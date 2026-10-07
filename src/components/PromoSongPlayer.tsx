@@ -2,8 +2,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Play, Pause, Music2 } from 'lucide-react';
 import { cleaningAudio } from '../utils/cleaningAudio';
 
-/** 링크클린 홍보송 플레이어 (public/audio/linkclean-song.mp3) */
-const SONG_SRC = '/audio/linkclean-song.mp3';
+/** 링크클린 홍보송 플레이어 (public/audio/linkclean-song-v2.mp3) */
+const SONG_SRC = '/audio/linkclean-song-v2.mp3';
 
 const fmt = (sec: number) => {
   if (!isFinite(sec) || sec < 0) return '0:00';
@@ -16,7 +16,7 @@ export const PromoSongPlayer: React.FC = () => {
   const audioRef = useRef<HTMLAudioElement>(null);
   const [playing, setPlaying] = useState(false);
   const [current, setCurrent] = useState(0);
-  const [duration, setDuration] = useState(147);
+  const [duration, setDuration] = useState(179);
 
   useEffect(() => {
     const a = audioRef.current;
