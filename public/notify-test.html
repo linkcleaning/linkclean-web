@@ -19,7 +19,7 @@
 <button class="b" id="B">B. fetch 방식으로 보내기</button>
 <div id="log">결과가 여기에 표시됩니다.</div>
 <script>
-var URL_ = 'https://script.google.com/macros/s/AKfycbwzRbWwlHvZ5UqdESOFJTaczpR0XG10UykFJvjZvK1bzU5dreNNURbmRy1psg7hZJYkig/exec';
+var URL_ = 'https://script.google.com/macros/s/AKfycbxW517Oxd8fuq8o0gazO0hsZCx4wQ3Ow0nWzqjMvdxMogPrs26DhL_IIKSUcQ--jGM4lQ/exec';
 var log = document.getElementById('log');
 function payload(m){return JSON.stringify({reservation_id:'TEST-'+m,customer_name:'테스트 '+m,phone:'010-0000-0000',service:'알림 테스트('+m+')',visit_date:new Date().toISOString().slice(0,10),visit_time:'',address:navigator.userAgent.slice(0,80),message:'',photo_count:0,website:''});}
 function add(t){log.textContent=(log.textContent.indexOf('결과가')===0?'':log.textContent+'\n')+new Date().toLocaleTimeString()+' '+t;}
