@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { JejuCityType, JejuDailyWeather } from '../types';
-import { getJejuWeather } from '../data/jejuWeatherData';
+import { useJejuWeather } from '../utils/liveWeather';
 import { 
   Sun, 
   Cloud, 
@@ -29,10 +29,17 @@ export const JejuWeatherWidget: React.FC<JejuWeatherWidgetProps> = ({ className 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalCity, setModalCity] = useState<JejuCityType>('jeju');
 
-  const weatherList = getJejuWeather(selectedCity);
+  const weather = useJejuWeather();
+  const weatherList = weather.get(selectedCity);
   const activeDay = weatherList[selectedDayIndex] || weatherList[0];
 
-  const modalWeatherList = getJejuWeather(modalCity);
+  const modalWeatherList = weather.get(modalCity);
+
+  const rainText = (d: JejuDailyWeather) =>
+    d.rainProb != null ? `강수확률 ${d.rainProb}%` : `강수 ${d.rainMm ?? 0}mm`;
+  const updatedText = weather.updatedAt
+    ? new Date(weather.updatedAt).toLocaleString('ko-KR', { timeZone: 'Asia/Seoul', month: 'numeric', day: 'numeric', hour: 'numeric', minute: '2-digit' })
+    : '';
 
   // Weather icon helper
   const renderWeatherIcon = (condition: JejuDailyWeather['condition'], iconClassName = 'w-5 h-5') => {
@@ -76,6 +83,26 @@ export const JejuWeatherWidget: React.FC<JejuWeatherWidgetProps> = ({ className 
         return 'bg-rose-400';
     }
   };
+
+  // 날씨를 아직 못 받았거나 실패했을 때: 작은 안내 카드
+  if (!activeDay) {
+    return (
+      <div className={`col-span-1 rounded-3xl p-5 bg-gradient-to-br from-[#0284C7] via-[#0369A1] to-[#0A1D37] text-white shadow-sm flex items-center gap-3 ${className}`}>
+        <Cloud className="w-8 h-8 text-sky-200 shrink-0" />
+        <div className="min-w-0">
+          <div className="text-xs font-black">제주도 날씨</div>
+          <div className="text-[11px] text-sky-100">
+            {weather.status === 'loading' ? '날씨를 불러오는 중입니다…' : '지금은 날씨를 불러올 수 없어요.'}{' '}
+            {weather.status === 'error' && (
+              <a href="https://www.weather.go.kr/w/index.do" target="_blank" rel="noopener noreferrer" className="underline font-bold">
+                기상청에서 보기
+              </a>
+            )}
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -179,7 +206,7 @@ export const JejuWeatherWidget: React.FC<JejuWeatherWidgetProps> = ({ className 
                   <span>습도 {activeDay.humidity}%</span>
                 </div>
                 <div className="text-[9px] text-sky-200">
-                  강수확률 {activeDay.rainProb}%
+                  {rainText(activeDay)}
                 </div>
               </div>
             </div>
@@ -261,6 +288,9 @@ export const JejuWeatherWidget: React.FC<JejuWeatherWidgetProps> = ({ className 
             <span>1주일 상세 캘린더 & 제주시/서귀포시 비교</span>
             <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
           </button>
+          <p className="mt-1.5 text-[9px] text-sky-200/70 text-center">
+            자료: 노르웨이 기상청(MET Norway) · {updatedText} 기준
+          </p>
         </div>
       </div>
 
@@ -354,7 +384,7 @@ export const JejuWeatherWidget: React.FC<JejuWeatherWidgetProps> = ({ className 
                             <Droplets className="w-3 h-3" /> 습도 {day.humidity}%
                           </span>
                           <span>•</span>
-                          <span>강수 {day.rainProb}%</span>
+                          <span>{rainText(day)}</span>
                         </div>
                       </div>
                     </div>
@@ -389,7 +419,7 @@ export const JejuWeatherWidget: React.FC<JejuWeatherWidgetProps> = ({ className 
             <div className="pt-2 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-400">
               <span className="flex items-center gap-1">
                 <Info className="w-3.5 h-3.5 text-sky-500" />
-                제주 기상청 및 해양 날씨 기준 실시간 주간 지표 제공
+                날씨 자료: 노르웨이 기상청(MET Norway) 예보, CC BY 4.0 · {updatedText} 기준
               </span>
               <button
                 onClick={() => {

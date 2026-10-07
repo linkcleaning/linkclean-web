@@ -4,6 +4,9 @@ on:
   push:
     branches: ["main"]
   workflow_dispatch:
+  # 제주 날씨를 새로 받기 위해 3시간마다 자동으로 다시 배포
+  schedule:
+    - cron: '23 */3 * * *'
 
 permissions:
   contents: read
@@ -29,6 +32,9 @@ jobs:
 
       - name: Install dependencies
         run: npm install
+
+      - name: Fetch Jeju weather (MET Norway)
+        run: node scripts/fetch-weather.mjs || true
 
       - name: Build project
         run: npm run build
