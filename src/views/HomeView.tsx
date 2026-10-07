@@ -437,7 +437,7 @@ export const HomeView: React.FC = () => {
                           d === null
                             ? ''
                             : good.has(d)
-                            ? 'bg-amber-400 text-slate-950 font-black'
+                            ? 'bg-red-500 text-white font-black'
                             : 'text-slate-600'
                         } ${d !== null && isThisMonth && d === now.getDate() ? 'ring-2 ring-[#38BDF8]' : ''}`}
                       >
