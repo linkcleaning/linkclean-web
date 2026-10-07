@@ -95,14 +95,14 @@ export const HomeView: React.FC = () => {
                 진행 중
               </span>
             </span>
-            <span className="block text-sm sm:text-base font-extrabold text-[#0A1D37] leading-snug">
-              후기 남기고 · 지인 소개하면 스타벅스 커피 1잔 🎁
+            <span className="block text-[13px] sm:text-base font-extrabold text-[#0A1D37] leading-snug break-keep">
+              후기 남기고 · 지인 소개하면<br className="sm:hidden" /> 스타벅스 커피 1잔 🎁
             </span>
-            <span className="block text-[11px] sm:text-xs text-slate-500 truncate">
+            <span className="hidden sm:block text-xs text-slate-500">
               네이버 플레이스 후기 작성 또는 소개 계약 시 커피를 보내드려요
             </span>
           </span>
-          <span className="shrink-0 px-3 py-2 rounded-xl bg-[#0A1D37] text-white text-xs font-bold flex items-center gap-1">
+          <span className="shrink-0 px-2.5 sm:px-3 py-2 rounded-xl bg-[#0A1D37] text-white text-xs font-bold flex items-center gap-0.5 sm:gap-1">
             보기
             <ChevronRight className="w-3.5 h-3.5" />
           </span>
