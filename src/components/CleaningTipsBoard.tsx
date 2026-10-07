@@ -46,7 +46,7 @@ export const CleaningTipsBoard: React.FC = () => {
   // Posts State (Local storage synced)
   const [posts, setPosts] = useState<CleaningTipPost[]>(() => {
     try {
-      const saved = localStorage.getItem('linkclean_tips_posts');
+      const saved = localStorage.getItem('linkclean_tips_posts_v2');
       if (saved) {
         const parsed = JSON.parse(saved);
         if (Array.isArray(parsed)) {
@@ -56,7 +56,7 @@ export const CleaningTipsBoard: React.FC = () => {
           );
           if (missingInitials.length > 0) {
             const merged = [...parsed, ...missingInitials];
-            localStorage.setItem('linkclean_tips_posts', JSON.stringify(merged));
+            localStorage.setItem('linkclean_tips_posts_v2', JSON.stringify(merged));
             return merged;
           }
           return parsed;
@@ -70,7 +70,7 @@ export const CleaningTipsBoard: React.FC = () => {
 
   useEffect(() => {
     try {
-      localStorage.setItem('linkclean_tips_posts', JSON.stringify(posts));
+      localStorage.setItem('linkclean_tips_posts_v2', JSON.stringify(posts));
     } catch (e) {
       console.error('Failed to save tips posts to localStorage', e);
     }
@@ -93,8 +93,8 @@ export const CleaningTipsBoard: React.FC = () => {
   const [formSummary, setFormSummary] = useState('');
   const [formContent, setFormContent] = useState('');
   const [formKeyPoints, setFormKeyPoints] = useState('');
-  const [formAuthorName, setFormAuthorName] = useState(currentUser?.name || '강민우 시공팀장');
-  const [formAuthorRole, setFormAuthorRole] = useState('제주본부 친환경 청소 마스터');
+  const [formAuthorName, setFormAuthorName] = useState(currentUser?.name || '링크클린 현장팀');
+  const [formAuthorRole, setFormAuthorRole] = useState('제주 입주·거주청소 시공팀');
   const [formTags, setFormTags] = useState('제주청소, 곰팡이방지');
   const [formImageUrl, setFormImageUrl] = useState(PRESET_IMAGES[0].url);
   const [formPromoBadge, setFormPromoBadge] = useState('선착순 혜택');
@@ -173,7 +173,7 @@ export const CleaningTipsBoard: React.FC = () => {
       keyPoints: rawPoints.length > 0 ? rawPoints : undefined,
       authorName: formAuthorName.trim() || '링크클린 전문가',
       authorRole: formAuthorRole.trim() || '제주 현장 시공팀',
-      authorAvatar: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=200&q=80',
+      authorAvatar: '/logo.png',
       date: new Date().toISOString().slice(0, 10),
       views: 1,
       likes: 0,
@@ -390,9 +390,11 @@ export const CleaningTipsBoard: React.FC = () => {
                 <div className="space-y-2">
                   <div className="flex items-center justify-between text-[11px] text-slate-400">
                     <span className="font-mono">{post.date}</span>
-                    <span className="flex items-center gap-1">
-                      <Eye className="w-3 h-3" /> {post.views}회 조회
-                    </span>
+                    {post.views > 0 && (
+                      <span className="flex items-center gap-1">
+                        <Eye className="w-3 h-3" /> {post.views}회 조회
+                      </span>
+                    )}
                   </div>
 
                   <h3 className="font-bold text-[#0A1D37] text-sm sm:text-base leading-snug group-hover:text-[#0284C7] transition-colors line-clamp-2">
@@ -422,7 +424,7 @@ export const CleaningTipsBoard: React.FC = () => {
                 <div className="flex items-center gap-2 min-w-0">
                   <div className="w-6 h-6 rounded-full overflow-hidden bg-slate-200 shrink-0">
                     <img
-                      src={post.authorAvatar || 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=100&q=80'}
+                      src={post.authorAvatar || '/logo.png'}
                       alt={post.authorName}
                       className="w-full h-full object-cover"
                     />
@@ -488,7 +490,7 @@ export const CleaningTipsBoard: React.FC = () => {
               <div className="flex items-center justify-between pt-3 mt-3 border-t border-slate-100">
                 <div className="flex items-center gap-2.5">
                   <img
-                    src={activeModalPost.authorAvatar || 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=100&q=80'}
+                    src={activeModalPost.authorAvatar || '/logo.png'}
                     alt={activeModalPost.authorName}
                     className="w-8 h-8 rounded-full object-cover border border-slate-200"
                   />
