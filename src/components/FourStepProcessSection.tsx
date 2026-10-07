@@ -122,21 +122,6 @@ export const FourStepProcessSection: React.FC = () => {
               </div>
             </div>
 
-            <div className="flex items-center gap-2.5 w-full sm:w-auto">
-              <a
-                href="tel:064-763-4545"
-                className="flex-1 sm:flex-none px-5 py-3 rounded-xl bg-white text-[#0A1D37] hover:bg-slate-100 font-bold text-xs transition-colors flex items-center justify-center gap-1.5 cursor-pointer shadow-md"
-              >
-                <PhoneCall className="w-4 h-4 text-[#0A1D37]" />
-                <span>064-763-4545</span>
-              </a>
-              <button
-                onClick={() => goToReservationWithService('move-in')}
-                className="flex-1 sm:flex-none px-5 py-3 rounded-xl bg-[#38BDF8] hover:bg-[#0EA5E9] text-white font-bold text-xs transition-colors flex items-center justify-center gap-1.5 cursor-pointer shadow-md shadow-blue-400/20"
-              >
-                <span>사진 견적 신청하기</span>
-              </button>
-            </div>
           </div>
         </div>
       </div>

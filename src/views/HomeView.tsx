@@ -610,16 +610,6 @@ export const HomeView: React.FC = () => {
             <p className="text-slate-300 text-xs sm:text-sm leading-relaxed">
               공간의 상태를 직접 확인하고 필요한 작업을 꼼꼼하게 살펴본 후 고객에게 꼭 맞는 청소를 안내합니다.
             </p>
-            <div className="pt-1.5 sm:pt-2">
-              <button
-                onClick={() => goToReservationWithService('move-in')}
-                className="px-5 py-2.5 sm:px-6 sm:py-3 rounded-xl bg-[#38BDF8] hover:bg-[#0EA5E9] text-white font-bold text-xs sm:text-sm shadow-md transition-all cursor-pointer inline-flex items-center gap-2 active:scale-95"
-                id="problem-cta-btn"
-              >
-                <Calendar className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" />
-                방문 견적 예약하기
-              </button>
-            </div>
           </div>
         </div>
       </section>
@@ -873,15 +863,6 @@ export const HomeView: React.FC = () => {
               ))}
             </div>
 
-            <div className="text-center mt-5 sm:mt-10">
-              <button
-                onClick={() => goToReservationWithService('move-in')}
-                className="w-full sm:w-auto px-8 py-3 rounded-xl bg-white text-[#0A1D37] hover:bg-slate-100 font-bold text-xs sm:text-sm shadow-md transition-all inline-flex items-center justify-center gap-2 cursor-pointer active:scale-98"
-              >
-                <Calendar className="w-4 h-4 text-[#0A1D37]" />
-                지금 방문 견적 예약하기
-              </button>
-            </div>
           </div>
         </div>
       </section>

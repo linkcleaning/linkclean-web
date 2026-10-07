@@ -288,28 +288,6 @@ export const PricingGuideSection: React.FC = () => {
         </div>
         </MobileCollapse>
 
-        {/* CTA Bar */}
-        <div className="mt-6 pt-5 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
-          <p className="text-slate-600 font-medium">
-            💡 현장 사진 3~5장을 보내주시면 방문 없이도 <strong>정확한 맞춤 가견적</strong>을 즉시 산출해 드립니다.
-          </p>
-          <div className="flex items-center gap-2 w-full sm:w-auto">
-            <a
-              href="tel:064-763-4545"
-              className="flex-1 sm:flex-none px-4 py-2.5 rounded-xl bg-[#0A1D37] text-white font-bold hover:bg-slate-800 transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
-            >
-              <Phone className="w-3.5 h-3.5 text-[#38BDF8]" />
-              <span>064-763-4545 전화견적</span>
-            </a>
-            <button
-              onClick={() => goToReservationWithService(currentTabInfo.serviceType)}
-              className="flex-1 sm:flex-none px-4 py-2.5 rounded-xl bg-[#38BDF8] text-white font-bold hover:bg-[#0EA5E9] transition-colors flex items-center justify-center gap-1.5 cursor-pointer shadow-xs"
-            >
-              <Calendar className="w-3.5 h-3.5" />
-              <span>사진 견적 신청하기</span>
-            </button>
-          </div>
-        </div>
       </div>
     </section>
   );

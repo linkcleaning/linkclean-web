@@ -100,31 +100,6 @@ export const HomeFaqSection: React.FC = () => {
         })}
       </div>
 
-      {/* Still have questions? */}
-      <div className="mt-6 p-4 sm:p-5 rounded-2xl bg-blue-50/70 border border-blue-100 text-center flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
-        <div className="text-slate-700 font-medium text-left">
-          <strong className="text-[#0A1D37]">더 궁금하신 점이 있으신가요?</strong>
-          <p className="text-slate-500 text-[11px] mt-0.5">전화나 카카오톡으로 문의 주시면 3분 내 친절하게 답변해 드립니다.</p>
-        </div>
-        <div className="flex items-center gap-2">
-          <a
-            href="tel:064-763-4545"
-            className="px-4 py-2 rounded-xl bg-[#0A1D37] text-white font-bold hover:bg-slate-800 transition-colors flex items-center gap-1.5 cursor-pointer"
-          >
-            <PhoneCall className="w-3.5 h-3.5 text-[#38BDF8]" />
-            <span>064-763-4545</span>
-          </a>
-          <a
-            href="https://pf.kakao.com/_xfxdrxmM?from=qr"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-4 py-2 rounded-xl bg-[#FEE500] text-[#371D1E] font-bold hover:bg-[#FDD835] transition-colors flex items-center gap-1.5 cursor-pointer"
-          >
-            <MessageCircle className="w-3.5 h-3.5 fill-[#371D1E]" />
-            <span>카톡 1:1 상담</span>
-          </a>
-        </div>
-      </div>
     </section>
   );
 };

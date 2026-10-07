@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useApp } from '../context/AppContext';
-import { PhoneCall, CalendarCheck, ArrowUp, Home } from 'lucide-react';
+import { PhoneCall, CalendarCheck, ArrowUp, Home, MessageCircle } from 'lucide-react';
 
 export const MobileBottomBar: React.FC = () => {
   const { goToReservationWithService, currentView, setCurrentView } = useApp();
@@ -41,19 +41,28 @@ export const MobileBottomBar: React.FC = () => {
           <span>전화문의</span>
         </a>
 
-        {/* 방문 견적 예약 */}
+        {/* 견적 예약 (짧게) */}
         <button
           onClick={() => goToReservationWithService('move-in')}
-          className={`flex-1 flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl text-white font-bold text-xs shadow-md active:scale-95 transition-all cursor-pointer ${
-            currentView === 'reservation'
-              ? 'bg-[#38BDF8] ring-2 ring-white/50'
-              : 'bg-[#38BDF8] hover:bg-[#0EA5E9] shadow-blue-400/25'
-          }`}
+          className="flex-1 min-w-0 flex items-center justify-center gap-1 py-2.5 px-2 rounded-xl bg-[#38BDF8] hover:bg-[#0EA5E9] text-white font-bold text-xs shadow-md active:scale-95 transition-all cursor-pointer"
           id="mobile-fixed-reserve-btn"
         >
-          <CalendarCheck className="w-3.5 h-3.5 text-white" />
-          <span className="truncate">방문 견적 예약</span>
+          <CalendarCheck className="w-3.5 h-3.5 text-white shrink-0" />
+          <span className="truncate">견적 예약</span>
         </button>
+
+        {/* 카카오톡 문의 (아이콘) */}
+        <a
+          href="https://pf.kakao.com/_xfxdrxmM?from=qr"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="카카오톡 문의"
+          title="카카오톡 문의"
+          className="w-10 h-10 shrink-0 rounded-xl bg-[#FEE500] flex items-center justify-center active:scale-95 transition-all shadow-xs"
+          id="mobile-fixed-kakao-btn"
+        >
+          <MessageCircle className="w-5 h-5 text-[#3A1D1D] fill-[#3A1D1D]" />
+        </a>
 
         {/* 홈이 아닌 페이지에서는 [홈] 버튼, 홈에서는 [맨위로] 버튼 */}
         {currentView !== 'home' ? (
