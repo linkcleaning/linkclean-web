@@ -243,19 +243,19 @@ export const HomeView: React.FC = () => {
         {/* DESKTOP BENTO GRID (hidden sm:grid) — 데스크톱에서는 4열 Bento Grid 고급 디자인 온전히 유지 */}
         <div className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-12 gap-4">
           {/* Bento Cell 1: Main Brand Hero (col-span-2 row-span-2) */}
-          <div className="sm:col-span-2 lg:col-span-12 bg-[#0A1D37] rounded-3xl p-8 sm:p-10 text-white relative overflow-hidden shadow-sm grid grid-cols-1 lg:grid-cols-[1.15fr_1fr] gap-8 items-center">
+          <div className="sm:col-span-2 lg:col-span-12 bg-[#0A1D37] rounded-3xl p-8 sm:p-10 text-white relative overflow-hidden shadow-sm flex flex-col gap-7">
             <div className="absolute top-0 right-0 w-64 h-64 bg-[#38BDF8] opacity-10 rounded-full -mr-20 -mt-20 pointer-events-none" />
             <div className="relative z-10 flex flex-col justify-between">
             <div>
               <span className="inline-block bg-[#38BDF8] text-[#0A1D37] px-3 py-1 rounded-full text-[11px] font-black mb-4 tracking-wider">
                 제주 전지역 • 비대면 사진 리포트 안심 시공
               </span>
-              <h1 className="text-3xl sm:text-4xl lg:text-[40px] font-black leading-[1.2] mb-5 tracking-tight text-white">
-                "제주에 없어도 괜찮아요.<br />
+              <h1 className="text-3xl sm:text-4xl lg:text-[34px] xl:text-[40px] font-black leading-[1.2] mb-5 tracking-tight text-white lg:whitespace-nowrap">
+                "제주에 없어도 괜찮아요.<br className="lg:hidden" />{' '}
                 <span className="text-[#38BDF8]">청소 전·후를 사진으로</span> 보내드립니다."
               </h1>
-              <p className="text-slate-300 text-sm sm:text-base mb-7 max-w-lg leading-relaxed">
-                육지에서 이사 오시거나 현장에 직접 오지 못하셔도 걱정 마세요.<br />
+              <p className="text-slate-300 text-sm sm:text-base mb-7 max-w-lg lg:max-w-none leading-relaxed">
+                육지에서 이사 오시거나 현장에 직접 오지 못하셔도 걱정 마세요.<br className="lg:hidden" />{' '}
                 구역별 실시간 고화질 사진 전송과 고객 확인 후 안심 결제로 멀리서도 100% 믿고 맡기실 수 있습니다.
               </p>
 
@@ -308,53 +308,51 @@ export const HomeView: React.FC = () => {
             </div>
             </div>
 
-            {/* 오른쪽: 제주에 없어도 안심되는 4단계 진행 */}
+            {/* 아래: 제주에 없어도 안심되는 4단계 진행 (가로 한 줄) */}
             <div className="relative z-10">
               <HeroProcessSteps variant="desktop" />
             </div>
           </div>
 
-          {/* Bento Cell 2: 맞춤 서비스 (col-span-1 row-span-2) */}
-          <div className="col-span-1 lg:col-span-4 bg-white rounded-3xl p-6 border border-slate-100 flex flex-col justify-between shadow-sm">
-            <div>
-              <h3 className="text-lg font-bold mb-4 flex items-center gap-2 text-[#0A1D37]">
-                <span className="w-1.5 h-6 bg-[#38BDF8] rounded-full" />
-                맞춤 서비스
-              </h3>
-              <div className="space-y-3">
-                <div
-                  onClick={() => goToServiceDetail('move-in')}
-                  className="group p-3.5 bg-slate-50 rounded-2xl hover:bg-[#38BDF8] hover:text-white transition-all cursor-pointer"
-                >
-                  <p className="text-[10px] font-bold mb-1 opacity-70 group-hover:text-white">STEP 01</p>
-                  <h4 className="font-bold text-sm text-[#0F172A] group-hover:text-white">입주 · 이사 청소</h4>
-                </div>
-                <div
-                  onClick={() => goToServiceDetail('residential')}
-                  className="group p-3.5 bg-slate-50 rounded-2xl hover:bg-[#38BDF8] hover:text-white transition-all cursor-pointer"
-                >
-                  <p className="text-[10px] font-bold mb-1 opacity-70 group-hover:text-white">STEP 02</p>
-                  <h4 className="font-bold text-sm text-[#0F172A] group-hover:text-white">거주 청소</h4>
-                </div>
-                <div
-                  onClick={() => goToServiceDetail('commercial')}
-                  className="group p-3.5 bg-slate-50 rounded-2xl hover:bg-[#38BDF8] hover:text-white transition-all cursor-pointer"
-                >
-                  <p className="text-[10px] font-bold mb-1 opacity-70 group-hover:text-white">STEP 03</p>
-                  <h4 className="font-bold text-sm text-[#0F172A] group-hover:text-white">상가 · 사무실 청소</h4>
-                </div>
-                <div
-                  onClick={() => goToServiceDetail('partial')}
-                  className="group p-3.5 bg-slate-50 rounded-2xl hover:bg-[#38BDF8] hover:text-white transition-all cursor-pointer"
-                >
-                  <p className="text-[10px] font-bold mb-1 opacity-70 group-hover:text-white">STEP 04</p>
-                  <h4 className="font-bold text-sm text-[#0F172A] group-hover:text-white">부분 · 특수 청소</h4>
-                </div>
+          {/* Bento Cell 2: 맞춤 서비스 — 가로 한 줄 */}
+          <div className="sm:col-span-2 lg:col-span-12 bg-white rounded-3xl p-5 border border-slate-100 shadow-sm flex flex-col lg:flex-row lg:items-center gap-4">
+            <h3 className="text-lg font-bold flex items-center gap-2 text-[#0A1D37] shrink-0">
+              <span className="w-1.5 h-6 bg-[#38BDF8] rounded-full" />
+              맞춤 서비스
+            </h3>
+            <div className="flex-1 grid grid-cols-2 lg:grid-cols-4 gap-3">
+              <div
+                onClick={() => goToServiceDetail('move-in')}
+                className="group p-3.5 bg-slate-50 rounded-2xl hover:bg-[#38BDF8] hover:text-white transition-all cursor-pointer"
+              >
+                <p className="text-[10px] font-bold mb-1 opacity-70 group-hover:text-white">STEP 01</p>
+                <h4 className="font-bold text-sm text-[#0F172A] group-hover:text-white">입주 · 이사 청소</h4>
+              </div>
+              <div
+                onClick={() => goToServiceDetail('residential')}
+                className="group p-3.5 bg-slate-50 rounded-2xl hover:bg-[#38BDF8] hover:text-white transition-all cursor-pointer"
+              >
+                <p className="text-[10px] font-bold mb-1 opacity-70 group-hover:text-white">STEP 02</p>
+                <h4 className="font-bold text-sm text-[#0F172A] group-hover:text-white">거주 청소</h4>
+              </div>
+              <div
+                onClick={() => goToServiceDetail('commercial')}
+                className="group p-3.5 bg-slate-50 rounded-2xl hover:bg-[#38BDF8] hover:text-white transition-all cursor-pointer"
+              >
+                <p className="text-[10px] font-bold mb-1 opacity-70 group-hover:text-white">STEP 03</p>
+                <h4 className="font-bold text-sm text-[#0F172A] group-hover:text-white">상가 · 사무실 청소</h4>
+              </div>
+              <div
+                onClick={() => goToServiceDetail('partial')}
+                className="group p-3.5 bg-slate-50 rounded-2xl hover:bg-[#38BDF8] hover:text-white transition-all cursor-pointer"
+              >
+                <p className="text-[10px] font-bold mb-1 opacity-70 group-hover:text-white">STEP 04</p>
+                <h4 className="font-bold text-sm text-[#0F172A] group-hover:text-white">부분 · 특수 청소</h4>
               </div>
             </div>
             <button
               onClick={() => setCurrentView('services')}
-              className="mt-4 w-full py-3 text-xs font-bold text-[#38BDF8] bg-blue-50 rounded-xl hover:bg-blue-100 transition-colors cursor-pointer text-center"
+              className="shrink-0 px-5 py-3 text-xs font-bold text-[#38BDF8] bg-blue-50 rounded-xl hover:bg-blue-100 transition-colors cursor-pointer text-center"
             >
               전체 서비스 보기 →
             </button>
@@ -364,7 +362,7 @@ export const HomeView: React.FC = () => {
           <div
             id="bento-cell-son-eop-neun-nal"
             onClick={() => setIsSonEopNeunNalModalOpen(true)}
-            className="col-span-1 lg:col-span-4 bg-gradient-to-br from-white via-slate-50/70 to-amber-50/40 rounded-3xl p-5 sm:p-6 border border-amber-200/70 hover:border-amber-400 shadow-sm hover:shadow-md transition-all flex flex-col justify-between min-h-[185px] cursor-pointer group relative overflow-hidden"
+            className="col-span-1 lg:col-span-6 bg-gradient-to-br from-white via-slate-50/70 to-amber-50/40 rounded-3xl p-5 sm:p-6 border border-amber-200/70 hover:border-amber-400 shadow-sm hover:shadow-md transition-all flex flex-col justify-between min-h-[185px] cursor-pointer group relative overflow-hidden"
           >
             <div className="absolute top-0 right-0 w-28 h-28 bg-amber-400/10 rounded-full blur-xl pointer-events-none" />
 
@@ -443,80 +441,7 @@ export const HomeView: React.FC = () => {
           </div>
 
           {/* Bento Cell 4: 제주도 날씨 & 1주일 청소 예보 (제주시 / 서귀포시) */}
-          <JejuWeatherWidget className="sm:col-span-2 lg:col-span-4" />
-
-          {/* Bento Cell 5: 간편한 5단계 예약 프로세스 (col-span-2 row-span-1) */}
-          <div className="col-span-1 sm:col-span-2 lg:col-span-6 bg-white rounded-3xl p-6 sm:p-7 border border-slate-100 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-            <div className="flex flex-col gap-2">
-              <h3 className="text-base sm:text-lg font-bold text-[#0A1D37]">간편한 5단계 예약 프로세스</h3>
-              <div className="flex gap-2 items-center mt-1">
-                <div className="flex flex-col items-center gap-1">
-                  <div className="w-6 h-6 rounded-full bg-[#0A1D37] text-white text-[10px] flex items-center justify-center font-bold">1</div>
-                  <span className="text-[10px] text-slate-500 font-medium">날짜선택</span>
-                </div>
-                <div className="w-4 sm:w-6 h-[1px] bg-slate-200 mb-4" />
-                <div className="flex flex-col items-center gap-1">
-                  <div className="w-6 h-6 rounded-full bg-slate-100 text-slate-500 text-[10px] flex items-center justify-center font-bold">2</div>
-                  <span className="text-[10px] text-slate-400">현장방문</span>
-                </div>
-                <div className="w-4 sm:w-6 h-[1px] bg-slate-200 mb-4" />
-                <div className="flex flex-col items-center gap-1">
-                  <div className="w-6 h-6 rounded-full bg-slate-100 text-slate-500 text-[10px] flex items-center justify-center font-bold">3</div>
-                  <span className="text-[10px] text-slate-400">확정견적</span>
-                </div>
-                <div className="w-4 sm:w-6 h-[1px] bg-slate-200 mb-4" />
-                <div className="flex flex-col items-center gap-1">
-                  <div className="w-6 h-6 rounded-full bg-slate-100 text-slate-500 text-[10px] flex items-center justify-center font-bold">4</div>
-                  <span className="text-[10px] text-slate-400">정밀청소</span>
-                </div>
-                <div className="w-4 sm:w-6 h-[1px] bg-slate-200 mb-4" />
-                <div className="flex flex-col items-center gap-1">
-                  <div className="w-6 h-6 rounded-full bg-slate-100 text-slate-500 text-[10px] flex items-center justify-center font-bold">5</div>
-                  <span className="text-[10px] text-slate-400">검수완료</span>
-                </div>
-              </div>
-            </div>
-            <button
-              onClick={() => goToReservationWithService('move-in')}
-              className="bg-[#F1F5F9] text-[#0A1D37] px-5 py-3 rounded-2xl font-bold text-xs hover:bg-slate-200 transition-colors cursor-pointer self-stretch sm:self-auto text-center shrink-0"
-            >
-              실시간 예약하기 →
-            </button>
-          </div>
-
-          {/* Bento Cell 6: 결과로 증명하는 퀄리티 (col-span-2 row-span-1) */}
-          <div className="col-span-1 sm:col-span-2 lg:col-span-6 bg-white rounded-3xl border border-slate-100 shadow-sm overflow-hidden flex flex-col sm:flex-row">
-            <div className="w-full sm:w-1/2 p-6 flex flex-col justify-center">
-              <h4 className="font-bold text-[#0A1D37] text-base mb-1">결과로 증명하는 퀄리티</h4>
-              <div className="flex gap-2 items-center text-[#38BDF8] text-xs font-bold mb-3">
-                <span>BEFORE</span>
-                <div className="w-6 h-[1px] bg-[#38BDF8]" />
-                <span>AFTER</span>
-              </div>
-              <p className="text-xs text-slate-500 mb-3 leading-relaxed">
-                주방 후드 찌든때부터 창틀 구석 먼지까지, 전문 장비로 완벽하게 제거합니다.
-              </p>
-              <button
-                onClick={() => setCurrentView('portfolio')}
-                className="text-[#0A1D37] text-xs font-bold underline underline-offset-4 cursor-pointer text-left hover:text-[#38BDF8] transition-colors"
-              >
-                청소사례 더보기 →
-              </button>
-            </div>
-            <div className="w-full sm:w-1/2 h-36 sm:h-auto bg-slate-200 relative overflow-hidden">
-              <img
-                src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=600&q=80"
-                alt="청소 시공 사례"
-                referrerPolicy="no-referrer"
-                className="w-full h-full object-cover"
-              />
-              <div className="absolute inset-0 bg-[#0A1D37]/20 flex items-center justify-center">
-                <div className="bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-full shadow-lg text-[10px] font-bold text-[#0A1D37]">
-                  청소사례 2,450건 돌파
-                </div>
-              </div>
-            </div>
-          </div>
+          <JejuWeatherWidget className="col-span-1 lg:col-span-6" />
         </div>
       </section>
 
