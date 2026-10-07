@@ -1,0 +1,3 @@
+linkclean deploy check
+merged: PR #1 (mobile collapse, tips, coffee event)
+set: 2026-10-07 13:30 KST
