@@ -8,7 +8,8 @@ import { SERVICE_DETAILS } from '../data/initialData';
  * 주소를 넣기 전(빈 문자열)에는 알림을 보내지 않습니다.
  * 예: 'https://script.google.com/macros/s/AKfycb.../exec'
  */
-export const RESERVATION_NOTIFY_URL = '';
+export const RESERVATION_NOTIFY_URL =
+  'https://script.google.com/macros/s/AKfycbwzRbWwlHvZ5UqdESOFJTaczpR0XG10UykFJvjZvK1bzU5dreNNURbmRy1psg7hZJYkig/exec';
 
 /**
  * 손님이 예약·견적을 신청하면 사장님 휴대폰으로 문자 알림을 보냅니다.
