@@ -73,7 +73,7 @@ export const HomeView: React.FC = () => {
   const visibleReviews = reviews.filter((r) => r.isVisible);
 
   return (
-    <div className="space-y-8 sm:space-y-16 pb-12 sm:pb-16 bg-[#F8FAFC]">
+    <div className="space-y-6 sm:space-y-16 pb-12 sm:pb-16 bg-[#F8FAFC]">
       {/* =========================================================================
           SECTION 01 — HERO (스마트폰 최적화 모바일 + 데스크톱 와이드 BENTO)
       ========================================================================= */}

@@ -43,7 +43,7 @@ export const FourStepProcessSection: React.FC = () => {
   ];
 
   return (
-    <section id="process-4step-section" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10">
+    <section id="process-4step-section" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 sm:py-10">
       <div className="bg-[#0A1D37] text-white rounded-3xl p-6 sm:p-12 relative overflow-hidden shadow-xl border border-slate-800">
         {/* Glow circles */}
         <div className="absolute top-0 right-0 w-96 h-96 bg-[#38BDF8] opacity-10 rounded-full blur-3xl pointer-events-none" />

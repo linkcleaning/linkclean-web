@@ -110,24 +110,27 @@ export const PricingGuideSection: React.FC = () => {
   const currentTabInfo = criteriaData[selectedTab];
 
   return (
-    <section id="pricing-guide-section" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10">
-      <div className="text-center max-w-3xl mx-auto mb-6 sm:mb-10">
+    <section id="pricing-guide-section" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 sm:py-10">
+      <div className="text-center max-w-3xl mx-auto mb-3 sm:mb-10">
         <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-[#38BDF8] bg-blue-50 px-3 py-1 rounded-full border border-blue-100">
           TAILORED ESTIMATE
         </span>
-        <h2 className="text-2xl sm:text-3xl font-extrabold text-[#0A1D37] tracking-tight mt-2">
+        <h2 className="text-xl sm:text-3xl font-extrabold text-[#0A1D37] tracking-tight mt-1.5 sm:mt-2">
           현장 맞춤 견적 기준 &amp; 작업 범위
         </h2>
-        <p className="text-slate-600 text-xs sm:text-sm mt-1.5 leading-relaxed">
+        <p className="sm:hidden text-slate-600 text-xs mt-1 leading-relaxed">
+          평수·창문·오염도를 보고 <strong>현장 실측·사진으로 1:1 맞춤 견적</strong>을 드립니다.
+        </p>
+        <p className="hidden sm:block text-slate-600 text-sm mt-1.5 leading-relaxed">
           공간마다 평수, 창문 개수, 묵은 오염도가 모두 다릅니다. 링크클린은 획일화된 임의 가격으로 인한 현장 분쟁을 방지하기 위해, <strong>100% 현장 실측 및 사진 기반의 정직한 1:1 맞춤 견적</strong>을 원칙으로 합니다.
         </p>
 
         {/* Tab switcher */}
-        <div className="flex justify-center gap-1.5 sm:gap-2 mt-5 p-1 bg-slate-100 rounded-2xl max-w-lg mx-auto overflow-x-auto no-scrollbar">
+        <div className="grid grid-cols-2 sm:flex justify-center gap-1 sm:gap-2 mt-3 sm:mt-5 p-1 bg-slate-100 rounded-2xl max-w-lg mx-auto">
           <button
             type="button"
             onClick={() => setSelectedTab('movein')}
-            className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap cursor-pointer ${
+            className={`px-2 sm:px-3.5 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap cursor-pointer ${
               selectedTab === 'movein'
                 ? 'bg-white text-[#0A1D37] shadow-xs'
                 : 'text-slate-600 hover:text-slate-900'
@@ -138,7 +141,7 @@ export const PricingGuideSection: React.FC = () => {
           <button
             type="button"
             onClick={() => setSelectedTab('airbnb')}
-            className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap cursor-pointer ${
+            className={`px-2 sm:px-3.5 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap cursor-pointer ${
               selectedTab === 'airbnb'
                 ? 'bg-white text-[#0A1D37] shadow-xs'
                 : 'text-slate-600 hover:text-slate-900'
@@ -149,7 +152,7 @@ export const PricingGuideSection: React.FC = () => {
           <button
             type="button"
             onClick={() => setSelectedTab('residential')}
-            className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap cursor-pointer ${
+            className={`px-2 sm:px-3.5 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap cursor-pointer ${
               selectedTab === 'residential'
                 ? 'bg-white text-[#0A1D37] shadow-xs'
                 : 'text-slate-600 hover:text-slate-900'
@@ -160,7 +163,7 @@ export const PricingGuideSection: React.FC = () => {
           <button
             type="button"
             onClick={() => setSelectedTab('commercial')}
-            className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap cursor-pointer ${
+            className={`px-2 sm:px-3.5 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap cursor-pointer ${
               selectedTab === 'commercial'
                 ? 'bg-white text-[#0A1D37] shadow-xs'
                 : 'text-slate-600 hover:text-slate-900'
@@ -172,15 +175,15 @@ export const PricingGuideSection: React.FC = () => {
       </div>
 
       {/* Main Container */}
-      <div className="bg-white rounded-3xl border border-slate-200/90 shadow-sm p-6 sm:p-8 max-w-5xl mx-auto">
+      <div className="bg-white rounded-2xl sm:rounded-3xl border border-slate-200/90 shadow-sm p-4 sm:p-8 max-w-5xl mx-auto">
         {/* Header */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-6 border-b border-slate-100 gap-3">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-3 sm:pb-6 sm:border-b border-slate-100 gap-2 sm:gap-3">
           <div>
-            <div className="inline-flex items-center gap-1.5 text-[11px] font-bold text-[#0284C7] bg-blue-50 px-2.5 py-1 rounded-md mb-1.5">
+            <div className="inline-flex items-center gap-1.5 text-[11px] font-bold text-[#0284C7] bg-blue-50 px-2.5 py-1 rounded-md mb-1">
               <Scale className="w-3.5 h-3.5" />
               <span>{currentTabInfo.badge}</span>
             </div>
-            <h3 className="text-xl sm:text-2xl font-black text-[#0A1D37]">
+            <h3 className="text-lg sm:text-2xl font-black text-[#0A1D37] leading-snug">
               {currentTabInfo.title}
             </h3>
             <p className="text-xs text-slate-500 mt-0.5">
@@ -189,18 +192,18 @@ export const PricingGuideSection: React.FC = () => {
           </div>
 
           <div className="text-left sm:text-right shrink-0">
-            <span className="text-xs font-extrabold text-emerald-700 bg-emerald-50 px-3 py-1.5 rounded-full border border-emerald-200 inline-flex items-center gap-1">
+            <span className="text-[11px] sm:text-xs font-extrabold text-emerald-700 bg-emerald-50 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full border border-emerald-200 inline-flex items-center gap-1">
               <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
               당일 바가지 추가금 0원 원칙
             </span>
-            <p className="text-[11px] text-slate-400 mt-1">
+            <p className="hidden sm:block text-[11px] text-slate-400 mt-1">
               사진 확인 후 사전 안내된 범위 내 책임 시공
             </p>
           </div>
         </div>
 
         {/* 모바일: 견적 기준·작업 범위는 접어두고 버튼으로 펼침 */}
-        <MobileCollapse label="견적 기준 · 작업 범위 자세히 보기" className="mt-5 sm:mt-0">
+        <MobileCollapse label="견적 기준 · 작업 범위 자세히 보기" className="mt-1 sm:mt-0">
         {/* 4 Core Estimation Factors Grid */}
         <div className="mb-6 sm:my-6">
           <div className="text-xs font-bold text-slate-700 mb-3 flex items-center gap-1.5">
