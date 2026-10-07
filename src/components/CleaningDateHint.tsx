@@ -25,8 +25,45 @@ export const CleaningDateHint: React.FC<Props> = ({ value, onChange, compact }) 
     return ['이번 주', '다음 주', `${m}월 중순`, `${m}월 말`, `${next}월 초`, `${next}월 중`, '아직 미정'];
   }, []);
 
+  // 간편 견적용: 버튼 한 줄(옆으로 밀기) + 날짜 선택만
+  if (compact) {
+    const custom = value && !chips.includes(value);
+    return (
+      <div className="flex gap-1.5 overflow-x-auto no-scrollbar -mx-1 px-1 pb-0.5">
+        <label
+          className={`relative shrink-0 px-2.5 py-1.5 rounded-full text-xs font-bold border cursor-pointer whitespace-nowrap ${
+            custom ? 'bg-[#0A1D37] text-white border-[#0A1D37]' : 'bg-white text-slate-600 border-slate-200'
+          }`}
+        >
+          📅 {custom ? value : '날짜'}
+          <input
+            type="date"
+            aria-label="청소 희망일 날짜 선택"
+            onChange={(e) => e.target.value && onChange(fmtDate(e.target.value))}
+            className="absolute inset-0 opacity-0 cursor-pointer"
+          />
+        </label>
+        {chips.map((c) => {
+          const on = value === c;
+          return (
+            <button
+              key={c}
+              type="button"
+              onClick={() => onChange(on ? '' : c)}
+              className={`shrink-0 px-2.5 py-1.5 rounded-full text-xs font-bold border whitespace-nowrap cursor-pointer ${
+                on ? 'bg-[#0A1D37] text-white border-[#0A1D37]' : 'bg-white text-slate-600 border-slate-200'
+              }`}
+            >
+              {c}
+            </button>
+          );
+        })}
+      </div>
+    );
+  }
+
   return (
-    <div className={compact ? 'space-y-2' : 'space-y-2.5'}>
+    <div className="space-y-2.5">
       <div className="flex flex-wrap gap-1.5">
         {chips.map((c) => {
           const on = value === c;
