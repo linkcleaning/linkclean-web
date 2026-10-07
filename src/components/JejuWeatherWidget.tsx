@@ -187,7 +187,9 @@ export const JejuWeatherWidget: React.FC<JejuWeatherWidgetProps> = ({ className 
                 <div>
                   <div className="flex items-baseline gap-1.5">
                     <span className="text-xl sm:text-2xl font-black">{activeDay.tempHigh}°</span>
-                    <span className="text-xs text-sky-200">/ {activeDay.tempLow}°</span>
+                    {activeDay.tempLow !== activeDay.tempHigh && (
+                      <span className="text-xs text-sky-200">/ {activeDay.tempLow}°</span>
+                    )}
                     <span className="text-xs font-bold text-amber-300 ml-1">{activeDay.conditionText}</span>
                   </div>
                   <div className="text-[10px] text-sky-200 flex items-center gap-1.5">
@@ -377,7 +379,7 @@ export const JejuWeatherWidget: React.FC<JejuWeatherWidgetProps> = ({ className 
                         </div>
                         <div className="flex items-center gap-3 text-xs text-slate-400 mt-0.5">
                           <span className="font-semibold text-slate-700">
-                            최고 {day.tempHigh}° / 최저 {day.tempLow}°
+                            {day.tempLow !== day.tempHigh ? `최고 ${day.tempHigh}° / 최저 ${day.tempLow}°` : `${day.tempHigh}°`}
                           </span>
                           <span>•</span>
                           <span className="flex items-center gap-1 text-sky-600 font-medium">
