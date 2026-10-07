@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { NAVER_TALK_URL } from './MobileBottomBar';
 import { PhoneCall, MessageCircle, Instagram, BookOpen, X, ChevronUp } from 'lucide-react';
 
 interface FloatingMenuItem {
@@ -57,6 +58,24 @@ const naverPhoneConversion = () => {
       bgColor: 'bg-[#FEE500] text-[#371D1E] hover:bg-[#FDD835]',
       borderColor: 'border-[#E8CE00]',
       shadowColor: 'shadow-yellow-500/20'
+    },
+    {
+      id: 'floating-naver-talk-btn',
+      type: 'link',
+      href: NAVER_TALK_URL,
+      icon: (
+        <span className="flex flex-col items-center leading-none text-white transition-transform group-hover:scale-110">
+          <span className="text-[13px] font-black">N</span>
+          <span className="text-[8px] font-black mt-0.5">톡톡</span>
+        </span>
+      ),
+      emoticon: '🟢',
+      title: '네이버 톡톡 상담',
+      description: '네이버 아이디로 바로 채팅 상담',
+      badge: '톡톡 상담',
+      bgColor: 'bg-[#03C75A] text-white hover:bg-[#02b350]',
+      borderColor: 'border-emerald-400/40',
+      shadowColor: 'shadow-emerald-500/25'
     },
     {
       id: 'floating-instagram-btn',

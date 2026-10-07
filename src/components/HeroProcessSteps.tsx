@@ -36,13 +36,13 @@ const STEPS = [
 export const HeroProcessSteps: React.FC<{ variant?: 'mobile' | 'desktop' }> = ({ variant = 'mobile' }) => {
   const desktop = variant === 'desktop';
   return (
-    <div className={desktop ? 'mt-6' : 'mb-3.5'}>
+    <div className={desktop ? '' : 'mb-3.5'}>
       <div className={`flex items-center gap-1.5 font-black text-[#38BDF8] ${desktop ? 'text-xs mb-3' : 'text-[11px] mb-2'}`}>
         <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
         제주에 없어도 안심되는 4단계 진행
       </div>
 
-      <ol className={desktop ? 'grid grid-cols-2 gap-2.5' : 'space-y-1.5'}>
+      <ol className={desktop ? 'grid grid-cols-2 lg:grid-cols-4 gap-2.5' : 'space-y-1.5'}>
         {STEPS.map((s) => (
           <li
             key={s.no}
