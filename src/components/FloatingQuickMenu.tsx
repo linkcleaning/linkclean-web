@@ -193,11 +193,11 @@ const naverPhoneConversion = () => {
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
           id="quick-scroll-to-top-btn"
           aria-label="페이지 맨 위로 이동"
-          title="맨 위로"
-          className="hidden sm:flex w-13 h-13 rounded-full bg-[#0A1D37]/95 hover:bg-[#0F172A] text-white border border-slate-700/80 shadow-lg flex-col items-center justify-center -space-y-0.5 transition-all duration-200 hover:scale-108 active:scale-95 cursor-pointer"
+          title="맨 위로 이동"
+          className="hidden sm:flex mt-3 w-13 h-16 rounded-2xl bg-white hover:bg-amber-50 text-[#0A1D37] border-2 border-[#0A1D37] shadow-xl flex-col items-center justify-center gap-0.5 transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer"
         >
-          <ArrowUp className="w-4 h-4 text-amber-400" />
-          <span className="text-[9px] font-black text-sky-200 leading-none">TOP</span>
+          <ArrowUp className="w-7 h-7" strokeWidth={3} />
+          <span className="text-[11px] font-black leading-none">위로</span>
         </button>
       </div>
 

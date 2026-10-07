@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useApp } from '../context/AppContext';
-import { Star, Calendar, MessageSquarePlus, X, Upload, CheckCircle2, Award } from 'lucide-react';
+import { Star, Calendar, MessageSquarePlus, X, Upload, CheckCircle2, Award, HelpCircle, PhoneCall, MessageCircle, Send } from 'lucide-react';
+import { notifyInquiry } from '../utils/notifyReservation';
+import { NAVER_TALK_URL } from '../components/MobileBottomBar';
 
 export const ReviewView: React.FC = () => {
   const { reviews, addReview, goToReservationWithService } = useApp();
@@ -12,6 +14,28 @@ export const ReviewView: React.FC = () => {
   const [rating, setRating] = useState(5);
   const [content, setContent] = useState('');
   const [photos, setPhotos] = useState<string[]>([]);
+
+  // 문의하기
+  const [qName, setQName] = useState('');
+  const [qPhone, setQPhone] = useState('');
+  const [qMessage, setQMessage] = useState('');
+  const [qSent, setQSent] = useState(false);
+
+  const handleInquiry = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (qPhone.replace(/[^0-9]/g, '').length < 9) {
+      alert('답변받으실 휴대폰 번호를 입력해 주세요.');
+      return;
+    }
+    if (!qMessage.trim()) {
+      alert('문의 내용을 적어주세요.');
+      return;
+    }
+    notifyInquiry({ name: qName.trim(), phone: qPhone.trim(), message: qMessage.trim(), source: '후기 페이지' });
+    setQSent(true);
+  };
+
+  const scrollToInquiry = () => document.getElementById('review-inquiry')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
   // Visible reviews
   const visibleReviews = reviews.filter((r) => r.isVisible);
@@ -88,7 +112,14 @@ export const ReviewView: React.FC = () => {
           </div>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3">
+          <button
+            onClick={scrollToInquiry}
+            className="px-5 py-3 rounded-xl border border-slate-200 hover:bg-slate-50 text-[#0A1D37] font-bold text-xs sm:text-sm flex items-center gap-2 transition-colors cursor-pointer"
+          >
+            <HelpCircle className="w-4 h-4 text-emerald-500" />
+            문의하기
+          </button>
           <button
             onClick={() => setShowWriteModal(true)}
             className="px-5 py-3 rounded-xl border border-slate-200 hover:bg-slate-50 text-[#0A1D37] font-bold text-xs sm:text-sm flex items-center gap-2 transition-colors cursor-pointer"
@@ -150,6 +181,103 @@ export const ReviewView: React.FC = () => {
             </div>
           </div>
         ))}
+      </div>
+
+      {/* 문의하기 */}
+      <div id="review-inquiry" className="scroll-mt-28 bg-white rounded-3xl border border-slate-100 shadow-sm p-5 sm:p-8 grid grid-cols-1 lg:grid-cols-5 gap-6">
+        <div className="lg:col-span-2 space-y-3">
+          <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-100">
+            Q&amp;A
+          </span>
+          <h2 className="text-xl sm:text-2xl font-extrabold text-[#0A1D37]">후기 보시고 궁금한 점, 바로 물어보세요</h2>
+          <p className="text-xs sm:text-sm text-slate-500 leading-relaxed">
+            가격, 일정, 작업 범위 등 무엇이든 남겨주시면 대표가 직접 확인하고 문자나 전화로 답변드립니다.
+          </p>
+          <div className="flex flex-wrap gap-2 pt-1">
+            <a href="tel:064-763-4545" className="px-3 py-2 rounded-xl bg-[#0A1D37] text-white text-xs font-bold flex items-center gap-1.5">
+              <PhoneCall className="w-3.5 h-3.5 text-[#38BDF8]" /> 전화
+            </a>
+            <a href="https://pf.kakao.com/_xfxdrxmM?from=qr" target="_blank" rel="noopener noreferrer" className="px-3 py-2 rounded-xl bg-[#FEE500] text-[#3A1D1D] text-xs font-bold flex items-center gap-1.5">
+              <MessageCircle className="w-3.5 h-3.5 fill-[#3A1D1D]" /> 카톡
+            </a>
+            {NAVER_TALK_URL && (
+              <a href={NAVER_TALK_URL} target="_blank" rel="noopener noreferrer" className="px-3 py-2 rounded-xl bg-[#03C75A] text-white text-xs font-bold flex items-center gap-1.5">
+                <span className="font-black">N</span> 톡톡
+              </a>
+            )}
+          </div>
+        </div>
+
+        <div className="lg:col-span-3">
+          {qSent ? (
+            <div className="h-full rounded-2xl bg-emerald-50 border border-emerald-200 p-6 text-center flex flex-col items-center justify-center gap-2">
+              <CheckCircle2 className="w-10 h-10 text-emerald-600" />
+              <p className="font-extrabold text-[#0A1D37]">문의가 접수되었습니다!</p>
+              <p className="text-xs text-slate-600">남겨주신 번호({qPhone})로 빠르게 답변드릴게요.</p>
+              <button
+                type="button"
+                onClick={() => {
+                  setQSent(false);
+                  setQMessage('');
+                }}
+                className="mt-2 px-4 py-2 rounded-xl border border-slate-200 bg-white text-xs font-bold text-slate-700 cursor-pointer"
+              >
+                다른 문의 남기기
+              </button>
+            </div>
+          ) : (
+            <form onSubmit={handleInquiry} className="space-y-3">
+              <div className="grid grid-cols-2 gap-2 sm:gap-3">
+                <div>
+                  <label className="block text-[11px] sm:text-xs font-bold text-slate-700 mb-1">
+                    휴대폰 번호 <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="tel"
+                    inputMode="tel"
+                    value={qPhone}
+                    onChange={(e) => setQPhone(e.target.value)}
+                    placeholder="010-1234-5678"
+                    className="w-full px-3 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#38BDF8]"
+                  />
+                </div>
+                <div>
+                  <label className="block text-[11px] sm:text-xs font-bold text-slate-700 mb-1">
+                    성함 <span className="text-slate-400 font-medium">(선택)</span>
+                  </label>
+                  <input
+                    type="text"
+                    value={qName}
+                    onChange={(e) => setQName(e.target.value)}
+                    placeholder="홍길동"
+                    className="w-full px-3 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#38BDF8]"
+                  />
+                </div>
+              </div>
+              <div>
+                <label className="block text-[11px] sm:text-xs font-bold text-slate-700 mb-1">
+                  문의 내용 <span className="text-red-500">*</span>
+                </label>
+                <textarea
+                  value={qMessage}
+                  onChange={(e) => setQMessage(e.target.value)}
+                  rows={3}
+                  maxLength={500}
+                  placeholder="예: 32평 입주청소 다음 주 가능할까요? 베란다 곰팡이도 해주시나요?"
+                  className="w-full px-3 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#38BDF8] resize-none"
+                />
+              </div>
+              <button
+                type="submit"
+                className="w-full py-3 rounded-xl bg-[#0284C7] hover:bg-[#0369A1] text-white font-extrabold text-sm flex items-center justify-center gap-2 cursor-pointer"
+              >
+                <Send className="w-4 h-4" />
+                문의 보내기
+              </button>
+              <p className="text-center text-[10px] text-slate-400">개인정보는 문의 답변 목적으로만 사용됩니다.</p>
+            </form>
+          )}
+        </div>
       </div>
 
       {/* Write Review Modal */}
