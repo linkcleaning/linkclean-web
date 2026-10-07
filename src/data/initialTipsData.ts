@@ -371,45 +371,6 @@ export const INITIAL_TIPS_POSTS: CleaningTipPost[] = [
 
   /* ───────────── 혜택·서비스 안내 (실제 운영 중인 내용만) ───────────── */
   {
-    id: 'service-photo-report',
-    type: 'promo',
-    category: 'event',
-    categoryLabel: '이벤트·혜택',
-    title: '[상시] 제주에 없어도 괜찮아요 — 구역별 전·후 사진 리포트 & 확인 후 잔금 결제',
-    summary: '육지에 계시거나 현장에 오기 어려운 고객님을 위해, 모든 작업은 구역별 전·후 사진으로 보고드리고 확인 후 결제하실 수 있습니다.',
-    content: `링크클린은 현장에 오시기 어려운 고객님도 안심하고 맡기실 수 있도록, 모든 청소를 사진으로 보고드립니다.
-
-■ 진행 방법
-1. 현장 사진 3~5장과 평수를 보내주시면 견적을 안내해 드립니다.
-2. 약속한 날짜에 청소팀이 방문해 작업합니다.
-3. 주방·욕실·창틀 등 구역별 청소 전·후 사진을 휴대폰으로 보내드립니다.
-4. 사진을 확인하신 뒤 잔금을 결제하시면 됩니다. (예약 시 예약금)
-
-■ 이런 분께 추천합니다
-• 육지에서 제주로 이사 오시는 분
-• 직장 때문에 낮에 현장에 갈 수 없는 분
-• 숙소·세컨하우스를 원격으로 관리하시는 분
-
-사진 확인 중 미흡한 부분이 있으면 말씀해 주세요. 보완 후 다시 사진으로 보내드립니다.`,
-    keyPoints: [
-      '현장 사진으로 사전 견적',
-      '구역별 청소 전·후 사진 전송',
-      '예약금 → 사진 확인 후 잔금 결제',
-    ],
-    authorName: '링크클린',
-    authorRole: '고객 안내',
-    authorAvatar: TEAM_AVATAR,
-    date: POSTED,
-    views: 0,
-    likes: 0,
-    tags: ['사진리포트', '비대면청소', '후불결제', '육지고객'],
-    badge: '상시 진행',
-    cover: { emoji: '📸', headline: '구역별 전·후\n사진 리포트', sub: '예약금 → 검수 → 잔금', tone: 'navy' },
-    promoActionText: '사진 견적 신청하기',
-    promoBadge: '상시 진행',
-    serviceLink: 'move-in',
-  },
-  {
     id: 'service-trash-private',
     type: 'promo',
     category: 'event',
