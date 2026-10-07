@@ -35,8 +35,8 @@ export const FourStepProcessSection: React.FC = () => {
     {
       step: '04',
       badge: '4단계 • 확인 후 결제',
-      title: '고객 검수 후 안심 후불 결제',
-      desc: '비대면 사진 리포트 확인 또는 현장 대면 검수 후 결제를 진행합니다.',
+      title: '고객 검수 후 잔금 결제',
+      desc: '예약 시 예약금을 받고, 비대면 사진 리포트 확인 또는 현장 검수 후 잔금을 결제합니다.',
       icon: CreditCard,
       accent: 'from-emerald-500 to-teal-500',
     },
@@ -58,7 +58,7 @@ export const FourStepProcessSection: React.FC = () => {
               제주에 없어도 안심되는 4단계 진행 과정
             </h2>
             <p className="text-slate-300 text-xs sm:text-sm mt-1.5 leading-relaxed">
-              육지에서 이사 오시거나 타지에 계셔도 실시간 사진 리포트와 후불 검수로 믿고 맡기실 수 있습니다.
+              육지에서 이사 오시거나 타지에 계셔도 실시간 사진 리포트와 검수 후 잔금 결제로 믿고 맡기실 수 있습니다.
             </p>
           </div>
 

@@ -81,7 +81,7 @@ export const QuickQuoteFormSection: React.FC = () => {
         {/* Header */}
         <div className="bg-gradient-to-r from-[#0A1D37] via-[#102A4E] to-[#0A1D37] text-white px-5 py-4 sm:p-8 text-center relative overflow-hidden">
           <div className="absolute top-0 right-0 w-64 h-64 bg-[#38BDF8] opacity-10 rounded-full blur-2xl pointer-events-none" />
-          <h2 className="text-lg sm:text-3xl font-extrabold tracking-tight">1분 간편 견적 신청</h2>
+          <h2 className="text-lg sm:text-3xl font-extrabold tracking-tight">간편 견적 신청</h2>
           <p className="text-[11px] sm:text-sm text-slate-300 mt-1 max-w-lg mx-auto">
             번호만 남겨주시면 빠르게 연락드려요. 나머지는 선택이에요.
           </p>

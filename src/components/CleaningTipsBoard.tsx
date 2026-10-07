@@ -46,7 +46,7 @@ export const CleaningTipsBoard: React.FC = () => {
   // Posts State (Local storage synced)
   const [posts, setPosts] = useState<CleaningTipPost[]>(() => {
     try {
-      const saved = localStorage.getItem('linkclean_tips_posts_v2');
+      const saved = localStorage.getItem('linkclean_tips_posts_v3');
       if (saved) {
         const parsed = JSON.parse(saved);
         if (Array.isArray(parsed)) {
@@ -56,7 +56,7 @@ export const CleaningTipsBoard: React.FC = () => {
           );
           if (missingInitials.length > 0) {
             const merged = [...parsed, ...missingInitials];
-            localStorage.setItem('linkclean_tips_posts_v2', JSON.stringify(merged));
+            localStorage.setItem('linkclean_tips_posts_v3', JSON.stringify(merged));
             return merged;
           }
           return parsed;
@@ -70,7 +70,7 @@ export const CleaningTipsBoard: React.FC = () => {
 
   useEffect(() => {
     try {
-      localStorage.setItem('linkclean_tips_posts_v2', JSON.stringify(posts));
+      localStorage.setItem('linkclean_tips_posts_v3', JSON.stringify(posts));
     } catch (e) {
       console.error('Failed to save tips posts to localStorage', e);
     }

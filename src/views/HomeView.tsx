@@ -127,7 +127,7 @@ export const HomeView: React.FC = () => {
                 <span className="text-[#38BDF8]">청소 전·후를 사진으로</span> 보내드립니다."
               </h1>
               <p className="text-slate-300 text-xs mb-3.5 leading-relaxed">
-                육지에서도, 멀리서도 100% 안심! 주방·욕실·창틀 구역별 실시간 고화질 사진 전송 &amp; 검수 후 결제
+                육지에서도, 멀리서도 100% 안심! 주방·욕실·창틀 구역별 실시간 고화질 사진 전송 &amp; 검수 후 잔금 결제
               </p>
 
               {/* 3 Buttons Grid (전화 / 카톡 / 1분견적) */}
@@ -160,7 +160,7 @@ export const HomeView: React.FC = () => {
                   id="mobile-hero-reserve-btn"
                 >
                   <Calendar className="w-3.5 h-3.5 text-[#0A1D37]" />
-                  <span>1분 견적</span>
+                  <span>견적 신청</span>
                 </button>
               </div>
 
@@ -176,7 +176,7 @@ export const HomeView: React.FC = () => {
                 </div>
                 <div>
                   <div className="text-base font-black text-white">후불제</div>
-                  <div className="text-[10px] text-slate-400">검수 후 결제</div>
+                  <div className="text-[10px] text-slate-400 leading-tight">예약금 · 검수 후 잔금</div>
                 </div>
               </div>
             </div>
@@ -283,7 +283,7 @@ export const HomeView: React.FC = () => {
                   className="bg-[#38BDF8] hover:bg-[#0EA5E9] text-[#0A1D37] px-5 py-3 rounded-2xl font-black text-xs sm:text-sm shadow-md transition-all flex items-center gap-2 cursor-pointer active:scale-95"
                 >
                   <Calendar className="w-4 h-4 text-[#0A1D37]" />
-                  <span>1분 사진 견적 신청</span>
+                  <span>사진 견적 신청</span>
                 </button>
               </div>
             </div>
