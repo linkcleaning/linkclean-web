@@ -9,7 +9,7 @@ import { SERVICE_DETAILS } from '../data/initialData';
  * 예: 'https://script.google.com/macros/s/AKfycb.../exec'
  */
 export const RESERVATION_NOTIFY_URL =
-  'https://script.google.com/macros/s/AKfycbwzRbWwlHvZ5UqdESOFJTaczpR0XG10UykFJvjZvK1bzU5dreNNURbmRy1psg7hZJYkig/exec';
+  'https://script.google.com/macros/s/AKfycbxW517Oxd8fuq8o0gazO0hsZCx4wQ3Ow0nWzqjMvdxMogPrs26DhL_IIKSUcQ--jGM4lQ/exec';
 
 /**
  * 손님이 예약·견적을 신청하면 사장님 휴대폰으로 문자 알림을 보냅니다.
