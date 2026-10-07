@@ -1,1 +1,1 @@
-build: quickquote-compact 202610071957
+build: naver-talk 202610072001

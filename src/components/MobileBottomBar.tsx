@@ -7,7 +7,7 @@ import { PhoneCall, CalendarCheck, ArrowUp, Home, MessageCircle } from 'lucide-r
  * 톡톡 파트너센터 → 계정 정보의 "톡톡 URL"(예: https://talk.naver.com/ct/w4abcd)을 넣으세요.
  * 비어 있으면 톡톡 버튼은 숨겨집니다.
  */
-export const NAVER_TALK_URL = '';
+export const NAVER_TALK_URL = 'https://talk.naver.com/WC92ZF';
 
 export const MobileBottomBar: React.FC = () => {
   const { goToReservationWithService, currentView, setCurrentView } = useApp();
