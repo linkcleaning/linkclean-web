@@ -1,1 +1,1 @@
-build: weather-tweak 202610071857
+build: pricing-compact 202610071902
