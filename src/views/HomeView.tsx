@@ -176,7 +176,7 @@ export const HomeView: React.FC = () => {
                 </div>
                 <div>
                   <div className="text-base font-black text-white">후불제</div>
-                  <div className="text-[10px] text-slate-400 leading-tight">예약금 · 검수 후 잔금</div>
+                  <div className="text-[10px] text-slate-400 leading-tight whitespace-nowrap">예약금<span className="text-[7px] mx-[1px] opacity-70">→</span>검수<span className="text-[7px] mx-[1px] opacity-70">→</span>잔금</div>
                 </div>
               </div>
             </div>
