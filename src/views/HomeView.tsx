@@ -241,11 +241,12 @@ export const HomeView: React.FC = () => {
         </div>
 
         {/* DESKTOP BENTO GRID (hidden sm:grid) — 데스크톱에서는 4열 Bento Grid 고급 디자인 온전히 유지 */}
-        <div className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-12 gap-4">
           {/* Bento Cell 1: Main Brand Hero (col-span-2 row-span-2) */}
-          <div className="col-span-1 md:col-span-2 lg:col-span-2 lg:row-span-2 bg-[#0A1D37] rounded-3xl p-8 sm:p-10 flex flex-col justify-between text-white relative overflow-hidden shadow-sm min-h-[420px]">
+          <div className="sm:col-span-2 lg:col-span-12 bg-[#0A1D37] rounded-3xl p-8 sm:p-10 text-white relative overflow-hidden shadow-sm grid grid-cols-1 lg:grid-cols-[1.15fr_1fr] gap-8 items-center">
             <div className="absolute top-0 right-0 w-64 h-64 bg-[#38BDF8] opacity-10 rounded-full -mr-20 -mt-20 pointer-events-none" />
-            <div className="relative z-10">
+            <div className="relative z-10 flex flex-col justify-between">
+            <div>
               <span className="inline-block bg-[#38BDF8] text-[#0A1D37] px-3 py-1 rounded-full text-[11px] font-black mb-4 tracking-wider">
                 제주 전지역 • 비대면 사진 리포트 안심 시공
               </span>
@@ -305,10 +306,16 @@ export const HomeView: React.FC = () => {
                 <div className="text-[11px] text-slate-400">고객 만족도</div>
               </div>
             </div>
+            </div>
+
+            {/* 오른쪽: 제주에 없어도 안심되는 4단계 진행 */}
+            <div className="relative z-10">
+              <HeroProcessSteps variant="desktop" />
+            </div>
           </div>
 
           {/* Bento Cell 2: 맞춤 서비스 (col-span-1 row-span-2) */}
-          <div className="col-span-1 md:col-span-1 lg:col-span-1 lg:row-span-2 bg-white rounded-3xl p-6 border border-slate-100 flex flex-col justify-between shadow-sm">
+          <div className="col-span-1 lg:col-span-4 bg-white rounded-3xl p-6 border border-slate-100 flex flex-col justify-between shadow-sm">
             <div>
               <h3 className="text-lg font-bold mb-4 flex items-center gap-2 text-[#0A1D37]">
                 <span className="w-1.5 h-6 bg-[#38BDF8] rounded-full" />
@@ -357,7 +364,7 @@ export const HomeView: React.FC = () => {
           <div
             id="bento-cell-son-eop-neun-nal"
             onClick={() => setIsSonEopNeunNalModalOpen(true)}
-            className="col-span-1 md:col-span-1 lg:col-span-1 lg:row-span-1 bg-gradient-to-br from-white via-slate-50/70 to-amber-50/40 rounded-3xl p-5 sm:p-6 border border-amber-200/70 hover:border-amber-400 shadow-sm hover:shadow-md transition-all flex flex-col justify-between min-h-[185px] cursor-pointer group relative overflow-hidden"
+            className="col-span-1 lg:col-span-4 bg-gradient-to-br from-white via-slate-50/70 to-amber-50/40 rounded-3xl p-5 sm:p-6 border border-amber-200/70 hover:border-amber-400 shadow-sm hover:shadow-md transition-all flex flex-col justify-between min-h-[185px] cursor-pointer group relative overflow-hidden"
           >
             <div className="absolute top-0 right-0 w-28 h-28 bg-amber-400/10 rounded-full blur-xl pointer-events-none" />
 
@@ -436,15 +443,10 @@ export const HomeView: React.FC = () => {
           </div>
 
           {/* Bento Cell 4: 제주도 날씨 & 1주일 청소 예보 (제주시 / 서귀포시) */}
-          <JejuWeatherWidget />
-
-          {/* 4단계 진행 과정 — 가로 한 줄 (예전 아래쪽 섹션을 위로 합침) */}
-          <div className="col-span-full bg-[#0A1D37] rounded-3xl px-6 py-5 text-white shadow-sm">
-            <HeroProcessSteps variant="desktop" />
-          </div>
+          <JejuWeatherWidget className="sm:col-span-2 lg:col-span-4" />
 
           {/* Bento Cell 5: 간편한 5단계 예약 프로세스 (col-span-2 row-span-1) */}
-          <div className="col-span-1 md:col-span-2 lg:col-span-2 lg:row-span-1 bg-white rounded-3xl p-6 sm:p-7 border border-slate-100 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div className="col-span-1 sm:col-span-2 lg:col-span-6 bg-white rounded-3xl p-6 sm:p-7 border border-slate-100 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div className="flex flex-col gap-2">
               <h3 className="text-base sm:text-lg font-bold text-[#0A1D37]">간편한 5단계 예약 프로세스</h3>
               <div className="flex gap-2 items-center mt-1">
@@ -483,7 +485,7 @@ export const HomeView: React.FC = () => {
           </div>
 
           {/* Bento Cell 6: 결과로 증명하는 퀄리티 (col-span-2 row-span-1) */}
-          <div className="col-span-1 md:col-span-2 lg:col-span-2 lg:row-span-1 bg-white rounded-3xl border border-slate-100 shadow-sm overflow-hidden flex flex-col sm:flex-row">
+          <div className="col-span-1 sm:col-span-2 lg:col-span-6 bg-white rounded-3xl border border-slate-100 shadow-sm overflow-hidden flex flex-col sm:flex-row">
             <div className="w-full sm:w-1/2 p-6 flex flex-col justify-center">
               <h4 className="font-bold text-[#0A1D37] text-base mb-1">결과로 증명하는 퀄리티</h4>
               <div className="flex gap-2 items-center text-[#38BDF8] text-xs font-bold mb-3">
