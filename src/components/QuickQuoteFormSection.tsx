@@ -29,7 +29,7 @@ export const QuickQuoteFormSection: React.FC = () => {
   const [name, setName] = useState<string>('');
   const [phone, setPhone] = useState<string>('');
   const [notes, setNotes] = useState<string>('');
-  const [uploadedPhotos, setUploadedPhotos] = useState<string[]>([]);
+  const [showMore, setShowMore] = useState<boolean>(false);
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
   const [submitting, setSubmitting] = useState<boolean>(false);
 
@@ -42,31 +42,17 @@ export const QuickQuoteFormSection: React.FC = () => {
     '서귀포시 동부 (남원·표선·성산)',
   ];
 
-  const handlePhotoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = e.target.files;
-    if (!files) return;
-
-    // Convert to mock URLs for preview
-    const newImgs: string[] = [];
-    for (let i = 0; i < files.length; i++) {
-      const file = files[i];
-      const fakeUrl = URL.createObjectURL(file);
-      newImgs.push(fakeUrl);
-    }
-    setUploadedPhotos((prev) => [...prev, ...newImgs].slice(0, 6));
-  };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!name.trim() || !phone.trim()) {
-      alert('이름과 연락처를 입력해 주세요.');
+    if (phone.replace(/[^0-9]/g, '').length < 9) {
+      alert('연락받으실 휴대폰 번호를 입력해 주세요.');
       return;
     }
 
     setSubmitting(true);
     try {
       await createReservation({
-        customer_name: name,
+        customer_name: name.trim() || '고객(이름 미입력)',
         phone: phone,
         email: 'guest@linkclean.co.kr',
         service_type: serviceType,
@@ -77,8 +63,8 @@ export const QuickQuoteFormSection: React.FC = () => {
         area: area,
         address: region,
         address_detail: '사진 견적 신청',
-        customer_message: `[지역: ${region}] ${notes} (첨부 사진 ${uploadedPhotos.length}장)`,
-        uploaded_images: uploadedPhotos,
+        customer_message: `[지역: ${region}] ${notes}`.trim(),
+        uploaded_images: [],
       });
 
       setIsSubmitted(true);
@@ -90,26 +76,20 @@ export const QuickQuoteFormSection: React.FC = () => {
   };
 
   return (
-    <section id="quick-quote-section" className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-14">
+    <section id="quick-quote-section" className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-14">
       <div className="bg-white rounded-3xl border border-slate-200/90 shadow-xl overflow-hidden">
         {/* Header */}
-        <div className="bg-gradient-to-r from-[#0A1D37] via-[#102A4E] to-[#0A1D37] text-white p-6 sm:p-8 text-center relative overflow-hidden">
+        <div className="bg-gradient-to-r from-[#0A1D37] via-[#102A4E] to-[#0A1D37] text-white px-5 py-4 sm:p-8 text-center relative overflow-hidden">
           <div className="absolute top-0 right-0 w-64 h-64 bg-[#38BDF8] opacity-10 rounded-full blur-2xl pointer-events-none" />
-          <span className="inline-flex items-center gap-1 text-[11px] font-bold text-[#38BDF8] bg-white/10 px-3 py-1 rounded-full mb-2">
-            <Sparkles className="w-3 h-3 text-amber-400" />
-            사진 첨부 시 10분 내 빠른 비대면 가견적 확정!
-          </span>
-          <h2 className="text-xl sm:text-3xl font-extrabold tracking-tight">
-            1분 간편 견적 신청폼
-          </h2>
-          <p className="text-xs sm:text-sm text-slate-300 mt-1 max-w-lg mx-auto">
-            평수와 지역, 현장 사진을 올려주시면 방문 없이도 빠르고 정직한 견적을 문자/카톡으로 안내해 드립니다.
+          <h2 className="text-lg sm:text-3xl font-extrabold tracking-tight">1분 간편 견적 신청</h2>
+          <p className="text-[11px] sm:text-sm text-slate-300 mt-1 max-w-lg mx-auto">
+            번호만 남겨주시면 빠르게 연락드려요. 나머지는 선택이에요.
           </p>
         </div>
 
         {/* Content Body */}
         {isSubmitted ? (
-          <div className="p-8 sm:p-12 text-center space-y-4">
+          <div className="p-6 sm:p-12 text-center space-y-4">
             <div className="w-16 h-16 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center mx-auto">
               <CheckCircle2 className="w-8 h-8" />
             </div>
@@ -117,7 +97,7 @@ export const QuickQuoteFormSection: React.FC = () => {
               견적 신청이 성공적으로 접수되었습니다!
             </h3>
             <p className="text-xs sm:text-sm text-slate-600 max-w-md mx-auto leading-relaxed">
-              담당 클리닝 매니저가 현장 정보를 확인 후 <strong>10~30분 이내</strong>에 등록하신 연락처(<strong>{phone}</strong>)로 정확한 예상 견적과 상세 안내를 전송해 드립니다.
+              담당자가 확인 후 남겨주신 번호(<strong>{phone}</strong>)로 빠르게 연락드려요. 현장 사진을 <strong>카카오톡</strong>으로 보내주시면 더 정확한 견적을 받으실 수 있어요.
             </p>
             <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-3">
               <a
@@ -137,17 +117,15 @@ export const QuickQuoteFormSection: React.FC = () => {
             </div>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="p-6 sm:p-10 space-y-6">
-            {/* 1. 서비스 & 공간 유형 */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <form onSubmit={handleSubmit} className="p-4 sm:p-8 space-y-3.5 sm:space-y-5">
+            {/* 필수: 서비스 + 연락처 */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1.5">
-                  청소 서비스 선택 <span className="text-red-500">*</span>
-                </label>
+                <label className="block text-xs font-bold text-slate-700 mb-1">청소 종류</label>
                 <select
                   value={serviceType}
                   onChange={(e) => setServiceType(e.target.value as ServiceType)}
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#38BDF8] bg-white font-medium"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#38BDF8] bg-white"
                 >
                   <option value="move-in">🏡 입주·이사청소</option>
                   <option value="residential">🛋️ 거주 대청소</option>
@@ -157,178 +135,110 @@ export const QuickQuoteFormSection: React.FC = () => {
                   <option value="trash">🧹 쓰레기집·특수청소</option>
                 </select>
               </div>
-
-              <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1.5">
-                  공간 형태 <span className="text-red-500">*</span>
-                </label>
-                <select
-                  value={propertyType}
-                  onChange={(e) => setPropertyType(e.target.value as PropertyType)}
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#38BDF8] bg-white font-medium"
-                >
-                  <option value="아파트">아파트</option>
-                  <option value="빌라">빌라 / 연립주택</option>
-                  <option value="원룸/오피스텔">원룸 / 오피스텔</option>
-                  <option value="주택">단독주택 / 타운하우스</option>
-                  <option value="상가">상가 / 펜션 / 숙소</option>
-                  <option value="사무실">사무실</option>
-                  <option value="기타">기타 특수공간</option>
-                </select>
-              </div>
-            </div>
-
-            {/* 2. 평수 & 제주 지역 */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1.5">
-                  공간 평수 <span className="text-red-500">*</span>
-                </label>
-                <input
-                  type="text"
-                  required
-                  value={area}
-                  onChange={(e) => setArea(e.target.value)}
-                  placeholder="예: 24평 / 공급 84㎡ / 원룸 10평"
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-[#38BDF8]"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1.5">
-                  제주 지역 (제주시 / 서귀포시 / 읍면) <span className="text-red-500">*</span>
-                </label>
-                <select
-                  value={region}
-                  onChange={(e) => setRegion(e.target.value)}
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#38BDF8] bg-white font-medium"
-                >
-                  {regionOptions.map((r, i) => (
-                    <option key={i} value={r}>{r}</option>
-                  ))}
-                </select>
-              </div>
-            </div>
-
-            {/* 3. 희망 청소일 & 연락처 */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1.5">
-                  희망 청소 날짜 <span className="text-red-500">*</span>
-                </label>
-                <input
-                  type="date"
-                  required
-                  value={visitDate}
-                  onChange={(e) => setVisitDate(e.target.value)}
-                  className="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-[#38BDF8]"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1.5">
-                  성함 <span className="text-red-500">*</span>
-                </label>
-                <input
-                  type="text"
-                  required
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  placeholder="홍길동"
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-[#38BDF8]"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1.5">
-                  휴대폰 번호 <span className="text-red-500">*</span>
-                </label>
-                <input
-                  type="tel"
-                  required
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                  placeholder="010-1234-5678"
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-[#38BDF8]"
-                />
-              </div>
-            </div>
-
-            {/* 4. 현장 사진 업로드 (전환율 핵심 장치) */}
-            <div className="bg-sky-50/60 rounded-2xl p-4 sm:p-5 border border-sky-100">
-              <div className="flex items-center justify-between mb-2">
-                <label className="text-xs font-bold text-[#0A1D37] flex items-center gap-1.5">
-                  <Camera className="w-4 h-4 text-[#0284C7]" />
-                  <span>현장 사진 첨부 (주방, 욕실, 창틀 등 3~5장 권장)</span>
-                </label>
-                <span className="text-[11px] font-bold text-[#0284C7]">
-                  {uploadedPhotos.length}/6장
-                </span>
-              </div>
-              <p className="text-[11px] text-slate-500 mb-3">
-                오염 상태나 전체 구조가 보이는 사진을 올려주시면 방문 없이도 정확한 가견적을 산출해 드립니다.
-              </p>
-
-              {/* Upload Input & Preview Gallery */}
-              <div className="flex flex-wrap gap-2.5 items-center">
-                {uploadedPhotos.map((img, idx) => (
-                  <div key={idx} className="relative w-16 h-16 rounded-xl overflow-hidden border border-slate-200 shadow-2xs">
-                    <img src={img} alt="첨부" className="w-full h-full object-cover" />
-                    <button
-                      type="button"
-                      onClick={() => setUploadedPhotos((prev) => prev.filter((_, i) => i !== idx))}
-                      className="absolute top-0.5 right-0.5 w-4 h-4 bg-slate-900/80 text-white rounded-full text-[10px] flex items-center justify-center cursor-pointer"
-                    >
-                      ×
-                    </button>
-                  </div>
-                ))}
-
-                {uploadedPhotos.length < 6 && (
-                  <label className="w-16 h-16 rounded-xl border-2 border-dashed border-sky-300 hover:border-sky-400 bg-white flex flex-col items-center justify-center text-sky-600 hover:text-sky-700 cursor-pointer transition-colors shadow-2xs">
-                    <Upload className="w-4 h-4" />
-                    <span className="text-[10px] font-bold mt-1">+ 사진</span>
-                    <input
-                      type="file"
-                      multiple
-                      accept="image/*"
-                      onChange={handlePhotoUpload}
-                      className="hidden"
-                    />
+              <div className="grid grid-cols-2 sm:contents gap-3">
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">
+                    휴대폰 번호 <span className="text-red-500">*</span>
                   </label>
-                )}
+                  <input
+                    type="tel"
+                    inputMode="tel"
+                    required
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    placeholder="010-1234-5678"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#38BDF8] bg-white"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">
+                    성함 <span className="text-slate-400 font-medium">(선택)</span>
+                  </label>
+                  <input
+                    type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    placeholder="홍길동"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#38BDF8] bg-white"
+                  />
+                </div>
               </div>
             </div>
 
-            {/* 5. 요청사항 */}
-            <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1.5">
-                추가 요청사항 (곰팡이, 시트지, 엘리베이터 유무 등)
-              </label>
-              <textarea
-                value={notes}
-                onChange={(e) => setNotes(e.target.value)}
-                placeholder="예: 곰팡이가 조금 있습니다 / 육지에서 비대면으로 의뢰합니다 / 사진 리포트 부탁드립니다."
-                rows={2}
-                className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-[#38BDF8]"
-              />
+            {/* 선택 정보 (접기) */}
+            <div className="rounded-2xl border border-slate-200">
+              <button
+                type="button"
+                onClick={() => setShowMore((v) => !v)}
+                aria-expanded={showMore}
+                className="w-full flex items-center justify-between px-4 py-3 text-xs sm:text-sm font-bold text-[#0A1D37] cursor-pointer"
+              >
+                <span>➕ 평수·지역·날짜 입력하기 <span className="text-slate-400 font-medium">(선택, 견적이 더 정확해져요)</span></span>
+                <span className={`text-[#38BDF8] transition-transform ${showMore ? 'rotate-180' : ''}`}>▾</span>
+              </button>
+              {showMore && (
+                <div className="px-4 pb-4 grid grid-cols-2 gap-3">
+                  <div>
+                    <label className="block text-[11px] font-bold text-slate-600 mb-1">공간 형태</label>
+                    <select value={propertyType} onChange={(e) => setPropertyType(e.target.value as PropertyType)} className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#38BDF8] bg-white">
+                      <option value="아파트">아파트</option>
+                      <option value="빌라">빌라·연립</option>
+                      <option value="원룸/오피스텔">원룸·오피스텔</option>
+                      <option value="주택">단독주택·타운하우스</option>
+                      <option value="상가">상가·펜션·숙소</option>
+                      <option value="사무실">사무실</option>
+                      <option value="기타">기타</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label className="block text-[11px] font-bold text-slate-600 mb-1">평수</label>
+                    <input type="text" value={area} onChange={(e) => setArea(e.target.value)} placeholder="예: 24평" className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#38BDF8] bg-white" />
+                  </div>
+                  <div className="col-span-2">
+                    <label className="block text-[11px] font-bold text-slate-600 mb-1">지역</label>
+                    <select value={region} onChange={(e) => setRegion(e.target.value)} className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#38BDF8] bg-white">
+                      {regionOptions.map((r, i) => (
+                        <option key={i} value={r}>{r}</option>
+                      ))}
+                    </select>
+                  </div>
+                  <div className="col-span-2 sm:col-span-1">
+                    <label className="block text-[11px] font-bold text-slate-600 mb-1">희망 날짜</label>
+                    <input type="date" value={visitDate} onChange={(e) => setVisitDate(e.target.value)} className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#38BDF8] bg-white" />
+                  </div>
+                  <div className="col-span-2 sm:col-span-1">
+                    <label className="block text-[11px] font-bold text-slate-600 mb-1">요청사항</label>
+                    <input type="text" value={notes} onChange={(e) => setNotes(e.target.value)} placeholder="예: 곰팡이 있음, 엘리베이터 없음" className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#38BDF8] bg-white" />
+                  </div>
+                </div>
+              )}
             </div>
 
-            {/* Submit CTA */}
-            <div className="pt-2">
-              <button
-                type="submit"
-                disabled={submitting}
-                className="w-full py-4 rounded-2xl bg-[#0284C7] hover:bg-[#0369A1] text-white font-extrabold text-sm sm:text-base shadow-lg shadow-blue-500/20 hover:shadow-blue-500/30 transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-98"
-                id="quick-quote-submit-btn"
-              >
-                <Sparkles className="w-4 h-4 text-amber-300" />
-                <span>{submitting ? '견적 신청 전송 중...' : '무료 사진 견적 신청하기'}</span>
-              </button>
-              <p className="text-center text-[11px] text-slate-400 mt-2">
-                개인정보는 견적 상담 목적으로만 안전하게 사용되며 외부에 제공되지 않습니다.
-              </p>
-            </div>
+            {/* 사진은 카톡으로 */}
+            <a
+              href="https://pf.kakao.com/_xfxdrxmM?from=qr"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-[#FEE500]/30 border border-[#FEE500] text-[11px] sm:text-xs text-[#3A1D1D] font-bold"
+            >
+              <Camera className="w-4 h-4 shrink-0" />
+              <span className="flex-1">현장 사진은 카톡으로 보내주시면 더 정확한 견적을 드려요</span>
+              <MessageCircle className="w-4 h-4 shrink-0 fill-[#3A1D1D]" />
+            </a>
+
+            {/* Submit */}
+            <button
+              type="submit"
+              disabled={submitting}
+              className="w-full py-3.5 rounded-2xl bg-[#0284C7] hover:bg-[#0369A1] text-white font-extrabold text-sm sm:text-base shadow-lg shadow-blue-500/20 transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-98"
+              id="quick-quote-submit-btn"
+            >
+              <Sparkles className="w-4 h-4 text-amber-300" />
+              <span>{submitting ? '전송 중...' : '무료 견적 신청하기'}</span>
+            </button>
+            <p className="text-center text-[10px] sm:text-[11px] text-slate-400 -mt-1">
+              개인정보는 견적 상담 목적으로만 사용됩니다.
+            </p>
           </form>
         )}
       </div>
