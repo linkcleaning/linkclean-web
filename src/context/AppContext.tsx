@@ -43,6 +43,57 @@ export const getSeptemberAllowedSlots = (dateString: string): string[] => {
   return ['10:00', '15:00'];                // 오전 10:00 & 오후 15:00 (5시간 간격)
 };
 
+/**
+ * 월별로 하루에 열어둘 예약 시간대 수.
+ * 나머지 시간대는 자연스럽게 "예약마감"으로 보이도록, 날짜마다 다른 조합을 고릅니다.
+ * (같은 날짜는 언제 봐도 같은 조합 → 새로고침해도 바뀌지 않음)
+ */
+const OPEN_SLOTS_PER_DAY_BY_MONTH: Record<string, number> = {
+  '10': 2, // 10월: 하루 2개
+  '11': 3, // 11월: 하루 3개
+};
+
+// 날짜 문자열로 항상 같은 난수열을 만드는 간단한 시드 난수
+const seededRandom = (seedText: string) => {
+  let h = 2166136261;
+  for (let i = 0; i < seedText.length; i++) {
+    h ^= seedText.charCodeAt(i);
+    h = Math.imul(h, 16777619);
+  }
+  return () => {
+    h += 0x6d2b79f5;
+    let t = h;
+    t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+};
+
+const toHour = (slot: string) => parseInt(slot.split(':')[0], 10);
+
+/** 해당 날짜에 열어둘 시간대 목록. 제한이 없는 달이면 null */
+export const getLimitedAllowedSlots = (dateString: string): string[] | null => {
+  if (isSeptemberDate(dateString)) return getSeptemberAllowedSlots(dateString);
+
+  const month = dateString.split('-')[1];
+  const count = OPEN_SLOTS_PER_DAY_BY_MONTH[month];
+  if (!count) return null;
+
+  const rand = seededRandom(`linkclean-${dateString}`);
+  const shuffled = [...STANDARD_TIME_SLOTS]
+    .map((slot) => ({ slot, key: rand() }))
+    .sort((a, b) => a.key - b.key)
+    .map((x) => x.slot);
+
+  // 서로 2시간 이상 떨어진 시간대만 골라 실제 일정처럼 보이게
+  const picked: string[] = [];
+  for (const slot of shuffled) {
+    if (picked.every((p) => Math.abs(toHour(p) - toHour(slot)) >= 2)) picked.push(slot);
+    if (picked.length === count) break;
+  }
+  return picked.sort();
+};
+
 export type AppView = 
   | 'home'
   | 'about'
@@ -295,12 +346,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       return false;
     }
 
-    // 9월 일정 규칙: 하루 2개의 시간대만 오픈, 나머지는 기본 예약마감 처리
-    if (isSeptemberDate(date)) {
-      const allowed = getSeptemberAllowedSlots(date);
-      if (!allowed.includes(time)) {
-        return false;
-      }
+    // 월별 일정 규칙 (9월·10월 하루 2개, 11월 하루 3개): 나머지는 예약마감 처리
+    const allowed = getLimitedAllowedSlots(date);
+    if (allowed && !allowed.includes(time)) {
+      return false;
     }
 
     // Check existing active reservations
