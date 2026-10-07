@@ -77,32 +77,35 @@ export const HomeView: React.FC = () => {
           SECTION 01 — HERO (스마트폰 최적화 모바일 + 데스크톱 와이드 BENTO)
       ========================================================================= */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 sm:pt-8">
-        {/* Website Renewal Alert Notice Bar */}
-        <div className="mb-4 sm:mb-6 bg-gradient-to-r from-[#0A1D37] via-[#132742] to-[#0A1D37] rounded-2xl sm:rounded-3xl p-3.5 sm:p-5 text-white border border-slate-800 shadow-md flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-          <div className="flex items-center gap-2.5 truncate">
-            <span className="shrink-0 bg-amber-400 text-[#0A1D37] text-[10px] sm:text-[11px] font-black px-2 py-0.5 rounded shadow-2xs">
-              리뉴얼 안내
+        {/* Event Banner (공지·이벤트) */}
+        <button
+          type="button"
+          onClick={() => setCurrentView('event')}
+          className="w-full text-left mb-4 sm:mb-6 bg-gradient-to-r from-amber-50 via-white to-sky-50 rounded-2xl sm:rounded-3xl p-3.5 sm:p-5 border border-amber-200 shadow-2xs hover:shadow-md transition-shadow flex items-center gap-3 cursor-pointer"
+        >
+          <span className="text-3xl sm:text-4xl shrink-0" aria-hidden="true">☕</span>
+          <span className="flex-1 min-w-0">
+            <span className="flex items-center gap-1.5 mb-0.5">
+              <span className="bg-amber-400 text-[#0A1D37] text-[10px] sm:text-[11px] font-black px-2 py-0.5 rounded">
+                EVENT
+              </span>
+              <span className="text-[10px] sm:text-[11px] font-bold text-emerald-600 flex items-center gap-1">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                진행 중
+              </span>
             </span>
-            <span className="text-xs sm:text-sm text-slate-200 font-medium truncate">
-              현재 홈페이지 리뉴얼 중으로 모든 예약 및 이벤트 기능이 준비 중입니다. 견적 및 문의는 <strong className="text-[#38BDF8] font-bold">대표 전화(064-763-4545)</strong>로 문의해 주세요!
+            <span className="block text-sm sm:text-base font-extrabold text-[#0A1D37] leading-snug">
+              후기 남기고 · 지인 소개하면 스타벅스 커피 1잔 🎁
             </span>
-          </div>
-          <div className="flex items-center gap-2 shrink-0">
-            <a
-              href="tel:064-763-4545"
-              className="px-3.5 py-2 rounded-xl bg-[#38BDF8] hover:bg-[#0EA5E9] text-[#0A1D37] text-xs font-black transition-all flex items-center gap-1.5 shadow-2xs"
-            >
-              <PhoneCall className="w-3.5 h-3.5" />
-              <span>064-763-4545</span>
-            </a>
-            <button
-              onClick={openRenewalNotice}
-              className="px-3 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-bold transition-all cursor-pointer"
-            >
-              안내창 보기
-            </button>
-          </div>
-        </div>
+            <span className="block text-[11px] sm:text-xs text-slate-500 truncate">
+              네이버 플레이스 후기 작성 또는 소개 계약 시 커피를 보내드려요
+            </span>
+          </span>
+          <span className="shrink-0 px-3 py-2 rounded-xl bg-[#0A1D37] text-white text-xs font-bold flex items-center gap-1">
+            보기
+            <ChevronRight className="w-3.5 h-3.5" />
+          </span>
+        </button>
 
         {/* MOBILE VIEW (sm:hidden) — 스크롤 피로도를 완전히 없앤 스마트폰 최적화 컴팩트 레이아웃 */}
         <div className="sm:hidden space-y-2.5">

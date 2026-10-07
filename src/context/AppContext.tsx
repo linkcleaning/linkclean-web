@@ -121,11 +121,11 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     }
   });
 
-  // Renewal Notice Popup State (defaults to true on first visit, respects "오늘 하루 보지 않기")
+  // Notice & Event Popup State (defaults to true on first visit, respects "오늘 하루 보지 않기")
   const [isRenewalNoticeOpen, setIsRenewalNoticeOpen] = useState<boolean>(() => {
     try {
       const today = new Date().toISOString().split('T')[0];
-      const dismissedDate = localStorage.getItem('linkclean_dismiss_renewal_date');
+      const dismissedDate = localStorage.getItem('linkclean_dismiss_notice_date');
       return dismissedDate !== today;
     } catch {
       return true;
