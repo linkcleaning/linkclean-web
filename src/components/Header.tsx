@@ -88,7 +88,7 @@ export const Header: React.FC = () => {
     {
       type: 'internal',
       label: '방문 견적 예약 신청',
-      desc: '1분 간편 온라인 예약',
+      desc: '간편 온라인 예약',
       icon: Calendar,
       action: () => goToReservationWithService('move-in'),
       highlight: true,
