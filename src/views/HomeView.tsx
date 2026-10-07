@@ -13,6 +13,7 @@ import { FourStepProcessSection } from '../components/FourStepProcessSection';
 import { HomeFaqSection } from '../components/HomeFaqSection';
 import { QuickQuoteFormSection } from '../components/QuickQuoteFormSection';
 import { MobileCollapse } from '../components/MobileCollapse';
+import { PromoSongPlayer } from '../components/PromoSongPlayer';
 import {
   Calendar,
   CheckCircle2,
@@ -509,6 +510,9 @@ export const HomeView: React.FC = () => {
           </div>
         </div>
       </section>
+
+      {/* 링크클린 홍보송 플레이어 */}
+      <PromoSongPlayer />
 
       {/* =========================================================================
           SECTION 02 — 현장 맞춤 견적 기준 & 작업 범위 가이드 (분쟁 없는 정직 견적)
