@@ -159,6 +159,15 @@ export type TipCategory =
   | 'aircon'      // 에어컨·가전
   | 'event';      // 이벤트·프로모션
 
+export type TipCoverTone = 'sky' | 'teal' | 'amber' | 'indigo' | 'rose' | 'emerald' | 'orange' | 'navy';
+
+export interface TipCover {
+  emoji: string;
+  headline: string; // 줄바꿈은 \n
+  sub?: string;
+  tone: TipCoverTone;
+}
+
 export interface CleaningTipPost {
   id: string;
   type: TipPostType;
@@ -177,6 +186,8 @@ export interface CleaningTipPost {
   tags: string[];
   badge?: string;
   imageUrl?: string;
+  /** 사진 대신 쓰는 정보 카드 표지 (사진이 없을 때) */
+  cover?: TipCover;
   // 홍보성 전용 필드
   promoActionText?: string;
   promoBadge?: string;

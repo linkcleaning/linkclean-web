@@ -3,6 +3,7 @@ import { CleaningTipPost, TipCategory, TipPostType, ServiceType } from '../types
 import { INITIAL_TIPS_POSTS } from '../data/initialTipsData';
 import { useApp } from '../context/AppContext';
 import { MobileCollapse } from './MobileCollapse';
+import { TipCoverCard } from './TipCoverCard';
 import { 
   Sparkles, 
   PenSquare, 
@@ -33,11 +34,8 @@ const CATEGORY_TABS: { id: TipCategory | 'all'; label: string }[] = [
 ];
 
 const PRESET_IMAGES = [
-  { label: '주방 후드', url: '/images/kitchen_hood_after.jpg?v=2' },
-  { label: '욕실 타일', url: '/images/bathroom_after.jpg?v=2' },
-  { label: '입주 거실', url: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80' },
-  { label: '쓰레기집 복원', url: '/images/trash_house_after.jpg?v=2' },
-  { label: '피톤치드 살균', url: 'https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?auto=format&fit=crop&w=800&q=80' },
+  { label: '주방 후드 (실제 현장)', url: '/images/tips/hood.jpg' },
+  { label: '원룸 정리 (실제 현장)', url: '/images/tips/trash_room.jpg' },
 ];
 
 export const CleaningTipsBoard: React.FC = () => {
@@ -46,7 +44,7 @@ export const CleaningTipsBoard: React.FC = () => {
   // Posts State (Local storage synced)
   const [posts, setPosts] = useState<CleaningTipPost[]>(() => {
     try {
-      const saved = localStorage.getItem('linkclean_tips_posts_v3');
+      const saved = localStorage.getItem('linkclean_tips_posts_v4');
       if (saved) {
         const parsed = JSON.parse(saved);
         if (Array.isArray(parsed)) {
@@ -56,7 +54,7 @@ export const CleaningTipsBoard: React.FC = () => {
           );
           if (missingInitials.length > 0) {
             const merged = [...parsed, ...missingInitials];
-            localStorage.setItem('linkclean_tips_posts_v3', JSON.stringify(merged));
+            localStorage.setItem('linkclean_tips_posts_v4', JSON.stringify(merged));
             return merged;
           }
           return parsed;
@@ -70,7 +68,7 @@ export const CleaningTipsBoard: React.FC = () => {
 
   useEffect(() => {
     try {
-      localStorage.setItem('linkclean_tips_posts_v3', JSON.stringify(posts));
+      localStorage.setItem('linkclean_tips_posts_v4', JSON.stringify(posts));
     } catch (e) {
       console.error('Failed to save tips posts to localStorage', e);
     }
@@ -343,7 +341,9 @@ export const CleaningTipsBoard: React.FC = () => {
             >
               {/* Image & Badges */}
               <div className="relative h-44 bg-slate-100 overflow-hidden">
-                {post.imageUrl ? (
+                {post.cover ? (
+                  <TipCoverCard cover={post.cover} />
+                ) : post.imageUrl ? (
                   <img
                     src={post.imageUrl}
                     alt={post.title}
@@ -523,7 +523,11 @@ export const CleaningTipsBoard: React.FC = () => {
             </div>
 
             {/* Post Image */}
-            {activeModalPost.imageUrl && (
+            {activeModalPost.cover ? (
+              <div className="rounded-2xl overflow-hidden h-44 sm:h-56">
+                <TipCoverCard cover={activeModalPost.cover} size="detail" />
+              </div>
+            ) : activeModalPost.imageUrl && (
               <div className="rounded-2xl overflow-hidden max-h-72 bg-slate-100">
                 <img
                   src={activeModalPost.imageUrl}
