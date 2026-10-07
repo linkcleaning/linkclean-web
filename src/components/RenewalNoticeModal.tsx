@@ -68,19 +68,14 @@ export const RenewalNoticeModal: React.FC<RenewalNoticeModalProps> = ({ isOpen, 
       role="dialog"
       aria-modal="true"
       aria-labelledby="notice-modal-title"
-      className="fixed inset-0 z-50 flex items-end sm:items-center justify-center sm:p-4 bg-slate-900/60 animate-in fade-in duration-200"
+      className="fixed inset-0 z-50 flex items-center justify-center p-5 sm:p-4 bg-slate-900/60 animate-in fade-in duration-200"
       onClick={handleDismiss}
     >
-      {/* 모바일: 아래에서 올라오는 작은 카드 / PC: 가운데 작은 창 */}
+      {/* 휴대폰·PC 모두 화면 가운데 작은 창 */}
       <div
         onClick={(e) => e.stopPropagation()}
-        className="relative w-full sm:max-w-[380px] bg-white rounded-t-3xl sm:rounded-3xl shadow-2xl animate-in slide-in-from-bottom-8 sm:zoom-in-95 duration-200"
+        className="relative w-full max-w-[340px] sm:max-w-[380px] bg-white rounded-3xl shadow-2xl animate-in zoom-in-95 duration-200"
       >
-        {/* 모바일 손잡이 */}
-        <div className="sm:hidden flex justify-center pt-2.5">
-          <span className="w-10 h-1 rounded-full bg-slate-200" />
-        </div>
-
         <button
           type="button"
           onClick={handleDismiss}
@@ -90,7 +85,7 @@ export const RenewalNoticeModal: React.FC<RenewalNoticeModalProps> = ({ isOpen, 
           <X className="w-4 h-4" />
         </button>
 
-        <div className="px-5 pt-3 pb-4 sm:p-6 sm:pt-6">
+        <div className="px-5 pt-5 pb-4 sm:p-6 sm:pt-6">
           {/* Headline */}
           <div className="flex items-center gap-3 pr-8">
             <span className="text-3xl shrink-0" aria-hidden="true">☕</span>
