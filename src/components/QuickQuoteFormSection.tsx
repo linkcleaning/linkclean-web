@@ -79,14 +79,14 @@ export const QuickQuoteFormSection: React.FC = () => {
   };
 
   return (
-    <section id="quick-quote-section" className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-14">
-      <div className="bg-white rounded-3xl border border-slate-200/90 shadow-xl overflow-hidden">
+    <section id="quick-quote-section" className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 sm:py-14">
+      <div className="bg-white rounded-2xl sm:rounded-3xl border border-slate-200/90 shadow-lg sm:shadow-xl overflow-hidden">
         {/* Header */}
-        <div className="bg-gradient-to-r from-[#0A1D37] via-[#102A4E] to-[#0A1D37] text-white px-5 py-4 sm:p-8 text-center relative overflow-hidden">
+        <div className="bg-gradient-to-r from-[#0A1D37] via-[#102A4E] to-[#0A1D37] text-white px-4 py-2.5 sm:p-8 flex sm:block items-baseline gap-2 sm:text-center relative overflow-hidden">
           <div className="absolute top-0 right-0 w-64 h-64 bg-[#38BDF8] opacity-10 rounded-full blur-2xl pointer-events-none" />
-          <h2 className="text-lg sm:text-3xl font-extrabold tracking-tight">간편 견적 신청</h2>
-          <p className="text-[11px] sm:text-sm text-slate-300 mt-1 max-w-lg mx-auto">
-            번호만 남겨주시면 빠르게 연락드려요. 나머지는 선택이에요.
+          <h2 className="text-base sm:text-3xl font-extrabold tracking-tight shrink-0">간편 견적 신청</h2>
+          <p className="text-[10px] sm:text-sm text-slate-300 sm:mt-1 max-w-lg mx-auto truncate">
+            번호만 남겨주시면 빠르게 연락드려요<span className="hidden sm:inline">. 나머지는 선택이에요.</span>
           </p>
         </div>
 
@@ -120,15 +120,15 @@ export const QuickQuoteFormSection: React.FC = () => {
             </div>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="p-4 sm:p-8 space-y-3.5 sm:space-y-5">
+          <form onSubmit={handleSubmit} className="p-3 sm:p-8 space-y-2.5 sm:space-y-5">
             {/* 필수: 서비스 + 연락처 */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3">
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">청소 종류</label>
+                <label className="block text-[11px] sm:text-xs font-bold text-slate-700 mb-0.5 sm:mb-1">청소 종류</label>
                 <select
                   value={serviceType}
                   onChange={(e) => setServiceType(e.target.value as ServiceType)}
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#38BDF8] bg-white"
+                  className="w-full px-3 py-2 sm:px-3.5 sm:py-2.5 rounded-xl border border-slate-200 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#38BDF8] bg-white"
                 >
                   <option value="move-in">🏡 입주·이사청소</option>
                   <option value="residential">🛋️ 거주 대청소</option>
@@ -138,9 +138,9 @@ export const QuickQuoteFormSection: React.FC = () => {
                   <option value="trash">🧹 쓰레기집·특수청소</option>
                 </select>
               </div>
-              <div className="grid grid-cols-2 sm:contents gap-3">
+              <div className="grid grid-cols-2 sm:contents gap-2 sm:gap-3">
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 mb-1">
+                  <label className="block text-[11px] sm:text-xs font-bold text-slate-700 mb-0.5 sm:mb-1">
                     휴대폰 번호 <span className="text-red-500">*</span>
                   </label>
                   <input
@@ -150,11 +150,11 @@ export const QuickQuoteFormSection: React.FC = () => {
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     placeholder="010-1234-5678"
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#38BDF8] bg-white"
+                    className="w-full px-3 py-2 sm:px-3.5 sm:py-2.5 rounded-xl border border-slate-200 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#38BDF8] bg-white"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 mb-1">
+                  <label className="block text-[11px] sm:text-xs font-bold text-slate-700 mb-0.5 sm:mb-1">
                     성함 <span className="text-slate-400 font-medium">(선택)</span>
                   </label>
                   <input
@@ -162,7 +162,7 @@ export const QuickQuoteFormSection: React.FC = () => {
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder="홍길동"
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#38BDF8] bg-white"
+                    className="w-full px-3 py-2 sm:px-3.5 sm:py-2.5 rounded-xl border border-slate-200 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#38BDF8] bg-white"
                   />
                 </div>
               </div>
@@ -170,7 +170,7 @@ export const QuickQuoteFormSection: React.FC = () => {
 
             {/* 청소 희망일 (대략) */}
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1.5">
+              <label className="block text-[11px] sm:text-xs font-bold text-slate-700 mb-1 sm:mb-1.5">
                 청소 희망일 <span className="text-slate-400 font-medium">(대략이라도 좋아요)</span>
               </label>
               <CleaningDateHint value={cleaningDateHint} onChange={setCleaningDateHint} compact />
@@ -182,16 +182,16 @@ export const QuickQuoteFormSection: React.FC = () => {
                 type="button"
                 onClick={() => setShowMore((v) => !v)}
                 aria-expanded={showMore}
-                className="w-full flex items-center justify-between px-4 py-3 text-xs sm:text-sm font-bold text-[#0A1D37] cursor-pointer"
+                className="w-full flex items-center justify-between px-3 py-2 sm:px-4 sm:py-3 text-[11px] sm:text-sm font-bold text-[#0A1D37] cursor-pointer"
               >
-                <span>➕ 평수·지역·요청사항 입력하기 <span className="text-slate-400 font-medium">(선택, 견적이 더 정확해져요)</span></span>
+                <span>➕ 평수·지역·요청사항 <span className="text-slate-400 font-medium">(선택)</span></span>
                 <span className={`text-[#38BDF8] transition-transform ${showMore ? 'rotate-180' : ''}`}>▾</span>
               </button>
               {showMore && (
                 <div className="px-4 pb-4 grid grid-cols-2 gap-3">
                   <div>
                     <label className="block text-[11px] font-bold text-slate-600 mb-1">공간 형태</label>
-                    <select value={propertyType} onChange={(e) => setPropertyType(e.target.value as PropertyType)} className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#38BDF8] bg-white">
+                    <select value={propertyType} onChange={(e) => setPropertyType(e.target.value as PropertyType)} className="w-full px-3 py-2 sm:px-3.5 sm:py-2.5 rounded-xl border border-slate-200 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#38BDF8] bg-white">
                       <option value="아파트">아파트</option>
                       <option value="빌라">빌라·연립</option>
                       <option value="원룸/오피스텔">원룸·오피스텔</option>
@@ -203,11 +203,11 @@ export const QuickQuoteFormSection: React.FC = () => {
                   </div>
                   <div>
                     <label className="block text-[11px] font-bold text-slate-600 mb-1">평수</label>
-                    <input type="text" value={area} onChange={(e) => setArea(e.target.value)} placeholder="예: 24평" className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#38BDF8] bg-white" />
+                    <input type="text" value={area} onChange={(e) => setArea(e.target.value)} placeholder="예: 24평" className="w-full px-3 py-2 sm:px-3.5 sm:py-2.5 rounded-xl border border-slate-200 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#38BDF8] bg-white" />
                   </div>
                   <div className="col-span-2">
                     <label className="block text-[11px] font-bold text-slate-600 mb-1">지역</label>
-                    <select value={region} onChange={(e) => setRegion(e.target.value)} className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#38BDF8] bg-white">
+                    <select value={region} onChange={(e) => setRegion(e.target.value)} className="w-full px-3 py-2 sm:px-3.5 sm:py-2.5 rounded-xl border border-slate-200 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#38BDF8] bg-white">
                       {regionOptions.map((r, i) => (
                         <option key={i} value={r}>{r}</option>
                       ))}
@@ -215,7 +215,7 @@ export const QuickQuoteFormSection: React.FC = () => {
                   </div>
                   <div className="col-span-2">
                     <label className="block text-[11px] font-bold text-slate-600 mb-1">요청사항</label>
-                    <input type="text" value={notes} onChange={(e) => setNotes(e.target.value)} placeholder="예: 곰팡이 있음, 엘리베이터 없음" className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#38BDF8] bg-white" />
+                    <input type="text" value={notes} onChange={(e) => setNotes(e.target.value)} placeholder="예: 곰팡이 있음, 엘리베이터 없음" className="w-full px-3 py-2 sm:px-3.5 sm:py-2.5 rounded-xl border border-slate-200 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#38BDF8] bg-white" />
                   </div>
                 </div>
               )}
@@ -226,10 +226,10 @@ export const QuickQuoteFormSection: React.FC = () => {
               href="https://pf.kakao.com/_xfxdrxmM?from=qr"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-[#FEE500]/30 border border-[#FEE500] text-[11px] sm:text-xs text-[#3A1D1D] font-bold"
+              className="flex items-center gap-2 px-3 py-2 sm:px-4 sm:py-2.5 rounded-xl sm:rounded-2xl bg-[#FEE500]/30 border border-[#FEE500] text-[11px] sm:text-xs text-[#3A1D1D] font-bold"
             >
               <Camera className="w-4 h-4 shrink-0" />
-              <span className="flex-1">현장 사진은 카톡으로 보내주시면 더 정확한 견적을 드려요</span>
+              <span className="flex-1">현장 사진은 카톡으로 보내주세요<span className="hidden sm:inline"> — 더 정확한 견적을 드려요</span></span>
               <MessageCircle className="w-4 h-4 shrink-0 fill-[#3A1D1D]" />
             </a>
 
@@ -237,13 +237,13 @@ export const QuickQuoteFormSection: React.FC = () => {
             <button
               type="submit"
               disabled={submitting}
-              className="w-full py-3.5 rounded-2xl bg-[#0284C7] hover:bg-[#0369A1] text-white font-extrabold text-sm sm:text-base shadow-lg shadow-blue-500/20 transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-98"
+              className="w-full py-3 sm:py-3.5 rounded-xl sm:rounded-2xl bg-[#0284C7] hover:bg-[#0369A1] text-white font-extrabold text-sm sm:text-base shadow-lg shadow-blue-500/20 transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-98"
               id="quick-quote-submit-btn"
             >
               <Sparkles className="w-4 h-4 text-amber-300" />
               <span>{submitting ? '전송 중...' : '무료 견적 신청하기'}</span>
             </button>
-            <p className="text-center text-[10px] sm:text-[11px] text-slate-400 -mt-1">
+            <p className="text-center text-[9px] sm:text-[11px] text-slate-400 -mt-1.5 sm:-mt-1">
               개인정보는 견적 상담 목적으로만 사용됩니다.
             </p>
           </form>
