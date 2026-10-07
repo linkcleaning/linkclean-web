@@ -130,7 +130,7 @@ export const AboutView: React.FC = () => {
             {
               icon: Award,
               title: '사후 A/S 무상 보증',
-              desc: '시공 후 미비한 부분이 있을 경우 24시간 내 무상 재시공을 책임지는 사후 보증제를 실시합니다.'
+              desc: '시공 후 미비한 부분이 있을 경우 무상 재시공을 책임지는 사후 보증제를 실시합니다.'
             }
           ].map((item, i) => (
             <div
