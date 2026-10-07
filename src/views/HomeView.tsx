@@ -288,9 +288,6 @@ export const HomeView: React.FC = () => {
                   <span>사진 견적 신청</span>
                 </button>
               </div>
-
-              {/* 4단계 진행 과정 (예전 아래쪽 섹션을 위로 합침) */}
-              <HeroProcessSteps variant="desktop" />
             </div>
 
             {/* Trust Metrics footer in Cell 1 */}
@@ -440,6 +437,11 @@ export const HomeView: React.FC = () => {
 
           {/* Bento Cell 4: 제주도 날씨 & 1주일 청소 예보 (제주시 / 서귀포시) */}
           <JejuWeatherWidget />
+
+          {/* 4단계 진행 과정 — 가로 한 줄 (예전 아래쪽 섹션을 위로 합침) */}
+          <div className="col-span-full bg-[#0A1D37] rounded-3xl px-6 py-5 text-white shadow-sm">
+            <HeroProcessSteps variant="desktop" />
+          </div>
 
           {/* Bento Cell 5: 간편한 5단계 예약 프로세스 (col-span-2 row-span-1) */}
           <div className="col-span-1 md:col-span-2 lg:col-span-2 lg:row-span-1 bg-white rounded-3xl p-6 sm:p-7 border border-slate-100 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
