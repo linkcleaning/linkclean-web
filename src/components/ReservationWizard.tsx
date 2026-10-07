@@ -379,7 +379,19 @@ export const ReservationWizard: React.FC = () => {
   }
 
   return (
-    <div className="max-w-4xl mx-auto py-10 px-4 sm:px-6 lg:px-8">
+    <div className="max-w-4xl mx-auto py-6 sm:py-10 px-4 sm:px-6 lg:px-8">
+      {/* 홈으로 돌아가기 */}
+      <button
+        type="button"
+        onClick={() => setCurrentView('home')}
+        className="mb-4 inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-slate-600 hover:text-[#0A1D37] py-1.5 px-3 rounded-full border border-slate-200 bg-white shadow-2xs cursor-pointer"
+        id="wizard-back-home-btn"
+      >
+        <ChevronLeft className="w-4 h-4" />
+        <Home className="w-3.5 h-3.5 text-[#38BDF8]" />
+        홈으로
+      </button>
+
       {/* Top Header */}
       <div className="text-center mb-8">
         <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-extrabold bg-[#38BDF8]/10 text-[#38BDF8] border border-[#38BDF8]/20 mb-3">
@@ -394,38 +406,18 @@ export const ReservationWizard: React.FC = () => {
         </p>
       </div>
 
-      {/* Website Renewal Notice Banner */}
-      <div className="mb-8 bg-gradient-to-r from-[#0A1D37] via-[#132742] to-[#0A1D37] rounded-3xl p-5 sm:p-6 text-white border border-slate-800 shadow-md">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-          <div className="space-y-1.5">
-            <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-amber-400 text-[#0A1D37] text-[11px] font-black">
-              🛠️ 홈페이지 리뉴얼 진행 중 안내
-            </div>
-            <h2 className="text-base sm:text-lg font-bold text-white">
-              현재 온라인 예약 시스템 리뉴얼 준비 중입니다
-            </h2>
-            <p className="text-xs text-slate-300 leading-relaxed">
-              더욱 신속하고 편리한 견적 예약을 위해 시스템 리뉴얼이 진행되고 있습니다.
-              방문 견적 예약 및 일정 조율은 <strong className="text-[#38BDF8] font-bold">대표 전화</strong>로 문의 주시면 대기 없이 <strong className="text-white underline">즉시 친절한 상담 및 예약 접수</strong>가 가능합니다.
-            </p>
-          </div>
-          <div className="flex items-center gap-2 shrink-0">
-            <a
-              href="tel:064-763-4545"
-              className="px-5 py-3 rounded-2xl bg-[#38BDF8] hover:bg-[#0EA5E9] text-[#0A1D37] text-xs font-black transition-all flex items-center gap-2 shadow-md cursor-pointer"
-            >
-              <Phone className="w-4 h-4" />
-              <span>전화 예약: 064-763-4545</span>
-            </a>
-            <button
-              type="button"
-              onClick={openRenewalNotice}
-              className="px-4 py-3 rounded-2xl bg-white/10 hover:bg-white/20 text-white text-xs font-bold transition-all cursor-pointer"
-            >
-              안내창 보기
-            </button>
-          </div>
-        </div>
+      {/* 온라인 접수 안내 */}
+      <div className="mb-6 rounded-2xl bg-emerald-50 border border-emerald-200 px-4 py-3 flex items-center justify-between gap-3">
+        <p className="text-xs sm:text-sm text-emerald-900 font-medium leading-relaxed">
+          ✅ <strong className="font-bold">온라인 예약 접수 중</strong> · 신청하시면 담당자가 바로 확인하고 연락드려요.
+        </p>
+        <a
+          href="tel:064-763-4545"
+          className="shrink-0 px-3 py-2 rounded-xl bg-white border border-emerald-200 text-emerald-800 text-xs font-bold flex items-center gap-1"
+        >
+          <Phone className="w-3.5 h-3.5" />
+          전화
+        </a>
       </div>
 
       {/* 5-Step Stepper Progress Bar */}
