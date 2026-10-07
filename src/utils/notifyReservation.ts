@@ -39,25 +39,53 @@ export async function notifyReservation(r: Reservation): Promise<void> {
 
   const body = JSON.stringify(payload);
 
-  // 1순위: sendBeacon — 브라우저가 백그라운드에서 확실히 보내주는 방식 (아이폰·안드로이드 모두 지원)
+  // 아이폰 사파리는 다른 사이트로 보내는 fetch/sendBeacon을 조용히 막는 경우가 있어,
+  // 모든 브라우저에서 확실히 전송되는 "숨은 양식 제출(form POST)" 방식을 사용합니다.
   try {
-    if (typeof navigator !== 'undefined' && typeof navigator.sendBeacon === 'function') {
-      const ok = navigator.sendBeacon(RESERVATION_NOTIFY_URL, new Blob([body], { type: 'text/plain;charset=utf-8' }));
-      if (ok) return;
-    }
-  } catch {
-    // 아래 fetch로 재시도
-  }
-
-  // 2순위: 일반 fetch (text/plain + no-cors: Apps Script로 보낼 때 사전 요청(CORS) 없이 전송)
-  try {
-    await fetch(RESERVATION_NOTIFY_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-      body,
-    });
+    sendViaHiddenForm(RESERVATION_NOTIFY_URL, body);
   } catch (err) {
     console.warn('[예약 알림] 전송 실패', err);
   }
+}
+
+/**
+ * 화면에 보이지 않는 iframe으로 form POST를 보냅니다.
+ * enctype="text/plain" 양식은 "이름=값" 형태로 전송되므로,
+ * JSON의 마지막 } 앞을 이름으로, "} 를 값으로 넣어 본문 전체가 그대로 JSON이 되게 합니다.
+ *   보내지는 본문 예: {"customer_name":"홍길동", ... ,"_":"="}
+ * (Apps Script의 doPost는 받은 본문을 JSON.parse 합니다)
+ */
+function sendViaHiddenForm(url: string, json: string) {
+  if (typeof document === 'undefined') return;
+
+  const frameName = `lc-notify-${Date.now()}`;
+  const iframe = document.createElement('iframe');
+  iframe.name = frameName;
+  iframe.setAttribute('aria-hidden', 'true');
+  iframe.tabIndex = -1;
+  iframe.style.cssText = 'position:absolute;width:0;height:0;border:0;visibility:hidden;';
+  document.body.appendChild(iframe);
+
+  const form = document.createElement('form');
+  form.method = 'POST';
+  form.action = url;
+  form.target = frameName;
+  form.enctype = 'text/plain';
+  form.acceptCharset = 'UTF-8';
+  form.style.display = 'none';
+
+  const input = document.createElement('input');
+  input.type = 'hidden';
+  input.name = json.slice(0, -1) + ',"_":"';
+  input.value = '"}';
+  form.appendChild(input);
+
+  document.body.appendChild(form);
+  form.submit();
+
+  // 전송이 끝날 시간을 충분히 준 뒤 정리
+  window.setTimeout(() => {
+    form.remove();
+    iframe.remove();
+  }, 60000);
 }
