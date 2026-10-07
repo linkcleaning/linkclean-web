@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { NAVER_TALK_URL } from './MobileBottomBar';
-import { PhoneCall, MessageCircle, Instagram, BookOpen, X, ChevronUp } from 'lucide-react';
+import { PhoneCall, MessageCircle, Instagram, BookOpen, X, ChevronUp, ArrowUp } from 'lucide-react';
 
 interface FloatingMenuItem {
   id: string;
@@ -108,7 +108,7 @@ const naverPhoneConversion = () => {
   return (
     <aside
       aria-label="빠른 문의 플로팅 메뉴"
-      className="fixed right-4 sm:right-6 bottom-16 sm:bottom-22 z-40 flex flex-col gap-2.5 sm:gap-3 items-end select-none"
+      className="fixed right-4 sm:right-6 bottom-16 sm:bottom-auto sm:top-1/2 sm:-translate-y-1/2 z-40 flex flex-col gap-2.5 sm:gap-3 items-end select-none"
     >
       {/* Mobile Backdrop when expanded */}
       {mobileExpanded && (
@@ -186,6 +186,19 @@ const naverPhoneConversion = () => {
             </div>
           </a>
         ))}
+
+        {/* PC: 맨 위로(TOP) — 메뉴 바로 아래, 화면 가운데에 항상 표시 */}
+        <button
+          type="button"
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          id="quick-scroll-to-top-btn"
+          aria-label="페이지 맨 위로 이동"
+          title="맨 위로"
+          className="hidden sm:flex w-13 h-13 rounded-full bg-[#0A1D37]/95 hover:bg-[#0F172A] text-white border border-slate-700/80 shadow-lg flex-col items-center justify-center -space-y-0.5 transition-all duration-200 hover:scale-108 active:scale-95 cursor-pointer"
+        >
+          <ArrowUp className="w-4 h-4 text-amber-400" />
+          <span className="text-[9px] font-black text-sky-200 leading-none">TOP</span>
+        </button>
       </div>
 
       {/* Mobile-Only Collapsed Toggle FAB Button */}
