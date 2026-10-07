@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { CleaningTipPost, TipCategory, TipPostType, ServiceType } from '../types';
 import { INITIAL_TIPS_POSTS } from '../data/initialTipsData';
 import { useApp } from '../context/AppContext';
+import { MobileCollapse } from './MobileCollapse';
 import { 
   Sparkles, 
   PenSquare, 
@@ -239,6 +240,8 @@ export const CleaningTipsBoard: React.FC = () => {
         </button>
       </div>
 
+      {/* 모바일: 필터·게시글 목록은 접어둠 */}
+      <MobileCollapse label={`청소 팁 & 혜택 소식 ${posts.length}개 보기`}>
       {/* Filter Bar: Segmented Type Toggle & Search */}
       <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-6">
         {/* Type Segmented Buttons: 전체 / 📘 정보성 꿀팁 / 🎁 혜택·프로모션 */}
@@ -439,6 +442,7 @@ export const CleaningTipsBoard: React.FC = () => {
           ))}
         </div>
       )}
+      </MobileCollapse>
 
       {/* =========================================================================
           MODAL 1 — DETAIL ARTICLE VIEWER

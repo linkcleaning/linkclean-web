@@ -1,5 +1,6 @@
 import React from 'react';
 import { useApp } from '../context/AppContext';
+import { MobileCollapse } from './MobileCollapse';
 import { Camera, PhoneCall, ShieldCheck, CheckCircle2, ArrowRight, Sparkles, Smartphone, CreditCard } from 'lucide-react';
 
 export const FourStepProcessSection: React.FC = () => {
@@ -61,8 +62,9 @@ export const FourStepProcessSection: React.FC = () => {
             </p>
           </div>
 
-          {/* 4 Steps Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+          {/* 4 Steps Grid — 모바일에서는 접어둠 */}
+          <MobileCollapse label="4단계 진행 과정 자세히 보기" tone="dark">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 pt-2 sm:pt-0">
             {steps.map((item, index) => (
               <div
                 key={item.step}
@@ -106,9 +108,10 @@ export const FourStepProcessSection: React.FC = () => {
               </div>
             ))}
           </div>
+          </MobileCollapse>
 
           {/* Bottom Action Card */}
-          <div className="mt-8 sm:mt-12 bg-white/5 rounded-2xl p-4 sm:p-6 border border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="mt-5 sm:mt-12 bg-white/5 rounded-2xl p-4 sm:p-6 border border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-3 text-left">
               <div className="w-10 h-10 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
                 <ShieldCheck className="w-5 h-5" />
