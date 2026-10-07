@@ -9,7 +9,7 @@ import { CleaningTipsBoard } from '../components/CleaningTipsBoard';
 import { getMonthlySonEopNeunNal } from '../utils/lunarCalendar';
 import { PortfolioCategory, ServiceType } from '../types';
 import { PricingGuideSection } from '../components/PricingGuideSection';
-import { FourStepProcessSection } from '../components/FourStepProcessSection';
+import { HeroProcessSteps } from '../components/HeroProcessSteps';
 import { HomeFaqSection } from '../components/HomeFaqSection';
 import { QuickQuoteFormSection } from '../components/QuickQuoteFormSection';
 import { MobileCollapse } from '../components/MobileCollapse';
@@ -126,9 +126,8 @@ export const HomeView: React.FC = () => {
                 "제주에 없어도 괜찮아요.<br />
                 <span className="text-[#38BDF8]">청소 전·후를 사진으로</span> 보내드립니다."
               </h1>
-              <p className="text-slate-300 text-xs mb-3.5 leading-relaxed">
-                육지에서도, 멀리서도 100% 안심! 주방·욕실·창틀 구역별 실시간 고화질 사진 전송 &amp; 검수 후 잔금 결제
-              </p>
+              {/* 4단계 진행 과정 (예전 아래쪽 섹션을 위로 합침) */}
+              <HeroProcessSteps />
 
               {/* 3 Buttons Grid (전화 / 카톡 / 1분견적) */}
               <div className="grid grid-cols-3 gap-1.5 mb-3.5">
@@ -289,6 +288,9 @@ export const HomeView: React.FC = () => {
                   <span>사진 견적 신청</span>
                 </button>
               </div>
+
+              {/* 4단계 진행 과정 (예전 아래쪽 섹션을 위로 합침) */}
+              <HeroProcessSteps variant="desktop" />
             </div>
 
             {/* Trust Metrics footer in Cell 1 */}
@@ -522,10 +524,6 @@ export const HomeView: React.FC = () => {
       ========================================================================= */}
       <PricingGuideSection />
 
-      {/* =========================================================================
-          SECTION 03 — 4단계 안심 진행 과정 (견적 -> 방문 -> 사진 리포트 -> 확인 후 결제)
-      ========================================================================= */}
-      <FourStepProcessSection />
 
       {/* =========================================================================
           SECTION 04 — 고객의 고민
