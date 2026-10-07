@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Play, Pause, Music2 } from 'lucide-react';
+import { cleaningAudio } from '../utils/cleaningAudio';
 
 /** 링크클린 홍보송 플레이어 (public/audio/linkclean-song.mp3) */
 const SONG_SRC = '/audio/linkclean-song.mp3';
@@ -23,10 +24,15 @@ export const PromoSongPlayer: React.FC = () => {
     const onTime = () => setCurrent(a.currentTime);
     const onMeta = () => setDuration(a.duration);
     const onPlay = () => setPlaying(true);
-    const onPause = () => setPlaying(false);
+    // 홍보송이 멈추면 현장 사운드 엔진을 새로 준비 (아이폰에서 소리가 안 나는 문제 방지)
+    const onPause = () => {
+      setPlaying(false);
+      cleaningAudio.reset();
+    };
     const onEnd = () => {
       setPlaying(false);
       setCurrent(0);
+      cleaningAudio.reset();
     };
     a.addEventListener('timeupdate', onTime);
     a.addEventListener('loadedmetadata', onMeta);
