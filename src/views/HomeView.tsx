@@ -237,7 +237,7 @@ export const HomeView: React.FC = () => {
           </div>
 
           {/* 휴대폰에서도 제주 날씨 (제주시/서귀포시 · 1주일 예보) */}
-          <JejuWeatherWidget className="rounded-2xl! p-4!" />
+          <JejuWeatherWidget compact className="rounded-2xl!" />
         </div>
 
         {/* DESKTOP BENTO GRID (hidden sm:grid) — 데스크톱에서는 4열 Bento Grid 고급 디자인 온전히 유지 */}

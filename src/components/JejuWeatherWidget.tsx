@@ -20,9 +20,11 @@ import { useApp } from '../context/AppContext';
 
 interface JejuWeatherWidgetProps {
   className?: string;
+  /** 휴대폰용 아주 작은 카드 (자세히는 눌러서 창으로) */
+  compact?: boolean;
 }
 
-export const JejuWeatherWidget: React.FC<JejuWeatherWidgetProps> = ({ className = '' }) => {
+export const JejuWeatherWidget: React.FC<JejuWeatherWidgetProps> = ({ className = '', compact = false }) => {
   const { goToReservationWithService } = useApp();
   const [selectedCity, setSelectedCity] = useState<JejuCityType>('jeju');
   const [selectedDayIndex, setSelectedDayIndex] = useState<number>(0);
@@ -106,7 +108,61 @@ export const JejuWeatherWidget: React.FC<JejuWeatherWidgetProps> = ({ className 
 
   return (
     <>
-      {/* Bento Card: 제주도 날씨 & 1주일 청소 예보 (제주시 / 서귀포시 구분) */}
+      {compact ? (
+        /* 휴대폰용 컴팩트 날씨 카드 */
+        <div className={`rounded-2xl bg-gradient-to-r from-[#0284C7] to-[#0A1D37] text-white px-3 py-2.5 shadow-sm ${className}`}>
+          <div className="flex items-center gap-2">
+            <div className="shrink-0">{renderWeatherIcon(activeDay.condition, 'w-5 h-5')}</div>
+            <div className="flex items-baseline gap-1 min-w-0">
+              <span className="text-base font-black">{activeDay.tempHigh}°</span>
+              <span className="text-[11px] font-bold text-amber-300 truncate">{activeDay.conditionText}</span>
+            </div>
+            <span className={`ml-1 text-[9px] font-black px-1.5 py-0.5 rounded border ${getCleaningBadgeColor(activeDay.cleaningIndex)}`}>
+              청소 {activeDay.cleaningIndex}
+            </span>
+            <div className="ml-auto inline-flex bg-black/30 p-0.5 rounded-full border border-white/20 shrink-0">
+              {(['jeju', 'seogwipo'] as JejuCityType[]).map((c) => (
+                <button
+                  key={c}
+                  type="button"
+                  onClick={() => {
+                    setSelectedCity(c);
+                    setSelectedDayIndex(0);
+                  }}
+                  className={`px-2 py-0.5 rounded-full text-[10px] font-black cursor-pointer ${
+                    selectedCity === c ? 'bg-white text-[#0A1D37]' : 'text-white/80'
+                  }`}
+                >
+                  {c === 'jeju' ? '제주' : '서귀포'}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <button
+            type="button"
+            onClick={() => {
+              setModalCity(selectedCity);
+              setIsModalOpen(true);
+            }}
+            className="mt-2 w-full grid grid-cols-7 gap-0.5 text-center cursor-pointer"
+            aria-label="1주일 날씨 자세히 보기"
+          >
+            {weatherList.map((day, idx) => (
+              <span key={day.date} className="flex flex-col items-center leading-none py-1 rounded-lg bg-white/10">
+                <span className="text-[9px] text-sky-200">{idx === 0 ? '오늘' : day.dayOfWeek}</span>
+                <span className="my-0.5">{renderWeatherIcon(day.condition, 'w-3 h-3')}</span>
+                <span className="text-[10px] font-black">{day.tempHigh}°</span>
+              </span>
+            ))}
+          </button>
+          <div className="mt-1 flex items-center justify-between text-[8px] text-sky-200/70">
+            <span>제주도 날씨 · 누르면 자세히</span>
+            <span>자료: MET Norway</span>
+          </div>
+        </div>
+      ) : (
+        /* Bento Card: 제주도 날씨 & 1주일 청소 예보 (제주시 / 서귀포시 구분) */
       <div 
         id="jeju-weather-bento-card"
         className={`col-span-1 md:col-span-1 lg:col-span-1 lg:row-span-1 bg-gradient-to-br from-[#0284C7] via-[#0369A1] to-[#0A1D37] rounded-3xl p-5 sm:p-5 text-white flex flex-col justify-between relative overflow-hidden shadow-sm hover:shadow-md transition-all group ${className}`}
@@ -295,6 +351,7 @@ export const JejuWeatherWidget: React.FC<JejuWeatherWidgetProps> = ({ className 
           </p>
         </div>
       </div>
+      )}
 
       {/* 1주일 제주 날씨 & 청소 추천 가이드 모달 */}
       {isModalOpen && (
