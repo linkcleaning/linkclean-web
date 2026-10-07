@@ -1,1 +1,1 @@
-build: about-cert 202610071822
+build: about-wording 202610071828
