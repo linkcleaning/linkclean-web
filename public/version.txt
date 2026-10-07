@@ -1,1 +1,1 @@
-build: naver-talk 202610072001
+build: event-text 202610072008

@@ -162,7 +162,10 @@ const naverPhoneConversion = () => {
               ☕ 이벤트
             </span>
             <span className="truncate text-slate-200 font-medium">
-              후기 남기거나 지인 소개하면 <strong className="text-[#38BDF8] font-bold">스타벅스 커피 1잔</strong> 드려요!
+              <span className="sm:hidden">후기·지인 소개 시 </span>
+              <span className="hidden sm:inline">후기 남기거나 지인 소개하면 </span>
+              <strong className="text-[#38BDF8] font-bold">스타벅스 커피 1잔</strong>
+              <span className="hidden sm:inline"> 드려요!</span>
             </span>
           </div>
           <div className="shrink-0 flex items-center gap-2">
