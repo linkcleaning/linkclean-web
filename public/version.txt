@@ -1,3 +1,3 @@
 linkclean deploy check
-build: fewer-ctas
-set: 2026-10-07 17:15 KST
+build: compact-quote
+set: 2026-10-07 17:20 KST
