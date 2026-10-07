@@ -1,3 +1,3 @@
 linkclean deploy check
-build: notify-newurl
-set: 2026-10-07 16:48 KST
+build: slots-oct-nov
+set: 2026-10-07 17:05 KST
