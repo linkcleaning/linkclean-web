@@ -11,7 +11,7 @@ import { SERVICE_DETAILS } from '../data/initialData';
 export const RESERVATION_NOTIFY_URL = '';
 
 /**
- * 손님이 예약·견적을 신청하면 사장님 휴대폰(문자)과 메일로 알림을 보냅니다.
+ * 손님이 예약·견적을 신청하면 사장님 휴대폰으로 문자 알림을 보냅니다.
  * 실제 발송은 Apps Script가 처리하고, 이 함수는 예약 내용만 전달합니다.
  * 알림 실패가 손님의 예약 완료 화면을 막지 않도록 오류는 조용히 넘깁니다.
  */

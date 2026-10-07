@@ -2,15 +2,13 @@
  * 링크클린 예약 알림 (Google Apps Script)
  *
  * 홈페이지에서 손님이 예약·견적을 신청하면
- *   1) 구글 시트에 한 줄씩 기록하고
- *   2) 사장님 메일로 예약 내용을 보내고
- *   3) 사장님 휴대폰으로 문자를 보냅니다 (솔라피 API 키를 넣었을 때만)
+ *   1) 사장님 휴대폰으로 문자를 보내고 (솔라피)
+ *   2) 구글 시트에 예약 장부로 한 줄씩 기록합니다
  *
  * 설치 방법: 같은 폴더의 「설정방법.md」 참고
  */
 
 const CONFIG = {
-  OWNER_EMAIL: 'linkdole@naver.com', // 알림 받을 메일
   OWNER_PHONE: '01090900440',        // 문자 받을 번호
   SMS_FROM: '01090900440',           // 솔라피에 등록한 발신번호
   SHEET_NAME: '예약접수',
@@ -27,9 +25,8 @@ function doPost(e) {
     if (!underRateLimit_()) return ok_();
 
     const r = clean_(d);
-    saveToSheet_(r);
-    sendEmail_(r);
     sendSms_(r);
+    saveToSheet_(r);
   } catch (err) {
     console.error(err);
   }
@@ -41,7 +38,7 @@ function doGet() {
   return ContentService.createTextOutput('링크클린 예약 알림이 작동 중입니다.');
 }
 
-/** 설치 후 편집기에서 한 번 실행해 보세요 (메일·문자·시트 테스트) */
+/** 설치 후 편집기에서 한 번 실행해 보세요 (문자·시트 테스트) */
 function testNotify() {
   const sample = clean_({
     reservation_id: 'LC-TEST-0000',
@@ -58,9 +55,8 @@ function testNotify() {
     message: '알림 테스트입니다.',
     photo_count: 2,
   });
-  saveToSheet_(sample);
-  sendEmail_(sample);
   sendSms_(sample);
+  saveToSheet_(sample);
 }
 
 /* ───────────────────────── 내부 함수 ───────────────────────── */
@@ -97,46 +93,14 @@ function saveToSheet_(r) {
   sh.appendRow([r.createdAt, r.id, r.name, "'" + r.phone, r.email, r.service, r.date, r.time, r.address, r.propertyType, r.area, r.message, r.photos, '신규']);
 }
 
-function sendEmail_(r) {
-  const esc = (t) => String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-  const row = (k, v) => v ? `<tr><td style="padding:6px 10px;color:#64748b;white-space:nowrap">${k}</td><td style="padding:6px 10px;font-weight:600">${esc(v)}</td></tr>` : '';
-  const html = `
-    <div style="font-family:sans-serif;max-width:520px">
-      <h2 style="color:#0A1D37;margin:0 0 6px">🧹 새 예약이 들어왔어요</h2>
-      <p style="color:#64748b;margin:0 0 14px">${esc(r.createdAt)} 접수 · ${esc(r.id)}</p>
-      <table style="border-collapse:collapse;width:100%;background:#f8fafc;border-radius:8px">
-        ${row('이름', r.name)}
-        ${row('연락처', r.phone)}
-        ${row('이메일', r.email)}
-        ${row('서비스', r.service)}
-        ${row('방문 희망', [r.date, r.time].filter(String).join(' '))}
-        ${row('주소', r.address)}
-        ${row('건물/평수', [r.propertyType, r.area].filter(String).join(' / '))}
-        ${row('요청사항', r.message)}
-        ${row('첨부 사진', r.photos ? r.photos + '장 (손님 기기에 있음, 카톡으로 요청)' : '')}
-      </table>
-      <p style="margin:16px 0 0"><a href="tel:${esc(r.phone.replace(/[^0-9]/g, ''))}" style="background:#38BDF8;color:#0A1D37;padding:10px 16px;border-radius:8px;text-decoration:none;font-weight:700">📞 손님에게 전화하기</a></p>
-    </div>`;
-  const text = [
-    '새 예약이 들어왔어요',
-    `이름: ${r.name}`, `연락처: ${r.phone}`, `서비스: ${r.service}`,
-    `방문 희망: ${r.date} ${r.time}`, `주소: ${r.address}`, `요청사항: ${r.message}`,
-  ].join('\n');
-
-  MailApp.sendEmail({
-    to: CONFIG.OWNER_EMAIL,
-    subject: `[링크클린 예약] ${r.name} · ${r.service} · ${r.date}`,
-    body: text,
-    htmlBody: html,
-    name: '링크클린 홈페이지',
-  });
-}
-
 function sendSms_(r) {
   const props = PropertiesService.getScriptProperties();
   const apiKey = props.getProperty('SOLAPI_API_KEY');
   const apiSecret = props.getProperty('SOLAPI_API_SECRET');
-  if (!apiKey || !apiSecret) return; // 문자 설정 전에는 메일만 발송
+  if (!apiKey || !apiSecret) {
+    console.error('문자 설정 필요: 스크립트 속성에 SOLAPI_API_KEY, SOLAPI_API_SECRET 를 넣어주세요.');
+    return;
+  }
 
   const text = [
     '[링크클린 새 예약]',
@@ -144,6 +108,8 @@ function sendSms_(r) {
     `${r.service} / ${r.date} ${r.time}`,
     r.address ? `주소: ${r.address}` : '',
     r.area ? `평수: ${r.area}` : '',
+    r.message ? `요청: ${r.message.slice(0, 200)}` : '',
+    r.photos ? `사진 ${r.photos}장 첨부(카톡으로 요청)` : '',
   ].filter(String).join('\n');
 
   const date = new Date().toISOString();

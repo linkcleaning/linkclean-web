@@ -376,7 +376,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
     setReservations((prev) => [newReservation, ...prev]);
 
-    // 사장님께 문자·메일 알림 (실패해도 예약은 정상 처리)
+    // 사장님께 문자 알림 (실패해도 예약은 정상 처리)
     notifyReservation(newReservation);
 
     return {
