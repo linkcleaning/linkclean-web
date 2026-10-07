@@ -57,14 +57,44 @@ export const AboutView: React.FC = () => {
         </div>
 
         <div className="lg:col-span-5 bg-white rounded-3xl p-3 border border-slate-100 shadow-sm overflow-hidden flex">
-          <div className="rounded-2xl overflow-hidden w-full h-full min-h-[280px]">
+          <div className="rounded-2xl overflow-hidden w-full bg-white flex items-center justify-center">
             <img
-              src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=1000&q=80"
-              alt="링크클린 청소 현장"
-              referrerPolicy="no-referrer"
-              className="w-full h-full object-cover"
+              src="/images/about/waste_poster.jpg"
+              alt="제주 청소업체 링크클린 — 폐기물 청소, 신속하고 깔끔하게 청소합니다 (064-763-4545)"
+              className="w-full h-auto object-contain"
+              loading="lazy"
             />
           </div>
+        </div>
+      </div>
+
+      {/* 자격·인증 */}
+      <div className="bg-white rounded-3xl p-5 sm:p-10 border border-slate-100 shadow-sm grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+        <div className="lg:col-span-5 space-y-3">
+          <span className="text-xs font-extrabold text-[#38BDF8] uppercase tracking-wider">CERTIFIED</span>
+          <h3 className="text-2xl sm:text-3xl font-extrabold text-[#0A1D37] tracking-tight leading-snug">
+            청소관리사 1급<br />자격을 갖춘 대표가 직접 책임집니다
+          </h3>
+          <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+            링크클린 대표는 한국능력개발진흥원 <strong className="text-[#0A1D37]">청소관리사 1급</strong> 자격을 취득했습니다.
+            공간과 자재에 맞는 약품·장비 선택부터 마무리 검수까지, 배운 기준 그대로 현장에서 지킵니다.
+          </p>
+          <ul className="text-xs sm:text-sm text-slate-700 space-y-1.5">
+            <li className="flex gap-2"><Award className="w-4 h-4 text-[#38BDF8] shrink-0 mt-0.5" /><span>자격명: 청소관리사 (Cleaning Management) 1급</span></li>
+            <li className="flex gap-2"><FileCheck className="w-4 h-4 text-[#38BDF8] shrink-0 mt-0.5" /><span>자격번호: 2023-CM1-0009S · 취득일 2023.03.22</span></li>
+            <li className="flex gap-2"><ShieldCheck className="w-4 h-4 text-[#38BDF8] shrink-0 mt-0.5" /><span>발급기관: 한국능력개발진흥원 (등록번호 2017-005649)</span></li>
+          </ul>
+        </div>
+        <div className="lg:col-span-7">
+          <a href="/images/about/certificate.jpg" target="_blank" rel="noopener noreferrer" className="block rounded-2xl overflow-hidden border border-slate-200 bg-slate-50 hover:shadow-md transition-shadow">
+            <img
+              src="/images/about/certificate.jpg"
+              alt="링크클린 대표 청소관리사 1급 자격증 및 자격증 카드"
+              className="w-full h-auto"
+              loading="lazy"
+            />
+          </a>
+          <p className="text-[11px] text-slate-400 mt-1.5 text-center">사진을 누르면 크게 볼 수 있습니다</p>
         </div>
       </div>
 
