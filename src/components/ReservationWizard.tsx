@@ -1,3 +1,4 @@
+import { CleaningDateHint } from './CleaningDateHint';
 import React, { useState, useMemo } from 'react';
 import { useApp, STANDARD_TIME_SLOTS, isSeptemberDate } from '../context/AppContext';
 import { ServiceType, PropertyType, Reservation } from '../types';
@@ -52,6 +53,7 @@ export const ReservationWizard: React.FC = () => {
 
   // Wizard Step: 1 -> 2 -> 3 -> 4 -> 5 -> 6(Confirmed)
   const [currentStep, setCurrentStep] = useState<number>(1);
+  const [cleaningDateHint, setCleaningDateHint] = useState<string>('');
 
   // Form State
   const [selectedDate, setSelectedDate] = useState<string>(() => {
@@ -270,6 +272,7 @@ export const ReservationWizard: React.FC = () => {
         property_type: propertyType,
         area,
         customer_message: customerMessage,
+        cleaning_date_hint: cleaningDateHint.trim(),
         uploaded_images: uploadedImages
       });
 
@@ -331,6 +334,12 @@ export const ReservationWizard: React.FC = () => {
                 {completedReservation.visit_date} {completedReservation.visit_time}
               </span>
             </div>
+            {completedReservation.cleaning_date_hint && (
+              <div className="flex items-center justify-between text-xs sm:text-sm">
+                <span className="text-slate-500 font-medium">청소 희망일</span>
+                <span className="font-extrabold text-[#0A1D37]">{completedReservation.cleaning_date_hint}</span>
+              </div>
+            )}
             <div className="flex items-center justify-between text-xs sm:text-sm">
               <span className="text-slate-500 font-medium">신청 서비스</span>
               <span className="font-bold text-[#0A1D37]">{serviceName}</span>
@@ -650,6 +659,15 @@ export const ReservationWizard: React.FC = () => {
                   );
                 })}
               </div>
+            </div>
+
+            {/* 실제 청소 희망일 (대략) */}
+            <div className="mt-6 p-4 sm:p-5 rounded-2xl bg-amber-50/60 border border-amber-200/70">
+              <h3 className="font-extrabold text-[#0A1D37] text-sm sm:text-base">🧹 실제 청소는 언제쯤 원하세요?</h3>
+              <p className="text-[11px] sm:text-xs text-slate-500 mt-0.5 mb-3">
+                위 날짜는 <b>방문 견적일</b>이에요. 청소 날짜는 대략만 알려주셔도 일정 잡기가 훨씬 수월합니다. (선택)
+              </p>
+              <CleaningDateHint value={cleaningDateHint} onChange={setCleaningDateHint} />
             </div>
 
             {/* Step 1 Actions */}
@@ -1027,6 +1045,12 @@ export const ReservationWizard: React.FC = () => {
                   <span className="font-extrabold text-sm sm:text-base text-[#0A1D37] flex items-center gap-1.5 mt-0.5">
                     <CalendarIcon className="w-4 h-4 text-[#38BDF8]" />
                     {selectedDate} ({selectedTime || '시간 협의'})
+                  </span>
+                </div>
+                <div>
+                  <span className="text-xs text-slate-400 font-medium block">청소 희망일 (대략)</span>
+                  <span className="font-extrabold text-sm sm:text-base text-[#0A1D37] mt-0.5 block">
+                    {cleaningDateHint.trim() || '미입력 (상담 시 확인)'}
                   </span>
                 </div>
                 <div>

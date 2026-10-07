@@ -1,3 +1,4 @@
+import { CleaningDateHint } from './CleaningDateHint';
 import React, { useState } from 'react';
 import { useApp } from '../context/AppContext';
 import { ServiceType, PropertyType } from '../types';
@@ -21,7 +22,7 @@ export const QuickQuoteFormSection: React.FC = () => {
   const [propertyType, setPropertyType] = useState<PropertyType>('아파트');
   const [area, setArea] = useState<string>('24평');
   const [region, setRegion] = useState<string>('제주시 동지역');
-  const [visitDate, setVisitDate] = useState<string>(() => {
+  const [visitDate] = useState<string>(() => {
     const d = new Date();
     d.setDate(d.getDate() + 2);
     return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
@@ -29,6 +30,7 @@ export const QuickQuoteFormSection: React.FC = () => {
   const [name, setName] = useState<string>('');
   const [phone, setPhone] = useState<string>('');
   const [notes, setNotes] = useState<string>('');
+  const [cleaningDateHint, setCleaningDateHint] = useState<string>('');
   const [showMore, setShowMore] = useState<boolean>(false);
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
   const [submitting, setSubmitting] = useState<boolean>(false);
@@ -65,6 +67,7 @@ export const QuickQuoteFormSection: React.FC = () => {
         address_detail: '사진 견적 신청',
         customer_message: `[지역: ${region}] ${notes}`.trim(),
         uploaded_images: [],
+        cleaning_date_hint: cleaningDateHint.trim(),
       });
 
       setIsSubmitted(true);
@@ -165,6 +168,14 @@ export const QuickQuoteFormSection: React.FC = () => {
               </div>
             </div>
 
+            {/* 청소 희망일 (대략) */}
+            <div>
+              <label className="block text-xs font-bold text-slate-700 mb-1.5">
+                청소 희망일 <span className="text-slate-400 font-medium">(대략이라도 좋아요)</span>
+              </label>
+              <CleaningDateHint value={cleaningDateHint} onChange={setCleaningDateHint} compact />
+            </div>
+
             {/* 선택 정보 (접기) */}
             <div className="rounded-2xl border border-slate-200">
               <button
@@ -173,7 +184,7 @@ export const QuickQuoteFormSection: React.FC = () => {
                 aria-expanded={showMore}
                 className="w-full flex items-center justify-between px-4 py-3 text-xs sm:text-sm font-bold text-[#0A1D37] cursor-pointer"
               >
-                <span>➕ 평수·지역·날짜 입력하기 <span className="text-slate-400 font-medium">(선택, 견적이 더 정확해져요)</span></span>
+                <span>➕ 평수·지역·요청사항 입력하기 <span className="text-slate-400 font-medium">(선택, 견적이 더 정확해져요)</span></span>
                 <span className={`text-[#38BDF8] transition-transform ${showMore ? 'rotate-180' : ''}`}>▾</span>
               </button>
               {showMore && (
@@ -202,11 +213,7 @@ export const QuickQuoteFormSection: React.FC = () => {
                       ))}
                     </select>
                   </div>
-                  <div className="col-span-2 sm:col-span-1">
-                    <label className="block text-[11px] font-bold text-slate-600 mb-1">희망 날짜</label>
-                    <input type="date" value={visitDate} onChange={(e) => setVisitDate(e.target.value)} className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#38BDF8] bg-white" />
-                  </div>
-                  <div className="col-span-2 sm:col-span-1">
+                  <div className="col-span-2">
                     <label className="block text-[11px] font-bold text-slate-600 mb-1">요청사항</label>
                     <input type="text" value={notes} onChange={(e) => setNotes(e.target.value)} placeholder="예: 곰팡이 있음, 엘리베이터 없음" className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#38BDF8] bg-white" />
                   </div>
