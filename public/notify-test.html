@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>예약 알림 전송 테스트</title>
+<style>
+  body{font-family:-apple-system,sans-serif;max-width:420px;margin:24px auto;padding:0 16px;color:#0A1D37}
+  button{display:block;width:100%;padding:16px;margin:12px 0;border:0;border-radius:14px;font-size:16px;font-weight:700;color:#fff}
+  .a{background:#0A1D37}.b{background:#38BDF8;color:#0A1D37}
+  #log{background:#f1f5f9;border-radius:12px;padding:12px;font-size:13px;white-space:pre-line;min-height:60px}
+</style>
+</head>
+<body>
+<h2>📱 예약 문자 알림 테스트</h2>
+<p style="font-size:14px;color:#475569">버튼을 하나씩 누르고, 누를 때마다 문자가 오는지 확인해 주세요. (문자 1건씩 발송됩니다)</p>
+<button class="a" id="A">A. 양식 방식으로 보내기</button>
+<button class="b" id="B">B. fetch 방식으로 보내기</button>
+<div id="log">결과가 여기에 표시됩니다.</div>
+<script>
+var URL_ = 'https://script.google.com/macros/s/AKfycbwzRbWwlHvZ5UqdESOFJTaczpR0XG10UykFJvjZvK1bzU5dreNNURbmRy1psg7hZJYkig/exec';
+var log = document.getElementById('log');
+function payload(m){return JSON.stringify({reservation_id:'TEST-'+m,customer_name:'테스트 '+m,phone:'010-0000-0000',service:'알림 테스트('+m+')',visit_date:new Date().toISOString().slice(0,10),visit_time:'',address:navigator.userAgent.slice(0,80),message:'',photo_count:0,website:''});}
+function add(t){log.textContent=(log.textContent.indexOf('결과가')===0?'':log.textContent+'\n')+new Date().toLocaleTimeString()+' '+t;}
+document.getElementById('A').onclick=function(){
+  try{
+    var j=payload('A'),n='f'+Date.now();
+    var f=document.createElement('iframe');f.name=n;f.style.cssText='position:absolute;width:0;height:0;border:0;visibility:hidden';document.body.appendChild(f);
+    var fm=document.createElement('form');fm.method='POST';fm.action=URL_;fm.target=n;fm.enctype='text/plain';fm.acceptCharset='UTF-8';
+    var i=document.createElement('input');i.type='hidden';i.name=j.slice(0,-1)+',"_":"';i.value='"}';fm.appendChild(i);document.body.appendChild(fm);fm.submit();
+    add('A 전송 시도함');
+  }catch(e){add('A 오류: '+e);}
+};
+document.getElementById('B').onclick=function(){
+  fetch(URL_,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:payload('B')})
+    .then(function(){add('B 전송 완료(응답 받음)');})
+    .catch(function(e){add('B 오류: '+e);});
+};
+</script>
+</body>
+</html>
