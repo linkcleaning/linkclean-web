@@ -71,7 +71,8 @@ export const QuickQuoteFormSection: React.FC = () => {
         email: 'guest@linkclean.co.kr',
         service_type: serviceType,
         visit_date: visitDate,
-        visit_time: '10:00',
+        // 사진 견적은 시간 예약이 아니므로 '협의'로 접수 (시간대 마감 검사 대상 아님)
+        visit_time: '협의',
         property_type: propertyType,
         area: area,
         address: region,
