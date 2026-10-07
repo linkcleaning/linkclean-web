@@ -404,7 +404,7 @@ export const INITIAL_TIPS_POSTS: CleaningTipPost[] = [
     likes: 0,
     tags: ['사진리포트', '비대면청소', '후불결제', '육지고객'],
     badge: '상시 진행',
-    cover: { emoji: '📸', headline: '구역별 전·후\n사진 리포트', sub: '예약금 · 검수 후 잔금', tone: 'navy' },
+    cover: { emoji: '📸', headline: '구역별 전·후\n사진 리포트', sub: '예약금 → 검수 → 잔금', tone: 'navy' },
     promoActionText: '사진 견적 신청하기',
     promoBadge: '상시 진행',
     serviceLink: 'move-in',
