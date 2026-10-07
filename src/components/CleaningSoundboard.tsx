@@ -25,7 +25,7 @@ export const CleaningSoundboard: React.FC = () => {
       id: 'steam',
       title: '고온 스팀기',
       subText: '140℃ 멸균 살균',
-      soundLabel: '치이이익~ 쏴아아!',
+      soundLabel: '딸깍- 치이이익~ 퓨슉!',
       icon: <Flame className="w-5 h-5 text-orange-500 animate-bounce" />,
       activeColor: 'from-orange-500 to-amber-500 text-white shadow-orange-500/30 ring-orange-400',
       bgGradient: 'hover:border-orange-400 hover:bg-orange-50/50',
@@ -55,7 +55,7 @@ export const CleaningSoundboard: React.FC = () => {
       id: 'flush',
       title: '화장실 물내림',
       subText: '변기 배수 & 고압 세척',
-      soundLabel: '철컥- 콸콸콸~ 샤아!',
+      soundLabel: '철컥- 콸콸~ 꾸르륵!',
       icon: <Waves className="w-5 h-5 text-blue-500 animate-pulse" />,
       activeColor: 'from-blue-500 to-indigo-500 text-white shadow-blue-500/30 ring-blue-400',
       bgGradient: 'hover:border-blue-400 hover:bg-blue-50/50',
@@ -82,9 +82,11 @@ export const CleaningSoundboard: React.FC = () => {
         break;
     }
 
+    // 소리 길이만큼 버튼 '재생 중' 표시 유지
+    const playMs = option.id === 'flush' ? 4300 : option.id === 'steam' ? 2800 : 1600;
     setTimeout(() => {
-      setActiveSound(null);
-    }, 1600);
+      setActiveSound((cur) => (cur === option.id ? null : cur));
+    }, playMs);
   };
 
   return (
