@@ -154,16 +154,15 @@ const naverPhoneConversion = () => {
 };
   return (
     <header className="sticky top-0 z-40 bg-white border-b border-slate-200 transition-all shadow-2xs" ref={dropdownRef}>
-      {/* Website Renewal Notice Ticker */}
+      {/* Notice & Event Ticker */}
       <div className="bg-[#0A1D37] text-white text-[11px] sm:text-xs px-3 sm:px-6 py-1.5 sm:py-2 border-b border-slate-800">
         <div className="max-w-7xl mx-auto flex items-center justify-between gap-2 sm:gap-4">
           <div className="flex items-center gap-2 truncate">
             <span className="shrink-0 bg-amber-400 text-[#0A1D37] text-[10px] font-black px-1.5 py-0.5 rounded shadow-2xs">
-              리뉴얼 중
+              ☕ 이벤트
             </span>
             <span className="truncate text-slate-200 font-medium">
-              홈페이지 리뉴얼로 모든 예약 및 이벤트 기능이 준비 중입니다. 문의는{' '}
-              <strong className="text-[#38BDF8] font-bold">전화(064-763-4545)</strong>로 부탁드립니다.
+              후기 남기거나 지인 소개하면 <strong className="text-[#38BDF8] font-bold">스타벅스 커피 1잔</strong> 드려요!
             </span>
           </div>
           <div className="shrink-0 flex items-center gap-2">
@@ -179,7 +178,7 @@ const naverPhoneConversion = () => {
               onClick={openRenewalNotice}
               className="px-2.5 py-0.5 rounded-full bg-[#38BDF8]/20 hover:bg-[#38BDF8]/30 text-[#38BDF8] hover:text-white text-[11px] font-bold transition-colors cursor-pointer border border-[#38BDF8]/40"
             >
-              안내 새창 보기
+              공지 · 이벤트
             </button>
           </div>
         </div>
