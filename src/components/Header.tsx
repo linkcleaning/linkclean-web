@@ -454,6 +454,17 @@ const naverPhoneConversion = () => {
 
           {/* Mobile Hamburger Toggle */}
           <div className="flex lg:hidden items-center gap-2">
+            {currentView !== 'home' && (
+              <button
+                onClick={() => handleNavClick('home')}
+                className="px-3 py-1.5 rounded-full border border-slate-200 bg-white text-[#0A1D37] font-bold text-xs flex items-center gap-1 shadow-2xs active:scale-95 cursor-pointer"
+                id="header-mobile-home-btn"
+                aria-label="홈으로 가기"
+              >
+                <Home className="w-3.5 h-3.5 text-[#38BDF8]" />
+                홈
+              </button>
+            )}
             <button
               onClick={() => goToReservationWithService('move-in')}
               className="px-3.5 py-1.5 rounded-full bg-[#38BDF8] text-white font-bold text-xs flex items-center gap-1 shadow-sm active:scale-95"

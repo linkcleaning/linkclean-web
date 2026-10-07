@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useApp } from '../context/AppContext';
-import { PhoneCall, CalendarCheck, ArrowUp } from 'lucide-react';
+import { PhoneCall, CalendarCheck, ArrowUp, Home } from 'lucide-react';
 
 export const MobileBottomBar: React.FC = () => {
-  const { goToReservationWithService, currentView } = useApp();
+  const { goToReservationWithService, currentView, setCurrentView } = useApp();
   const [hasScrolled, setHasScrolled] = useState(false);
 
   useEffect(() => {
@@ -55,7 +55,21 @@ export const MobileBottomBar: React.FC = () => {
           <span className="truncate">방문 견적 예약</span>
         </button>
 
-        {/* 스마트폰 맨 위로 가기 (TOP) 원터치 버튼 */}
+        {/* 홈이 아닌 페이지에서는 [홈] 버튼, 홈에서는 [맨위로] 버튼 */}
+        {currentView !== 'home' ? (
+          <button
+            onClick={() => {
+              setCurrentView('home');
+              window.scrollTo({ top: 0 });
+            }}
+            className="flex items-center justify-center gap-1 py-2.5 px-3 rounded-xl border border-[#38BDF8]/50 bg-[#38BDF8]/15 text-[#38BDF8] font-bold text-xs active:scale-95 transition-all shrink-0 cursor-pointer"
+            id="mobile-fixed-home-btn"
+            title="홈으로 가기"
+          >
+            <Home className="w-3.5 h-3.5" />
+            <span>홈</span>
+          </button>
+        ) : (
         <button
           onClick={scrollToTop}
           className={`flex items-center justify-center gap-1 py-2.5 px-3 rounded-xl border font-bold text-xs active:scale-95 transition-all shrink-0 cursor-pointer ${
@@ -69,6 +83,7 @@ export const MobileBottomBar: React.FC = () => {
           <ArrowUp className={`w-3.5 h-3.5 ${hasScrolled ? 'text-amber-400 animate-bounce' : 'text-slate-400'}`} />
           <span>맨위로</span>
         </button>
+        )}
       </div>
     </aside>
   );
