@@ -14,6 +14,7 @@ import { HomeFaqSection } from '../components/HomeFaqSection';
 import { MobileCollapse } from '../components/MobileCollapse';
 import { PromoSongPlayer } from '../components/PromoSongPlayer';
 import { SwipeRow } from '../components/SwipeRow';
+import { ReviewSourceBadge } from '../components/ReviewSourceBadge';
 import {
   Calendar,
   CheckCircle2,
@@ -319,8 +320,8 @@ export const HomeView: React.FC = () => {
                 <div className="text-[11px] text-slate-400 underline decoration-dotted underline-offset-2 group-hover:text-slate-200">불합리 추가금 ⓘ</div>
               </button>
               <div>
-                <div className="text-xl sm:text-2xl font-black text-white">4.9/5.0</div>
-                <div className="text-[11px] text-slate-400">고객 만족도</div>
+                <div className="text-xl sm:text-2xl font-black text-white">후불제</div>
+                <div className="text-[11px] text-slate-400">예약금 → 검수 → 잔금</div>
               </div>
             </div>
             {showFeeInfo && (
@@ -835,17 +836,8 @@ export const HomeView: React.FC = () => {
             >
               <div>
                 <div className="flex items-center justify-between mb-2 sm:mb-3">
-                  {rev.source === 'naver' ? (
-                    <a
-                      href={rev.sourceUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={(e) => e.stopPropagation()}
-                      className="inline-flex items-center gap-1 text-[10px] sm:text-[11px] font-black text-[#03C75A] bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full"
-                    >
-                      <span className="w-3.5 h-3.5 rounded-sm bg-[#03C75A] text-white flex items-center justify-center text-[8px] leading-none">N</span>
-                      네이버 플레이스 실제 후기
-                    </a>
+                  {rev.source ? (
+                    <ReviewSourceBadge rev={rev} />
                   ) : (
                   <div className="flex items-center gap-1 text-amber-400">
                     {[...Array(rev.rating)].map((_, i) => (

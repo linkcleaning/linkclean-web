@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useApp } from '../context/AppContext';
 import { Star, Calendar, MessageSquarePlus, X, Upload, CheckCircle2, Award, HelpCircle, PhoneCall, MessageCircle, Send } from 'lucide-react';
 import { notifyInquiry } from '../utils/notifyReservation';
+import { ReviewSourceBadge } from '../components/ReviewSourceBadge';
 import { NAVER_TALK_URL } from '../components/MobileBottomBar';
 
 export const ReviewView: React.FC = () => {
@@ -146,17 +147,8 @@ export const ReviewView: React.FC = () => {
           >
             <div>
               <div className="flex items-center justify-between mb-3">
-                {rev.source === 'naver' ? (
-                    <a
-                      href={rev.sourceUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={(e) => e.stopPropagation()}
-                      className="inline-flex items-center gap-1 text-[10px] sm:text-[11px] font-black text-[#03C75A] bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full"
-                    >
-                      <span className="w-3.5 h-3.5 rounded-sm bg-[#03C75A] text-white flex items-center justify-center text-[8px] leading-none">N</span>
-                      네이버 플레이스 실제 후기
-                    </a>
+                {rev.source ? (
+                    <ReviewSourceBadge rev={rev} />
                   ) : (
                 <div className="flex items-center gap-1 text-amber-400">
                   {[...Array(rev.rating)].map((_, i) => (

@@ -63,7 +63,7 @@ export const Header: React.FC = () => {
     {
       type: 'internal',
       label: '고객 리얼 생생후기',
-      desc: '평점 4.9점 솔직 리뷰 확인',
+      desc: '네이버·당근 실제 후기 확인',
       icon: Star,
       action: () => setCurrentView('review'),
     },
