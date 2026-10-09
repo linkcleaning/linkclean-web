@@ -44,7 +44,7 @@ export const CleaningTipsBoard: React.FC = () => {
   // Posts State (Local storage synced)
   const [posts, setPosts] = useState<CleaningTipPost[]>(() => {
     try {
-      const saved = localStorage.getItem('linkclean_tips_posts_v7');
+      const saved = localStorage.getItem('linkclean_tips_posts_v8');
       if (saved) {
         const parsed = JSON.parse(saved);
         if (Array.isArray(parsed)) {
@@ -54,7 +54,7 @@ export const CleaningTipsBoard: React.FC = () => {
           );
           if (missingInitials.length > 0) {
             const merged = [...parsed, ...missingInitials];
-            localStorage.setItem('linkclean_tips_posts_v7', JSON.stringify(merged));
+            localStorage.setItem('linkclean_tips_posts_v8', JSON.stringify(merged));
             return merged;
           }
           return parsed;
@@ -68,7 +68,7 @@ export const CleaningTipsBoard: React.FC = () => {
 
   useEffect(() => {
     try {
-      localStorage.setItem('linkclean_tips_posts_v7', JSON.stringify(posts));
+      localStorage.setItem('linkclean_tips_posts_v8', JSON.stringify(posts));
     } catch (e) {
       console.error('Failed to save tips posts to localStorage', e);
     }
@@ -560,7 +560,7 @@ export const CleaningTipsBoard: React.FC = () => {
               </div>
             )}
 
-            {/* 입주청소 검수 체크리스트: 직접 체크 / 카톡으로 받기 */}
+            {/* 새집 입주 체크리스트: 직접 체크 / 카톡으로 받기 */}
             {activeModalPost.id === 'guide-movein-check' && (
               <div className="grid grid-cols-2 gap-2">
                 <button
@@ -578,10 +578,10 @@ export const CleaningTipsBoard: React.FC = () => {
                   type="button"
                   onClick={async () => {
                     const url = 'https://www.linkclean.co.kr/?view=checklist';
-                    const text = '입주청소 끝난 뒤 꼭 확인할 곳 — 눌러서 직접 체크해 보세요.';
+                    const text = '새집 입주 전·당일·입주 후 할 일 — 눌러서 직접 체크해 보세요.';
                     if (navigator.share) {
                       try {
-                        await navigator.share({ title: '입주청소 검수 체크리스트 (링크클린)', text, url });
+                        await navigator.share({ title: '새집 입주 체크리스트 (링크클린)', text, url });
                       } catch {
                         /* 취소 */
                       }
