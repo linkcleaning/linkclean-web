@@ -426,25 +426,7 @@ const naverPhoneConversion = () => {
                   <LogOut className="w-4 h-4" />
                 </button>
               </div>
-            ) : (
-              <div className="flex items-center gap-2 pr-2 border-r border-slate-200">
-                <button
-                  onClick={() => handleNavClick('login')}
-                  className="flex items-center gap-1 px-3 py-1.5 text-xs font-semibold text-[#0F172A] hover:text-[#38BDF8] transition-colors cursor-pointer"
-                  id="header-login-btn"
-                >
-                  <LogIn className="w-3.5 h-3.5" />
-                  로그인
-                </button>
-                <button
-                  onClick={() => handleNavClick('register')}
-                  className="px-2.5 py-1.5 text-xs font-medium text-slate-500 hover:text-[#0A1D37] transition-colors cursor-pointer"
-                  id="header-register-btn"
-                >
-                  회원가입
-                </button>
-              </div>
-            )}
+            ) : null}
 
             {/* Crucial CTA Button: [ 방문 견적 예약하기 ] */}
             <button
@@ -638,22 +620,7 @@ const naverPhoneConversion = () => {
                     로그아웃
                   </button>
                 </>
-              ) : (
-                <div className="grid grid-cols-2 gap-2">
-                  <button
-                    onClick={() => handleNavClick('login')}
-                    className="w-full py-2.5 rounded-xl border border-slate-300 text-slate-800 text-xs font-semibold text-center hover:bg-slate-50"
-                  >
-                    로그인
-                  </button>
-                  <button
-                    onClick={() => handleNavClick('register')}
-                    className="w-full py-2.5 rounded-xl bg-slate-100 text-slate-800 text-xs font-semibold text-center hover:bg-slate-200"
-                  >
-                    회원가입
-                  </button>
-                </div>
-              )}
+              ) : null}
 
               <button
                 onClick={() => {

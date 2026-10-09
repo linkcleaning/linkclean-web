@@ -4,7 +4,7 @@ import { Phone, Mail, ShieldCheck, Award, ExternalLink, ChevronDown } from 'luci
 import { BrandLogo } from './BrandLogo';
 
 export const Footer: React.FC = () => {
-  const { goToReservationWithService } = useApp();
+  const { goToReservationWithService, setCurrentView, currentUser } = useApp();
   const [showDetails, setShowDetails] = useState(false);
 const naverPhoneConversion = () => {
   const w = window as any;
@@ -118,7 +118,22 @@ const naverPhoneConversion = () => {
           </div>
 
           <div className="pt-2 flex flex-col sm:flex-row items-start sm:items-center justify-between text-[11px] text-slate-400 gap-2">
-            <div>© 2016 LINKCLEAN Inc. All rights reserved.</div>
+            <div className="flex items-center gap-2">
+              <span>© 2016 LINKCLEAN Inc. All rights reserved.</span>
+              {/* 사장님 전용 관리자 로그인 (메뉴에서 로그인 버튼을 뺐기 때문에 여기 작게 둠) */}
+              {!currentUser && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setCurrentView('login');
+                    window.scrollTo({ top: 0 });
+                  }}
+                  className="text-[10px] text-slate-500 hover:text-slate-300 underline-offset-2 hover:underline cursor-pointer"
+                >
+                  관리자
+                </button>
+              )}
+            </div>
             <div className="text-[10px] text-slate-400">
               * 상단 [청소서비스] 및 [바로가기] 메뉴에서 모든 서비스와 세부 페이지로 바로 이동하실 수 있습니다.
             </div>
