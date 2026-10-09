@@ -238,19 +238,7 @@ export const CleaningTipsBoard: React.FC = () => {
           </p>
         </div>
 
-        {/* Right CTA Button: Write Post Immediately — 관리자 로그인 때만 보임 */}
-        {currentUser?.role === 'admin' && (
-        <button
-          onClick={() => {
-            setFormError('');
-            setIsWriteModalOpen(true);
-          }}
-          className="self-start sm:self-auto px-4 py-2.5 bg-[#0A1D37] hover:bg-[#1E293B] text-white rounded-2xl text-xs sm:text-sm font-bold shadow-sm transition-all flex items-center gap-2 cursor-pointer shrink-0"
-        >
-          <PenSquare className="w-4 h-4 text-[#38BDF8]" />
-          <span>팁 / 소식 바로 등록하기</span>
-        </button>
-        )}
+
       </div>
 
       {/* 모바일: 필터·게시글 목록은 접어둠 */}
