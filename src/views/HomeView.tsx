@@ -486,9 +486,9 @@ export const HomeView: React.FC = () => {
           <span className="flex-1 min-w-0">
             <span className="block text-[10px] sm:text-xs font-black text-amber-700 tracking-wider">신축 입주 고객님께</span>
             <span className="block text-sm sm:text-lg font-black text-[#0A1D37] leading-snug">
-              피톤치드 도포는 링크클린이 해드려요.<br className="sm:hidden" /> 베이크아웃은 꼭 해주세요!
+              피톤치드 도포는 링크클린이,<br className="sm:hidden" /> 베이크아웃은 꼭 해주세요!
             </span>
-            <span className="block text-[11px] sm:text-sm text-slate-500 leading-snug">새집 냄새 줄이는 베이크아웃 방법 · 순서 · 주의사항</span>
+            <span className="block text-[11px] sm:text-sm text-slate-500 leading-snug">새집 냄새 줄이는 방법 · 순서 · 주의사항</span>
           </span>
           <span className="shrink-0 px-3 py-2 rounded-xl bg-amber-400 text-[#0A1D37] text-xs sm:text-sm font-black">방법 보기 →</span>
         </button>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useApp } from '../context/AppContext';
-import { Flame, Wind, Clock, Leaf, Home, Calendar, ChevronRight } from 'lucide-react';
+import { Flame, Wind, Clock, AlertTriangle, CheckCircle2, Leaf, Home, Calendar, ChevronRight } from 'lucide-react';
 
 /**
  * 신축 입주 고객 안내: 링크클린은 피톤치드 도포를 해드리고,
@@ -29,6 +29,12 @@ const STEPS = [
   },
 ];
 
+const CAUTIONS = [
+  '가열 중에는 반드시 빈집으로 두고, 사람·반려동물·식물은 머물지 않게 해주세요.',
+  '원목마루·강마루 등 바닥재와 일부 가구는 고온에 약할 수 있으니, 시공사·관리사무소 안내사항을 먼저 확인하세요.',
+  '가열 후 바로 들어가면 공기가 탁하고 덥습니다. 창문을 먼저 연 뒤 잠시 기다렸다 들어가세요.',
+  '보일러를 오래 켜 두므로 가스·전기 요금이 평소보다 나올 수 있습니다.',
+];
 
 export const BakeoutView: React.FC = () => {
   const { goToReservationWithService, setCurrentView } = useApp();
@@ -86,6 +92,41 @@ export const BakeoutView: React.FC = () => {
               </li>
             ))}
           </ol>
+        </section>
+
+        {/* 추천 순서 */}
+        <section className="bg-white rounded-2xl sm:rounded-3xl border border-slate-200 p-5 sm:p-8">
+          <h2 className="text-lg sm:text-2xl font-black text-[#0A1D37]">이 순서를 추천해요</h2>
+          <div className="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3 items-stretch">
+            {[
+              { t: '① 베이크아웃', d: '입주청소 전 빈집일 때 3~5회 진행', c: 'bg-amber-50 border-amber-200' },
+              { t: '② 링크클린 입주청소', d: '베이크아웃 때 떨어진 분진까지 청소 + 피톤치드 도포', c: 'bg-sky-50 border-sky-200' },
+              { t: '③ 입주 후 환기 습관', d: '몇 달간 하루 2~3번, 30분 이상 맞바람 환기', c: 'bg-emerald-50 border-emerald-200' },
+            ].map((x, i) => (
+              <div key={i} className={`rounded-xl border p-3 sm:p-4 ${x.c}`}>
+                <p className="font-black text-sm text-[#0A1D37]">{x.t}</p>
+                <p className="text-xs text-slate-600 mt-0.5 leading-relaxed">{x.d}</p>
+              </div>
+            ))}
+          </div>
+          <p className="mt-3 text-[11px] sm:text-xs text-slate-500 leading-relaxed">
+            입주청소를 먼저 하셨더라도 괜찮습니다. 입주 전에 베이크아웃을 하고 충분히 환기만 해주시면 됩니다.
+          </p>
+        </section>
+
+        {/* 주의사항 */}
+        <section className="bg-rose-50/60 rounded-2xl sm:rounded-3xl border border-rose-200 p-5 sm:p-8">
+          <h2 className="text-lg sm:text-xl font-black text-[#0A1D37] flex items-center gap-2">
+            <AlertTriangle className="w-5 h-5 text-rose-500" /> 꼭 지켜주세요
+          </h2>
+          <ul className="mt-3 space-y-2">
+            {CAUTIONS.map((c, i) => (
+              <li key={i} className="flex gap-2 text-xs sm:text-sm text-slate-700 leading-relaxed">
+                <CheckCircle2 className="w-4 h-4 text-rose-500 shrink-0 mt-0.5" />
+                <span>{c}</span>
+              </li>
+            ))}
+          </ul>
         </section>
 
         {/* 입주 후 팁 */}
