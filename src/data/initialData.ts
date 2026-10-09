@@ -345,7 +345,7 @@ export const INITIAL_PORTFOLIO: PortfolioItem[] = [
     id: 'p-3',
     title: '[제주시 애월읍] 48평 전원주택 거실 통창문 및 창틀 묵은 흑먼지 딥클린',
     location: '제주시 애월읍',
-    category: '창틀',
+    category: '유리창',
     representativeImage: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80',
     beforeImage: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=800&q=80',
     afterImage: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80',
@@ -379,9 +379,9 @@ export const INITIAL_PORTFOLIO: PortfolioItem[] = [
     title: '[제주시 외도동] 32평 아파트 거실 원목마루 오염 박리 및 천연 왁스 코팅',
     location: '제주시 외도동',
     category: '거실',
-    representativeImage: 'https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?auto=format&fit=crop&w=800&q=80',
+    representativeImage: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80',
     beforeImage: 'https://images.unsplash.com/photo-1507652313519-d4e9174996dd?auto=format&fit=crop&w=800&q=80',
-    afterImage: 'https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?auto=format&fit=crop&w=800&q=80',
+    afterImage: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80',
     description: '제주시 외도동 32평형 세대입니다. 마루 표면의 생활 묵은 때를 목재 전용 중성 세제로 세척하고 친환경 목재 보호 왁스를 2회 도포하여 은은한 고급 광택을 살렸습니다.',
     createdAt: '2026-08-10'
   },
@@ -417,6 +417,28 @@ export const INITIAL_PORTFOLIO: PortfolioItem[] = [
     afterImage: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=800&q=80',
     description: '서귀포시 안덕면 카페 오픈 현장입니다. 주방 배기 닥트와 오븐 주변 조리대 기름때를 전용 케미컬로 분해하고, 홀 바닥 미끄럼 방지 논슬립 세척을 완료했습니다.',
     createdAt: '2026-07-28'
+  },
+  {
+    id: 'p-10',
+    title: '화장실 변기·바닥 찌든 때와 물때 살균 세척',
+    location: '제주',
+    category: '화장실',
+    representativeImage: '/images/portfolio/toilet_after.jpg',
+    beforeImage: '/images/portfolio/toilet_before.jpg',
+    afterImage: '/images/portfolio/toilet_after.jpg',
+    description: '변기 안팎의 누런 때와 바닥 타일 줄눈 오염을 전용 약품과 고온 스팀으로 살균 세척했습니다. (실제 현장 사진으로 교체 예정)',
+    createdAt: '2026-10-09'
+  },
+  {
+    id: 'p-11',
+    title: '욕실·베란다 결로 곰팡이 제거 및 재발 방지 코팅',
+    location: '제주',
+    category: '곰팡이',
+    representativeImage: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=800&q=80',
+    beforeImage: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=800&q=80',
+    afterImage: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=800&q=80',
+    description: '습한 제주 날씨에 생기기 쉬운 벽·천장·실리콘 곰팡이를 전용 약품으로 제거하고 재발 방지 코팅으로 마무리했습니다. (실제 현장 사진으로 교체 예정)',
+    createdAt: '2026-10-09'
   }
 ];
 

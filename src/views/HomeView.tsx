@@ -690,14 +690,14 @@ export const HomeView: React.FC = () => {
 
         {/* 공간별 작은 사진 — 누르면 크게 (전/후 비교) */}
         {(() => {
-          const cats: PortfolioCategory[] = ['주방', '욕실', '거실', '창틀', '베란다', '상가', '쓰레기집', '기타'];
+          const cats: PortfolioCategory[] = ['주방', '욕실', '화장실', '곰팡이', '거실', '유리창', '베란다', '상가', '쓰레기집', '기타'];
           const thumbs = cats
             .map((c) => portfolio.find((p) => p.category === c))
             .filter((p): p is NonNullable<typeof p> => !!p);
           const modalItem = portfolio.find((p) => p.id === baModalId);
           return (
             <>
-              <div className="max-w-4xl mx-auto grid grid-cols-3 sm:grid-cols-4 gap-2 sm:gap-3 mb-3 sm:mb-6">
+              <div className="max-w-5xl mx-auto grid grid-cols-3 sm:grid-cols-5 lg:grid-cols-9 gap-2 sm:gap-3 mb-3 sm:mb-6">
                 {thumbs.map((p) => (
                   <button
                     key={p.id}
