@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useApp } from '../context/AppContext';
-import { Phone, Mail, ShieldCheck, Award, ExternalLink, ChevronDown } from 'lucide-react';
+import { Phone, Mail, ExternalLink, ChevronDown, BookOpen, MessageCircle, Instagram } from 'lucide-react';
 import { BrandLogo } from './BrandLogo';
 
 export const Footer: React.FC = () => {
@@ -56,34 +56,60 @@ const naverPhoneConversion = () => {
               <span className="text-[10px] text-slate-400 font-normal hidden sm:inline">(연중무휴 08:30~20:00)</span>
             </a>
 
-            <div className="flex items-center gap-1.5 pl-2 border-l border-slate-700/80">
-              <a
-                href="https://blog.naver.com/linkcleaning"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-2 py-1 bg-emerald-950/60 hover:bg-emerald-900/60 text-emerald-300 rounded text-[11px] font-medium transition-colors"
-                title="공식 네이버 블로그"
-              >
-                블로그
-              </a>
-              <a
-                href="https://pf.kakao.com/_xfxdrxmM?from=qr"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-2 py-1 bg-amber-950/60 hover:bg-amber-900/60 text-amber-300 rounded text-[11px] font-medium transition-colors"
-                title="카카오톡 1:1 상담"
-              >
-                카톡상담
-              </a>
-              <a
-                href="https://www.instagram.com/linkcleaning/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-2 py-1 bg-pink-950/60 hover:bg-pink-900/60 text-pink-300 rounded text-[11px] font-medium transition-colors"
-                title="공식 인스타그램"
-              >
-                인스타
-              </a>
+            <div className="flex items-center gap-2 pl-3 border-l border-slate-700/80">
+              {[
+                {
+                  href: 'https://blog.naver.com/linkcleaning',
+                  title: '네이버 공식 블로그',
+                  desc: '시공 전후 작업일지 & 청소 꿀팁',
+                  emoji: '📝',
+                  cls: 'bg-[#03C75A] text-white',
+                  icon: <BookOpen className="w-4 h-4" />,
+                },
+                {
+                  href: 'https://pf.kakao.com/_xfxdrxmM?from=qr',
+                  title: '카카오톡 1:1 상담',
+                  desc: '사진 보내고 빠른 채팅 상담',
+                  emoji: '💬',
+                  cls: 'bg-[#FEE500] text-[#371D1E]',
+                  icon: <MessageCircle className="w-4 h-4 fill-[#371D1E]" />,
+                },
+                {
+                  href: 'https://www.instagram.com/linkcleaning/',
+                  title: '인스타그램 공식 채널',
+                  desc: '@linkcleaning 청소 릴스 & 현장',
+                  emoji: '📷',
+                  cls: 'bg-gradient-to-tr from-[#f09433] via-[#dc2743] to-[#bc1888] text-white',
+                  icon: <Instagram className="w-4 h-4" />,
+                },
+              ].map((it) => (
+                <a
+                  key={it.href}
+                  href={it.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={it.title}
+                  className="group relative"
+                >
+                  <span className={`w-8 h-8 rounded-full flex items-center justify-center shadow-md ring-1 ring-white/10 transition-transform group-hover:scale-110 ${it.cls}`}>
+                    {it.icon}
+                  </span>
+                  {/* 마우스를 올리면 뜨는 말풍선 */}
+                  <span
+                    role="tooltip"
+                    className="pointer-events-none absolute bottom-full right-1/2 translate-x-1/2 mb-2.5 opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-200 z-50 hidden sm:block"
+                  >
+                    <span className="relative flex items-center gap-2 whitespace-nowrap bg-[#0A1D37] text-white px-3 py-2 rounded-xl shadow-2xl border border-slate-700">
+                      <span className="text-base leading-none">{it.emoji}</span>
+                      <span className="text-left">
+                        <span className="block text-xs font-bold">{it.title}</span>
+                        <span className="block text-[10px] text-slate-300 font-normal">{it.desc}</span>
+                      </span>
+                      <span className="absolute left-1/2 -translate-x-1/2 -bottom-1.5 w-3 h-3 rotate-45 bg-[#0A1D37] border-r border-b border-slate-700" aria-hidden="true" />
+                    </span>
+                  </span>
+                </a>
+              ))}
             </div>
           </div>
         </div>
