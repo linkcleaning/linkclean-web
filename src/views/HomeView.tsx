@@ -11,7 +11,6 @@ import { PortfolioCategory, ServiceType } from '../types';
 import { PricingGuideSection } from '../components/PricingGuideSection';
 import { HeroProcessSteps } from '../components/HeroProcessSteps';
 import { HomeFaqSection } from '../components/HomeFaqSection';
-import { QuickQuoteFormSection } from '../components/QuickQuoteFormSection';
 import { MobileCollapse } from '../components/MobileCollapse';
 import { PromoSongPlayer } from '../components/PromoSongPlayer';
 import {
@@ -151,9 +150,7 @@ export const HomeView: React.FC = () => {
                 </a>
                 <button
                   onClick={() => {
-                    const el = document.getElementById('quick-quote-section');
-                    if (el) el.scrollIntoView({ behavior: 'smooth' });
-                    else goToReservationWithService('move-in');
+                    goToReservationWithService('move-in');
                   }}
                   className="bg-[#38BDF8] hover:bg-[#0EA5E9] text-[#0A1D37] py-2.5 px-1 rounded-xl font-black text-[11px] shadow-sm transition-all flex flex-col items-center justify-center gap-1 active:scale-95 cursor-pointer"
                   id="mobile-hero-reserve-btn"
@@ -272,9 +269,7 @@ export const HomeView: React.FC = () => {
                 </a>
                 <button
                   onClick={() => {
-                    const el = document.getElementById('quick-quote-section');
-                    if (el) el.scrollIntoView({ behavior: 'smooth' });
-                    else goToReservationWithService('move-in');
+                    goToReservationWithService('move-in');
                   }}
                   className="bg-[#38BDF8] hover:bg-[#0EA5E9] text-[#0A1D37] px-5 py-3 rounded-2xl font-black text-xs sm:text-sm shadow-md transition-all flex items-center gap-2 cursor-pointer active:scale-95"
                 >
@@ -723,10 +718,6 @@ export const HomeView: React.FC = () => {
       ========================================================================= */}
       <HomeFaqSection />
 
-      {/* =========================================================================
-          SECTION 07.8 — 1분 간편 견적폼 (평수, 지역, 희망일, 현장 사진 업로드)
-      ========================================================================= */}
-      <QuickQuoteFormSection />
 
       {/* =========================================================================
           SECTION 08 — FINAL CTA (Bento Box)
