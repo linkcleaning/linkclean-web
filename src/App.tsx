@@ -16,6 +16,7 @@ import { RegisterView } from './views/RegisterView';
 import { MyPageView } from './views/MyPageView';
 import { AdminView } from './views/AdminView';
 import { EventView } from './views/EventView';
+import { WhyView } from './views/WhyView';
 import { MascotScrollTrigger } from './components/MascotScrollTrigger';
 import { RenewalNoticeModal } from './components/RenewalNoticeModal';
 
@@ -41,6 +42,7 @@ const AppContent: React.FC = () => {
         {currentView === 'portfolio' && <PortfolioView />}
         {currentView === 'review' && <ReviewView />}
         {currentView === 'event' && <EventView />}
+        {currentView === 'why' && <WhyView />}
         {currentView === 'reservation' && <ReservationWizard />}
         {currentView === 'login' && <LoginView />}
         {currentView === 'register' && <RegisterView />}

@@ -35,6 +35,7 @@ export const Header: React.FC = () => {
   const navItems = [
     { id: 'home', label: '홈' },
     { id: 'about', label: '회사소개' },
+    { id: 'why', label: '링크클린은 다르다' },
     { id: 'portfolio', label: '청소사례' },
     { id: 'review', label: '고객후기' },
     { id: 'event', label: '🎁 이벤트' },
