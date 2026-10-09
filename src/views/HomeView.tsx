@@ -456,6 +456,28 @@ export const HomeView: React.FC = () => {
         </button>
       </section>
 
+      {/* 신축 입주 안내 — 피톤치드는 링크클린이, 베이크아웃은 고객님이 (누르면 방법 페이지) */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <button
+          type="button"
+          onClick={() => {
+            setCurrentView('bakeout');
+            window.scrollTo({ top: 0 });
+          }}
+          className="w-full text-left rounded-2xl sm:rounded-3xl border border-amber-300 bg-gradient-to-r from-amber-50 via-white to-emerald-50 shadow-sm hover:shadow-md transition-all p-4 sm:p-6 flex items-center gap-3 sm:gap-5 cursor-pointer"
+        >
+          <span className="w-11 h-11 sm:w-14 sm:h-14 shrink-0 rounded-2xl bg-amber-100 flex items-center justify-center text-xl sm:text-2xl">🏠</span>
+          <span className="flex-1 min-w-0">
+            <span className="block text-[10px] sm:text-xs font-black text-amber-700 tracking-wider">신축 입주 고객님께</span>
+            <span className="block text-sm sm:text-lg font-black text-[#0A1D37] leading-snug">
+              피톤치드 도포는 링크클린이 해드려요.<br className="sm:hidden" /> 베이크아웃은 꼭 해주세요!
+            </span>
+            <span className="block text-[11px] sm:text-sm text-slate-500 leading-snug">새집 냄새 줄이는 베이크아웃 방법 · 순서 · 주의사항</span>
+          </span>
+          <span className="shrink-0 px-3 py-2 rounded-xl bg-amber-400 text-[#0A1D37] text-xs sm:text-sm font-black">방법 보기 →</span>
+        </button>
+      </section>
+
       {/* =========================================================================
           SECTION 04 — 서비스
           "공간에 맞는 청소를 선택하세요." (모바일 한 줄 가로 슬라이드 & 데스크톱 그리드)

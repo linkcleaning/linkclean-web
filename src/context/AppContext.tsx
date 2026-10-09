@@ -104,6 +104,7 @@ export type AppView =
   | 'review'
   | 'event'
   | 'why'
+  | 'bakeout'
   | 'reservation'
   | 'login'
   | 'register'
