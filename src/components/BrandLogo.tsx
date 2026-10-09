@@ -23,7 +23,7 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({
 
   const textSizes = {
     sm: 'text-lg',
-    md: 'text-xl',
+    md: 'text-lg sm:text-xl',
     lg: 'text-2xl',
   };
 
@@ -64,7 +64,19 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({
         >
           LINKCLEAN
         </span>
-        {showBadge && (
+        {/* 붓글씨 로고 (밝은 배경용) */}
+        {showBadge && !isDark && (
+          <>
+            <span className="hidden sm:block w-px h-5 bg-slate-200" aria-hidden="true" />
+            <img
+              src="/logo-calligraphy.png"
+              alt="링크클린 청소"
+              className={`${size === 'lg' ? 'h-9' : size === 'sm' ? 'h-6' : 'h-6 sm:h-8'} w-auto select-none`}
+              draggable={false}
+            />
+          </>
+        )}
+        {showBadge && isDark && (
           <span
             className={`hidden sm:inline-block text-[10px] font-extrabold px-2 py-0.5 rounded-full ${
               isDark
