@@ -566,7 +566,7 @@ export const HomeView: React.FC = () => {
               id: 'trash' as ServiceType,
               title: '쓰레기집청소',
               desc: '혼자서 해결하기 힘든 방치된 대량 폐기물 분리 배출과 악취 탈취, 100% 비밀보장 특수 정리입니다.',
-              img: '/images/trash_house_before.jpg'
+              img: '/images/portfolio/trash_before.jpg'
             }
           ].map((svc) => (
             <div
