@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useRef } from 'react';
 import { useApp } from '../context/AppContext';
 import { BeforeAfterSlider } from '../components/BeforeAfterSlider';
 import { NaverBlogBanner } from '../components/NaverBlogBanner';
@@ -45,7 +45,23 @@ export const HomeView: React.FC = () => {
 
   const [activeBeforeAfterCategory, setActiveBeforeAfterCategory] = useState<PortfolioCategory>('전체');
   const [isSonEopNeunNalModalOpen, setIsSonEopNeunNalModalOpen] = useState<boolean>(false);
-  const [showFeeInfo, setShowFeeInfo] = useState<boolean>(false); // '0원 추가금' 설명 펼치기
+  const [showFeeInfo, setShowFeeInfo] = useState<boolean>(false);
+  // 서비스 카드 슬라이드 (휴대폰)
+  const svcScrollRef = useRef<HTMLDivElement>(null);
+  const [svcIndex, setSvcIndex] = useState(0);
+  const onSvcScroll = () => {
+    const el = svcScrollRef.current;
+    if (!el) return;
+    const card = el.firstElementChild as HTMLElement | null;
+    const step = card ? card.offsetWidth + 12 : 240;
+    setSvcIndex(Math.min(5, Math.max(0, Math.round(el.scrollLeft / step))));
+  };
+  const svcScroll = (dir: 1 | -1) => {
+    const el = svcScrollRef.current;
+    if (!el) return;
+    const card = el.firstElementChild as HTMLElement | null;
+    el.scrollBy({ left: dir * (card ? card.offsetWidth + 12 : 240), behavior: 'smooth' });
+  }; // '0원 추가금' 설명 펼치기
 
   // Bento Cell 3 month navigation
   const [bentoMonthOffset, setBentoMonthOffset] = useState<number>(0);
@@ -489,9 +505,6 @@ export const HomeView: React.FC = () => {
               <span className="text-[10px] font-bold uppercase tracking-wider text-[#38BDF8] bg-blue-50 px-2.5 py-0.5 rounded-full border border-blue-100">
                 OUR SERVICES
               </span>
-              <span className="sm:hidden text-[10px] font-bold text-slate-400 bg-slate-100 px-2 py-0.5 rounded-full flex items-center gap-0.5">
-                좌우로 넘겨보세요 👈 👉
-              </span>
             </div>
             <h2 className="text-xl sm:text-3xl font-extrabold text-[#0A1D37] tracking-tight mt-1.5 sm:mt-2">
               공간에 맞는 청소를 선택하세요.
@@ -510,7 +523,12 @@ export const HomeView: React.FC = () => {
         </div>
 
         {/* Mobile: Single-row horizontal scrollable carousel / Desktop: 2-3 column grid */}
-        <div className="flex overflow-x-auto snap-x snap-mandatory gap-3 pb-3 pt-1 -mx-4 px-4 sm:mx-0 sm:px-0 sm:grid sm:grid-cols-2 lg:grid-cols-3 sm:gap-4 sm:overflow-visible no-scrollbar">
+        <div className="relative">
+        <div
+          ref={svcScrollRef}
+          onScroll={onSvcScroll}
+          className="flex overflow-x-auto snap-x snap-mandatory gap-3 pb-3 pt-1 -mx-4 px-4 sm:mx-0 sm:px-0 sm:grid sm:grid-cols-2 lg:grid-cols-3 sm:gap-4 sm:overflow-visible no-scrollbar"
+        >
           {[
             {
               id: 'move-in' as ServiceType,
@@ -551,7 +569,7 @@ export const HomeView: React.FC = () => {
           ].map((svc) => (
             <div
               key={svc.id}
-              className="w-[230px] sm:w-auto shrink-0 snap-start bg-white rounded-2xl sm:rounded-3xl overflow-hidden border border-slate-100 shadow-xs hover:shadow-lg transition-all flex flex-col justify-between group"
+              className="w-[72vw] max-w-[270px] sm:max-w-none sm:w-auto shrink-0 snap-start bg-white rounded-2xl sm:rounded-3xl overflow-hidden border border-slate-100 shadow-xs hover:shadow-lg transition-all flex flex-col justify-between group"
             >
               <div>
                 <div className="relative h-32 sm:h-48 overflow-hidden bg-slate-100">
@@ -592,6 +610,40 @@ export const HomeView: React.FC = () => {
               </div>
             </div>
           ))}
+        </div>
+
+        {/* 휴대폰: 좌우 화살표 + 오른쪽 흐림(더 있음 표시) */}
+        {svcIndex > 0 && (
+          <button
+            type="button"
+            onClick={() => svcScroll(-1)}
+            aria-label="이전 서비스"
+            className="sm:hidden absolute left-0 top-[64px] -translate-y-1/2 w-9 h-9 rounded-full bg-white/95 border border-slate-200 shadow-md text-[#0A1D37] flex items-center justify-center"
+          >
+            <ChevronLeft className="w-5 h-5" />
+          </button>
+        )}
+        {svcIndex < 5 && (
+          <>
+            <div className="sm:hidden pointer-events-none absolute right-[-16px] top-1 bottom-3 w-10 bg-gradient-to-l from-[#F8FAFC] to-transparent" />
+            <button
+              type="button"
+              onClick={() => svcScroll(1)}
+              aria-label="다음 서비스"
+              className="sm:hidden absolute right-0 top-[64px] -translate-y-1/2 w-9 h-9 rounded-full bg-[#38BDF8] text-white shadow-lg flex items-center justify-center animate-pulse"
+            >
+              <ChevronRight className="w-5 h-5" />
+            </button>
+          </>
+        )}
+        </div>
+
+        {/* 휴대폰: 몇 번째 카드인지 점으로 표시 */}
+        <div className="sm:hidden flex items-center justify-center gap-1.5 mt-1">
+          {[0, 1, 2, 3, 4, 5].map((i) => (
+            <span key={i} className={`h-1.5 rounded-full transition-all ${i === svcIndex ? 'w-5 bg-[#38BDF8]' : 'w-1.5 bg-slate-300'}`} />
+          ))}
+          <span className="ml-1.5 text-[10px] font-bold text-slate-400">{svcIndex + 1} / 6 · 옆으로 밀어보세요</span>
         </div>
       </section>
 
