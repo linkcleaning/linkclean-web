@@ -18,7 +18,7 @@ const EVENTS = [
     emoji: '✍️',
     tag: 'EVENT 01',
     title: '솔직한 후기 남기고 커피 한 잔',
-    desc: '작업 완료 후 네이버 플레이스에 후기를 남겨주시면 스타벅스 커피 1잔을 드려요.',
+    desc: '작업 완료 후 네이버 플레이스에 후기를 남겨주시면 스타벅스 커피를 드려요.',
     tone: 'bg-amber-50 border-amber-200',
     tagTone: 'bg-amber-500',
   },
@@ -26,7 +26,7 @@ const EVENTS = [
     emoji: '🤝',
     tag: 'EVENT 02',
     title: '링크클린 소개하고 커피 한 잔',
-    desc: '소개해주신 분의 계약이 진행되면 추천인께 스타벅스 커피 1잔을 드려요.',
+    desc: '소개해주신 분의 계약이 진행되면 추천인께 스타벅스 커피를 드려요.',
     tone: 'bg-sky-50 border-sky-200',
     tagTone: 'bg-[#0284C7]',
   },
@@ -95,7 +95,7 @@ export const RenewalNoticeModal: React.FC<RenewalNoticeModalProps> = ({ isOpen, 
                 공지 · 이벤트 진행 중
               </span>
               <h2 id="notice-modal-title" className="text-base font-black text-[#0A1D37] leading-snug">
-                스타벅스 커피 1잔 드려요!
+                스타벅스 커피 드려요!
               </h2>
             </div>
           </div>

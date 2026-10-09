@@ -95,7 +95,7 @@ export const HomeView: React.FC = () => {
               </span>
             </span>
             <span className="block text-[13px] sm:text-base font-extrabold text-[#0A1D37] leading-snug break-keep">
-              후기 남기고 · 지인 소개하면<br className="sm:hidden" /> 스타벅스 커피 1잔 🎁
+              후기 남기고 · 지인 소개하면<br className="sm:hidden" /> 스타벅스 커피 🎁
             </span>
             <span className="hidden sm:block text-xs text-slate-500">
               네이버 플레이스 후기 작성 또는 소개 계약 시 커피를 보내드려요
