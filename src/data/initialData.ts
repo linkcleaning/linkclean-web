@@ -442,47 +442,34 @@ export const INITIAL_PORTFOLIO: PortfolioItem[] = [
   }
 ];
 
+// 네이버 플레이스(링크클린)에 손님이 직접 남긴 실제 후기 — 원문 그대로
+export const NAVER_PLACE_REVIEWS_URL = 'https://m.place.naver.com/place/37742213/review/visitor';
+
 export const INITIAL_REVIEWS: ReviewItem[] = [
   {
-    id: 'rev-1',
-    author: '김*현 고객님',
-    serviceType: '입주·이사청소',
-    rating: 5,
-    content: '타 업체에서 사진만 보더니 현장에서 추가금을 20만원이나 불렀던 안 좋은 기억이 있어서, 이번엔 직접 방문해서 견적을 내주는 링크클린을 선택했습니다. 오셔서 샷시와 베란다 구조를 꼼꼼히 확인하고 제시해주신 견적 그대로 단 1원의 추가금도 없이 끝났습니다! 걸레받이 아래 먼지까지 싹 청소해주셔서 정말 감동했습니다.',
-    photos: ['https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=400&q=80'],
-    date: '2026-09-03',
-    isVisible: true
-  },
-  {
-    id: 'rev-2',
-    author: '이*우 고객님',
-    serviceType: '사무실청소',
-    rating: 5,
-    content: '스타트업 사옥 이전하면서 직원들이 바로 일할 수 있게 주말 청소를 요청드렸습니다. 예약할 때 원하는 날짜와 시간을 제가 직접 선택할 수 있어 편리했고, 유리 파티션 지문 하나 없이 번쩍거리게 닦아주셨네요. 세금계산서 발행과 사후 피드백까지 기업 담당자 입장에서 100점 만점에 100점입니다.',
-    photos: ['https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=400&q=80'],
-    date: '2026-08-29',
-    isVisible: true
-  },
-  {
-    id: 'rev-3',
-    author: '박*진 고객님',
+    id: 'naver-1',
+    author: '네이버 방문자',
     serviceType: '거주청소',
     rating: 5,
-    content: '아이들이 어려서 집안 청소가 막막했는데 주방 후드 기름때와 화장실 곰팡이를 마법처럼 없애주셨어요. 독한 락스 냄새가 전혀 안 나고 은은한 피톤치드 향이 나서 신기했습니다. 친절하신 팀장님 덕분에 너무 기분 좋은 하루가 되었습니다. 정기 청소도 맡길 예정입니다.',
+    content: '50년도 훨씬 넘었을 할아버지 할머니 살고 계신 오래된 구옥 거주청소했는데 너무너무 잘해주셨어요ㅠㅠ 큰 옷장과 서랍장, 찻장 빼고는 모두 버려서 1톤 트럭 가득 폐기물이 나왔고, 화장실이며 서랍장 안 까지 모두 깔끔하게 청소해주셨어요. 처음 견적낼때 청소는 마무리가 제일 중요하다고 하셨는데 역시나 마무리까지 너무너무 잘해주셨어요ㅠㅠ 냄새 심하게나던 냉장고까지 모두 깔끔해졌어요. 치매걸리신 할아버지 할머니가 거주하고 계셔서 불편하셨을텐데도 사장님 정말 친절하게 잘해주셨어요. 👍🏻👍🏻',
     photos: [],
-    date: '2026-08-22',
-    isVisible: true
+    date: '',
+    isVisible: true,
+    source: 'naver',
+    sourceUrl: NAVER_PLACE_REVIEWS_URL,
   },
   {
-    id: 'rev-4',
-    author: '최*민 대표님',
-    serviceType: '상가청소',
+    id: 'naver-2',
+    author: '네이버 방문자',
+    serviceType: '청소',
     rating: 5,
-    content: '베이커리 카페 오픈 준비하면서 바닥 타일과 주방 닥트 청소를 맡겼습니다. 오픈 일정이 촉박했는데 약속 시간 정확히 지켜주시고, 방문 견적 때 지적해주신 오염 포인트를 집중적으로 깨끗하게 해주셨어요. 손님들이 매장 청결하다고 칭찬 많이 하십니다.',
-    photos: ['https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=400&q=80'],
-    date: '2026-08-16',
-    isVisible: true
-  }
+    content: '여기저기 청소업체 알아봤었는데 금액도 정말 합리적입니당!! 리뷰쓰는곳이 없어서 댓글로 써야하는게 너무 아쉽네요..제주도 청소는 무조건 링크클린으로 하세요!! 추천 별 다섯개예요🤍🤍🤍',
+    photos: [],
+    date: '',
+    isVisible: true,
+    source: 'naver',
+    sourceUrl: NAVER_PLACE_REVIEWS_URL,
+  },
 ];
 
 export const INITIAL_RESERVATIONS: Reservation[] = [

@@ -273,8 +273,12 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   const [reviews, setReviews] = useState<ReviewItem[]>(() => {
     try {
-      const saved = localStorage.getItem('linkclean_reviews');
-      return saved ? JSON.parse(saved) : INITIAL_REVIEWS;
+      // 예전 샘플 후기(rev-1~4)는 지우고, 네이버 실제 후기를 항상 포함
+      const saved = localStorage.getItem('linkclean_reviews_v2');
+      if (!saved) return INITIAL_REVIEWS;
+      const parsed: ReviewItem[] = JSON.parse(saved);
+      const kept = parsed.filter((r) => !/^rev-\d+$/.test(r.id) && !INITIAL_REVIEWS.some((i) => i.id === r.id));
+      return [...INITIAL_REVIEWS, ...kept];
     } catch {
       return INITIAL_REVIEWS;
     }
@@ -319,7 +323,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   useEffect(() => {
     try {
-      localStorage.setItem('linkclean_reviews', JSON.stringify(reviews));
+      localStorage.setItem('linkclean_reviews_v2', JSON.stringify(reviews));
     } catch {
       // ignore
     }
