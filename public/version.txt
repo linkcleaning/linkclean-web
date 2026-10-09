@@ -1,1 +1,1 @@
-build: footer-icons 202610100213
+build: mascot-popup 202610100216
