@@ -45,6 +45,7 @@ export const HomeView: React.FC = () => {
 
   const [activeBeforeAfterCategory, setActiveBeforeAfterCategory] = useState<PortfolioCategory>('전체');
   const [isSonEopNeunNalModalOpen, setIsSonEopNeunNalModalOpen] = useState<boolean>(false);
+  const [showFeeInfo, setShowFeeInfo] = useState<boolean>(false); // '0원 추가금' 설명 펼치기
 
   // Bento Cell 3 month navigation
   const [bentoMonthOffset, setBentoMonthOffset] = useState<number>(0);
@@ -166,15 +167,22 @@ export const HomeView: React.FC = () => {
                   <div className="text-base font-black text-white">100%</div>
                   <div className="text-[10px] text-slate-400">사진 리포트</div>
                 </div>
-                <div>
+                <button type="button" onClick={() => setShowFeeInfo((v) => !v)} aria-expanded={showFeeInfo} className="cursor-pointer">
                   <div className="text-base font-black text-[#38BDF8]">0원</div>
-                  <div className="text-[10px] text-slate-400">당일 추가금</div>
-                </div>
+                  <div className="text-[10px] text-slate-400 underline decoration-dotted underline-offset-2">당일 추가금 ⓘ</div>
+                </button>
                 <div>
                   <div className="text-base font-black text-white">후불제</div>
                   <div className="text-[10px] text-slate-400 leading-tight whitespace-nowrap">예약금<span className="text-[7px] mx-[1px] opacity-70">→</span>검수<span className="text-[7px] mx-[1px] opacity-70">→</span>잔금</div>
                 </div>
               </div>
+              {showFeeInfo && (
+              <p className="mt-2 rounded-xl bg-white/10 border border-[#38BDF8]/40 px-3 py-2 text-left text-[11px] sm:text-xs text-slate-200 leading-relaxed animate-in fade-in duration-150">
+                <b className="text-[#38BDF8]">추가금 안내</b> — 사진·통화로 안내받은 내용과 현장이 같다면 당일 추가금은 <b className="text-white">0원</b>입니다.
+                다만 방문 당일 오염도·평수·짐 상태 등이 사진이나 통화 때와 다를 경우에는 추가금이 생길 수 있으며,
+                이때는 <b className="text-white">작업 전에 먼저 설명드리고 동의를 받은 뒤</b> 진행합니다.
+              </p>
+              )}
             </div>
           </div>
 
@@ -285,15 +293,24 @@ export const HomeView: React.FC = () => {
                 <div className="text-xl sm:text-2xl font-black text-white">100%</div>
                 <div className="text-[11px] text-slate-400">현장 직접 실측</div>
               </div>
-              <div>
+              <button type="button" onClick={() => setShowFeeInfo((v) => !v)} aria-expanded={showFeeInfo} className="text-left cursor-pointer group">
                 <div className="text-xl sm:text-2xl font-black text-[#38BDF8]">0원</div>
-                <div className="text-[11px] text-slate-400">불합리 추가금</div>
-              </div>
+                <div className="text-[11px] text-slate-400 underline decoration-dotted underline-offset-2 group-hover:text-slate-200">불합리 추가금 ⓘ</div>
+              </button>
               <div>
                 <div className="text-xl sm:text-2xl font-black text-white">4.9/5.0</div>
                 <div className="text-[11px] text-slate-400">고객 만족도</div>
               </div>
             </div>
+            {showFeeInfo && (
+              <div className="relative z-10">
+              <p className="mt-2 rounded-xl bg-white/10 border border-[#38BDF8]/40 px-3 py-2 text-left text-[11px] sm:text-xs text-slate-200 leading-relaxed animate-in fade-in duration-150">
+                <b className="text-[#38BDF8]">추가금 안내</b> — 사진·통화로 안내받은 내용과 현장이 같다면 당일 추가금은 <b className="text-white">0원</b>입니다.
+                다만 방문 당일 오염도·평수·짐 상태 등이 사진이나 통화 때와 다를 경우에는 추가금이 생길 수 있으며,
+                이때는 <b className="text-white">작업 전에 먼저 설명드리고 동의를 받은 뒤</b> 진행합니다.
+              </p>
+              </div>
+            )}
             </div>
 
             {/* 아래: 제주에 없어도 안심되는 4단계 진행 (가로 한 줄) */}
