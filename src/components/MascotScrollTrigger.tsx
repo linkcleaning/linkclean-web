@@ -45,7 +45,7 @@ export const MascotScrollTrigger: React.FC = () => {
       aria-label="링크클린 마스코트 깜짝 선물 이벤트"
       className="fixed left-3 sm:left-7 bottom-16 sm:bottom-7 z-40 flex flex-col items-start select-none animate-in fade-in slide-in-from-bottom-6 duration-300"
     >
-      <div className="relative group">
+      <div className="relative group flex flex-col items-center">
         {/* Close / Dismiss Button */}
         <button
           onClick={(e) => {
@@ -61,7 +61,7 @@ export const MascotScrollTrigger: React.FC = () => {
         {/* Floating Speech Bubble */}
         <div
           onClick={handleMascotClick}
-          className="mb-1.5 sm:mb-2.5 bg-gradient-to-r from-[#0A1D37] via-[#0F284E] to-[#0A1D37] text-white px-2.5 py-1.5 sm:px-3.5 sm:py-2.5 rounded-xl sm:rounded-2xl shadow-xl border border-[#38BDF8]/40 cursor-pointer transition-all duration-200 hover:scale-105 active:scale-98 max-w-[165px] sm:max-w-[240px]"
+          className="relative mb-1.5 sm:mb-2.5 bg-gradient-to-r from-[#0A1D37] via-[#0F284E] to-[#0A1D37] text-white px-2.5 py-1.5 sm:px-3.5 sm:py-2.5 rounded-xl sm:rounded-2xl shadow-xl border border-[#38BDF8]/40 cursor-pointer transition-all duration-200 hover:scale-105 active:scale-98 max-w-[165px] sm:max-w-[240px]"
         >
           <div className="flex items-center gap-1 sm:gap-1.5 text-[#38BDF8] text-[10px] sm:text-[11px] font-extrabold tracking-tight mb-0.5">
             <Sparkles className="w-3 h-3 sm:w-3.5 sm:h-3.5 animate-pulse text-[#38BDF8] shrink-0" />
@@ -81,7 +81,7 @@ export const MascotScrollTrigger: React.FC = () => {
 
           {/* Speech bubble beak / arrow */}
           <div
-            className="absolute left-5 sm:left-6 -bottom-1 sm:-bottom-1.5 w-2.5 h-2.5 sm:w-3 sm:h-3 bg-[#0A1D37] border-r border-b border-[#38BDF8]/40 rotate-45"
+            className="absolute left-1/2 -translate-x-1/2 -bottom-1 sm:-bottom-1.5 w-2.5 h-2.5 sm:w-3 sm:h-3 bg-[#0A1D37] border-r border-b border-[#38BDF8]/40 rotate-45"
             aria-hidden="true"
           />
         </div>
@@ -102,7 +102,7 @@ export const MascotScrollTrigger: React.FC = () => {
               src={mascotImg}
               alt="링크클린 청소 마스터"
               referrerPolicy="no-referrer"
-              className="w-full h-full object-cover transform group-hover:scale-115 group-hover:rotate-3 transition-transform duration-300"
+              className="w-[78%] h-[78%] -mt-2 sm:-mt-3 object-contain transform group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300"
             />
 
             {/* Gift Badge Pill */}
