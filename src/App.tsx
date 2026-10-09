@@ -18,6 +18,7 @@ import { AdminView } from './views/AdminView';
 import { EventView } from './views/EventView';
 import { WhyView } from './views/WhyView';
 import { BakeoutView } from './views/BakeoutView';
+import { ChecklistView } from './views/ChecklistView';
 import { MascotScrollTrigger } from './components/MascotScrollTrigger';
 import { RenewalNoticeModal } from './components/RenewalNoticeModal';
 
@@ -45,6 +46,7 @@ const AppContent: React.FC = () => {
         {currentView === 'event' && <EventView />}
         {currentView === 'why' && <WhyView />}
         {currentView === 'bakeout' && <BakeoutView />}
+        {currentView === 'checklist' && <ChecklistView />}
         {currentView === 'reservation' && <ReservationWizard />}
         {currentView === 'login' && <LoginView />}
         {currentView === 'register' && <RegisterView />}

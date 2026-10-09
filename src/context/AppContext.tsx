@@ -105,6 +105,7 @@ export type AppView =
   | 'event'
   | 'why'
   | 'bakeout'
+  | 'checklist'
   | 'reservation'
   | 'login'
   | 'register'
@@ -162,7 +163,16 @@ const AppContext = createContext<AppContextType | null>(null);
 
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   // Navigation state
-  const [currentView, setCurrentView] = useState<AppView>('home');
+  // 주소에 ?view=checklist 처럼 붙어 있으면 그 페이지로 바로 열기 (카톡으로 공유한 링크용)
+  const [currentView, setCurrentView] = useState<AppView>(() => {
+    try {
+      const v = new URLSearchParams(window.location.search).get('view');
+      if (v && ['checklist', 'bakeout', 'why', 'event', 'review', 'portfolio', 'about'].includes(v)) return v as AppView;
+    } catch {
+      /* 무시 */
+    }
+    return 'home';
+  });
   const [selectedServiceId, setSelectedServiceId] = useState<ServiceType>('move-in');
   const [preselectedReservationService, setPreselectedReservationService] = useState<ServiceType>('move-in');
 
@@ -179,6 +189,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   // Notice & Event Popup State (defaults to true on first visit, respects "오늘 하루 보지 않기")
   const [isRenewalNoticeOpen, setIsRenewalNoticeOpen] = useState<boolean>(() => {
     try {
+      // 공유 링크(?view=...)로 특정 페이지를 바로 연 경우에는 이벤트 창을 띄우지 않음
+      if (new URLSearchParams(window.location.search).get('view')) return false;
       const today = new Date().toISOString().split('T')[0];
       const dismissedDate = localStorage.getItem('linkclean_dismiss_notice_date');
       return dismissedDate !== today;
