@@ -403,7 +403,7 @@ export const INITIAL_TIPS_POSTS: CleaningTipPost[] = [
     likes: 0,
     tags: ['원룸청소', '쓰레기집', '비밀보장', '비대면청소'],
     badge: '비밀보장',
-    imageUrl: '/images/tips/trash_room.jpg',
+    imageUrl: '/images/tips/trash_before_after.jpg',
     promoActionText: '비밀보장 비대면 상담 예약하기',
     promoBadge: '상시 15% 할인',
     serviceLink: 'trash',
