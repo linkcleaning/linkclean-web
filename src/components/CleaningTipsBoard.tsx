@@ -576,6 +576,17 @@ export const CleaningTipsBoard: React.FC = () => {
                 </button>
                 <button
                   type="button"
+                  onClick={() => {
+                    setActiveModalPost(null);
+                    setCurrentView('defect');
+                    window.scrollTo({ top: 0 });
+                  }}
+                  className="col-span-2 order-last py-3 rounded-xl border-2 border-amber-300 bg-amber-50 text-amber-900 font-black text-xs sm:text-sm flex items-center justify-center gap-1.5 cursor-pointer"
+                >
+                  🔧 하자 점검 체크리스트도 보기
+                </button>
+                <button
+                  type="button"
                   onClick={async () => {
                     const url = 'https://www.linkclean.co.kr/?view=checklist';
                     const text = '새집 입주 전·당일·입주 후 할 일 — 눌러서 직접 체크해 보세요.';

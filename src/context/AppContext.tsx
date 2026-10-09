@@ -106,6 +106,7 @@ export type AppView =
   | 'why'
   | 'bakeout'
   | 'checklist'
+  | 'defect'
   | 'reservation'
   | 'login'
   | 'register'
@@ -167,7 +168,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [currentView, setCurrentView] = useState<AppView>(() => {
     try {
       const v = new URLSearchParams(window.location.search).get('view');
-      if (v && ['checklist', 'bakeout', 'why', 'event', 'review', 'portfolio', 'about'].includes(v)) return v as AppView;
+      if (v && ['checklist', 'defect', 'bakeout', 'why', 'event', 'review', 'portfolio', 'about'].includes(v)) return v as AppView;
     } catch {
       /* 무시 */
     }

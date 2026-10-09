@@ -46,7 +46,8 @@ const AppContent: React.FC = () => {
         {currentView === 'event' && <EventView />}
         {currentView === 'why' && <WhyView />}
         {currentView === 'bakeout' && <BakeoutView />}
-        {currentView === 'checklist' && <ChecklistView />}
+        {currentView === 'checklist' && <ChecklistView key="newhome" kind="newhome" />}
+        {currentView === 'defect' && <ChecklistView key="defect" kind="defect" />}
         {currentView === 'reservation' && <ReservationWizard />}
         {currentView === 'login' && <LoginView />}
         {currentView === 'register' && <RegisterView />}
