@@ -254,7 +254,7 @@ export const SERVICE_DETAILS: Record<string, ServiceDetail> = {
     name: '쓰레기집청소',
     tagline: '혼자서 해결하기 힘든 방치된 공간, 100% 비밀보장과 신속한 특수 정리를 약속합니다.',
     description: '대량의 생활 폐기물 수거 및 분리 배출, 악취 제거를 위한 특수 탈취 소독, 찌든 오염과 해충 방제까지 원스톱으로 깨끗한 일상의 공간으로 되돌려드립니다.',
-    mainImage: '/images/trash_house_before.jpg',
+    mainImage: '/images/portfolio/trash_before.jpg',
     recommendedFor: [
       '바쁜 일상이나 개인 사정으로 쓰레기 배출이 누적되어 엄두가 안 나는 분',
       '이사를 앞두고 집안 내 방치된 대량의 쓰레기와 폐기물 정리가 시급한 고객',
@@ -387,13 +387,13 @@ export const INITIAL_PORTFOLIO: PortfolioItem[] = [
   },
   {
     id: 'p-7',
-    title: '[제주시 아라동] 원룸 생활 폐기물·배달 용기 전량 수거 및 멸균 바닥 청소',
-    location: '제주시 아라동',
+    title: '거실 가득 쌓인 생활 쓰레기 전량 수거 및 바닥 청소',
+    location: '제주',
     category: '쓰레기집',
-    representativeImage: '/images/trash_house_after.jpg?v=2',
-    beforeImage: '/images/trash_house_before.jpg?v=2',
-    afterImage: '/images/trash_house_after.jpg?v=2',
-    description: '제주시 아라동 대학가 원룸 현장입니다. 방 안 가득 쌓여 있던 배달 음식 용기와 생활 쓰레기를 100% 비밀보장 비대면으로 완벽 반출하고, 찌든 바닥 얼룩 및 냄새를 스팀 살균 소독으로 쾌적하게 복원했습니다.',
+    representativeImage: '/images/portfolio/trash_after.jpg',
+    beforeImage: '/images/portfolio/trash_before.jpg',
+    afterImage: '/images/portfolio/trash_after.jpg',
+    description: '거실 바닥을 덮은 박스·비닐·생활 쓰레기를 모두 분리해 반출하고, 바닥과 가구 주변을 깨끗이 청소해 원래 거실 모습을 되찾았습니다.',
     createdAt: '2026-08-05'
   },
   {
