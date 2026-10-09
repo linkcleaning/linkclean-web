@@ -7,11 +7,24 @@ import { CheckCircle2, Circle, Share2, MessageCircle, RotateCcw, Copy, Check, Ca
  * 주소: https://www.linkclean.co.kr/?view=checklist  (카톡으로 보내서 현장에서 열기)
  * 체크 상태는 그 휴대폰에만 저장됩니다.
  */
-const SHARE_URL = 'https://www.linkclean.co.kr/?view=checklist';
-const STORAGE_KEY = 'linkclean_newhome_checklist_v1';
 const KAKAO_URL = 'https://pf.kakao.com/_xfxdrxmM?from=qr';
 
-const GROUPS: { zone: string; emoji: string; note?: string; items: string[] }[] = [
+type Group = { zone: string; emoji: string; note?: string; items: string[] };
+export type ChecklistKind = 'newhome' | 'defect';
+
+const CONFIGS: Record<
+  ChecklistKind,
+  { view: 'checklist' | 'defect'; title: string; subtitle: string; tab: string; shareUrl: string; storageKey: string; shareText: string; groups: Group[] }
+> = {
+  newhome: {
+    view: 'checklist',
+    title: '새집 입주 체크리스트',
+    subtitle: '입주 전부터 입주 후까지, 할 일을 하나씩 눌러서 체크하세요.',
+    tab: '📋 새집 입주 일정',
+    shareUrl: 'https://www.linkclean.co.kr/?view=checklist',
+    storageKey: 'linkclean_newhome_checklist_v1',
+    shareText: '새집 입주 전·당일·입주 후 할 일 — 눌러서 직접 체크해 보세요.',
+    groups: [
   {
     zone: '입주 2~4주 전',
     emoji: '🗓️',
@@ -56,12 +69,106 @@ const GROUPS: { zone: string; emoji: string; note?: string; items: string[] }[] 
       '몇 달간 하루 2~3번, 30분 이상 맞바람 환기',
     ],
   },
-];
+],
+  },
+  defect: {
+    view: 'defect',
+    title: '하자 점검 체크리스트',
+    subtitle: '사전점검·입주 전에 공간별로 하자를 찾아 체크하고, 사진을 찍어 접수하세요.',
+    tab: '🔧 하자 점검',
+    shareUrl: 'https://www.linkclean.co.kr/?view=defect',
+    storageKey: 'linkclean_defect_checklist_v1',
+    shareText: '새집 하자 점검 체크리스트 — 공간별로 눌러서 직접 체크해 보세요.',
+    groups: [
+  {
+    zone: '점검 준비물',
+    emoji: '🎒',
+    note: '하자는 입주 전 빈집일 때 찾아야 쉽습니다. 사전점검 날이나 입주 1주 전에 진행하세요.',
+    items: [
+      '마스킹테이프(하자 표시용)와 펜',
+      '휴대폰 손전등·카메라 (날짜가 보이게 촬영)',
+      '휴대폰 충전기(콘센트 작동 확인용)',
+      '수평계 앱 또는 작은 구슬(바닥·배수 기울기 확인)',
+    ],
+  },
+  {
+    zone: '현관',
+    emoji: '🚪',
+    items: [
+      '현관문 열림·닫힘, 도어클로저 속도',
+      '도어락 작동과 비상 키',
+      '신발장 문 수평·경첩 흔들림',
+      '바닥 타일 깨짐·들뜸 (두드려서 빈 소리 확인)',
+      '중문 레일 작동과 유리 상태',
+    ],
+  },
+  {
+    zone: '거실·방',
+    emoji: '🛋️',
+    items: [
+      '벽지 들뜸·찢김·오염, 이음매 벌어짐',
+      '바닥재 찍힘·긁힘·들뜸, 밟을 때 삐걱거림',
+      '걸레받이·몰딩 틈과 찍힘',
+      '방문 열림·닫힘, 문틀 찍힘, 손잡이·잠금',
+      '창문 열림·닫힘·잠금, 방충망 찢김',
+      '유리 금감·흠집, 창호 실리콘 누락',
+      '콘센트(충전기로)·스위치·조명 작동',
+    ],
+  },
+  {
+    zone: '주방',
+    emoji: '🍳',
+    items: [
+      '상·하부장 문 수평과 경첩, 서랍 레일',
+      '상판 깨짐·흠집·이음매',
+      '수전 누수와 온수, 싱크대 배수',
+      '후드·가스레인지·인덕션 작동',
+      '빌트인 가전(식기세척기 등) 작동',
+    ],
+  },
+  {
+    zone: '욕실',
+    emoji: '🚿',
+    items: [
+      '벽·바닥 타일 깨짐·들뜸 (두드려 확인)',
+      '줄눈·실리콘 빠진 곳',
+      '바닥 물 고임 (물 뿌려서 배수 방향 확인)',
+      '변기 물 내림·고정 상태, 주변 누수',
+      '세면대·수전·샤워기 누수',
+      '환풍기·비데 전원 작동, 샤워부스 문',
+    ],
+  },
+  {
+    zone: '베란다·다용도실',
+    emoji: '🧺',
+    items: [
+      '벽·천장 결로·누수 흔적 (얼룩, 곰팡이)',
+      '배수구 배수 상태',
+      '세탁기 수전·배수구 위치와 누수',
+      '창호 실리콘·실외기실 그릴',
+    ],
+  },
+  {
+    zone: '설비·기타',
+    emoji: '⚙️',
+    items: [
+      '보일러·난방 작동, 바닥이 고르게 따뜻한지',
+      '인터폰·월패드·환기장치 작동',
+      '화재감지기·스프링클러 헤드 상태',
+      '분전반 차단기 이름 표시',
+    ],
+  },
+],
+  },
+};
 
-const ALL = GROUPS.flatMap((g) => g.items);
-
-export const ChecklistView: React.FC = () => {
-  const { goToReservationWithService } = useApp();
+export const ChecklistView: React.FC<{ kind?: ChecklistKind }> = ({ kind = 'newhome' }) => {
+  const { goToReservationWithService, setCurrentView } = useApp();
+  const cfg = CONFIGS[kind];
+  const GROUPS = cfg.groups;
+  const ALL = GROUPS.flatMap((g) => g.items);
+  const SHARE_URL = cfg.shareUrl;
+  const STORAGE_KEY = cfg.storageKey;
   const [checked, setChecked] = useState<Record<string, boolean>>(() => {
     try {
       return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
@@ -86,8 +193,8 @@ export const ChecklistView: React.FC = () => {
     const lines = GROUPS.map(
       (g) => `[${g.zone}]\n` + g.items.map((i) => `${checked[i] ? '✅' : '⬜'} ${i}`).join('\n')
     ).join('\n\n');
-    return `새집 입주 체크리스트 (${done}/${ALL.length})\n\n${lines}`;
-  }, [checked, done]);
+    return `${cfg.title} (${done}/${ALL.length})\n\n${lines}`;
+  }, [checked, done, cfg.title, GROUPS, ALL.length]);
 
   const copy = async (text: string, kind: 'link' | 'result') => {
     try {
@@ -107,8 +214,8 @@ export const ChecklistView: React.FC = () => {
   // 체크리스트 주소를 카톡 등으로 보내기 (휴대폰 공유창 → 카카오톡 선택)
   const shareLink = async () => {
     const data = {
-      title: '새집 입주 체크리스트 (링크클린)',
-      text: '새집 입주 전·당일·입주 후 할 일 — 눌러서 직접 체크해 보세요.',
+      title: `${cfg.title} (링크클린)`,
+      text: cfg.shareText,
       url: SHARE_URL,
     };
     if (navigator.share) {
@@ -136,8 +243,27 @@ export const ChecklistView: React.FC = () => {
           <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-[#38BDF8] bg-blue-50 px-3 py-1 rounded-full border border-blue-100">
             CHECKLIST
           </span>
-          <h1 className="text-2xl sm:text-3xl font-black text-[#0A1D37] tracking-tight mt-2">새집 입주 체크리스트</h1>
-          <p className="text-xs sm:text-sm text-slate-500 mt-1">입주 전부터 입주 후까지, 할 일을 하나씩 눌러서 체크하세요.</p>
+          <h1 className="text-2xl sm:text-3xl font-black text-[#0A1D37] tracking-tight mt-2">{cfg.title}</h1>
+          <p className="text-xs sm:text-sm text-slate-500 mt-1">{cfg.subtitle}</p>
+        </div>
+
+        {/* 체크리스트 종류 선택 */}
+        <div className="grid grid-cols-2 gap-1 p-1 bg-slate-100 rounded-2xl">
+          {(Object.keys(CONFIGS) as ChecklistKind[]).map((k) => (
+            <button
+              key={k}
+              type="button"
+              onClick={() => {
+                setCurrentView(CONFIGS[k].view);
+                window.scrollTo({ top: 0 });
+              }}
+              className={`py-2.5 rounded-xl text-xs sm:text-sm font-black cursor-pointer ${
+                k === kind ? 'bg-white text-[#0A1D37] shadow-sm' : 'text-slate-500'
+              }`}
+            >
+              {CONFIGS[k].tab}
+            </button>
+          ))}
         </div>
 
         {/* 카톡으로 받기 */}
@@ -205,12 +331,21 @@ export const ChecklistView: React.FC = () => {
           </section>
         ))}
 
-        {/* 링크클린 안내 */}
+        {kind === 'defect' ? (
+          <section className="bg-amber-50 rounded-2xl border border-amber-200 p-4 text-xs sm:text-sm text-slate-700 space-y-1.5">
+            <p className="font-black text-[#0A1D37]">📸 하자 접수 요령</p>
+            <p>• 하자 부위에 마스킹테이프로 표시하고, 멀리서 한 장·가까이서 한 장 찍어두세요.</p>
+            <p>• 사진은 날짜가 보이게 저장하고, 공간별로 정리해 관리사무소·시공사에 접수하세요.</p>
+            <p>• 하자 접수 기한과 보수 일정을 꼭 확인하고, 보수 후 다시 확인하세요.</p>
+            <p>• 가구가 들어오기 전 빈집일 때 점검해야 바닥·벽 하자가 잘 보여요.</p>
+          </section>
+        ) : (
         <section className="bg-sky-50 rounded-2xl border border-sky-200 p-4 text-xs sm:text-sm text-slate-700 space-y-1.5">
           <p className="font-black text-[#0A1D37]">💡 링크클린이 도와드려요</p>
           <p>• 입주청소 때 공사 분진 제거와 피톤치드 도포를 함께 해드려요.</p>
           <p>• 청소 전·후를 구역별 사진으로 보내드려서 제주에 안 계셔도 확인할 수 있어요.</p>
         </section>
+        )}
 
         {/* 결과 보내기 */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
