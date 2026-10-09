@@ -81,6 +81,19 @@ export const CleaningTipsBoard: React.FC = () => {
 
   // Modals
   const [activeModalPost, setActiveModalPost] = useState<CleaningTipPost | null>(null);
+
+  // 글 창이 열려 있는 동안 뒤 화면이 같이 스크롤되지 않게 고정 + ESC로 닫기
+  useEffect(() => {
+    if (!activeModalPost) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setActiveModalPost(null);
+    window.addEventListener('keydown', onKey);
+    return () => {
+      document.body.style.overflow = prev;
+      window.removeEventListener('keydown', onKey);
+    };
+  }, [activeModalPost]);
   const [isWriteModalOpen, setIsWriteModalOpen] = useState(false);
   const [copiedLink, setCopiedLink] = useState(false);
 
@@ -450,15 +463,25 @@ export const CleaningTipsBoard: React.FC = () => {
           MODAL 1 — DETAIL ARTICLE VIEWER
       ========================================================================= */}
       {activeModalPost && (
-        <div className="fixed inset-0 z-50 bg-[#0A1D37]/80 backdrop-blur-sm flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
-          <div className="bg-white rounded-3xl border border-slate-100 shadow-2xl max-w-2xl w-full p-6 sm:p-8 space-y-6 relative animate-in fade-in duration-200 max-h-[90vh] overflow-y-auto">
-            {/* Close Button */}
-            <button
-              onClick={() => setActiveModalPost(null)}
-              className="absolute top-5 right-5 p-2 rounded-full text-slate-400 hover:text-slate-800 hover:bg-slate-100 transition-colors cursor-pointer"
-            >
-              <X className="w-5 h-5" />
-            </button>
+        <div
+          className="fixed inset-0 z-50 bg-[#0A1D37]/80 backdrop-blur-sm flex items-center justify-center p-4 sm:p-6 overscroll-contain"
+          onClick={() => setActiveModalPost(null)}
+        >
+          <div
+            className="bg-white rounded-3xl border border-slate-100 shadow-2xl max-w-2xl w-full px-6 pb-6 sm:px-8 sm:pb-8 space-y-6 relative animate-in fade-in duration-200 max-h-[90vh] overflow-y-auto overscroll-contain"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Close Button — 스크롤해도 항상 위에 보이는 큰 닫기 버튼 */}
+            <div className="sticky top-0 z-20 -mx-6 sm:-mx-8 px-4 pt-4 pb-2 flex justify-end bg-gradient-to-b from-white via-white/95 to-white/0">
+              <button
+                onClick={() => setActiveModalPost(null)}
+                aria-label="닫기"
+                className="flex items-center gap-1.5 pl-3 pr-4 h-11 rounded-full bg-[#0A1D37] hover:bg-slate-700 text-white text-sm font-bold shadow-lg cursor-pointer"
+              >
+                <X className="w-5 h-5" />
+                닫기
+              </button>
+            </div>
 
             {/* Header badges */}
             <div>
@@ -555,7 +578,7 @@ export const CleaningTipsBoard: React.FC = () => {
                   type="button"
                   onClick={async () => {
                     const url = 'https://www.linkclean.co.kr/?view=checklist';
-                    const text = '입주청소 끝난 뒤 꼭 확인할 12곳 — 눌러서 직접 체크해 보세요.';
+                    const text = '입주청소 끝난 뒤 꼭 확인할 곳 — 눌러서 직접 체크해 보세요.';
                     if (navigator.share) {
                       try {
                         await navigator.share({ title: '입주청소 검수 체크리스트 (링크클린)', text, url });
