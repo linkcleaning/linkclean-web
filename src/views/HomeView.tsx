@@ -13,6 +13,7 @@ import { HeroProcessSteps } from '../components/HeroProcessSteps';
 import { HomeFaqSection } from '../components/HomeFaqSection';
 import { MobileCollapse } from '../components/MobileCollapse';
 import { PromoSongPlayer } from '../components/PromoSongPlayer';
+import { SwipeRow } from '../components/SwipeRow';
 import {
   Calendar,
   CheckCircle2,
@@ -28,6 +29,7 @@ import {
   ChevronRight,
   ChevronLeft,
   ChevronDown,
+  X,
   Clock,
   PhoneCall,
   Gift,
@@ -48,6 +50,7 @@ export const HomeView: React.FC = () => {
   const [isSonEopNeunNalModalOpen, setIsSonEopNeunNalModalOpen] = useState<boolean>(false);
   const [showFeeInfo, setShowFeeInfo] = useState<boolean>(false);
   const [showPricing, setShowPricing] = useState<boolean>(false); // 견적 기준 펼치기
+  const [baModalId, setBaModalId] = useState<string | null>(null); // 전/후 사진 크게 보기
   // 서비스 카드 슬라이드 (휴대폰)
   const svcScrollRef = useRef<HTMLDivElement>(null);
   const [svcIndex, setSvcIndex] = useState(0);
@@ -685,38 +688,84 @@ export const HomeView: React.FC = () => {
           </p>
         </div>
 
-        {/* Category Filter Tabs (Mobile: Horizontal Scrollable) */}
-        <div className="flex overflow-x-auto gap-1.5 pb-2 -mx-4 px-4 sm:mx-0 sm:px-0 sm:flex-wrap sm:justify-center mb-3 sm:mb-8 no-scrollbar">
-          {(['전체', '주방', '욕실', '거실', '창틀', '베란다', '상가', '쓰레기집', '기타'] as PortfolioCategory[]).map((cat) => (
-            <button
-              key={cat}
-              onClick={() => setActiveBeforeAfterCategory(cat)}
-              className={`px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full text-xs font-bold transition-all cursor-pointer whitespace-nowrap shrink-0 ${
-                activeBeforeAfterCategory === cat
-                  ? 'bg-[#0A1D37] text-white shadow-sm'
-                  : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200'
-              }`}
-            >
-              {cat}
-            </button>
-          ))}
-        </div>
+        {/* 공간별 작은 사진 — 누르면 크게 (전/후 비교) */}
+        {(() => {
+          const cats: PortfolioCategory[] = ['주방', '욕실', '거실', '창틀', '베란다', '상가', '쓰레기집', '기타'];
+          const thumbs = cats
+            .map((c) => portfolio.find((p) => p.category === c))
+            .filter((p): p is NonNullable<typeof p> => !!p);
+          const modalItem = portfolio.find((p) => p.id === baModalId);
+          return (
+            <>
+              <div className="max-w-4xl mx-auto grid grid-cols-3 sm:grid-cols-4 gap-2 sm:gap-3 mb-3 sm:mb-6">
+                {thumbs.map((p) => (
+                  <button
+                    key={p.id}
+                    type="button"
+                    onClick={() => setBaModalId(p.id)}
+                    className="group relative aspect-square rounded-xl sm:rounded-2xl overflow-hidden bg-slate-100 border border-slate-200 shadow-2xs cursor-pointer"
+                  >
+                    <img
+                      src={p.afterImage}
+                      alt={`${p.category} 청소 후`}
+                      loading="lazy"
+                      referrerPolicy="no-referrer"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                    <span className="absolute inset-0 bg-gradient-to-t from-[#0A1D37]/80 via-transparent to-transparent" />
+                    <span className="absolute top-1.5 right-1.5 text-[9px] sm:text-[10px] font-black bg-white/90 text-[#0A1D37] px-1.5 py-0.5 rounded">전/후</span>
+                    <span className="absolute bottom-1.5 left-2 text-white text-xs sm:text-sm font-black">{p.category}</span>
+                  </button>
+                ))}
+              </div>
+              <p className="text-center text-[11px] sm:text-xs text-slate-400 mb-3 sm:mb-6">사진을 누르면 청소 전·후를 크게 비교해 볼 수 있어요</p>
 
-        {/* Featured Interactive Before/After Stage in Bento card */}
-        <div className="max-w-4xl mx-auto mb-4 sm:mb-8 bg-white rounded-2xl sm:rounded-3xl p-3 sm:p-6 border border-slate-100 shadow-sm">
-          {featuredItem ? (
-            <BeforeAfterSlider
-              beforeImage={featuredItem.beforeImage}
-              afterImage={featuredItem.afterImage}
-              title={featuredItem.title}
-              description={featuredItem.description}
-            />
-          ) : (
-            <div className="text-center py-10 text-slate-400 text-xs sm:text-sm">
-              해당 카테고리의 청소사례를 준비 중입니다.
-            </div>
-          )}
-        </div>
+              {modalItem && (
+                <div
+                  className="fixed inset-0 z-50 bg-[#0A1D37]/85 backdrop-blur-sm flex items-center justify-center p-3 sm:p-6"
+                  onClick={() => setBaModalId(null)}
+                >
+                  <div
+                    className="relative bg-white rounded-2xl sm:rounded-3xl w-full max-w-3xl max-h-[92vh] overflow-y-auto p-3 sm:p-6 animate-in zoom-in-95 duration-200"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <div className="flex items-center justify-between mb-2 sm:mb-3">
+                      <span className="text-xs font-black text-[#38BDF8] bg-blue-50 px-2.5 py-1 rounded-full">{modalItem.category}</span>
+                      <button
+                        type="button"
+                        onClick={() => setBaModalId(null)}
+                        aria-label="닫기"
+                        className="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center cursor-pointer"
+                      >
+                        <X className="w-4 h-4" />
+                      </button>
+                    </div>
+                    <BeforeAfterSlider
+                      beforeImage={modalItem.beforeImage}
+                      afterImage={modalItem.afterImage}
+                      title={modalItem.title}
+                      description={modalItem.description}
+                    />
+                    <div className="mt-3 flex gap-1.5 overflow-x-auto no-scrollbar">
+                      {thumbs.map((p) => (
+                        <button
+                          key={p.id}
+                          type="button"
+                          onClick={() => setBaModalId(p.id)}
+                          className={`shrink-0 px-3 py-1.5 rounded-full text-xs font-bold border cursor-pointer ${
+                            p.id === modalItem.id ? 'bg-[#0A1D37] text-white border-[#0A1D37]' : 'bg-white text-slate-600 border-slate-200'
+                          }`}
+                        >
+                          {p.category}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              )}
+            </>
+          );
+        })()}
 
         {/* 더 많은 사례: 갤러리 + 네이버 블로그 (한 줄) */}
         <div className="max-w-4xl mx-auto grid grid-cols-2 gap-2 sm:gap-3">
@@ -756,9 +805,6 @@ export const HomeView: React.FC = () => {
               <span className="text-[10px] font-bold uppercase tracking-wider text-[#38BDF8] bg-blue-50 px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full border border-blue-100">
                 REAL TESTIMONIALS
               </span>
-              <span className="sm:hidden text-[10px] text-slate-400 bg-slate-100 px-2 py-0.5 rounded-full font-bold">
-                좌우 스크롤 👈 👉
-              </span>
             </div>
             <h2 className="text-xl sm:text-3xl font-extrabold text-[#0A1D37] tracking-tight mt-1.5 sm:mt-2">
               고객님이 직접 말해주신 링크클린의 이야기
@@ -776,12 +822,16 @@ export const HomeView: React.FC = () => {
           </button>
         </div>
 
-        {/* Mobile: 1-row scroll / Desktop: 3-col grid */}
-        <div className="flex overflow-x-auto snap-x snap-mandatory gap-3 pb-3 pt-1 -mx-4 px-4 sm:mx-0 sm:px-0 sm:grid sm:grid-cols-2 lg:grid-cols-3 sm:gap-4 sm:overflow-visible no-scrollbar">
+        {/* Mobile: 1-row scroll (화살표·점 표시) / Desktop: 3-col grid */}
+        <SwipeRow
+          count={Math.min(3, visibleReviews.length)}
+          arrowTop="45%"
+          className="flex overflow-x-auto snap-x snap-mandatory gap-3 pb-3 pt-1 -mx-4 px-4 sm:mx-0 sm:px-0 sm:grid sm:grid-cols-2 lg:grid-cols-3 sm:gap-4 sm:overflow-visible no-scrollbar"
+        >
           {visibleReviews.slice(0, 3).map((rev) => (
             <div
               key={rev.id}
-              className="w-[270px] sm:w-auto shrink-0 snap-start bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 border border-slate-100 shadow-2xs hover:shadow-md transition-all flex flex-col justify-between"
+              className="w-[78vw] max-w-[290px] sm:max-w-none sm:w-auto shrink-0 snap-start bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 border border-slate-100 shadow-2xs hover:shadow-md transition-all flex flex-col justify-between"
             >
               <div>
                 <div className="flex items-center justify-between mb-2 sm:mb-3">
@@ -817,7 +867,7 @@ export const HomeView: React.FC = () => {
               </div>
             </div>
           ))}
-        </div>
+        </SwipeRow>
       </section>
 
       {/* =========================================================================
