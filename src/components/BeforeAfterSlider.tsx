@@ -99,26 +99,30 @@ export const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({
           referrerPolicy="no-referrer"
           className="absolute inset-0 w-full h-full object-cover"
         />
-        <div className="absolute top-4 right-4 z-10 px-3 py-1.5 rounded-lg bg-blue-600/90 backdrop-blur-md text-white font-bold text-xs shadow-md flex items-center gap-1.5">
+        <div
+          className="absolute top-4 right-4 z-10 px-3 py-1.5 rounded-lg bg-blue-600/90 text-white font-bold text-xs shadow-md flex items-center gap-1.5 transition-opacity pointer-events-none"
+          style={{ opacity: sliderPosition > 80 ? 0 : 1 }}
+        >
           <Sparkles className="w-3.5 h-3.5 text-cyan-200" />
           {afterLabel}
         </div>
 
         {/* Before Image (Clipped Overlay) */}
+        {/* clip-path로 잘라서 아이폰에서도 '청소 전' 글씨가 넘쳐 보이지 않게 */}
         <div
-          className="absolute inset-0 overflow-hidden"
-          style={{ width: `${sliderPosition}%` }}
+          className="absolute inset-0"
+          style={{ clipPath: `inset(0 ${100 - sliderPosition}% 0 0)`, WebkitClipPath: `inset(0 ${100 - sliderPosition}% 0 0)` }}
         >
           <img
             src={beforeImage}
             alt={beforeLabel}
             referrerPolicy="no-referrer"
-            className="absolute inset-0 w-full h-full object-cover max-w-none"
-            style={{
-              width: containerRef.current ? `${containerRef.current.clientWidth}px` : '100%'
-            }}
+            className="absolute inset-0 w-full h-full object-cover"
           />
-          <div className="absolute top-4 left-4 z-10 px-3 py-1.5 rounded-lg bg-slate-900/80 backdrop-blur-md text-slate-200 font-bold text-xs shadow-md">
+          <div
+            className="absolute top-4 left-4 z-10 px-3 py-1.5 rounded-lg bg-slate-900/85 text-slate-100 font-bold text-xs shadow-md transition-opacity pointer-events-none whitespace-nowrap"
+            style={{ opacity: sliderPosition < 20 ? 0 : 1 }}
+          >
             {beforeLabel}
           </div>
         </div>
