@@ -31,7 +31,11 @@ export async function notifyReservation(r: Reservation): Promise<void> {
     address: [r.address, r.address_detail].filter(Boolean).join(' '),
     property_type: r.property_type,
     area: r.area,
-    message: [r.cleaning_date_hint ? `청소희망일: ${r.cleaning_date_hint}` : '', r.customer_message]
+    message: [
+      r.cleaning_date_hint ? `청소희망일: ${r.cleaning_date_hint}` : '',
+      r.customer_message,
+      r.refund_agreed ? '[취소·환불규정 동의함]' : '',
+    ]
       .filter(Boolean)
       .join(' / '),
     cleaning_date: r.cleaning_date_hint || '',

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { REFUND_POLICY_SUMMARY } from '../data/refundPolicy';
 import { ChevronDown, HelpCircle, PhoneCall, MessageCircle } from 'lucide-react';
 
 interface FaqItem {
@@ -40,7 +41,12 @@ export const HomeFaqSection: React.FC = () => {
     {
       category: '결제 및 A/S',
       q: '예약금은 얼마이며 A/S는 어떻게 되나요?',
-      a: '예약 확정 시 소정의 예약금 외에 잔금은 청소가 모두 끝나고 사진 리포트 또는 현장 검수를 마치신 후 결제하시는 안심 후불제 시스템입니다. 시공 완료 후 미흡한 부분이 발견될 경우 당일 즉시 무상 보완 조치해 드립니다.',
+      a: '예약 확정 시 소정의 예약금 외에 잔금은 청소가 모두 끝나고 사진 리포트 또는 현장 검수를 마치신 후 결제하시는 안심 후불제 시스템입니다. 시공 완료 후 미흡한 부분이 발견될 경우 무상으로 보완해 드립니다.',
+    },
+    {
+      category: '취소·환불',
+      q: '예약을 취소하면 예약금은 돌려받을 수 있나요?',
+      a: REFUND_POLICY_SUMMARY + ' 일정 변경은 작업일 3일 전까지 1회 무료입니다. 자세한 내용은 맨 아래 [취소·환불 규정]에서 확인하실 수 있습니다.',
     },
   ];
 

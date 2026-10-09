@@ -116,7 +116,19 @@ const naverPhoneConversion = () => {
           {/* Address Details: Always visible on Desktop, collapsible on Mobile */}
           <div className={`${showDetails ? 'block' : 'hidden'} sm:block text-[11px] text-slate-400 space-y-0.5`}>
             <p>제주시: 제주특별자치도 제주시 도령북길 8 제일상가 2층 | 서귀포시: 제주특별자치도 서귀포시 서호호근로 86-6</p>
-            <p>개인정보책임관리자: 안심클린팀</p>
+            <p>
+              개인정보책임관리자: 안심클린팀 ·{' '}
+              <button
+                type="button"
+                onClick={() => {
+                  setCurrentView('refund');
+                  window.scrollTo({ top: 0 });
+                }}
+                className="underline underline-offset-2 hover:text-slate-200 cursor-pointer"
+              >
+                예약금·취소·환불 규정
+              </button>
+            </p>
           </div>
 
           <div className="pt-2 flex flex-col sm:flex-row items-start sm:items-center justify-between text-[11px] text-slate-400 gap-2">

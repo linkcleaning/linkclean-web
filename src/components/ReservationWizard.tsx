@@ -1,4 +1,6 @@
 import { CleaningDateHint } from './CleaningDateHint';
+import { RefundPolicyList } from './RefundPolicyList';
+import { REFUND_POLICY_SUMMARY } from '../data/refundPolicy';
 import React, { useState, useMemo } from 'react';
 import { useApp, STANDARD_TIME_SLOTS, isSeptemberDate } from '../context/AppContext';
 import { ServiceType, PropertyType, Reservation } from '../types';
@@ -87,6 +89,8 @@ export const ReservationWizard: React.FC = () => {
   const [email, setEmail] = useState<string>(currentUser?.email || '');
   const [agreePrivacy, setAgreePrivacy] = useState<boolean>(true);
   const [agreeContact, setAgreeContact] = useState<boolean>(true);
+  const [agreeRefund, setAgreeRefund] = useState<boolean>(false); // 취소·환불 규정 동의 (직접 체크)
+  const [showRefund, setShowRefund] = useState<boolean>(false);
 
   // Submission state
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -251,7 +255,7 @@ export const ReservationWizard: React.FC = () => {
   const canProceedStep1 = true;
   const canProceedStep2 = true;
   const canProceedStep3 = true;
-  const canProceedStep4 = phone.replace(/[^0-9]/g, '').length >= 9 && agreePrivacy && agreeContact;
+  const canProceedStep4 = phone.replace(/[^0-9]/g, '').length >= 9 && agreePrivacy && agreeContact && agreeRefund;
 
   // Submit Final Reservation
   const handleSubmitReservation = async () => {
@@ -273,6 +277,7 @@ export const ReservationWizard: React.FC = () => {
         area,
         customer_message: customerMessage,
         cleaning_date_hint: cleaningDateHint.trim(),
+        refund_agreed: agreeRefund,
         uploaded_images: uploadedImages
       });
 
@@ -1000,6 +1005,34 @@ export const ReservationWizard: React.FC = () => {
                   <strong className="text-[#0A1D37] font-bold">[필수]</strong> 예약 안내를 위한 전화 및 문자(SMS/카카오 알림톡) 수신 동의
                 </span>
               </label>
+
+              {/* 취소·환불 규정 동의 */}
+              <div className="rounded-2xl border border-amber-200 bg-amber-50/60 p-3">
+                <label className="flex items-start gap-3 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={agreeRefund}
+                    onChange={(e) => setAgreeRefund(e.target.checked)}
+                    className="w-4 h-4 text-[#38BDF8] rounded mt-0.5 accent-[#38BDF8]"
+                  />
+                  <span className="text-xs text-slate-700 leading-relaxed">
+                    <strong className="text-[#0A1D37] font-bold">[필수]</strong> 예약금 및 취소·환불 규정을 확인했고 동의합니다.
+                    <span className="block mt-1 text-[11px] text-slate-500">{REFUND_POLICY_SUMMARY}</span>
+                  </span>
+                </label>
+                <button
+                  type="button"
+                  onClick={() => setShowRefund((v) => !v)}
+                  className="mt-2 ml-7 text-[11px] font-bold text-amber-700 underline underline-offset-2 cursor-pointer"
+                >
+                  {showRefund ? '규정 접기 ▲' : '취소·환불 규정 전체 보기 ▼'}
+                </button>
+                {showRefund && (
+                  <div className="mt-2 ml-7 rounded-xl bg-white border border-amber-100 p-3 max-h-64 overflow-y-auto">
+                    <RefundPolicyList compact />
+                  </div>
+                )}
+              </div>
             </div>
 
             <div className="pt-6 border-t border-slate-100 flex items-center justify-between">
@@ -1024,7 +1057,7 @@ export const ReservationWizard: React.FC = () => {
             </div>
             {!canProceedStep4 && (
               <p className="text-right text-[11px] text-slate-400 -mt-3">
-                {phone.replace(/[^0-9]/g, '').length < 9 ? '휴대폰 번호를 입력하면 다음으로 넘어가요' : '필수 동의 2개에 체크해 주세요'}
+                {phone.replace(/[^0-9]/g, '').length < 9 ? '휴대폰 번호를 입력하면 다음으로 넘어가요' : '필수 동의 3개에 체크해 주세요'}
               </p>
             )}
           </div>
