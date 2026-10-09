@@ -9,7 +9,7 @@ import { PortfolioItem, PortfolioCategory } from '../types';
  */
 export const PORTFOLIO_SHEET_CSV_URL = '';
 
-const CATEGORIES: PortfolioCategory[] = ['주방', '욕실', '거실', '창틀', '베란다', '상가', '쓰레기집', '기타'];
+const CATEGORIES: PortfolioCategory[] = ['주방', '욕실', '화장실', '곰팡이', '거실', '유리창', '베란다', '상가', '쓰레기집', '기타'];
 
 /** 따옴표·줄바꿈이 들어간 칸까지 처리하는 CSV 파서 */
 export function parseCsv(text: string): string[][] {

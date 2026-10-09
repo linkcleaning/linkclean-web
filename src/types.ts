@@ -75,7 +75,7 @@ export interface TimeSlotConfig {
   maxPerSlot?: number;
 }
 
-export type PortfolioCategory = '전체' | '주방' | '욕실' | '거실' | '창틀' | '베란다' | '상가' | '쓰레기집' | '기타';
+export type PortfolioCategory = '전체' | '주방' | '욕실' | '화장실' | '곰팡이' | '거실' | '유리창' | '베란다' | '상가' | '쓰레기집' | '기타';
 
 export interface PortfolioItem {
   id: string;
