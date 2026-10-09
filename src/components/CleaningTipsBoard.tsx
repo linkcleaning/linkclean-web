@@ -238,7 +238,8 @@ export const CleaningTipsBoard: React.FC = () => {
           </p>
         </div>
 
-        {/* Right CTA Button: Write Post Immediately */}
+        {/* Right CTA Button: Write Post Immediately — 관리자 로그인 때만 보임 */}
+        {currentUser?.role === 'admin' && (
         <button
           onClick={() => {
             setFormError('');
@@ -249,6 +250,7 @@ export const CleaningTipsBoard: React.FC = () => {
           <PenSquare className="w-4 h-4 text-[#38BDF8]" />
           <span>팁 / 소식 바로 등록하기</span>
         </button>
+        )}
       </div>
 
       {/* 모바일: 필터·게시글 목록은 접어둠 */}
