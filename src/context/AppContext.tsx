@@ -103,6 +103,7 @@ export type AppView =
   | 'portfolio'
   | 'review'
   | 'event'
+  | 'why'
   | 'reservation'
   | 'login'
   | 'register'

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { PhoneCall, Sparkles, Smartphone, CreditCard, ShieldCheck } from 'lucide-react';
 
 /**
@@ -35,6 +35,63 @@ const STEPS = [
 
 export const HeroProcessSteps: React.FC<{ variant?: 'mobile' | 'desktop' }> = ({ variant = 'mobile' }) => {
   const desktop = variant === 'desktop';
+  const [open, setOpen] = useState<string | null>(null);
+
+  // 휴대폰: 단계 이름만 2×2로 보여주고, 누르면 설명이 펼쳐짐
+  if (!desktop) {
+    const active = STEPS.find((s) => s.no === open);
+    return (
+      <div className="mb-3.5">
+        <div className="flex items-center justify-between mb-1.5">
+          <span className="flex items-center gap-1.5 text-[11px] font-black text-[#38BDF8]">
+            <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
+            제주에 없어도 안심되는 4단계
+          </span>
+          <span className="text-[9px] text-slate-400">눌러서 설명 보기</span>
+        </div>
+        <div className="grid grid-cols-2 gap-1.5">
+          {STEPS.map((s) => {
+            const on = open === s.no;
+            return (
+              <button
+                key={s.no}
+                type="button"
+                onClick={() => setOpen(on ? null : s.no)}
+                aria-expanded={on}
+                className={`flex items-center gap-1.5 rounded-xl border px-2 py-2 text-left cursor-pointer transition-colors ${
+                  on
+                    ? 'bg-[#38BDF8] border-[#38BDF8] text-[#0A1D37]'
+                    : s.highlight
+                    ? 'bg-[#38BDF8]/10 border-[#38BDF8]/50 text-white'
+                    : 'bg-white/5 border-white/10 text-white'
+                }`}
+              >
+                <span
+                  className={`w-5 h-5 shrink-0 rounded-full text-[10px] font-black flex items-center justify-center ${
+                    on ? 'bg-[#0A1D37] text-white' : s.highlight ? 'bg-[#38BDF8] text-[#0A1D37]' : 'bg-white/15 text-white'
+                  }`}
+                >
+                  {s.no}
+                </span>
+                <span className="flex-1 min-w-0 text-[11px] font-extrabold truncate">{s.title}</span>
+                <span className={`text-[9px] transition-transform ${on ? 'rotate-180' : ''}`}>▾</span>
+              </button>
+            );
+          })}
+        </div>
+        {active && (
+          <p className="mt-1.5 rounded-xl bg-white/10 border border-white/15 px-3 py-2 text-[11px] text-slate-200 leading-snug animate-in fade-in duration-150">
+            <b className="text-white">{active.no}. {active.title}</b> — {active.desc}
+          </p>
+        )}
+        <p className="mt-1.5 flex items-center gap-1.5 text-[11px] text-emerald-300 font-bold">
+          <ShieldCheck className="w-3.5 h-3.5 shrink-0" />
+          현장 불만족 시 무상 A/S 보장
+        </p>
+      </div>
+    );
+  }
+
   return (
     <div className={desktop ? '' : 'mb-3.5'}>
       <div className={`flex items-center gap-1.5 font-black text-[#38BDF8] ${desktop ? 'text-xs mb-3' : 'text-[11px] mb-2'}`}>
