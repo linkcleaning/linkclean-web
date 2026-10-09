@@ -27,6 +27,7 @@ import {
   Star,
   ChevronRight,
   ChevronLeft,
+  ChevronDown,
   Clock,
   PhoneCall,
   Gift,
@@ -46,6 +47,7 @@ export const HomeView: React.FC = () => {
   const [activeBeforeAfterCategory, setActiveBeforeAfterCategory] = useState<PortfolioCategory>('전체');
   const [isSonEopNeunNalModalOpen, setIsSonEopNeunNalModalOpen] = useState<boolean>(false);
   const [showFeeInfo, setShowFeeInfo] = useState<boolean>(false);
+  const [showPricing, setShowPricing] = useState<boolean>(false); // 견적 기준 펼치기
   // 서비스 카드 슬라이드 (휴대폰)
   const svcScrollRef = useRef<HTMLDivElement>(null);
   const [svcIndex, setSvcIndex] = useState(0);
@@ -442,10 +444,6 @@ export const HomeView: React.FC = () => {
       {/* 링크클린 홍보송 플레이어 */}
       <PromoSongPlayer />
 
-      {/* =========================================================================
-          SECTION 02 — 현장 맞춤 견적 기준 & 작업 범위 가이드 (분쟁 없는 정직 견적)
-      ========================================================================= */}
-      <PricingGuideSection />
 
 
       {/* =========================================================================
@@ -644,6 +642,24 @@ export const HomeView: React.FC = () => {
             <span key={i} className={`h-1.5 rounded-full transition-all ${i === svcIndex ? 'w-5 bg-[#38BDF8]' : 'w-1.5 bg-slate-300'}`} />
           ))}
           <span className="ml-1.5 text-[10px] font-bold text-slate-400">{svcIndex + 1} / 6 · 옆으로 밀어보세요</span>
+        </div>
+
+        {/* 서비스별 견적 기준 · 작업 범위 (예전 '현장 맞춤 견적 기준' 섹션을 여기로 합침) */}
+        <div className="mt-4 sm:mt-6">
+          <button
+            type="button"
+            onClick={() => setShowPricing((v) => !v)}
+            aria-expanded={showPricing}
+            className="w-full flex items-center justify-center gap-2 py-3 rounded-2xl border border-[#38BDF8]/40 bg-white text-[#0A1D37] text-xs sm:text-sm font-bold shadow-xs hover:bg-blue-50 cursor-pointer"
+          >
+            📋 서비스별 견적 기준 · 작업 범위 {showPricing ? '접기' : '보기'}
+            <ChevronDown className={`w-4 h-4 text-[#38BDF8] transition-transform ${showPricing ? 'rotate-180' : ''}`} />
+          </button>
+          {showPricing && (
+            <div className="mt-3 animate-in fade-in duration-200">
+              <PricingGuideSection embedded />
+            </div>
+          )}
         </div>
       </section>
 
