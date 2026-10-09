@@ -39,7 +39,7 @@ const PRESET_IMAGES = [
 ];
 
 export const CleaningTipsBoard: React.FC = () => {
-  const { goToReservationWithService, currentUser } = useApp();
+  const { goToReservationWithService, currentUser, setCurrentView } = useApp();
 
   // Posts State (Local storage synced)
   const [posts, setPosts] = useState<CleaningTipPost[]>(() => {
@@ -534,6 +534,47 @@ export const CleaningTipsBoard: React.FC = () => {
                   alt={activeModalPost.title}
                   className="w-full h-full object-cover"
                 />
+              </div>
+            )}
+
+            {/* 입주청소 검수 체크리스트: 직접 체크 / 카톡으로 받기 */}
+            {activeModalPost.id === 'guide-movein-check' && (
+              <div className="grid grid-cols-2 gap-2">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setActiveModalPost(null);
+                    setCurrentView('checklist');
+                    window.scrollTo({ top: 0 });
+                  }}
+                  className="py-3 rounded-xl bg-[#0A1D37] text-white font-black text-xs sm:text-sm flex items-center justify-center gap-1.5 cursor-pointer"
+                >
+                  ✅ 직접 체크하기
+                </button>
+                <button
+                  type="button"
+                  onClick={async () => {
+                    const url = 'https://www.linkclean.co.kr/?view=checklist';
+                    const text = '입주청소 끝난 뒤 꼭 확인할 12곳 — 눌러서 직접 체크해 보세요.';
+                    if (navigator.share) {
+                      try {
+                        await navigator.share({ title: '입주청소 검수 체크리스트 (링크클린)', text, url });
+                      } catch {
+                        /* 취소 */
+                      }
+                    } else {
+                      try {
+                        await navigator.clipboard.writeText(`${text}\n${url}`);
+                        alert('체크리스트 주소를 복사했어요. 카카오톡에 붙여넣어 보내세요.');
+                      } catch {
+                        alert(url);
+                      }
+                    }
+                  }}
+                  className="py-3 rounded-xl bg-[#FEE500] text-[#3A1D1D] font-black text-xs sm:text-sm flex items-center justify-center gap-1.5 cursor-pointer"
+                >
+                  💬 카톡으로 받기
+                </button>
               </div>
             )}
 
