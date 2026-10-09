@@ -470,14 +470,6 @@ const naverPhoneConversion = () => {
               </button>
             )}
             <button
-              onClick={() => goToReservationWithService('move-in')}
-              className="px-3.5 py-1.5 rounded-full bg-[#38BDF8] text-white font-bold text-xs flex items-center gap-1 shadow-sm active:scale-95"
-              id="header-mobile-quick-reserve-btn"
-            >
-              <Calendar className="w-3.5 h-3.5" />
-              예약하기
-            </button>
-            <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="p-2 rounded-lg text-slate-700 hover:bg-slate-100 focus:outline-none cursor-pointer"
               aria-label="메뉴 열기"
