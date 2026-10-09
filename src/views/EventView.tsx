@@ -16,6 +16,7 @@ import {
   ExternalLink,
   Info,
 } from 'lucide-react';
+import { CoffeeCouponCard } from '../components/CoffeeCouponCard';
 import mascotImg from '../assets/images/cleaning_master_mascot_1788782482073.png';
 import { cleaningAudio } from '../utils/cleaningAudio';
 
@@ -269,12 +270,7 @@ export const EventView: React.FC = () => {
 
             <div className="md:col-span-2 space-y-3">
               {/* Reward card */}
-              <div className="rounded-2xl bg-[#0A1D37] text-white p-5 text-center">
-                <Coffee className="w-8 h-8 text-amber-300 mx-auto mb-2" />
-                <p className="text-xs text-slate-300">참여 혜택</p>
-                <p className="text-lg font-black">스타벅스 커피 1잔</p>
-                <p className="text-[11px] text-slate-400 mt-1">모바일 쿠폰으로 발송</p>
-              </div>
+              <CoffeeCouponCard label="참여 혜택" note="후기 확인 후 모바일 쿠폰으로 발송" />
 
               <a
                 href={NAVER_PLACE_URL}
@@ -334,12 +330,7 @@ export const EventView: React.FC = () => {
             </div>
 
             <div className="md:col-span-2 space-y-3">
-              <div className="rounded-2xl bg-[#0A1D37] text-white p-5 text-center">
-                <Coffee className="w-8 h-8 text-[#38BDF8] mx-auto mb-2" />
-                <p className="text-xs text-slate-300">추천인 혜택</p>
-                <p className="text-lg font-black">스타벅스 커피 1잔</p>
-                <p className="text-[11px] text-slate-400 mt-1">계약 진행 확인 후 발송</p>
-              </div>
+              <CoffeeCouponCard label="추천인 혜택" note="계약 진행 확인 후 모바일 쿠폰으로 발송" />
 
               {/* Share message preview */}
               <div className="rounded-2xl bg-slate-50 border border-slate-200 p-3.5">
