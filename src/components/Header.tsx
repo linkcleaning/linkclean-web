@@ -188,12 +188,12 @@ const naverPhoneConversion = () => {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+      <div className="max-w-7xl 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between gap-6 h-16">
           {/* Brand Logo */}
           <button
             onClick={() => handleNavClick('home')}
-            className="group focus:outline-none cursor-pointer"
+            className="group focus:outline-none cursor-pointer shrink-0"
             id="header-logo-btn"
           >
             <BrandLogo variant="light" size="md" />
@@ -415,7 +415,7 @@ const naverPhoneConversion = () => {
                   title={`${currentUser.name} 님 (마이페이지)`}
                 >
                   <UserIcon className="w-3.5 h-3.5 text-[#38BDF8]" />
-                  <span className="hidden 2xl:inline max-w-[120px] truncate">{currentUser.name} 님</span>
+                  <span className="sr-only">{currentUser.name} 님</span>
                 </button>
                 <button
                   onClick={logout}
