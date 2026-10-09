@@ -4,7 +4,14 @@ import { Check, AlertCircle, Phone, Calendar, ShieldCheck, Scale, Sparkles, Buil
 import { ServiceType } from '../types';
 import { MobileCollapse } from './MobileCollapse';
 
-export const PricingGuideSection: React.FC = () => {
+const MaybeCollapse: React.FC<{ embedded: boolean; children: React.ReactNode }> = ({ embedded, children }) =>
+  embedded ? <div className="mt-3">{children}</div> : (
+    <MobileCollapse label="견적 기준 · 작업 범위 자세히 보기" className="mt-1 sm:mt-0">
+      {children}
+    </MobileCollapse>
+  );
+
+export const PricingGuideSection: React.FC<{ embedded?: boolean }> = ({ embedded = false }) => {
   const { goToReservationWithService } = useApp();
   const [selectedTab, setSelectedTab] = useState<'movein' | 'airbnb' | 'residential' | 'commercial'>('movein');
 
@@ -110,8 +117,10 @@ export const PricingGuideSection: React.FC = () => {
   const currentTabInfo = criteriaData[selectedTab];
 
   return (
-    <section id="pricing-guide-section" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 sm:py-10">
-      <div className="text-center max-w-3xl mx-auto mb-3 sm:mb-10">
+    <section id="pricing-guide-section" className={embedded ? '' : 'max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 sm:py-10'}>
+      <div className={`text-center max-w-3xl mx-auto ${embedded ? 'mb-3' : 'mb-3 sm:mb-10'}`}>
+        {!embedded && (
+        <>
         <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-[#38BDF8] bg-blue-50 px-3 py-1 rounded-full border border-blue-100">
           TAILORED ESTIMATE
         </span>
@@ -124,6 +133,9 @@ export const PricingGuideSection: React.FC = () => {
         <p className="hidden sm:block text-slate-600 text-sm mt-1.5 leading-relaxed">
           공간마다 평수, 창문 개수, 묵은 오염도가 모두 다릅니다. 링크클린은 획일화된 임의 가격으로 인한 현장 분쟁을 방지하기 위해, <strong>100% 현장 실측 및 사진 기반의 정직한 1:1 맞춤 견적</strong>을 원칙으로 합니다.
         </p>
+
+        </>
+        )}
 
         {/* Tab switcher */}
         <div className="grid grid-cols-2 sm:flex justify-center gap-1 sm:gap-2 mt-3 sm:mt-5 p-1 bg-slate-100 rounded-2xl max-w-lg mx-auto">
@@ -203,7 +215,7 @@ export const PricingGuideSection: React.FC = () => {
         </div>
 
         {/* 모바일: 견적 기준·작업 범위는 접어두고 버튼으로 펼침 */}
-        <MobileCollapse label="견적 기준 · 작업 범위 자세히 보기" className="mt-1 sm:mt-0">
+        <MaybeCollapse embedded={embedded}>
         {/* 4 Core Estimation Factors Grid */}
         <div className="mb-6 sm:my-6">
           <div className="text-xs font-bold text-slate-700 mb-3 flex items-center gap-1.5">
@@ -289,7 +301,7 @@ export const PricingGuideSection: React.FC = () => {
             </ul>
           </div>
         </div>
-        </MobileCollapse>
+        </MaybeCollapse>
 
       </div>
     </section>
