@@ -46,7 +46,7 @@ export const HomeFaqSection: React.FC = () => {
     {
       category: '취소·환불',
       q: '예약을 취소하면 예약금은 돌려받을 수 있나요?',
-      a: REFUND_POLICY_SUMMARY + ' 일정 변경은 작업일 3일 전까지 1회 무료입니다. 자세한 내용은 맨 아래 [취소·환불 규정]에서 확인하실 수 있습니다.',
+      a: REFUND_POLICY_SUMMARY + ' 일정 변경은 작업일 5일 전까지 1회 무료입니다. 자세한 내용은 맨 아래 [취소·환불 규정]에서 확인하실 수 있습니다.',
     },
   ];
 
