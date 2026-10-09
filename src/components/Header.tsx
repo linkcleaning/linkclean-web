@@ -200,7 +200,7 @@ const naverPhoneConversion = () => {
           </button>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-5 text-sm font-medium">
+          <nav className="hidden xl:flex items-center gap-3 2xl:gap-5 text-[13px] 2xl:text-sm font-medium whitespace-nowrap">
             {navItems.map((item) => {
               const isActive = currentView === item.id;
               return (
@@ -387,7 +387,7 @@ const naverPhoneConversion = () => {
           </nav>
 
           {/* Action buttons on Desktop */}
-          <div className="hidden lg:flex items-center gap-4">
+          <div className="hidden xl:flex items-center gap-3 2xl:gap-4 whitespace-nowrap">
             {currentUser ? (
               <div className="flex items-center gap-2 pr-2 border-r border-slate-200">
                 {currentUser.role === 'admin' && (
@@ -412,9 +412,10 @@ const naverPhoneConversion = () => {
                       : 'bg-slate-100 text-[#0F172A] hover:bg-slate-200'
                   }`}
                   id="header-mypage-btn"
+                  title={`${currentUser.name} 님 (마이페이지)`}
                 >
                   <UserIcon className="w-3.5 h-3.5 text-[#38BDF8]" />
-                  {currentUser.name} 님
+                  <span className="hidden 2xl:inline max-w-[120px] truncate">{currentUser.name} 님</span>
                 </button>
                 <button
                   onClick={logout}
@@ -452,12 +453,13 @@ const naverPhoneConversion = () => {
               id="header-cta-reserve-btn"
             >
               <Calendar className="w-3.5 h-3.5" />
-              방문 견적 예약하기
+              <span className="2xl:hidden">견적 예약</span>
+              <span className="hidden 2xl:inline">방문 견적 예약하기</span>
             </button>
           </div>
 
           {/* Mobile Hamburger Toggle */}
-          <div className="flex lg:hidden items-center gap-2">
+          <div className="flex xl:hidden items-center gap-2">
             {currentView !== 'home' && (
               <button
                 onClick={() => handleNavClick('home')}
@@ -483,7 +485,7 @@ const naverPhoneConversion = () => {
 
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
-        <div className="lg:hidden border-t border-slate-200 bg-white shadow-xl animate-in slide-in-from-top duration-200 max-h-[85vh] overflow-y-auto">
+        <div className="xl:hidden border-t border-slate-200 bg-white shadow-xl animate-in slide-in-from-top duration-200 max-h-[85vh] overflow-y-auto">
           <div className="px-4 pt-3 pb-6 space-y-1">
             {/* Standard Nav Items */}
             {navItems.map((item) => (

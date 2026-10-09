@@ -71,7 +71,7 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({
             <img
               src="/logo-calligraphy.png"
               alt="링크클린 청소"
-              className={`${size === 'lg' ? 'h-9' : size === 'sm' ? 'h-6' : 'h-6 sm:h-8'} w-auto select-none`}
+              className={`${size === 'lg' ? 'h-9' : size === 'sm' ? 'h-6' : 'h-6 sm:h-8 xl:h-7 2xl:h-8'} w-auto select-none`}
               draggable={false}
             />
           </>
