@@ -110,7 +110,7 @@ export const JejuWeatherWidget: React.FC<JejuWeatherWidgetProps> = ({ className 
     <>
       {compact ? (
         /* 휴대폰용 컴팩트 날씨 카드 */
-        <div className={`rounded-2xl bg-gradient-to-r from-[#0284C7] to-[#0A1D37] text-white px-3 py-2.5 shadow-sm ${className}`}>
+        <div className={`rounded-2xl bg-[#0A1D37] text-white px-3 py-2.5 shadow-sm border border-slate-700 ${className}`}>
           <div className="flex items-center gap-2">
             <div className="shrink-0">{renderWeatherIcon(activeDay.condition, 'w-5 h-5')}</div>
             <div className="flex items-baseline gap-1 min-w-0">
@@ -149,14 +149,14 @@ export const JejuWeatherWidget: React.FC<JejuWeatherWidgetProps> = ({ className 
             aria-label="1주일 날씨 자세히 보기"
           >
             {weatherList.map((day, idx) => (
-              <span key={day.date} className="flex flex-col items-center leading-none py-1 rounded-lg bg-white/10">
-                <span className="text-[9px] text-sky-200">{idx === 0 ? '오늘' : day.dayOfWeek}</span>
-                <span className="my-0.5">{renderWeatherIcon(day.condition, 'w-3 h-3')}</span>
-                <span className="text-[10px] font-black">{day.tempHigh}°</span>
+              <span key={day.date} className={`flex flex-col items-center leading-none py-1 rounded-lg ${idx === 0 ? 'bg-[#38BDF8]/25 ring-1 ring-[#38BDF8] text-white' : 'bg-white/10 text-white'}`}>
+                <span className={`text-[10px] font-bold ${idx === 0 ? 'text-white' : 'text-slate-200'}`}>{idx === 0 ? '오늘' : day.dayOfWeek}</span>
+                <span className="my-0.5">{renderWeatherIcon(day.condition, 'w-3.5 h-3.5')}</span>
+                <span className="text-[11px] font-black">{day.tempHigh}°</span>
               </span>
             ))}
           </button>
-          <div className="mt-1 flex items-center justify-between text-[8px] text-sky-200/70">
+          <div className="mt-1 flex items-center justify-between text-[9px] text-slate-400">
             <span>제주도 날씨 · 누르면 자세히</span>
             <span>자료: MET Norway</span>
           </div>
