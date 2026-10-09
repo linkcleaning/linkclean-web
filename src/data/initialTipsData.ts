@@ -232,7 +232,7 @@ export const INITIAL_TIPS_POSTS: CleaningTipPost[] = [
     likes: 0,
     tags: ['주방기름때', '후드필터', '인덕션청소', '과탄산소다'],
     badge: '생활 꿀팁',
-    imageUrl: '/images/tips/hood.jpg',
+    imageUrl: '/images/tips/hood_before_after.jpg',
     serviceLink: 'residential',
   },
 
