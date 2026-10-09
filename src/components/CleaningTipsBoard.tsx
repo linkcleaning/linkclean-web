@@ -332,15 +332,15 @@ export const CleaningTipsBoard: React.FC = () => {
           </button>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6">
           {filteredPosts.map((post) => (
             <div
               key={post.id}
               onClick={() => handleOpenDetail(post)}
-              className="bg-white rounded-3xl border border-slate-100 shadow-2xs hover:shadow-md transition-all flex flex-col justify-between overflow-hidden group cursor-pointer"
+              className="bg-white rounded-3xl border border-slate-300/80 shadow-md shadow-slate-200/70 hover:shadow-xl hover:border-[#38BDF8] hover:-translate-y-0.5 transition-all flex flex-col justify-between overflow-hidden group cursor-pointer"
             >
               {/* Image & Badges */}
-              <div className="relative h-44 bg-slate-100 overflow-hidden">
+              <div className="relative h-44 bg-slate-100 overflow-hidden border-b border-slate-200">
                 {post.cover ? (
                   <TipCoverCard cover={post.cover} />
                 ) : post.imageUrl ? (
