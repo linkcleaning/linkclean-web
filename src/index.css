@@ -40,3 +40,19 @@
     font-size: 16px !important;
   }
 }
+
+/* ─────────────────────────────────────────────
+   팝업(창)이 열려 있으면 뒤 화면이 같이 스크롤되지 않게 고정
+   (손없는 날 달력, 청소 팁, 전/후 사진, 날씨 상세, 후기 작성, 이벤트 안내 등 모든 창 공통)
+   ───────────────────────────────────────────── */
+html {
+  scrollbar-gutter: stable; /* 스크롤바가 사라질 때 화면이 옆으로 흔들리지 않게 */
+}
+html:has(.fixed.inset-0.z-50),
+html:has(.fixed.inset-0.z-50) body {
+  overflow: hidden;
+}
+.fixed.inset-0.z-50,
+.fixed.inset-0.z-50 * {
+  overscroll-behavior: contain; /* 창 안 스크롤이 끝나도 뒤 화면으로 넘어가지 않게 */
+}
