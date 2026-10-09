@@ -244,7 +244,7 @@ export const QuickQuoteFormSection: React.FC = () => {
               <span>{submitting ? '전송 중...' : '무료 견적 신청하기'}</span>
             </button>
             <p className="text-center text-[9px] sm:text-[11px] text-slate-400 -mt-1.5 sm:-mt-1">
-              개인정보는 견적 상담 목적으로만 사용됩니다.
+              🔒 회원가입 없이 접수돼요 · 남겨주신 정보는 이번 견적 상담과 예약에만 사용합니다.
             </p>
           </form>
         )}

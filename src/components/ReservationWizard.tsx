@@ -963,6 +963,18 @@ export const ReservationWizard: React.FC = () => {
               />
             </div>
 
+            {/* 개인정보 안내: 회원가입 아님 */}
+            <div className="rounded-2xl bg-sky-50 border border-sky-200 px-4 py-3 flex items-start gap-2.5">
+              <span className="text-lg leading-none" aria-hidden="true">🔒</span>
+              <div className="text-xs text-slate-700 leading-relaxed">
+                <p className="font-extrabold text-[#0A1D37]">회원가입 없이 예약됩니다</p>
+                <p className="mt-0.5">
+                  남겨주신 성함·연락처·주소는 <b>회원가입이나 광고 목적으로 사용하지 않으며</b>, 이번 예약의
+                  견적 상담 · 일정 안내 · 청소 진행에만 사용합니다.
+                </p>
+              </div>
+            </div>
+
             {/* Agreements */}
             <div className="bg-slate-50/80 rounded-3xl p-5 border border-slate-100 space-y-3">
               <label className="flex items-start gap-3 cursor-pointer">
