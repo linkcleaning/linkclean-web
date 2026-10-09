@@ -44,7 +44,7 @@ const REVIEW_STEPS: Step[] = [
   {
     emoji: '🧹',
     title: '청소 완료',
-    desc: '링크클린에서 청소를 받아보세요.',
+    desc: '링크클린에서 청소를 받았어요.',
   },
   {
     emoji: '✍️',
@@ -233,6 +233,9 @@ export const EventView: React.FC = () => {
                 </button>
                 <button type="button" onClick={() => cleaningAudio.playFloorWipeSound()} className="px-2.5 py-1 rounded-lg bg-white/10 hover:bg-white/20 text-xs text-emerald-300 font-medium transition-colors cursor-pointer border border-emerald-400/30 active:scale-95">
                   ✨ 바닥 쓱싹~
+                </button>
+                <button type="button" onClick={() => cleaningAudio.playToiletFlushSound()} className="px-2.5 py-1 rounded-lg bg-white/10 hover:bg-white/20 text-xs text-blue-300 font-medium transition-colors cursor-pointer border border-blue-400/30 active:scale-95">
+                  🌊 물내림 콸콸~
                 </button>
               </div>
             </div>
