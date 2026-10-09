@@ -165,7 +165,7 @@ const naverPhoneConversion = () => {
             <span className="truncate text-slate-200 font-medium">
               <span className="sm:hidden">후기·지인 소개 시 </span>
               <span className="hidden sm:inline">후기 남기거나 지인 소개하면 </span>
-              <strong className="text-[#38BDF8] font-bold">스타벅스 커피 1잔</strong>
+              <strong className="text-[#38BDF8] font-bold">스타벅스 커피</strong>
               <span className="hidden sm:inline"> 드려요!</span>
             </span>
           </div>
