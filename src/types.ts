@@ -98,6 +98,9 @@ export interface ReviewItem {
   photos: string[];
   date: string;
   isVisible: boolean;
+  /** 네이버 플레이스 실제 후기면 'naver' */
+  source?: 'naver';
+  sourceUrl?: string;
 }
 
 export type Review = ReviewItem;

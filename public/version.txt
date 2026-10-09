@@ -1,1 +1,1 @@
-build: tips-cards 202610100029
+build: naver-reviews 202610100036
