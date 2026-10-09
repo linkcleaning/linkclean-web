@@ -61,27 +61,27 @@ export const MascotScrollTrigger: React.FC = () => {
         {/* Floating Speech Bubble */}
         <div
           onClick={handleMascotClick}
-          className="relative mb-1.5 sm:mb-2.5 bg-gradient-to-r from-[#0A1D37] via-[#0F284E] to-[#0A1D37] text-white px-2.5 py-1.5 sm:px-3.5 sm:py-2.5 rounded-xl sm:rounded-2xl shadow-xl border border-[#38BDF8]/40 cursor-pointer transition-all duration-200 hover:scale-105 active:scale-98 max-w-[165px] sm:max-w-[240px]"
+          className="relative mb-1.5 sm:mb-2.5 bg-gradient-to-r from-red-600 via-red-500 to-rose-500 text-white px-2.5 py-1.5 sm:px-3.5 sm:py-2.5 rounded-xl sm:rounded-2xl shadow-xl border border-red-300/60 cursor-pointer transition-all duration-200 hover:scale-105 active:scale-98 max-w-[165px] sm:max-w-[240px]"
         >
-          <div className="flex items-center gap-1 sm:gap-1.5 text-[#38BDF8] text-[10px] sm:text-[11px] font-extrabold tracking-tight mb-0.5">
-            <Sparkles className="w-3 h-3 sm:w-3.5 sm:h-3.5 animate-pulse text-[#38BDF8] shrink-0" />
+          <div className="flex items-center gap-1 sm:gap-1.5 text-yellow-200 text-[10px] sm:text-[11px] font-extrabold tracking-tight mb-0.5">
+            <Sparkles className="w-3 h-3 sm:w-3.5 sm:h-3.5 animate-pulse text-yellow-200 shrink-0" />
             <span className="truncate">깜짝 선물 이벤트 발견!</span>
           </div>
           <p className="text-[11px] sm:text-xs font-bold text-white leading-tight sm:leading-snug">
             <span className="hidden sm:inline">마스코트를 눌러 선물을 확인하세요!</span>
             <span className="sm:hidden">터치하여 선물 확인!</span>
           </p>
-          <div className="mt-1 pt-1 border-t border-slate-700/60 flex items-center justify-between text-[9px] sm:text-[10px] text-slate-300">
-            <span className="text-amber-300 font-semibold flex items-center gap-0.5 sm:gap-1">
-              <Gift className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-amber-300 shrink-0" />
+          <div className="mt-1 pt-1 border-t border-white/30 flex items-center justify-between text-[9px] sm:text-[10px] text-red-50">
+            <span className="text-yellow-200 font-semibold flex items-center gap-0.5 sm:gap-1">
+              <Gift className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-yellow-200 shrink-0" />
               <span>선물 준비중</span>
             </span>
-            <ChevronRight className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-[#38BDF8] group-hover:translate-x-0.5 transition-transform shrink-0" />
+            <ChevronRight className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-white group-hover:translate-x-0.5 transition-transform shrink-0" />
           </div>
 
           {/* Speech bubble beak / arrow */}
           <div
-            className="absolute left-1/2 -translate-x-1/2 -bottom-1 sm:-bottom-1.5 w-2.5 h-2.5 sm:w-3 sm:h-3 bg-[#0A1D37] border-r border-b border-[#38BDF8]/40 rotate-45"
+            className="absolute left-1/2 -translate-x-1/2 -bottom-1 sm:-bottom-1.5 w-2.5 h-2.5 sm:w-3 sm:h-3 bg-red-500 border-r border-b border-red-300/60 rotate-45"
             aria-hidden="true"
           />
         </div>
