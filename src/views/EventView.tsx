@@ -179,7 +179,7 @@ export const EventView: React.FC = () => {
             <div className="relative shrink-0">
               <div className="w-28 h-28 sm:w-36 sm:h-36 rounded-full p-1.5 bg-gradient-to-tr from-[#38BDF8] via-amber-200 to-rose-300 shadow-2xl">
                 <div className="w-full h-full rounded-full overflow-hidden bg-white border-2 border-white flex items-center justify-center">
-                  <img src={mascotImg} alt="링크클린 청소 마스터" className="w-full h-full object-cover" />
+                  <img src={mascotImg} alt="링크클린 청소 마스터" className="w-[82%] h-[82%] object-contain" />
                 </div>
               </div>
               <div className="absolute -top-1 -right-2 text-3xl animate-bounce" aria-hidden="true">☕</div>
@@ -200,7 +200,8 @@ export const EventView: React.FC = () => {
               </h1>
               <p className="text-sm sm:text-base text-slate-300 font-normal leading-relaxed max-w-xl">
                 링크클린을 믿고 맡겨주신 고객님, 그리고 주변에 소개해주시는 고객님께
-                <b className="text-white"> 스타벅스 커피 1잔</b>을 선물로 드립니다 🎁
+                <br />
+                <b className="text-white">스타벅스 커피 1잔</b>을 선물로 드립니다 🎁
               </p>
 
               {/* Jump buttons */}
