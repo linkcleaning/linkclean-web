@@ -274,7 +274,7 @@ export const ReviewView: React.FC = () => {
                 <Send className="w-4 h-4" />
                 문의 보내기
               </button>
-              <p className="text-center text-[10px] text-slate-400">개인정보는 문의 답변 목적으로만 사용됩니다.</p>
+              <p className="text-center text-[10px] text-slate-400">🔒 회원가입 없이 접수돼요 · 남겨주신 정보는 이번 문의 답변에만 사용합니다.</p>
             </form>
           )}
         </div>
