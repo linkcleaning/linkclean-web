@@ -459,6 +459,17 @@ export const INITIAL_REVIEWS: ReviewItem[] = [
     sourceUrl: NAVER_PLACE_REVIEWS_URL,
   },
   {
+    id: 'daangn-1',
+    author: '요*님 (당근마켓)',
+    serviceType: '청소',
+    rating: 5,
+    content: '사진을 찍지못해서 아쉽지만 진짜 남사장님 너무친절하시고 엄청꼼꼼하고 최고예요ㅜㅜ 일하시는직원도 청소에진심이였어요!!그리고 전화해본 청소업체중에 제일 가격이 메리트엿ㅈ습니다. 그렇다고 대충하지않더라구여!!!!집이 너무깨끗해져서 행복한하루를보내고있어용ㅎㅎ다들 청소는 진짜무조건 링크클린에서 하세요❤️ #내돈내산',
+    photos: [],
+    date: '04.24',
+    isVisible: true,
+    source: 'daangn',
+  },
+  {
     id: 'naver-2',
     author: '네이버 방문자',
     serviceType: '청소',
@@ -469,6 +480,17 @@ export const INITIAL_REVIEWS: ReviewItem[] = [
     isVisible: true,
     source: 'naver',
     sourceUrl: NAVER_PLACE_REVIEWS_URL,
+  },
+  {
+    id: 'daangn-2',
+    author: '키**양님 (당근마켓)',
+    serviceType: '청소',
+    rating: 5,
+    content: '너무 잘되있어서 좋네요감사합니당',
+    photos: [],
+    date: '08.26',
+    isVisible: true,
+    source: 'daangn',
   },
 ];
 

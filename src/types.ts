@@ -99,7 +99,7 @@ export interface ReviewItem {
   date: string;
   isVisible: boolean;
   /** 네이버 플레이스 실제 후기면 'naver' */
-  source?: 'naver';
+  source?: 'naver' | 'daangn';
   sourceUrl?: string;
 }
 
