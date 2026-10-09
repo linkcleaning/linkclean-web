@@ -45,6 +45,7 @@ export interface Reservation {
   balconyCount?: number;
   customer_message: string;
   cleaning_date_hint?: string; // 실제 청소 희망일 (대략)
+  refund_agreed?: boolean;     // 취소·환불 규정 동의 여부
   notes?: string;
   uploaded_images: string[];
   photos?: string[];
