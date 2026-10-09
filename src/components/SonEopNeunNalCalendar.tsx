@@ -119,21 +119,34 @@ export const SonEopNeunNalCalendar: React.FC<SonEopNeunNalCalendarProps> = ({
       className={`bg-white rounded-3xl border border-slate-200/90 shadow-sm overflow-hidden transition-all ${className}`}
     >
       {/* Calendar Header */}
-      <div className="px-4 py-3 sm:px-6 sm:py-4 pr-14 sm:pr-16 bg-gradient-to-br from-[#0A1D37] via-[#0D2444] to-[#0A1D37] text-white relative overflow-hidden">
+      <div className="p-6 sm:p-8 bg-gradient-to-br from-[#0A1D37] via-[#0D2444] to-[#0A1D37] text-white relative overflow-hidden">
         {/* Ambient glow */}
         <div className="absolute top-0 right-0 w-80 h-80 bg-[#38BDF8]/10 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute bottom-0 left-0 w-64 h-64 bg-amber-400/10 rounded-full blur-2xl pointer-events-none" />
 
-        <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-2 sm:gap-4">
+        <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div>
-            <h3 className="text-base sm:text-xl font-black tracking-tight text-white">
-              📅 월별 손없는 날 달력
+            <div className="flex flex-wrap items-center gap-2 mb-2">
+              <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-black bg-amber-400 text-slate-900 shadow-xs">
+                <Sparkles className="w-3.5 h-3.5 text-slate-950" />
+                이사 길일 · 손없는 날 달력
+              </span>
+              <span className="text-[11px] font-medium text-cyan-200 bg-cyan-950/60 border border-cyan-800/60 px-2.5 py-0.5 rounded-full">
+                월별 한눈에 보기
+              </span>
+            </div>
+
+            <h3 className="text-xl sm:text-2xl lg:text-3xl font-black tracking-tight text-white">
+              꼼꼼한 현장 확인 & 월별 손없는 날
             </h3>
-            <p className="mt-0.5 text-[11px] sm:text-xs text-slate-300">손없는 날(음력 9·0 끝자리)은 이사가 몰려요. 2~3주 전에 미리 예약하세요.</p>
+            <p className="mt-1.5 text-xs sm:text-sm text-slate-300 max-w-2xl leading-relaxed">
+              이사·입주 수요가 가장 집중되는 <strong className="text-amber-300 font-bold">손없는 날(음력 9·0 끝자리)</strong>을 확인하고,
+              당일 차질 없는 시공을 위해 <strong>2~3주 전 무료 현장 방문 견적</strong>을 먼저 신청해보세요.
+            </p>
           </div>
 
           {/* Quick Month Switcher Buttons */}
-          <div className="flex flex-wrap items-center gap-1 bg-slate-900/60 p-1 rounded-xl border border-slate-700/60 self-start md:self-auto">
+          <div className="flex flex-wrap items-center gap-1.5 bg-slate-900/60 p-1.5 rounded-2xl border border-slate-700/60 backdrop-blur-sm self-start md:self-auto">
             {quickMonths.map((qm) => {
               const isActive = currentYear === qm.year && currentMonth === qm.month;
               return (
@@ -160,7 +173,7 @@ export const SonEopNeunNalCalendar: React.FC<SonEopNeunNalCalendarProps> = ({
         </div>
 
         {/* Navigation Bar (Month Navigator) */}
-        <div className="mt-2.5 pt-2.5 border-t border-slate-700/60 flex flex-wrap items-center justify-between gap-2">
+        <div className="mt-6 pt-5 border-t border-slate-700/60 flex flex-wrap items-center justify-between gap-4">
           <div className="flex items-center gap-2">
             <button
               type="button"
@@ -232,7 +245,7 @@ export const SonEopNeunNalCalendar: React.FC<SonEopNeunNalCalendarProps> = ({
       </div>
 
       {/* Main Body */}
-      <div className="p-3 sm:p-5">
+      <div className="p-4 sm:p-8">
         {viewMode === 'grid' ? (
           <div>
             {/* Weekday headers */}
@@ -247,12 +260,12 @@ export const SonEopNeunNalCalendar: React.FC<SonEopNeunNalCalendarProps> = ({
             </div>
 
             {/* Days grid */}
-            <div className="grid grid-cols-7 gap-1 sm:gap-2">
+            <div className="grid grid-cols-7 gap-1 sm:gap-1.5">
               {gridDays.map((day, idx) => {
                 const isSelected = selectedDay?.dateString === day.dateString;
                 const isAuspicious = day.isSonEopNeunNal && day.isCurrentMonth;
 
-                let containerClasses = 'relative p-1.5 sm:p-2 rounded-xl transition-all flex flex-col justify-between min-h-[50px] sm:min-h-[62px] ';
+                let containerClasses = 'relative p-1.5 sm:p-2 rounded-xl transition-all flex flex-col justify-between min-h-[52px] sm:min-h-[64px] ';
 
                 if (!day.isCurrentMonth) {
                   containerClasses += 'bg-slate-50/50 text-slate-300 opacity-40 cursor-default';
@@ -299,7 +312,7 @@ export const SonEopNeunNalCalendar: React.FC<SonEopNeunNalCalendarProps> = ({
 
                     {/* Middle: Lunar date indicator */}
                     {day.isCurrentMonth && (
-                      <div className="hidden sm:block text-[9px] text-slate-400 font-medium text-left leading-tight">
+                      <div className="text-[9px] text-slate-400 font-medium text-left leading-tight">
                         {day.lunarDateString}
                       </div>
                     )}
@@ -307,8 +320,8 @@ export const SonEopNeunNalCalendar: React.FC<SonEopNeunNalCalendarProps> = ({
                     {/* Bottom: Son-eop-neun-nal Badge */}
                     {isAuspicious ? (
                       <div className="mt-0.5 w-full">
-                        <span className="block text-center py-0.5 px-0.5 rounded-md text-[8px] sm:text-[10px] font-black bg-red-500 text-white leading-none">
-                          손없는날
+                        <span className="block text-center py-0.5 px-0.5 rounded-md text-[8px] sm:text-[10px] font-black bg-gradient-to-r from-amber-400 to-yellow-400 text-slate-900 shadow-xs leading-none">
+                          손없는날 ✨
                         </span>
                       </div>
                     ) : (
@@ -375,7 +388,7 @@ export const SonEopNeunNalCalendar: React.FC<SonEopNeunNalCalendarProps> = ({
 
         {/* Selected Day Action Box */}
         {selectedDay && (
-          <div className="mt-3 p-3 sm:p-4 rounded-2xl bg-amber-50/80 border border-amber-200/90 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 sm:gap-4 animate-in fade-in">
+          <div className="mt-6 p-4 sm:p-5 rounded-2xl bg-amber-50/80 border border-amber-200/90 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 animate-in fade-in">
             <div className="flex items-start sm:items-center gap-3">
               <div className="w-10 h-10 rounded-xl bg-amber-400 text-slate-950 font-black flex items-center justify-center text-sm shrink-0">
                 {selectedDay.day}일
@@ -416,14 +429,14 @@ export const SonEopNeunNalCalendar: React.FC<SonEopNeunNalCalendarProps> = ({
         )}
 
         {/* Month Summary Chips */}
-        <div className="mt-3 pt-3 border-t border-slate-100">
-          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-2">
+        <div className="mt-6 pt-6 border-t border-slate-100">
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
             <div>
-              <span className="text-[11px] sm:text-xs font-extrabold text-[#0A1D37] flex items-center gap-1.5 mb-1.5">
+              <span className="text-xs font-extrabold text-[#0A1D37] flex items-center gap-1.5 mb-2">
                 <Sparkles className="w-3.5 h-3.5 text-amber-500" />
                 {currentMonth}월 손없는 날 빠른 확인
               </span>
-              <div className="flex gap-1.5 overflow-x-auto no-scrollbar">
+              <div className="flex flex-wrap gap-2">
                 {auspiciousDays.map((d) => (
                   <button
                     key={d.dateString}
@@ -432,7 +445,7 @@ export const SonEopNeunNalCalendar: React.FC<SonEopNeunNalCalendarProps> = ({
                       setSelectedDay(d);
                       setViewMode('grid');
                     }}
-                    className={`shrink-0 px-2.5 py-1 rounded-lg text-[11px] sm:text-xs font-bold transition-all cursor-pointer flex items-center gap-1 border whitespace-nowrap ${
+                    className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 border ${
                       selectedDay?.dateString === d.dateString
                         ? 'bg-amber-400 text-slate-950 border-amber-500 shadow-xs'
                         : 'bg-white hover:bg-amber-50 text-slate-700 border-slate-200'
@@ -448,7 +461,7 @@ export const SonEopNeunNalCalendar: React.FC<SonEopNeunNalCalendarProps> = ({
             <button
               type="button"
               onClick={() => goToReservationWithService('move-in')}
-              className="px-5 py-2.5 rounded-xl bg-[#38BDF8] hover:bg-sky-500 text-white font-extrabold text-xs transition-all shadow-sm inline-flex items-center justify-center gap-2 cursor-pointer shrink-0"
+              className="px-6 py-3 rounded-xl bg-[#38BDF8] hover:bg-sky-500 text-white font-extrabold text-xs transition-all shadow-sm inline-flex items-center justify-center gap-2 cursor-pointer shrink-0"
             >
               <CalendarIcon className="w-4 h-4" />
               <span>무료 방문 견적 신청하기</span>
@@ -456,6 +469,44 @@ export const SonEopNeunNalCalendar: React.FC<SonEopNeunNalCalendarProps> = ({
           </div>
         </div>
 
+        {/* Why "꼼꼼한 현장 확인" is vital before moving days */}
+        <div className="mt-8 pt-6 border-t border-slate-100">
+          <div className="bg-slate-50 rounded-2xl p-5 sm:p-6 border border-slate-200/70">
+            <h4 className="text-xs sm:text-sm font-extrabold text-[#0A1D37] flex items-center gap-2 mb-3">
+              <ShieldCheck className="w-4 h-4 text-[#38BDF8]" />
+              왜 손없는 날 전에 ‘꼼꼼한 현장 확인’이 필수일까요?
+            </h4>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs text-slate-600">
+              <div className="space-y-1">
+                <strong className="text-[#0A1D37] font-bold block flex items-center gap-1">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
+                  이사 당일 추가금 분쟁 100% 방지
+                </strong>
+                <p className="leading-relaxed text-slate-500">
+                  현장을 미리 보지 않고 유선으로만 견적을 내면 시공 당일 찌든 오염이나 구조적 이유로 추가 요금이 발생할 수 있습니다. 링크클린은 사전에 직접 방문해 확정 금액을 약속합니다.
+                </p>
+              </div>
+              <div className="space-y-1">
+                <strong className="text-[#0A1D37] font-bold block flex items-center gap-1">
+                  <Clock className="w-3.5 h-3.5 text-sky-500 shrink-0" />
+                  손없는 날 조기 예약 마감 대비
+                </strong>
+                <p className="leading-relaxed text-slate-500">
+                  손없는 날은 이삿짐센터와 청소 전문팀의 예약이 평일보다 3배 이상 빠릅니다. 최소 2~3주 전 방문 실측으로 원하는 일정을 안전하게 선점하세요.
+                </p>
+              </div>
+              <div className="space-y-1">
+                <strong className="text-[#0A1D37] font-bold block flex items-center gap-1">
+                  <Sparkles className="w-3.5 h-3.5 text-amber-500 shrink-0" />
+                  공간별 맞춤 약품 및 전용 장비 배치
+                </strong>
+                <p className="leading-relaxed text-slate-500">
+                  오염도(욕실 스케일, 주방 후드 기름때, 창틀 묵은 때 등)를 직접 파악하여 현장에 딱 맞는 친환경 약품과 스팀 살균 장비를 완벽히 준비합니다.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
