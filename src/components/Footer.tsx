@@ -30,14 +30,16 @@ const naverPhoneConversion = () => {
             <BrandLogo variant="dark" size="sm" showBadge={false} />
             <span className="text-slate-400 text-xs hidden md:inline">|</span>
             <span className="text-slate-400 text-xs hidden md:inline">현장 실측 100% · 합리적인 청소 견적</span>
-            <div className="flex items-center gap-2 text-[11px] text-slate-400">
-              <span className="inline-flex items-center gap-1 bg-slate-800/80 px-2 py-0.5 rounded text-slate-300">
-                <ShieldCheck className="w-3 h-3 text-[#38BDF8]" />
-                배상책임보험 가입
+            {/* 친환경 안심시공 배지 */}
+            <div className="flex flex-wrap items-center gap-1.5 text-[11px]">
+              <span className="inline-flex items-center gap-1 bg-emerald-500/15 border border-emerald-400/30 px-2 py-0.5 rounded-full text-emerald-300 font-bold">
+                🌿 친환경 세제 사용
               </span>
-              <span className="inline-flex items-center gap-1 bg-slate-800/80 px-2 py-0.5 rounded text-slate-300">
-                <Award className="w-3 h-3 text-[#38BDF8]" />
-                친환경 안심시공
+              <span className="inline-flex items-center gap-1 bg-slate-800/80 border border-slate-700 px-2 py-0.5 rounded-full text-slate-300">
+                ♨️ 고온 스팀 살균
+              </span>
+              <span className="inline-flex items-center gap-1 bg-slate-800/80 border border-slate-700 px-2 py-0.5 rounded-full text-slate-300">
+                🌲 피톤치드 마무리
               </span>
             </div>
           </div>
@@ -114,7 +116,7 @@ const naverPhoneConversion = () => {
           {/* Address Details: Always visible on Desktop, collapsible on Mobile */}
           <div className={`${showDetails ? 'block' : 'hidden'} sm:block text-[11px] text-slate-400 space-y-0.5`}>
             <p>제주시: 제주특별자치도 제주시 도령북길 8 제일상가 2층 | 서귀포시: 제주특별자치도 서귀포시 서호호근로 86-6</p>
-            <p>개인정보책임관리자: 안심클린팀 | 통신판매업신고 완료</p>
+            <p>개인정보책임관리자: 안심클린팀</p>
           </div>
 
           <div className="pt-2 flex flex-col sm:flex-row items-start sm:items-center justify-between text-[11px] text-slate-400 gap-2">
