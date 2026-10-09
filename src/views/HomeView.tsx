@@ -181,32 +181,25 @@ export const HomeView: React.FC = () => {
             </div>
           </div>
 
-          {/* Mobile 4 Quick Navigation Cards (2x2) — 핵심 정보 1초 터치 */}
+          {/* Mobile Quick Cards — 손없는 날 한 줄 + 전/후 · 후기 */}
           <div className="grid grid-cols-2 gap-2">
-            <button
-              onClick={() => setCurrentView('services')}
-              className="p-3 bg-white rounded-xl border border-slate-200/90 shadow-xs text-left flex items-center gap-2.5 active:bg-slate-50 cursor-pointer"
-            >
-              <div className="w-8 h-8 rounded-lg bg-blue-50 text-[#38BDF8] flex items-center justify-center shrink-0">
-                <Sparkles className="w-4 h-4" />
-              </div>
-              <div className="min-w-0">
-                <div className="text-xs font-bold text-[#0A1D37] truncate">맞춤 청소 6종</div>
-                <div className="text-[10px] text-slate-400 truncate">입주·이사·특수</div>
-              </div>
-            </button>
 
             <button
               onClick={() => setIsSonEopNeunNalModalOpen(true)}
-              className="p-3 bg-gradient-to-br from-white to-amber-50/60 rounded-xl border border-amber-200 shadow-xs text-left flex items-center gap-2.5 active:bg-amber-50 cursor-pointer"
+              className="col-span-2 p-2.5 bg-white rounded-xl border border-rose-200 shadow-xs text-left flex items-center gap-2 active:bg-rose-50 cursor-pointer"
             >
-              <div className="w-8 h-8 rounded-lg bg-amber-100 text-amber-800 flex items-center justify-center shrink-0">
-                <Calendar className="w-4 h-4 text-amber-600" />
-              </div>
-              <div className="min-w-0">
-                <div className="text-xs font-bold text-amber-950 truncate">손없는 날 달력</div>
-                <div className="text-[10px] text-amber-700 truncate">{bentoMonth}월 길일 조회</div>
-              </div>
+              <span className="shrink-0 flex items-center gap-1 text-xs font-black text-[#0A1D37]">
+                <Calendar className="w-4 h-4 text-rose-500" />
+                {bentoMonth}월 손없는 날
+              </span>
+              <span className="flex-1 min-w-0 flex gap-1 overflow-x-auto no-scrollbar">
+                {bentoAuspiciousDays.map((d) => (
+                  <span key={d.dateString} className="shrink-0 text-[10px] font-black text-white bg-red-500 px-1.5 py-0.5 rounded">
+                    {d.day}일({d.dayOfWeek})
+                  </span>
+                ))}
+              </span>
+              <ChevronRight className="w-3.5 h-3.5 text-slate-400 shrink-0" />
             </button>
 
             <button
