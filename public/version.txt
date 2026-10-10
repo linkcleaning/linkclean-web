@@ -1,1 +1,1 @@
-build: mascot-red 202610100218
+build: gsc-verify 202610101619
