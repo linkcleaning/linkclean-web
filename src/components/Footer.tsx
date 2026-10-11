@@ -33,7 +33,7 @@ const naverPhoneConversion = () => {
   }
 };
   return (
-    <footer className="bg-[#0A1D37] text-slate-400 py-6 lg:py-8 border-t border-slate-800">
+    <footer className="bg-[#0A1D37] text-slate-400 pt-6 pb-24 lg:py-8 border-t border-slate-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Compact Top Row: Logo + Quick Contact + Badges */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-800/80">
@@ -171,7 +171,7 @@ const naverPhoneConversion = () => {
 
           <div className="pt-2 flex flex-col sm:flex-row items-start sm:items-center justify-between text-[11px] text-slate-400 gap-2">
             <div className="flex items-center gap-2">
-              <span onClick={onSecretTap} className="select-none">© 2016 LINKCLEAN Inc. All rights reserved.</span>
+              <span onClick={onSecretTap} className="select-none py-2 -my-2">© 2016 LINKCLEAN Inc. All rights reserved.</span>
             </div>
             <div className="text-[10px] text-slate-400">
               * 상단 [청소서비스] 및 [바로가기] 메뉴에서 모든 서비스와 세부 페이지로 바로 이동하실 수 있습니다.
