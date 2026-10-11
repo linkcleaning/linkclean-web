@@ -1,10 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useApp } from '../context/AppContext';
 import { Phone, Mail, ExternalLink, ChevronDown, BookOpen, MessageCircle, Instagram } from 'lucide-react';
 import { BrandLogo } from './BrandLogo';
 
 export const Footer: React.FC = () => {
   const { goToReservationWithService, setCurrentView, currentUser } = useApp();
+
+  // 사장님만 아는 관리자 입구: 맨 아래 '© 2016 LINKCLEAN' 글씨를 3초 안에 5번 누르면 로그인 화면으로 이동
+  const secretTaps = useRef<number[]>([]);
+  const onSecretTap = () => {
+    const now = Date.now();
+    secretTaps.current = [...secretTaps.current.filter((t) => now - t < 3000), now];
+    if (secretTaps.current.length >= 5) {
+      secretTaps.current = [];
+      setCurrentView(currentUser?.role === 'admin' ? 'admin' : 'login');
+      window.scrollTo({ top: 0 });
+    }
+  };
   const [showDetails, setShowDetails] = useState(false);
 const naverPhoneConversion = () => {
   const w = window as any;
@@ -159,7 +171,7 @@ const naverPhoneConversion = () => {
 
           <div className="pt-2 flex flex-col sm:flex-row items-start sm:items-center justify-between text-[11px] text-slate-400 gap-2">
             <div className="flex items-center gap-2">
-              <span>© 2016 LINKCLEAN Inc. All rights reserved.</span>
+              <span onClick={onSecretTap} className="select-none">© 2016 LINKCLEAN Inc. All rights reserved.</span>
             </div>
             <div className="text-[10px] text-slate-400">
               * 상단 [청소서비스] 및 [바로가기] 메뉴에서 모든 서비스와 세부 페이지로 바로 이동하실 수 있습니다.
