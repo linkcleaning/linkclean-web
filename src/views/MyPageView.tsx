@@ -102,36 +102,6 @@ export const MyPageView: React.FC = () => {
 
   return (
     <div className="py-12 sm:py-16 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-      {/* Website Renewal Alert Banner inside MyPage */}
-      <div className="bg-gradient-to-r from-[#0A1D37] via-[#132742] to-[#0A1D37] rounded-3xl p-5 sm:p-6 text-white shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4 border border-slate-800">
-        <div className="space-y-1">
-          <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-amber-400 text-[#0A1D37] text-[11px] font-black">
-            🛠️ 서비스 안내
-          </div>
-          <h2 className="text-base sm:text-lg font-bold text-white">
-            현재 홈페이지 리뉴얼 작업으로 온라인 예약 및 이벤트가 준비 중입니다
-          </h2>
-          <p className="text-xs text-slate-300">
-            진행 중인 청소 예약 확인이나 추가 견적 문의는 대표전화(064-763-4545)로 연락 주시면 즉시 상담해 드립니다.
-          </p>
-        </div>
-        <div className="flex items-center gap-2 shrink-0">
-          <a
-            href="tel:064-763-4545"
-            className="px-4 py-2.5 rounded-xl bg-[#38BDF8] hover:bg-[#0EA5E9] text-[#0A1D37] text-xs font-black transition-all flex items-center gap-1.5 shadow-sm"
-          >
-            <Phone className="w-3.5 h-3.5" />
-            064-763-4545 전화하기
-          </a>
-          <button
-            onClick={openRenewalNotice}
-            className="px-3.5 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-bold transition-all cursor-pointer"
-          >
-            안내창 보기
-          </button>
-        </div>
-      </div>
-
       {/* User Header Profile Card */}
       <div className="bg-white rounded-3xl border border-slate-100 p-6 sm:p-8 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
         <div className="flex items-center gap-4">

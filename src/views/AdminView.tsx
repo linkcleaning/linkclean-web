@@ -314,6 +314,26 @@ export const AdminView: React.FC = () => {
               ))}
             </div>
 
+            {/* 처리 끝난 예약 한꺼번에 정리 */}
+            {(() => {
+              const doneList = reservations.filter((r) => r.status === '방문완료' || r.status === '취소');
+              return (
+                <button
+                  type="button"
+                  disabled={doneList.length === 0}
+                  onClick={() => {
+                    if (confirm(`처리가 끝난 예약 ${doneList.length}건(방문완료·예약취소)을 모두 삭제할까요?\n삭제하면 되돌릴 수 없습니다.`)) {
+                      doneList.forEach((r) => deleteReservation(r.reservation_id || r.id || ''));
+                    }
+                  }}
+                  className="w-full md:w-auto px-3.5 py-2 rounded-full text-xs font-bold border border-red-200 bg-red-50 text-red-600 hover:bg-red-100 disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-1 cursor-pointer whitespace-nowrap"
+                >
+                  <Trash2 className="w-3.5 h-3.5" />
+                  처리 끝난 예약 정리 ({doneList.length}건)
+                </button>
+              );
+            })()}
+
             {/* Search Input */}
             <div className="relative w-full md:w-72">
               <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
@@ -351,7 +371,7 @@ export const AdminView: React.FC = () => {
                     </tr>
                   ) : (
                     filteredReservations.map((res) => (
-                      <tr key={res.id} className="hover:bg-slate-50/70 transition-colors">
+                      <tr key={res.reservation_id || res.id} className="hover:bg-slate-50/70 transition-colors">
                         <td className="p-4 font-mono font-bold text-[#0A1D37] whitespace-nowrap">
                           {res.reservationNumber}
                         </td>
@@ -377,7 +397,7 @@ export const AdminView: React.FC = () => {
                           <select
                             value={res.status}
                             onChange={(e) =>
-                              updateReservationStatus(res.id, e.target.value as ReservationStatus)
+                              updateReservationStatus(res.reservation_id || res.id || '', e.target.value as ReservationStatus)
                             }
                             className={`px-2.5 py-1.5 rounded-full font-bold text-xs border cursor-pointer outline-none ${
                               res.status === '접수완료'
@@ -402,16 +422,29 @@ export const AdminView: React.FC = () => {
                           >
                             상세
                           </button>
-                          <button
-                            onClick={() => {
-                              if (confirm('정말 이 예약을 삭제하시겠습니까?')) {
-                                deleteReservation(res.id);
-                              }
-                            }}
-                            className="p-1.5 rounded-full text-slate-400 hover:text-red-600 hover:bg-red-50 cursor-pointer"
-                          >
-                            <Trash2 className="w-3.5 h-3.5" />
-                          </button>
+                          {(() => {
+                            const done = res.status === '방문완료' || res.status === '취소';
+                            return (
+                              <button
+                                onClick={() => {
+                                  if (!done) {
+                                    alert('처리가 끝난 예약만 삭제할 수 있어요.\n상태를 [방문완료] 또는 [예약취소]로 바꾼 뒤 삭제해 주세요.');
+                                    return;
+                                  }
+                                  if (confirm(`${res.customer_name} 고객님 예약(${res.reservation_id})을 삭제할까요?\n삭제하면 되돌릴 수 없습니다.`)) {
+                                    deleteReservation(res.reservation_id || res.id || '');
+                                  }
+                                }}
+                                title={done ? '예약 삭제' : '방문완료·예약취소 상태에서만 삭제할 수 있어요'}
+                                className={`px-2.5 py-1.5 rounded-full text-xs font-bold flex items-center gap-1 cursor-pointer ${
+                                  done ? 'bg-red-50 text-red-600 hover:bg-red-100 border border-red-200' : 'bg-slate-50 text-slate-300 border border-slate-200'
+                                }`}
+                              >
+                                <Trash2 className="w-3.5 h-3.5" />
+                                삭제
+                              </button>
+                            );
+                          })()}
                         </td>
                       </tr>
                     ))
