@@ -169,7 +169,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [currentView, setCurrentView] = useState<AppView>(() => {
     try {
       const v = new URLSearchParams(window.location.search).get('view');
-      if (v && ['checklist', 'defect', 'refund', 'bakeout', 'why', 'event', 'review', 'portfolio', 'about'].includes(v)) return v as AppView;
+      if (v && ['checklist', 'defect', 'refund', 'login', 'bakeout', 'why', 'event', 'review', 'portfolio', 'about'].includes(v)) return v as AppView;
     } catch {
       /* 무시 */
     }
@@ -472,7 +472,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
     setReservations((prev) =>
       prev.map((r) => {
-        if (r.reservation_id === id || r.id === id) {
+        if (id && (r.reservation_id || r.id) === id) {
           return {
             ...r,
             status,
@@ -489,7 +489,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   const updateAdminMemo = (id: string, memo: string) => {
     setReservations((prev) =>
-      prev.map((r) => (r.reservation_id === id || r.id === id ? { ...r, admin_memo: memo, adminNote: memo } : r))
+      prev.map((r) => (id && (r.reservation_id || r.id) === id ? { ...r, admin_memo: memo, adminNote: memo } : r))
     );
   };
 
@@ -498,7 +498,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   };
 
   const deleteReservation = (id: string) => {
-    setReservations((prev) => prev.filter((r) => r.id !== id && r.reservation_id !== id));
+    if (!id) return;
+    setReservations((prev) => prev.filter((r) => (r.reservation_id || r.id) !== id));
   };
 
   const cancelReservation = (id: string, reason?: string) => {
