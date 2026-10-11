@@ -14,6 +14,7 @@ import { HomeFaqSection } from '../components/HomeFaqSection';
 import { MobileCollapse } from '../components/MobileCollapse';
 import { PromoSongPlayer } from '../components/PromoSongPlayer';
 import { SwipeRow } from '../components/SwipeRow';
+import { MagazineCard } from '../components/MagazineCard';
 import { ReviewSourceBadge } from '../components/ReviewSourceBadge';
 import {
   Calendar,
@@ -473,6 +474,9 @@ export const HomeView: React.FC = () => {
           <span className="shrink-0 px-3 py-2 rounded-xl bg-[#38BDF8] text-white text-xs sm:text-sm font-bold">보기 →</span>
         </button>
       </section>
+
+      {/* 월간 링크 매거진 (작은 카드 → 누르면 플립북) */}
+      <MagazineCard />
 
       {/* 신축 입주 안내 — 피톤치드는 링크클린이, 베이크아웃은 고객님이 (누르면 방법 페이지) */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

@@ -1,1 +1,1 @@
-build: footer-padding 202610112252
+build: magazine
