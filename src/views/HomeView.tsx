@@ -17,6 +17,7 @@ import { SwipeRow } from '../components/SwipeRow';
 import { MagazineCard } from '../components/MagazineCard';
 import { BlogNewsSection } from '../components/BlogNewsSection';
 import { InstagramReelsSection } from '../components/InstagramReelsSection';
+import { FinalBookingCta } from '../components/FinalBookingCta';
 import { ReviewSourceBadge } from '../components/ReviewSourceBadge';
 import {
   Calendar,
@@ -894,48 +895,9 @@ export const HomeView: React.FC = () => {
 
 
       {/* =========================================================================
-          SECTION 08 — FINAL CTA (Bento Box)
+          SECTION 08 — 마무리: 앞으로 2주 남은 청소 날짜 (누르면 그 날짜로 예약)
       ========================================================================= */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="rounded-2xl sm:rounded-3xl bg-[#0A1D37] text-white p-6 sm:p-14 text-center relative overflow-hidden shadow-sm border border-slate-800">
-          <div className="absolute -right-16 -top-16 w-64 h-64 bg-[#38BDF8] opacity-10 rounded-full pointer-events-none" />
-          <div className="absolute -left-16 -bottom-16 w-64 h-64 bg-[#38BDF8] opacity-10 rounded-full pointer-events-none" />
-
-          <div className="relative z-10 max-w-2xl mx-auto space-y-3 sm:space-y-5">
-            <span className="text-[#38BDF8] font-bold text-[10px] uppercase tracking-wider bg-[#38BDF8]/20 px-2.5 py-0.5 rounded-full">
-              간편하고 빠른 방문 예약
-            </span>
-
-            <h2 className="text-xl sm:text-4xl font-black tracking-tight text-white">
-              깨끗한 공간을 원하시나요?
-            </h2>
-
-            <p className="text-slate-300 text-xs sm:text-base leading-relaxed">
-              전화해서 기다릴 필요 없이<br />
-              <strong className="text-white font-bold">원하는 청소 날짜를 먼저 잡아두세요.</strong>
-            </p>
-
-            <div className="text-base sm:text-xl font-bold text-[#38BDF8]">
-              링크클린이 직접 찾아가겠습니다.
-            </div>
-
-            <div className="pt-1 sm:pt-2">
-              <button
-                onClick={() => goToReservationWithService('move-in')}
-                className="w-full sm:w-auto px-8 py-3.5 rounded-xl sm:rounded-full bg-[#38BDF8] hover:bg-[#0EA5E9] text-white font-bold text-sm sm:text-base shadow-xl shadow-blue-400/30 hover:shadow-blue-400/40 transition-all inline-flex items-center justify-center gap-2 cursor-pointer active:scale-98"
-                id="final-cta-reserve-btn"
-              >
-                <Calendar className="w-4 h-4 text-white" />
-                청소 예약하기
-              </button>
-            </div>
-
-            <div className="text-[11px] text-slate-400 font-medium tracking-wide">
-              날짜 예약 → 확인 전화 → (필요시) 방문 견적 → 계약금 확정 → 청소
-            </div>
-          </div>
-        </div>
-      </section>
+      <FinalBookingCta onReserve={() => goToReservationWithService('move-in')} />
 
       {/* Son-eop-neun-nal Monthly Calendar Modal */}
       <SonEopNeunNalModal
