@@ -10,10 +10,20 @@ const embedUrl = (url: string) => {
   return `https://www.instagram.com/${kind}/${m[2]}/embed/`;
 };
 const cleanUrl = (url: string) => url.split('?')[0];
+const codeOf = (url: string) => (url.match(/\/(?:reel|reels|p|tv)\/([A-Za-z0-9_-]+)/) || [])[1] || '';
 
 export const InstagramReelsSection: React.FC = () => {
   const [posts, setPosts] = useState<InstaPost[]>(INSTAGRAM_REELS);
   const [openUrl, setOpenUrl] = useState<string | null>(null);
+  const [thumbs, setThumbs] = useState<Record<string, string>>({});
+
+  // 배포 때 받아둔 인스타 첫 화면 사진 (public/insta/thumbs.json)
+  useEffect(() => {
+    fetch('/insta/thumbs.json', { cache: 'no-cache' })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => d && typeof d === 'object' && setThumbs(d))
+      .catch(() => null);
+  }, []);
 
   // 토큰으로 자동 수집된 목록(public/instagram.json)이 있으면 그걸 우선 사용
   useEffect(() => {
@@ -29,7 +39,7 @@ export const InstagramReelsSection: React.FC = () => {
     };
   }, []);
 
-  const list = posts.filter((p) => embedUrl(p.url)).slice(0, 6);
+  const list = posts.filter((p) => embedUrl(p.url)).slice(0, 8);
   if (!list.length) return null;
 
   return (
@@ -52,17 +62,17 @@ export const InstagramReelsSection: React.FC = () => {
           </a>
         </div>
 
-        <div className="flex gap-2 sm:gap-3 overflow-x-auto no-scrollbar -mx-1 px-1 pb-1">
+        <div className="flex gap-2 overflow-x-auto no-scrollbar -mx-1 px-1 pb-1 lg:grid lg:grid-cols-8 lg:overflow-visible lg:mx-0 lg:px-0">
           {list.map((p) => (
             <button
               key={p.url}
               type="button"
               onClick={() => setOpenUrl(p.url)}
-              className="relative shrink-0 w-24 sm:w-32 aspect-[9/16] rounded-xl overflow-hidden bg-gradient-to-br from-amber-400 via-pink-500 to-purple-600 text-white text-left cursor-pointer group"
+              className="relative shrink-0 w-24 sm:w-28 lg:w-auto aspect-[3/4] rounded-xl overflow-hidden bg-gradient-to-br from-amber-400 via-pink-500 to-purple-600 text-white text-left cursor-pointer group"
             >
-              {p.thumbnail && (
+              {(thumbs[codeOf(p.url)] || p.thumbnail) && (
                 <img
-                  src={p.thumbnail}
+                  src={thumbs[codeOf(p.url)] || p.thumbnail}
                   alt=""
                   loading="lazy"
                   referrerPolicy="no-referrer"

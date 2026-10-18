@@ -19,4 +19,7 @@ export const INSTAGRAM_REELS: InstaPost[] = [
   { url: 'https://www.instagram.com/p/DXRdvIwmI-Y/', caption: '링크클린 게시물' },
   { url: 'https://www.instagram.com/reel/Ddxvcxos8oB/', caption: '링크클린 현장 릴스' },
   { url: 'https://www.instagram.com/reel/DW6QhHUDKvq/', caption: '링크클린 현장 릴스' },
+  { url: 'https://www.instagram.com/reel/C2HyiBIS0x7/', caption: '링크클린 현장 릴스' },
+  { url: 'https://www.instagram.com/p/CzIf3fHLJ7U/', caption: '링크클린 게시물' },
+  { url: 'https://www.instagram.com/p/DBkpBjCyeUc/', caption: '링크클린 게시물' },
 ];
