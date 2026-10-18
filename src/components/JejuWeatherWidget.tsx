@@ -150,7 +150,8 @@ export const JejuWeatherWidget: React.FC<JejuWeatherWidgetProps> = ({ className 
           >
             {weatherList.map((day, idx) => (
               <span key={day.date} className={`flex flex-col items-center leading-none py-1 rounded-lg ${idx === 0 ? 'bg-[#38BDF8]/25 ring-1 ring-[#38BDF8] text-white' : 'bg-white/10 text-white'}`}>
-                <span className={`text-[10px] font-bold ${idx === 0 ? 'text-white' : 'text-slate-200'}`}>{idx === 0 ? '오늘' : day.dayOfWeek}</span>
+                <span className="text-[11px] font-black text-white">{parseInt(day.date.slice(8), 10)}일</span>
+                <span className={`mt-0.5 text-[9px] font-bold ${idx === 0 ? 'text-[#7DD3FC]' : 'text-slate-300'}`}>{idx === 0 ? '오늘' : day.dayOfWeek}</span>
                 <span className="my-0.5">{renderWeatherIcon(day.condition, 'w-3.5 h-3.5')}</span>
                 <span className="text-[11px] font-black">{day.tempHigh}°</span>
               </span>
@@ -317,6 +318,7 @@ export const JejuWeatherWidget: React.FC<JejuWeatherWidgetProps> = ({ className 
                   title={`${day.date} (${day.dayOfWeek}) - ${day.conditionText}, 청소지수: ${day.cleaningIndex}`}
                 >
                   <span className={`text-[8px] sm:text-[9px] leading-tight ${isSelected ? 'text-[#0A1D37] font-black' : 'text-sky-200'}`}>
+                    <b className="block text-[10px] sm:text-[11px]">{parseInt(day.date.slice(8), 10)}일</b>
                     {idx === 0 ? '오늘' : day.dayOfWeek}
                   </span>
                   <div className="my-0.5 flex justify-center">
