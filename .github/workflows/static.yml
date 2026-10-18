@@ -39,6 +39,11 @@ jobs:
       - name: Fetch Naver blog latest posts (RSS)
         run: node scripts/fetch-blog.mjs || true
 
+      - name: Fetch Instagram latest posts (needs INSTAGRAM_TOKEN secret)
+        run: node scripts/fetch-instagram.mjs || true
+        env:
+          INSTAGRAM_TOKEN: ${{ secrets.INSTAGRAM_TOKEN }}
+
       - name: Build project
         run: npm run build
 

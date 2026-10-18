@@ -27,11 +27,11 @@ export const TipCoverCard: React.FC<Props> = ({ cover, size = 'card' }) => {
   const big = size === 'detail';
 
   return (
-    <div className={`relative w-full h-full bg-gradient-to-br ${tone.bg} overflow-hidden flex flex-col justify-end ${big ? 'p-6 sm:p-8' : 'p-4 sm:p-5'}`}>
+    <div className={`relative w-full h-full bg-gradient-to-br ${tone.bg} overflow-hidden flex flex-col justify-end ${big ? 'p-6 sm:p-8' : 'p-3'}`}>
       {/* 큰 이모지 (오른쪽 위, 배경처럼) */}
       <span
         aria-hidden="true"
-        className={`absolute select-none leading-none ${big ? 'right-5 top-4 text-7xl sm:text-8xl' : 'right-3 top-9 text-5xl sm:text-6xl'} opacity-90 drop-shadow-sm`}
+        className={`absolute select-none leading-none ${big ? 'right-5 top-4 text-7xl sm:text-8xl' : 'right-2.5 top-8 text-4xl'} opacity-90 drop-shadow-sm`}
       >
         {cover.emoji}
       </span>
@@ -43,18 +43,18 @@ export const TipCoverCard: React.FC<Props> = ({ cover, size = 'card' }) => {
       />
 
       <div className="relative">
-        <div className={`flex items-center gap-1.5 mb-1.5 ${tone.sub}`}>
+        <div className={`flex items-center gap-1.5 ${big ? 'mb-1.5' : 'mb-0.5'} ${tone.sub}`}>
           <span className={`w-1.5 h-1.5 rounded-full ${tone.dot}`} />
           <span className="text-[10px] font-black tracking-wider">LINKCLEAN 청소 노트</span>
         </div>
-        <p className={`font-black leading-tight tracking-tight ${tone.text} ${big ? 'text-2xl sm:text-3xl' : 'text-lg sm:text-xl'}`}>
+        <p className={`font-black leading-tight tracking-tight ${tone.text} ${big ? 'text-2xl sm:text-3xl' : 'text-base'}`}>
           {lines.map((l, i) => (
             <span key={i} className="block">
               {l}
             </span>
           ))}
         </p>
-        {cover.sub && <p className={`mt-1.5 font-bold ${tone.sub} ${big ? 'text-sm' : 'text-[11px] sm:text-xs'}`}>{cover.sub}</p>}
+        {cover.sub && <p className={`mt-1.5 font-bold ${tone.sub} ${big ? 'text-sm' : 'text-[10px] !mt-0.5'}`}>{cover.sub}</p>}
       </div>
     </div>
   );
