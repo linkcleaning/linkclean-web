@@ -4,7 +4,7 @@ on:
   push:
     branches: ["main"]
   workflow_dispatch:
-  # 제주 날씨를 새로 받기 위해 3시간마다 자동으로 다시 배포
+  # 제주 날씨·블로그 새 글을 새로 받기 위해 3시간마다 자동으로 다시 배포
   schedule:
     - cron: '23 */3 * * *'
 
@@ -35,6 +35,9 @@ jobs:
 
       - name: Fetch Jeju weather (MET Norway)
         run: node scripts/fetch-weather.mjs || true
+
+      - name: Fetch Naver blog latest posts (RSS)
+        run: node scripts/fetch-blog.mjs || true
 
       - name: Build project
         run: npm run build
