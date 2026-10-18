@@ -1,1 +1,1 @@
-build: steps-fix-insta5
+build: insta-thumbs
