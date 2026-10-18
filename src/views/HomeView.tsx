@@ -16,7 +16,6 @@ import { PromoSongPlayer } from '../components/PromoSongPlayer';
 import { SwipeRow } from '../components/SwipeRow';
 import { MagazineCard } from '../components/MagazineCard';
 import { BlogNewsSection } from '../components/BlogNewsSection';
-import { InstagramReelsSection } from '../components/InstagramReelsSection';
 import { FinalBookingCta } from '../components/FinalBookingCta';
 import { ReviewSourceBadge } from '../components/ReviewSourceBadge';
 import {
@@ -454,35 +453,8 @@ export const HomeView: React.FC = () => {
 
 
 
-      {/* =========================================================================
-          링크클린은 다릅니다 — 별도 페이지로 이동 (고객의 고민 / 깨끗함의 기준 / 진행 순서)
-      ========================================================================= */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <button
-          type="button"
-          onClick={() => {
-            setCurrentView('why');
-            window.scrollTo({ top: 0 });
-          }}
-          className="w-full text-left bg-white rounded-2xl sm:rounded-3xl border border-slate-200 shadow-sm hover:shadow-md hover:border-[#38BDF8] transition-all p-4 sm:p-6 flex items-center gap-3 sm:gap-5 cursor-pointer"
-        >
-          <span className="w-11 h-11 sm:w-14 sm:h-14 shrink-0 rounded-2xl bg-[#0A1D37] text-[#38BDF8] flex items-center justify-center text-xl sm:text-2xl">✨</span>
-          <span className="flex-1 min-w-0">
-            <span className="block text-[10px] sm:text-xs font-black text-[#38BDF8] tracking-wider">WHY LINKCLEAN</span>
-            <span className="block text-base sm:text-xl font-black text-[#0A1D37]">링크클린은 다릅니다</span>
-            <span className="block text-[11px] sm:text-sm text-slate-500 leading-snug">
-              업체 고르기 고민 · 깨끗함의 기준 · 간단한 진행 순서
-            </span>
-          </span>
-          <span className="shrink-0 px-3 py-2 rounded-xl bg-[#38BDF8] text-white text-xs sm:text-sm font-bold">보기 →</span>
-        </button>
-      </section>
-
       {/* 오늘의 링크클린 새소식 (네이버 블로그 최신 글 자동) */}
       <BlogNewsSection />
-
-      {/* 링크클린 인스타 릴스 (작은 카드 → 누르면 재생) */}
-      <InstagramReelsSection />
 
       {/* 월간 링크 매거진 (작은 카드 → 누르면 플립북) */}
       <MagazineCard />
