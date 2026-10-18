@@ -33,16 +33,19 @@ export const HeroProcessSteps: React.FC<{ variant?: 'mobile' | 'desktop' }> = ({
           </span>
           <span className="text-[9px] text-slate-400">눌러서 설명 보기</span>
         </div>
-        <div className="grid grid-cols-5 gap-1">
-          {STEPS.map((s) => {
+        <div className="flex items-stretch">
+          {STEPS.map((s, i) => {
             const on = open === s.no;
             return (
+              <React.Fragment key={s.no}>
+              {i > 0 && (
+                <span className="self-center shrink-0 w-3 text-center text-[#38BDF8] text-sm font-black leading-none" aria-hidden="true">›</span>
+              )}
               <button
-                key={s.no}
                 type="button"
                 onClick={() => setOpen(on ? null : s.no)}
                 aria-expanded={on}
-                className={`flex flex-col items-center gap-1 rounded-xl border px-0.5 py-1.5 text-center cursor-pointer transition-colors ${
+                className={`flex-1 min-w-0 flex flex-col items-center gap-1 rounded-xl border px-0.5 py-1.5 text-center cursor-pointer transition-colors ${
                   on
                     ? 'bg-[#38BDF8] border-[#38BDF8] text-[#0A1D37]'
                     : s.highlight
@@ -51,8 +54,8 @@ export const HeroProcessSteps: React.FC<{ variant?: 'mobile' | 'desktop' }> = ({
                 }`}
               >
                 <span
-                  className={`w-5 h-5 shrink-0 rounded-full text-[10px] font-black flex items-center justify-center ${
-                    on ? 'bg-[#0A1D37] text-white' : s.highlight ? 'bg-[#38BDF8] text-[#0A1D37]' : 'bg-white/15 text-white'
+                  className={`w-8 h-8 shrink-0 rounded-full text-base font-black flex items-center justify-center shadow ${
+                    on ? 'bg-[#0A1D37] text-white' : 'bg-[#38BDF8] text-[#0A1D37]'
                   }`}
                 >
                   {s.no}
@@ -60,6 +63,7 @@ export const HeroProcessSteps: React.FC<{ variant?: 'mobile' | 'desktop' }> = ({
                 <span className="w-full text-[10px] font-extrabold leading-tight whitespace-nowrap">{s.short}</span>
                 {s.optional && <span className={`text-[8px] leading-none ${on ? 'text-[#0A1D37]' : 'text-slate-400'}`}>필요시</span>}
               </button>
+              </React.Fragment>
             );
           })}
         </div>
@@ -83,21 +87,29 @@ export const HeroProcessSteps: React.FC<{ variant?: 'mobile' | 'desktop' }> = ({
         청소 예약 진행 순서 · 제주에 안 계셔도 사진 리포트로 확인
       </div>
 
-      <ol className={desktop ? 'grid grid-cols-2 lg:grid-cols-5 gap-2.5' : 'space-y-1.5'}>
-        {STEPS.map((s) => (
+      <ol className={desktop ? 'grid grid-cols-2 lg:grid-cols-5 gap-2.5 lg:gap-5' : 'space-y-1.5'}>
+        {STEPS.map((s, i) => (
           <li
             key={s.no}
-            className={`flex gap-2.5 rounded-xl border ${desktop ? 'p-3' : 'p-2.5'} ${
+            className={`relative flex gap-2.5 rounded-xl border ${desktop ? 'p-3' : 'p-2.5'} ${
               s.highlight ? 'bg-[#38BDF8]/10 border-[#38BDF8]/50' : s.optional ? 'bg-white/5 border-white/20 border-dashed' : 'bg-white/5 border-white/10'
             }`}
           >
             <span
-              className={`shrink-0 rounded-full font-black flex items-center justify-center ${
-                desktop ? 'w-7 h-7 text-xs' : 'w-6 h-6 text-[11px]'
-              } ${s.highlight ? 'bg-[#38BDF8] text-[#0A1D37]' : 'bg-white/15 text-white'}`}
+              className={`shrink-0 rounded-full font-black flex items-center justify-center shadow-lg bg-[#38BDF8] text-[#0A1D37] ${
+                desktop ? 'w-11 h-11 text-xl' : 'w-9 h-9 text-lg'
+              }`}
             >
               {s.no}
             </span>
+            {desktop && i < STEPS.length - 1 && (
+              <span
+                className="hidden lg:flex absolute top-1/2 -right-[19px] -translate-y-1/2 z-10 w-6 h-6 rounded-full bg-[#0A1D37] border border-[#38BDF8]/60 text-[#38BDF8] text-sm font-black items-center justify-center"
+                aria-hidden="true"
+              >
+                ›
+              </span>
+            )}
             <div className="min-w-0">
               <div className={`font-extrabold text-white flex items-center gap-1.5 ${desktop ? 'text-sm' : 'text-xs'}`}>
                 <s.icon className="w-3.5 h-3.5 text-[#38BDF8] shrink-0" />
