@@ -15,4 +15,8 @@ export const INSTAGRAM_PROFILE = 'https://www.instagram.com/linkcleaning/';
 
 export const INSTAGRAM_REELS: InstaPost[] = [
   { url: 'https://www.instagram.com/reel/DemXO4SMCv1/', caption: '링크클린 현장 릴스' },
+  { url: 'https://www.instagram.com/reel/CyuliQvLjOB/', caption: '링크클린 현장 릴스' },
+  { url: 'https://www.instagram.com/p/DXRdvIwmI-Y/', caption: '링크클린 게시물' },
+  { url: 'https://www.instagram.com/reel/Ddxvcxos8oB/', caption: '링크클린 현장 릴스' },
+  { url: 'https://www.instagram.com/reel/DW6QhHUDKvq/', caption: '링크클린 현장 릴스' },
 ];
