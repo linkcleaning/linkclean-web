@@ -16,6 +16,7 @@ import { PromoSongPlayer } from '../components/PromoSongPlayer';
 import { SwipeRow } from '../components/SwipeRow';
 import { MagazineCard } from '../components/MagazineCard';
 import { BlogNewsSection } from '../components/BlogNewsSection';
+import { InstagramReelsSection } from '../components/InstagramReelsSection';
 import { ReviewSourceBadge } from '../components/ReviewSourceBadge';
 import {
   Calendar,
@@ -478,6 +479,9 @@ export const HomeView: React.FC = () => {
 
       {/* 오늘의 링크클린 새소식 (네이버 블로그 최신 글 자동) */}
       <BlogNewsSection />
+
+      {/* 링크클린 인스타 릴스 (작은 카드 → 누르면 재생) */}
+      <InstagramReelsSection />
 
       {/* 월간 링크 매거진 (작은 카드 → 누르면 플립북) */}
       <MagazineCard />
