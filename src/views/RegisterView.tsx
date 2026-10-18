@@ -55,7 +55,7 @@ export const RegisterView: React.FC = () => {
             링크클린 회원가입
           </h1>
           <p className="text-xs text-slate-500 font-medium">
-            회원가입 후 간편하게 실시간 방문 견적과 내역을 확인하세요.
+            회원가입 후 간편하게 청소 예약과 내역을 확인하세요.
           </p>
         </div>
 

@@ -374,7 +374,7 @@ export const EventView: React.FC = () => {
         <div className="bg-slate-100/80 rounded-2xl p-4 sm:p-6 flex flex-col sm:flex-row items-center justify-between gap-4 border border-slate-200">
           <div className="text-center sm:text-left">
             <h4 className="text-sm font-bold text-[#0A1D37]">이사·입주 청소가 필요하신가요? 🏠</h4>
-            <p className="text-xs text-slate-500 mt-0.5">지금 무료 견적을 받아보세요.</p>
+            <p className="text-xs text-slate-500 mt-0.5">지금 청소 날짜를 예약해보세요.</p>
           </div>
 
           <div className="flex items-center gap-3 w-full sm:w-auto">
@@ -390,7 +390,7 @@ export const EventView: React.FC = () => {
               className="flex-1 sm:flex-initial px-5 py-2.5 rounded-xl bg-[#38BDF8] hover:bg-[#0284C7] text-white font-bold text-xs transition-colors shadow-sm cursor-pointer text-center flex items-center justify-center gap-1.5"
             >
               <Calendar className="w-3.5 h-3.5" />
-              방문 견적 예약하기
+              청소 예약하기
             </button>
           </div>
         </div>

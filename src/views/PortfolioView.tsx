@@ -182,7 +182,7 @@ export const PortfolioView: React.FC = () => {
                 className="w-full sm:w-auto px-6 py-2.5 rounded-full bg-[#38BDF8] hover:bg-[#0EA5E9] text-white font-bold text-xs sm:text-sm shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer"
               >
                 <Calendar className="w-4 h-4" />
-                이와 같은 청소 방문 견적 신청하기
+                이와 같은 청소 예약하기
               </button>
             </div>
           </div>
@@ -208,7 +208,7 @@ export const PortfolioView: React.FC = () => {
               className="px-8 py-3.5 rounded-full bg-[#38BDF8] hover:bg-[#0EA5E9] text-white font-bold text-xs sm:text-sm shadow-md transition-all inline-flex items-center gap-2 cursor-pointer"
             >
               <Calendar className="w-4 h-4 text-white" />
-              방문 견적 예약하기
+              청소 예약하기
             </button>
           </div>
         </div>

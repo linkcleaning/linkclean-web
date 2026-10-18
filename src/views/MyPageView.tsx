@@ -40,7 +40,7 @@ export const MyPageView: React.FC = () => {
         </div>
         <h2 className="text-2xl font-black text-slate-900">로그인이 필요한 페이지입니다</h2>
         <p className="text-slate-500 text-sm">
-          방문 견적 예약 내역 확인 및 관리를 위해 로그인해주세요.
+          청소 예약 내역 확인 및 관리를 위해 로그인해주세요.
         </p>
         <button
           onClick={() => setCurrentView('login')}
@@ -161,10 +161,10 @@ export const MyPageView: React.FC = () => {
           <div>
             <h2 className="text-lg sm:text-xl font-extrabold text-[#0A1D37] flex items-center gap-2">
               <Calendar className="w-5 h-5 text-[#38BDF8]" />
-              내 방문 견적 예약 내역
+              내 청소 예약 내역
             </h2>
             <p className="text-xs text-slate-500 mt-0.5">
-              접수된 실시간 견적 방문 예약 및 진행 현황을 확인하실 수 있습니다.
+              접수된 청소 예약 및 진행 현황을 확인하실 수 있습니다.
             </p>
           </div>
 
@@ -172,7 +172,7 @@ export const MyPageView: React.FC = () => {
             onClick={() => goToReservationWithService('move-in')}
             className="px-4 py-2 rounded-full bg-[#38BDF8] hover:bg-[#0EA5E9] text-white text-xs font-bold transition-all flex items-center gap-1 shadow-sm cursor-pointer"
           >
-            + 새 방문 견적 예약
+            + 새 청소 예약
           </button>
         </div>
 
@@ -183,13 +183,13 @@ export const MyPageView: React.FC = () => {
             </div>
             <h3 className="font-bold text-[#0A1D37]">등록된 예약 내역이 없습니다.</h3>
             <p className="text-xs text-slate-500 max-w-sm mx-auto">
-              공간의 상태를 직접 확인하고 정직한 견적을 안내해드립니다. 지금 원하는 날짜를 선택해보세요.
+              청소 날짜를 먼저 잡아두시면 확인 전화로 정직한 견적을 안내해드립니다.
             </p>
             <button
               onClick={() => goToReservationWithService('move-in')}
               className="px-6 py-2.5 rounded-full bg-[#38BDF8] hover:bg-[#0EA5E9] text-white text-xs font-bold cursor-pointer"
             >
-              방문 견적 예약 신청하기
+              청소 예약 신청하기
             </button>
           </div>
         ) : (
@@ -364,9 +364,9 @@ export const MyPageView: React.FC = () => {
       {showCancelModal && (
         <div className="fixed inset-0 z-50 bg-[#0A1D37]/80 backdrop-blur-sm flex items-center justify-center p-4">
           <div className="bg-white rounded-3xl max-w-sm w-full p-6 space-y-4 shadow-xl border border-slate-100">
-            <h3 className="text-base font-bold text-[#0A1D37]">방문 견적 예약을 취소하시겠습니까?</h3>
+            <h3 className="text-base font-bold text-[#0A1D37]">청소 예약을 취소하시겠습니까?</h3>
             <p className="text-xs text-slate-500">
-              취소 후 필요하실 경우 언제든 새로 방문 견적을 신청하실 수 있습니다.
+              취소 후 필요하실 경우 언제든 새로 청소 예약을 하실 수 있습니다.
             </p>
             <input
               type="text"
@@ -441,7 +441,7 @@ export const MyPageView: React.FC = () => {
             <div className="bg-red-50/60 rounded-2xl p-4 border border-red-100 text-xs text-slate-700 space-y-2 leading-relaxed">
               <p className="font-bold text-red-900">⚠️ 탈퇴 전 반드시 확인해 주세요:</p>
               <ul className="list-disc list-inside space-y-1 text-slate-600 text-[11px]">
-                <li>회원 탈퇴 시 고객님의 가입 정보 및 견적 예약 조회 권한이 즉시 영구 삭제됩니다.</li>
+                <li>회원 탈퇴 시 고객님의 가입 정보 및 청소 예약 조회 권한이 즉시 영구 삭제됩니다.</li>
                 <li>진행 중이거나 예정된 방문 청소 일정이 있으신 경우, 대표 전화(<strong className="text-slate-900 font-bold">064-763-4545</strong>)로 연락 주시면 즉시 일정 확인이 가능합니다.</li>
                 <li>탈퇴 후 언제든지 동일한 정보로 재가입하실 수 있습니다.</li>
               </ul>

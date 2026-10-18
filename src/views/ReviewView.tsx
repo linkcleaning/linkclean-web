@@ -133,7 +133,7 @@ export const ReviewView: React.FC = () => {
             className="px-6 py-3 rounded-xl bg-[#38BDF8] hover:bg-[#0EA5E9] text-white font-bold text-xs sm:text-sm shadow-sm transition-all flex items-center gap-2 cursor-pointer"
           >
             <Calendar className="w-4 h-4 text-white" />
-            방문 견적 예약
+            청소 예약
           </button>
         </div>
       </div>

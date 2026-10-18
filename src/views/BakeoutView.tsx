@@ -148,7 +148,7 @@ export const BakeoutView: React.FC = () => {
               onClick={() => goToReservationWithService('move-in')}
               className="px-6 py-3 rounded-xl bg-[#38BDF8] hover:bg-[#0EA5E9] text-[#0A1D37] font-black text-sm cursor-pointer inline-flex items-center justify-center gap-1.5"
             >
-              <Calendar className="w-4 h-4" /> 입주청소 견적 예약
+              <Calendar className="w-4 h-4" /> 입주청소 예약
             </button>
             <button
               type="button"

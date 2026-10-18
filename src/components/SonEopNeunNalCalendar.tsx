@@ -141,7 +141,7 @@ export const SonEopNeunNalCalendar: React.FC<SonEopNeunNalCalendarProps> = ({
             </h3>
             <p className="mt-1.5 text-xs sm:text-sm text-slate-300 max-w-2xl leading-relaxed">
               이사·입주 수요가 가장 집중되는 <strong className="text-amber-300 font-bold">손없는 날(음력 9·0 끝자리)</strong>을 확인하고,
-              당일 차질 없는 시공을 위해 <strong>2~3주 전 무료 현장 방문 견적</strong>을 먼저 신청해보세요.
+              당일 차질 없는 시공을 위해 <strong>2~3주 전 청소 날짜</strong>를 먼저 예약해두세요.
             </p>
           </div>
 
@@ -422,7 +422,7 @@ export const SonEopNeunNalCalendar: React.FC<SonEopNeunNalCalendarProps> = ({
               onClick={() => handleBookDate(selectedDay.dateString)}
               className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-[#0A1D37] hover:bg-[#02b350] text-white text-xs font-bold transition-all shadow-sm flex items-center justify-center gap-2 cursor-pointer shrink-0"
             >
-              <span>이 날짜로 방문견적 예약</span>
+              <span>이 날짜로 청소 예약</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </button>
           </div>
@@ -464,7 +464,7 @@ export const SonEopNeunNalCalendar: React.FC<SonEopNeunNalCalendarProps> = ({
               className="px-6 py-3 rounded-xl bg-[#38BDF8] hover:bg-sky-500 text-white font-extrabold text-xs transition-all shadow-sm inline-flex items-center justify-center gap-2 cursor-pointer shrink-0"
             >
               <CalendarIcon className="w-4 h-4" />
-              <span>무료 방문 견적 신청하기</span>
+              <span>청소 날짜 예약하기</span>
             </button>
           </div>
         </div>
@@ -483,7 +483,7 @@ export const SonEopNeunNalCalendar: React.FC<SonEopNeunNalCalendarProps> = ({
                   이사 당일 추가금 분쟁 100% 방지
                 </strong>
                 <p className="leading-relaxed text-slate-500">
-                  현장을 미리 보지 않고 유선으로만 견적을 내면 시공 당일 찌든 오염이나 구조적 이유로 추가 요금이 발생할 수 있습니다. 링크클린은 사전에 직접 방문해 확정 금액을 약속합니다.
+                  현장을 미리 보지 않고 유선으로만 견적을 내면 시공 당일 찌든 오염이나 구조적 이유로 추가 요금이 발생할 수 있습니다. 링크클린은 확인 전화로 꼼꼼히 여쭙고, 필요하면 직접 방문해 확정 금액을 약속합니다.
                 </p>
               </div>
               <div className="space-y-1">

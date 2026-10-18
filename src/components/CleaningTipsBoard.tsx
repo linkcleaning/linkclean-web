@@ -109,7 +109,7 @@ export const CleaningTipsBoard: React.FC = () => {
   const [formTags, setFormTags] = useState('제주청소, 곰팡이방지');
   const [formImageUrl, setFormImageUrl] = useState(PRESET_IMAGES[0].url);
   const [formPromoBadge, setFormPromoBadge] = useState('선착순 혜택');
-  const [formPromoActionText, setFormPromoActionText] = useState('프로모션 혜택으로 견적 예약');
+  const [formPromoActionText, setFormPromoActionText] = useState('프로모션 혜택으로 청소 예약');
   const [formServiceLink, setFormServiceLink] = useState<ServiceType>('move-in');
   const [formError, setFormError] = useState('');
 
@@ -642,7 +642,7 @@ export const CleaningTipsBoard: React.FC = () => {
                 </div>
                 <div className="text-sm font-bold">
                   {activeModalPost.type === 'promo'
-                    ? '제주 전지역 무료 방문 견적 예약 시 즉시 혜택이 적용됩니다.'
+                    ? '제주 전지역 무료 청소 예약 시 즉시 혜택이 적용됩니다.'
                     : '혼자 하기 힘든 청소, 링크클린 베테랑 팀장이 해결해 드립니다.'}
                 </div>
               </div>
@@ -656,7 +656,7 @@ export const CleaningTipsBoard: React.FC = () => {
                 className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-[#38BDF8] hover:bg-[#0EA5E9] text-[#0A1D37] font-extrabold text-xs shadow-md transition-colors cursor-pointer shrink-0 flex items-center justify-center gap-1.5"
               >
                 <Calendar className="w-4 h-4" />
-                <span>{activeModalPost.promoActionText || '전문가 방문 견적 신청하기'}</span>
+                <span>{activeModalPost.promoActionText || '청소 예약하기'}</span>
               </button>
             </div>
           </div>
