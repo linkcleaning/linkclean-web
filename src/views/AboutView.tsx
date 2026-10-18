@@ -167,7 +167,7 @@ export const AboutView: React.FC = () => {
             id="about-reserve-btn"
           >
             <Calendar className="w-4 h-4" />
-            방문 견적 예약하기
+            청소 예약하기
           </button>
         </div>
       </div>

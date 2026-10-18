@@ -1,1 +1,1 @@
-build: magazine
+build: cleaning-reservation

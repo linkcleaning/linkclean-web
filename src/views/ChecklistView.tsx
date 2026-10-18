@@ -375,7 +375,7 @@ export const ChecklistView: React.FC<{ kind?: ChecklistKind }> = ({ kind = 'newh
           onClick={() => goToReservationWithService('move-in')}
           className="w-full py-3.5 rounded-xl bg-[#38BDF8] hover:bg-[#0EA5E9] text-white font-black text-sm flex items-center justify-center gap-1.5 cursor-pointer"
         >
-          <Calendar className="w-4 h-4" /> 링크클린 입주청소 견적 예약
+          <Calendar className="w-4 h-4" /> 링크클린 입주청소 예약
         </button>
       </div>
     </div>

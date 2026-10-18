@@ -488,7 +488,7 @@ export const JejuWeatherWidget: React.FC<JejuWeatherWidgetProps> = ({ className 
                 className="w-full sm:w-auto px-5 py-2.5 rounded-full bg-[#0284C7] hover:bg-[#0369A1] text-white font-bold text-xs shadow-sm transition-colors cursor-pointer flex items-center justify-center gap-1.5"
               >
                 <Calendar className="w-4 h-4" />
-                날씨 좋은 날로 무료 방문 견적 신청하기
+                날씨 좋은 날로 청소 예약하기
               </button>
             </div>
           </div>

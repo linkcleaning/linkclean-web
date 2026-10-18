@@ -1,8 +1,9 @@
-import { CleaningDateHint } from './CleaningDateHint';
+import { BookingProcessNotice } from './BookingProcessNotice';
+import { TEAMS_PER_DAY, getScheduledTeams, BOOKING_FLOW_TEXT } from '../data/bookingProcess';
 import { RefundPolicyList } from './RefundPolicyList';
 import { REFUND_POLICY_SUMMARY } from '../data/refundPolicy';
 import React, { useState, useMemo } from 'react';
-import { useApp, STANDARD_TIME_SLOTS, isSeptemberDate } from '../context/AppContext';
+import { useApp } from '../context/AppContext';
 import { ServiceType, PropertyType, Reservation } from '../types';
 import { checkSonEopNeunNal } from '../utils/lunarCalendar';
 import {
@@ -45,17 +46,15 @@ const PROPERTY_TYPES: PropertyType[] = [
 export const ReservationWizard: React.FC = () => {
   const {
     createReservation,
-    isSlotAvailable,
     currentUser,
     setCurrentView,
     preselectedReservationService,
     timeSlotConfigs,
-    openRenewalNotice
+    reservations
   } = useApp();
 
   // Wizard Step: 1 -> 2 -> 3 -> 4 -> 5 -> 6(Confirmed)
   const [currentStep, setCurrentStep] = useState<number>(1);
-  const [cleaningDateHint, setCleaningDateHint] = useState<string>('');
 
   // Form State
   const [selectedDate, setSelectedDate] = useState<string>(() => {
@@ -68,13 +67,9 @@ export const ReservationWizard: React.FC = () => {
     } catch {
       // ignore
     }
-    // default to tomorrow
-    const d = new Date();
-    d.setDate(d.getDate() + 1);
-    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+    return ''; // 청소 날짜는 손님이 달력에서 직접 고름
   });
-
-  const [selectedTime, setSelectedTime] = useState<string>('');
+  const DATE_UNDECIDED = '날짜 미정';
   const [serviceType, setServiceType] = useState<ServiceType>(preselectedReservationService || 'move-in');
   const [propertyType, setPropertyType] = useState<PropertyType>('아파트');
   const [area, setArea] = useState<string>('30평');
@@ -118,15 +113,25 @@ export const ReservationWizard: React.FC = () => {
     return today.getMonth();
   }); // 0-indexed
 
-  // Auto-select first available time slot if current selectedTime is empty or unavailable
+  // 날짜별 남은 팀 수 (하루 2팀 운영 - 기존 일정 - 이 기기에서 접수된 예약)
+  const teamsLeft = React.useCallback(
+    (dateString: string, isSon = false): number => {
+      const config = timeSlotConfigs[dateString];
+      if (config?.isHoliday || config?.isClosed) return 0;
+      const mine = reservations.filter((r) => r.visit_date === dateString && r.status !== 'CANCELLED').length;
+      return Math.max(0, TEAMS_PER_DAY - getScheduledTeams(dateString, isSon) - mine);
+    },
+    [timeSlotConfigs, reservations]
+  );
+
+  // 미리 골라 온 날짜가 이미 마감이면 선택 해제
   React.useEffect(() => {
-    if (!selectedTime || !isSlotAvailable(selectedDate, selectedTime)) {
-      const firstAvailable = STANDARD_TIME_SLOTS.find((s) => isSlotAvailable(selectedDate, s));
-      if (firstAvailable) {
-        setSelectedTime(firstAvailable);
-      }
+    if (selectedDate && selectedDate !== DATE_UNDECIDED && /^\d{4}-\d{2}-\d{2}$/.test(selectedDate)) {
+      const [y, m, d] = selectedDate.split('-').map(Number);
+      if (teamsLeft(selectedDate, checkSonEopNeunNal(y, m, d).isSonEopNeunNal) <= 0) setSelectedDate('');
     }
-  }, [selectedDate, isSlotAvailable, selectedTime]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // Generate days in month for calendar
   const calendarDays = useMemo(() => {
@@ -143,6 +148,7 @@ export const ReservationWizard: React.FC = () => {
       isAllFull: boolean;
       isHoliday: boolean;
       isSonEopNeunNal: boolean;
+      left: number;
     }[] = [];
 
     // Prev month padding
@@ -158,7 +164,8 @@ export const ReservationWizard: React.FC = () => {
         isSelectable: false,
         isAllFull: false,
         isHoliday: false,
-        isSonEopNeunNal: false
+        isSonEopNeunNal: false,
+        left: 0
       });
     }
 
@@ -167,17 +174,15 @@ export const ReservationWizard: React.FC = () => {
       const dateString = `${calendarYear}-${String(calendarMonth + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
       const thisDate = new Date(calendarYear, calendarMonth, d);
       const todayZero = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-      const isPast = thisDate <= todayZero; // Same-day or past is not allowed for on-site estimator scheduling
+      const isPast = thisDate <= todayZero; // 당일·지난 날짜는 예약 불가
 
       const config = timeSlotConfigs[dateString];
       const isHoliday = !!config?.isHoliday;
 
-      // Check if all standard slots are unavailable
-      const hasAnyAvailableSlot = !isHoliday && STANDARD_TIME_SLOTS.some((slot) => isSlotAvailable(dateString, slot));
-      const isAllFull = !isPast && !hasAnyAvailableSlot;
-      const isSelectable = !isPast && !isHoliday && hasAnyAvailableSlot;
-
       const sonInfo = checkSonEopNeunNal(calendarYear, calendarMonth + 1, d);
+      const left = isPast || isHoliday ? 0 : teamsLeft(dateString, sonInfo.isSonEopNeunNal);
+      const isAllFull = !isPast && !isHoliday && left <= 0;
+      const isSelectable = !isPast && !isHoliday && left > 0;
 
       days.push({
         dateString,
@@ -187,7 +192,8 @@ export const ReservationWizard: React.FC = () => {
         isSelectable,
         isAllFull,
         isHoliday,
-        isSonEopNeunNal: sonInfo.isSonEopNeunNal
+        isSonEopNeunNal: sonInfo.isSonEopNeunNal,
+        left
       });
     }
 
@@ -204,12 +210,13 @@ export const ReservationWizard: React.FC = () => {
         isSelectable: false,
         isAllFull: false,
         isHoliday: false,
-        isSonEopNeunNal: false
+        isSonEopNeunNal: false,
+        left: 0
       });
     }
 
     return days;
-  }, [calendarYear, calendarMonth, today, timeSlotConfigs, isSlotAvailable]);
+  }, [calendarYear, calendarMonth, today, timeSlotConfigs, teamsLeft]);
 
   const handlePrevMonth = () => {
     if (calendarMonth === 0) {
@@ -252,7 +259,7 @@ export const ReservationWizard: React.FC = () => {
   // Form Validation per step
   // 손님이 모든 칸을 채우지 않아도 다음 단계로 넘어갈 수 있게 함.
   // 접수에 꼭 필요한 것은 연락처와 개인정보 동의뿐 (나머지는 상담 때 확인)
-  const canProceedStep1 = true;
+  const canProceedStep1 = !!selectedDate; // 청소 날짜(또는 '날짜 미정')는 꼭 골라야 함
   const canProceedStep2 = true;
   const canProceedStep3 = true;
   const canProceedStep4 = phone.replace(/[^0-9]/g, '').length >= 9 && agreePrivacy && agreeContact && agreeRefund;
@@ -270,13 +277,13 @@ export const ReservationWizard: React.FC = () => {
         email: email.trim(),
         service_type: serviceType,
         visit_date: selectedDate,
-        visit_time: selectedTime || '협의',
+        visit_time: '시간 협의',
         address,
         address_detail: addressDetail,
         property_type: propertyType,
         area,
-        customer_message: customerMessage,
-        cleaning_date_hint: cleaningDateHint.trim(),
+        customer_message: ['[청소 날짜 예약 · 확인전화 필요]', customerMessage].filter(Boolean).join(' '),
+        cleaning_date_hint: selectedDate === DATE_UNDECIDED ? '미정(상담 후 결정)' : `${selectedDate} (청소 예약일)`,
         refund_agreed: agreeRefund,
         uploaded_images: uploadedImages
       });
@@ -319,11 +326,13 @@ export const ReservationWizard: React.FC = () => {
           </div>
 
           <h2 className="text-2xl sm:text-3xl font-extrabold text-[#0A1D37] tracking-tight mb-2">
-            방문 견적 신청이 완료되었습니다.
+            청소 예약 신청이 접수되었습니다.
           </h2>
-          <p className="text-slate-600 text-xs sm:text-sm leading-relaxed mb-8 max-w-md mx-auto">
-            신청하신 내용을 담당자가 확인한 후 입력하신 연락처로 방문 일정을 신속히 안내드립니다.
+          <p className="text-slate-600 text-xs sm:text-sm leading-relaxed mb-5 max-w-md mx-auto">
+            담당자가 확인 후 남겨주신 번호로 <b className="text-[#0A1D37]">확인 전화</b>를 드립니다.
+            필요한 경우에만 방문 견적을 진행하고, <b className="text-[#0A1D37]">계약금 입금 시 예약이 확정</b>됩니다.
           </p>
+          <BookingProcessNotice compact className="mb-8" />
 
           {/* Reservation Details Box */}
           <div className="bg-slate-50/80 border border-slate-100 rounded-3xl p-6 text-left space-y-3.5 mb-8">
@@ -334,17 +343,11 @@ export const ReservationWizard: React.FC = () => {
               </span>
             </div>
             <div className="flex items-center justify-between text-xs sm:text-sm">
-              <span className="text-slate-500 font-medium">방문 예정 일시</span>
+              <span className="text-slate-500 font-medium">청소 희망 날짜</span>
               <span className="font-extrabold text-[#0A1D37]">
-                {completedReservation.visit_date} {completedReservation.visit_time}
+                {completedReservation.visit_date}
               </span>
             </div>
-            {completedReservation.cleaning_date_hint && (
-              <div className="flex items-center justify-between text-xs sm:text-sm">
-                <span className="text-slate-500 font-medium">청소 희망일</span>
-                <span className="font-extrabold text-[#0A1D37]">{completedReservation.cleaning_date_hint}</span>
-              </div>
-            )}
             <div className="flex items-center justify-between text-xs sm:text-sm">
               <span className="text-slate-500 font-medium">신청 서비스</span>
               <span className="font-bold text-[#0A1D37]">{serviceName}</span>
@@ -368,7 +371,7 @@ export const ReservationWizard: React.FC = () => {
             <AlertCircle className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
             <div>
               <strong className="font-bold block text-amber-950 mb-0.5">중요 안내</strong>
-              예약 신청은 담당자 확인 후 최종 확정되며, 기재해주신 전화번호로 사전 연락을 드립니다.
+              지금은 <b>예약 신청(날짜 임시 보관)</b> 상태예요. 확인 전화 후 계약금을 입금하시면 날짜가 최종 확정됩니다.
             </div>
           </div>
 
@@ -410,15 +413,17 @@ export const ReservationWizard: React.FC = () => {
       <div className="text-center mb-8">
         <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-extrabold bg-[#38BDF8]/10 text-[#38BDF8] border border-[#38BDF8]/20 mb-3">
           <Sparkles className="w-3.5 h-3.5" />
-          실시간 방문견적 간편 예약
+          하루 2팀 운영 · 실시간 예약 현황
         </span>
         <h1 className="text-2xl sm:text-4xl font-extrabold text-[#0A1D37] tracking-tight">
-          방문 견적 예약 신청
+          청소 예약
         </h1>
         <p className="text-slate-600 text-xs sm:text-sm mt-2 max-w-xl mx-auto leading-relaxed">
-          원하는 날짜와 시간을 직접 선택하세요. 현장을 직접 확인하고 투명한 견적을 안내해드립니다.
+          청소 날짜를 먼저 잡아두세요. 링크클린이 확인 전화로 금액과 작업 범위를 안내해드립니다.
         </p>
       </div>
+
+      <BookingProcessNotice className="mb-6" />
 
       {/* 온라인 접수 안내 */}
       <div className="mb-6 rounded-2xl bg-emerald-50 border border-emerald-200 px-4 py-3 flex items-center justify-between gap-3">
@@ -438,7 +443,7 @@ export const ReservationWizard: React.FC = () => {
       <div className="mb-8 sm:mb-10">
         <div className="grid grid-cols-5 gap-1.5 sm:gap-3 text-center">
           {[
-            { step: 1, label: '날짜/시간', icon: CalendarIcon },
+            { step: 1, label: '청소날짜', icon: CalendarIcon },
             { step: 2, label: '서비스', icon: Sparkles },
             { step: 3, label: '공간정보', icon: Home },
             { step: 4, label: '고객정보', icon: User },
@@ -487,10 +492,10 @@ export const ReservationWizard: React.FC = () => {
           <div className="space-y-8 animate-in fade-in duration-200">
             <div>
               <h2 className="text-xl sm:text-2xl font-extrabold text-[#0A1D37] tracking-tight">
-                ① 방문을 원하는 날짜와 시간을 선택해주세요.
+                ① 청소를 원하는 날짜를 선택해주세요.
               </h2>
               <p className="text-xs sm:text-sm text-slate-500 mt-1">
-                신축 입주 및 이사 일정에 맞추어 원하는 일시를 선택하실 수 있습니다.
+                링크클린은 품질을 위해 <b className="text-[#0A1D37]">하루 2팀만 운영</b>합니다. 날짜별 남은 팀을 확인하세요.
               </p>
             </div>
 
@@ -550,37 +555,34 @@ export const ReservationWizard: React.FC = () => {
                       key={idx}
                       type="button"
                       disabled={!day.isSelectable}
-                      onClick={() => {
-                        setSelectedDate(day.dateString);
-                        // reset or pick available time slot for newly selected date
-                        if (!selectedTime || !isSlotAvailable(day.dateString, selectedTime)) {
-                          const firstAvailable = STANDARD_TIME_SLOTS.find((s) => isSlotAvailable(day.dateString, s));
-                          setSelectedTime(firstAvailable || '');
-                        }
-                      }}
-                      className={`h-11 sm:h-13 rounded-2xl flex flex-col items-center justify-center text-xs sm:text-sm font-semibold transition-all relative cursor-pointer ${buttonStyles}`}
+                      onClick={() => setSelectedDate(day.dateString)}
+                      className={`h-12 sm:h-14 rounded-xl sm:rounded-2xl flex flex-col items-center justify-center text-xs sm:text-sm font-semibold transition-all relative cursor-pointer ${buttonStyles}`}
                     >
-                      <span className="relative z-10">{day.dayNumber}</span>
                       {day.isSonEopNeunNal && day.isCurrentMonth && (
                         <span
-                          className={`text-[8px] font-black px-1 rounded-sm leading-none mt-0.5 ${
-                            isSelected
-                              ? 'bg-amber-400 text-slate-950 font-black'
-                              : 'bg-amber-100 text-amber-800 border border-amber-300/70'
-                          }`}
+                          className="absolute top-0.5 right-0.5 text-[7px] sm:text-[8px] font-black px-0.5 rounded-sm leading-none bg-amber-400 text-slate-950"
                           title="손없는 날 (이사 길일)"
                         >
                           손
                         </span>
                       )}
-                      {day.isHoliday && (
-                        <span className="text-[9px] text-red-400 font-normal">휴무</span>
-                      )}
-                      {day.isAllFull && (
-                        <span className="text-[9px] text-slate-400 font-normal">마감</span>
-                      )}
-                      {isSelected && !day.isSonEopNeunNal && (
-                        <div className="w-1.5 h-1.5 rounded-full bg-[#38BDF8] mt-0.5" />
+                      <span className="relative z-10 leading-none">{day.dayNumber}</span>
+                      {day.isCurrentMonth && !day.isPast && (
+                        <span
+                          className={`mt-1 text-[8px] sm:text-[10px] font-bold leading-none whitespace-nowrap ${
+                            day.isHoliday
+                              ? 'text-red-400'
+                              : day.isAllFull
+                              ? 'text-slate-400'
+                              : isSelected
+                              ? 'text-[#38BDF8]'
+                              : day.left === 1
+                              ? 'text-orange-500'
+                              : 'text-emerald-600'
+                          }`}
+                        >
+                          {day.isHoliday ? '휴무' : day.isAllFull ? '마감' : day.left === 1 ? '1팀 남음' : '2팀 가능'}
+                        </span>
                       )}
                     </button>
                   );
@@ -598,82 +600,46 @@ export const ReservationWizard: React.FC = () => {
                   <span className="text-amber-700 font-bold">손없는 날 (이사 길일)</span>
                 </div>
                 <div className="flex items-center gap-1.5">
-                  <div className="w-3 h-3 rounded-full bg-white border border-slate-300" />
-                  <span>예약 가능</span>
+                  <span className="text-[10px] font-bold text-emerald-600">2팀 가능</span>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <span className="text-[10px] font-bold text-orange-500">1팀 남음</span>
                 </div>
                 <div className="flex items-center gap-1.5">
                   <div className="w-3 h-3 rounded-full bg-slate-200" />
-                  <span>마감 / 예약 불가</span>
+                  <span>마감 (2팀 모두 예약)</span>
                 </div>
               </div>
             </div>
 
-            {/* Time Slot Selection (Section 21) */}
-            <div>
-              <div className="flex items-center justify-between mb-2">
-                <h3 className="font-extrabold text-[#0A1D37] text-sm sm:text-base flex items-center gap-2">
-                  <Clock className="w-4 h-4 text-[#38BDF8]" />
-                  방문 희망 시간 선택 ({selectedDate})
-                </h3>
-                <span className="text-xs text-slate-500">마감된 시간대는 선택이 제한됩니다.</span>
+            {/* 선택한 청소 날짜 / 날짜 미정 */}
+            <div className="flex flex-col sm:flex-row sm:items-center gap-2.5">
+              <div className={`flex-1 rounded-2xl border px-4 py-3 text-sm ${selectedDate ? 'bg-[#0A1D37] border-[#0A1D37] text-white' : 'bg-slate-50 border-slate-200 text-slate-500'}`}>
+                {selectedDate ? (
+                  <>
+                    <span className="text-[11px] text-[#38BDF8] font-bold block">선택한 청소 날짜</span>
+                    <span className="font-extrabold">{selectedDate}</span>
+                    {selectedDate !== DATE_UNDECIDED && (
+                      <span className="text-[11px] text-slate-300 ml-2">· 시작 시간은 확인 전화 때 맞춰드려요</span>
+                    )}
+                  </>
+                ) : (
+                  <span className="font-bold">위 달력에서 청소 날짜를 눌러주세요</span>
+                )}
               </div>
-
-              {/* 9월 한정: 하루 2타임 오픈 안내 */}
-              {isSeptemberDate(selectedDate) && (
-                <div className="mb-3 px-3.5 py-2.5 rounded-2xl bg-amber-50/90 border border-amber-200 text-xs flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 shadow-2xs">
-                  <div className="flex items-center gap-2">
-                    <span className="font-extrabold text-amber-800 bg-amber-200/90 px-2 py-0.5 rounded text-[11px] whitespace-nowrap">
-                      9월 예약 정책
-                    </span>
-                    <span className="text-slate-700 font-medium">
-                      현장 정밀 실측과 작업 품질을 위해 <strong className="text-amber-950 font-bold">하루 2타임(오전/오후)</strong>만 오픈됩니다.
-                    </span>
-                  </div>
-                  <span className="text-[11px] font-bold text-amber-700 whitespace-nowrap">
-                    (선택 가능 외 나머지 5개 시간대는 예약마감)
-                  </span>
-                </div>
-              )}
-
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
-                {STANDARD_TIME_SLOTS.map((time) => {
-                  const available = isSlotAvailable(selectedDate, time);
-                  const isSelected = selectedTime === time;
-
-                  return (
-                    <button
-                      key={time}
-                      type="button"
-                      disabled={!available}
-                      onClick={() => setSelectedTime(time)}
-                      className={`py-3 px-3 rounded-2xl border text-xs sm:text-sm font-bold flex flex-col items-center justify-center transition-all cursor-pointer ${
-                        !available
-                          ? 'bg-slate-100 border-slate-200 text-slate-400 cursor-not-allowed opacity-75'
-                          : isSelected
-                          ? 'bg-[#0A1D37] border-[#0A1D37] text-white shadow-sm ring-2 ring-[#38BDF8]'
-                          : 'bg-white border-slate-100 text-[#0A1D37] hover:border-[#38BDF8]/50 hover:bg-blue-50/40 shadow-xs'
-                      }`}
-                    >
-                      <span className="text-sm sm:text-base">{time}</span>
-                      <span className={`text-[10px] mt-0.5 font-medium ${
-                        !available ? 'text-red-500 font-bold' : isSelected ? 'text-[#38BDF8]' : 'text-emerald-600'
-                      }`}>
-                        {!available ? '예약마감' : '예약가능'}
-                      </span>
-                    </button>
-                  );
-                })}
-              </div>
+              <button
+                type="button"
+                onClick={() => setSelectedDate(DATE_UNDECIDED)}
+                className={`shrink-0 px-4 py-3 rounded-2xl border text-xs font-bold cursor-pointer ${
+                  selectedDate === DATE_UNDECIDED ? 'bg-[#38BDF8] border-[#38BDF8] text-white' : 'bg-white border-slate-200 text-slate-600 hover:border-[#38BDF8]'
+                }`}
+              >
+                아직 날짜 미정 · 상담 후 결정
+              </button>
             </div>
-
-            {/* 실제 청소 희망일 (대략) */}
-            <div className="mt-6 p-4 sm:p-5 rounded-2xl bg-amber-50/60 border border-amber-200/70">
-              <h3 className="font-extrabold text-[#0A1D37] text-sm sm:text-base">🧹 실제 청소는 언제쯤 원하세요?</h3>
-              <p className="text-[11px] sm:text-xs text-slate-500 mt-0.5 mb-3">
-                위 날짜는 <b>방문 견적일</b>이에요. 청소 날짜는 대략만 알려주셔도 일정 잡기가 훨씬 수월합니다. (선택)
-              </p>
-              <CleaningDateHint value={cleaningDateHint} onChange={setCleaningDateHint} />
-            </div>
+            <p className="text-[11px] text-slate-500 -mt-4">
+              ※ 날짜를 고르면 확인 전화 전까지 임시로 잡아둡니다. 진행 순서: {BOOKING_FLOW_TEXT}
+            </p>
 
             {/* Step 1 Actions */}
             <div className="pt-6 border-t border-slate-100 flex justify-end">
@@ -770,7 +736,7 @@ export const ReservationWizard: React.FC = () => {
                 ③ 청소하실 공간을 알려주세요.
               </h2>
               <p className="text-xs sm:text-sm text-slate-500 mt-1">
-                정확한 현장 방문과 정확한 견적 산출을 위한 기초 정보입니다.
+                확인 전화 때 정확한 금액을 안내드리기 위한 기초 정보입니다.
               </p>
             </div>
 
@@ -833,7 +799,7 @@ export const ReservationWizard: React.FC = () => {
                 type="text"
                 value={addressDetail}
                 onChange={(e) => setAddressDetail(e.target.value)}
-                placeholder="예: 104동 1201호 (방문 견적을 위해 필요합니다)"
+                placeholder="예: 104동 1201호"
                 className="w-full px-4 py-3 rounded-2xl border border-slate-200 bg-slate-50/50 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-[#38BDF8] focus:border-[#38BDF8]"
               />
             </div>
@@ -920,7 +886,7 @@ export const ReservationWizard: React.FC = () => {
                 ④ 예약자 정보를 입력해주세요.
               </h2>
               <p className="text-xs sm:text-sm text-slate-500 mt-1">
-                방문 일정 조율 및 견적 안내를 위해 연락 가능한 번호를 정확히 적어주세요.
+                확인 전화와 일정 안내를 위해 연락 가능한 번호를 정확히 적어주세요.
               </p>
               <p className="mt-2 inline-flex items-center gap-1.5 text-[11px] sm:text-xs font-bold text-emerald-700 bg-emerald-50 border border-emerald-100 px-3 py-1.5 rounded-full">
                 ✅ 휴대폰 번호만 있으면 접수돼요. 나머지는 상담 때 여쭤볼게요!
@@ -975,7 +941,7 @@ export const ReservationWizard: React.FC = () => {
                 <p className="font-extrabold text-[#0A1D37]">회원가입 없이 예약됩니다</p>
                 <p className="mt-0.5">
                   남겨주신 성함·연락처·주소는 <b>회원가입이나 광고 목적으로 사용하지 않으며</b>, 이번 예약의
-                  견적 상담 · 일정 안내 · 청소 진행에만 사용합니다.
+                  확인 전화 · 일정 안내 · 청소 진행에만 사용합니다.
                 </p>
               </div>
             </div>
@@ -990,7 +956,7 @@ export const ReservationWizard: React.FC = () => {
                   className="w-4 h-4 text-[#38BDF8] rounded mt-0.5 accent-[#38BDF8]"
                 />
                 <span className="text-xs text-slate-700 leading-relaxed">
-                  <strong className="text-[#0A1D37] font-bold">[필수]</strong> 개인정보 수집 및 이용 동의 (목적: 방문 견적 상담, 연락처 확인 및 일정 조율)
+                  <strong className="text-[#0A1D37] font-bold">[필수]</strong> 개인정보 수집 및 이용 동의 (목적: 청소 예약 확인 전화, 견적 상담 및 일정 조율)
                 </span>
               </label>
 
@@ -1071,7 +1037,7 @@ export const ReservationWizard: React.FC = () => {
                 ⑤ 예약 내용을 최종 확인해주세요.
               </h2>
               <p className="text-xs sm:text-sm text-slate-500 mt-1">
-                입력하신 정보가 맞는지 검토 후 [방문 견적 신청하기]를 누르시면 접수됩니다.
+                입력하신 정보가 맞는지 검토 후 [청소 예약 신청하기]를 누르시면 접수됩니다.
               </p>
             </div>
 
@@ -1086,16 +1052,10 @@ export const ReservationWizard: React.FC = () => {
             <div className="bg-slate-50/80 border border-slate-100 rounded-3xl p-6 space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pb-4 border-b border-slate-200/70">
                 <div>
-                  <span className="text-xs text-slate-400 font-medium block">방문 예정 일시</span>
+                  <span className="text-xs text-slate-400 font-medium block">청소 희망 날짜</span>
                   <span className="font-extrabold text-sm sm:text-base text-[#0A1D37] flex items-center gap-1.5 mt-0.5">
                     <CalendarIcon className="w-4 h-4 text-[#38BDF8]" />
-                    {selectedDate} ({selectedTime || '시간 협의'})
-                  </span>
-                </div>
-                <div>
-                  <span className="text-xs text-slate-400 font-medium block">청소 희망일 (대략)</span>
-                  <span className="font-extrabold text-sm sm:text-base text-[#0A1D37] mt-0.5 block">
-                    {cleaningDateHint.trim() || '미입력 (상담 시 확인)'}
+                    {selectedDate} (시간은 확인 전화 때 협의)
                   </span>
                 </div>
                 <div>
@@ -1114,7 +1074,7 @@ export const ReservationWizard: React.FC = () => {
                   </span>
                 </div>
                 <div>
-                  <span className="text-xs text-slate-400 font-medium block">방문 주소</span>
+                  <span className="text-xs text-slate-400 font-medium block">청소 주소</span>
                   <span className="font-semibold text-xs sm:text-sm text-slate-700 mt-0.5 block">
                     {address.trim() || addressDetail.trim() ? `${address} ${addressDetail}` : '미입력 (상담 시 확인)'}
                   </span>
@@ -1166,7 +1126,7 @@ export const ReservationWizard: React.FC = () => {
             <div className="bg-blue-50/60 border border-blue-100 rounded-2xl p-4 text-xs text-[#0A1D37] flex items-center gap-3">
               <ShieldCheck className="w-5 h-5 text-[#38BDF8] shrink-0" />
               <div>
-                <strong>링크클린 안심 보증:</strong> 방문 견적은 무료로 진행되며, 현장 확인 후 고객님이 직접 견적서를 확인하시고 청소 여부를 결정하실 수 있습니다.
+                <strong>안심하고 신청하세요:</strong> 신청만으로는 비용이 들지 않습니다. 확인 전화로 금액을 안내받고, 필요하면 무료 방문 견적까지 받아보신 뒤 <b>계약금 입금 시에만 예약이 확정</b>됩니다.
               </div>
             </div>
 
@@ -1195,7 +1155,7 @@ export const ReservationWizard: React.FC = () => {
                 ) : (
                   <>
                     <CheckCircle2 className="w-5 h-5 text-white" />
-                    방문 견적 신청하기
+                    청소 예약 신청하기
                   </>
                 )}
               </button>

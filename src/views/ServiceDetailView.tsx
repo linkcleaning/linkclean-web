@@ -76,7 +76,7 @@ export const ServiceDetailView: React.FC = () => {
               className="px-6 py-3 rounded-xl bg-[#38BDF8] hover:bg-[#0EA5E9] text-white font-bold text-xs sm:text-sm shadow-sm transition-all flex items-center gap-2 cursor-pointer"
             >
               <Calendar className="w-4 h-4 text-white" />
-              이 서비스 방문 견적 예약하기
+              이 서비스 청소 예약하기
             </button>
           </div>
         </div>
@@ -245,10 +245,10 @@ export const ServiceDetailView: React.FC = () => {
         <div className="absolute top-0 right-0 w-64 h-64 bg-[#38BDF8] opacity-10 rounded-full pointer-events-none" />
         <div className="relative z-10 space-y-4">
           <h3 className="text-xl sm:text-3xl font-extrabold tracking-tight">
-            {service.name}, 지금 실시간 방문 견적을 신청하세요.
+            {service.name}, 지금 청소 날짜를 먼저 예약하세요.
           </h3>
           <p className="text-slate-300 text-xs sm:text-sm max-w-lg mx-auto">
-            담당자가 직접 방문하여 투명한 견적을 안내해드립니다. 원하는 날짜와 시간을 선택하세요.
+            날짜를 잡아두시면 확인 전화로 금액을 안내하고, 필요할 때만 방문 견적을 진행합니다.
           </p>
           <div className="pt-2">
             <button
@@ -257,7 +257,7 @@ export const ServiceDetailView: React.FC = () => {
               id="service-detail-final-cta-btn"
             >
               <Calendar className="w-4 h-4 text-white" />
-              방문 견적 예약하기
+              청소 예약하기
             </button>
           </div>
         </div>

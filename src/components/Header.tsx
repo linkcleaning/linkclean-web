@@ -88,7 +88,7 @@ export const Header: React.FC = () => {
     },
     {
       type: 'internal',
-      label: '방문 견적 예약 신청',
+      label: '청소 예약 신청',
       desc: '간편 온라인 예약',
       icon: Calendar,
       action: () => goToReservationWithService('move-in'),
@@ -291,7 +291,7 @@ const naverPhoneConversion = () => {
                       }}
                       className="text-xs font-bold text-[#38BDF8] hover:text-[#0EA5E9] cursor-pointer"
                     >
-                      견적 신청 →
+                      청소 예약 →
                     </button>
                   </div>
                 </div>
@@ -428,15 +428,15 @@ const naverPhoneConversion = () => {
               </div>
             ) : null}
 
-            {/* Crucial CTA Button: [ 방문 견적 예약하기 ] */}
+            {/* Crucial CTA Button: [ 청소 예약하기 ] */}
             <button
               onClick={() => goToReservationWithService('move-in')}
               className="bg-[#38BDF8] hover:bg-[#0EA5E9] text-white px-5 py-2.5 rounded-full text-xs font-bold transition-all shadow-md shadow-blue-200/50 hover:shadow-blue-300/60 cursor-pointer flex items-center gap-2 active:scale-95"
               id="header-cta-reserve-btn"
             >
               <Calendar className="w-3.5 h-3.5" />
-              <span className="2xl:hidden">견적 예약</span>
-              <span className="hidden 2xl:inline">방문 견적 예약하기</span>
+              <span className="2xl:hidden">청소 예약</span>
+              <span className="hidden 2xl:inline">청소 예약하기</span>
             </button>
           </div>
 
@@ -630,7 +630,7 @@ const naverPhoneConversion = () => {
                 className="w-full mt-2 py-3 rounded-xl bg-[#38BDF8] text-white font-bold text-sm flex items-center justify-center gap-2 shadow-md shadow-blue-400/20 active:scale-98"
               >
                 <Calendar className="w-4 h-4" />
-                방문 견적 예약하기
+                청소 예약하기
               </button>
             </div>
           </div>

@@ -48,14 +48,14 @@ export const MobileBottomBar: React.FC = () => {
           <span>전화</span>
         </a>
 
-        {/* 견적 예약 (짧게) */}
+        {/* 청소 예약 (짧게) */}
         <button
           onClick={() => goToReservationWithService('move-in')}
           className="h-10 flex-1 min-w-0 flex items-center justify-center gap-1 px-2 rounded-xl bg-[#38BDF8] hover:bg-[#0EA5E9] text-white font-bold text-[11px] shadow-md active:scale-95 transition-all cursor-pointer"
           id="mobile-fixed-reserve-btn"
         >
           <CalendarCheck className="w-3.5 h-3.5 text-white shrink-0" />
-          <span className="truncate">견적 예약</span>
+          <span className="truncate">청소 예약</span>
         </button>
 
         {/* 카카오톡 문의 (아이콘) */}

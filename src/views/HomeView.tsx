@@ -180,7 +180,7 @@ export const HomeView: React.FC = () => {
                   id="mobile-hero-reserve-btn"
                 >
                   <Calendar className="w-3.5 h-3.5 text-[#0A1D37]" />
-                  <span>견적 신청</span>
+                  <span>청소 예약</span>
                 </button>
               </div>
 
@@ -305,7 +305,7 @@ export const HomeView: React.FC = () => {
                   className="bg-[#38BDF8] hover:bg-[#0EA5E9] text-[#0A1D37] px-5 py-3 rounded-2xl font-black text-xs sm:text-sm shadow-md transition-all flex items-center gap-2 cursor-pointer active:scale-95"
                 >
                   <Calendar className="w-4 h-4 text-[#0A1D37]" />
-                  <span>사진 견적 신청</span>
+                  <span>청소 예약</span>
                 </button>
               </div>
             </div>
@@ -611,7 +611,7 @@ export const HomeView: React.FC = () => {
                   className="px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg sm:rounded-xl text-[11px] sm:text-xs font-bold text-white bg-[#38BDF8] hover:bg-[#0EA5E9] transition-colors cursor-pointer flex items-center gap-1 shadow-xs"
                 >
                   <Calendar className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
-                  견적 예약
+                  청소 예약
                 </button>
               </div>
             </div>
@@ -904,7 +904,7 @@ export const HomeView: React.FC = () => {
 
             <p className="text-slate-300 text-xs sm:text-base leading-relaxed">
               전화해서 기다릴 필요 없이<br />
-              <strong className="text-white font-bold">원하는 날짜와 시간을 직접 선택하세요.</strong>
+              <strong className="text-white font-bold">원하는 청소 날짜를 먼저 잡아두세요.</strong>
             </p>
 
             <div className="text-base sm:text-xl font-bold text-[#38BDF8]">
@@ -918,12 +918,12 @@ export const HomeView: React.FC = () => {
                 id="final-cta-reserve-btn"
               >
                 <Calendar className="w-4 h-4 text-white" />
-                방문 견적 예약하기
+                청소 예약하기
               </button>
             </div>
 
             <div className="text-[11px] text-slate-400 font-medium tracking-wide">
-              원하는 날짜 선택 → 방문 확인 → 견적 안내
+              날짜 예약 → 확인 전화 → (필요시) 방문 견적 → 계약금 확정 → 청소
             </div>
           </div>
         </div>

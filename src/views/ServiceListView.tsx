@@ -98,7 +98,7 @@ export const ServiceListView: React.FC = () => {
                     className="px-6 py-2.5 rounded-xl bg-[#38BDF8] hover:bg-[#0EA5E9] text-white font-bold text-xs sm:text-sm shadow-sm transition-all cursor-pointer flex items-center gap-1.5"
                   >
                     <Calendar className="w-4 h-4 text-white" />
-                    방문 견적 예약
+                    청소 예약
                   </button>
                 </div>
               </div>

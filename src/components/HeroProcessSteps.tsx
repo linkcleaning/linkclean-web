@@ -1,37 +1,21 @@
 import React, { useState } from 'react';
-import { PhoneCall, Sparkles, Smartphone, CreditCard, ShieldCheck } from 'lucide-react';
+import { CalendarCheck, PhoneCall, MapPin, CreditCard, Sparkles, ShieldCheck } from 'lucide-react';
+import { BOOKING_STEPS } from '../data/bookingProcess';
 
 /**
- * 첫 화면(히어로) 안에 들어가는 "제주에 없어도 안심 4단계" 요약.
- * 예전에는 아래쪽에 따로 있던 4단계 진행 과정 섹션을 위로 합친 것입니다.
+ * 첫 화면(히어로) 안의 "청소 예약 진행 순서" 요약.
+ * 내용은 src/data/bookingProcess.ts 의 BOOKING_STEPS 를 그대로 씁니다.
  */
-const STEPS = [
-  {
-    no: '1',
-    title: '견적 신청',
-    desc: '평수·지역·현장 사진 3~5장을 보내주시면 방문 없이도 빠르게 견적을 안내해 드립니다.',
-    icon: PhoneCall,
-  },
-  {
-    no: '2',
-    title: '현장 실측 & 청소',
-    desc: '약속한 시간에 전용 장비·친환경 약품을 갖춘 청소팀이 방문해 오염도를 보고 작업합니다.',
-    icon: Sparkles,
-  },
-  {
-    no: '3',
-    title: '전·후 사진 리포트',
-    desc: '현장에 안 계셔도 괜찮아요. 주방·욕실·창틀 등 구역별 전/후 사진을 휴대폰으로 보내드립니다.',
-    icon: Smartphone,
-    highlight: true,
-  },
-  {
-    no: '4',
-    title: '검수 후 잔금 결제',
-    desc: '예약 시 예약금만 받고, 사진 리포트 확인 또는 현장 검수 후 잔금을 결제합니다.',
-    icon: CreditCard,
-  },
-];
+const ICONS = [CalendarCheck, PhoneCall, MapPin, CreditCard, Sparkles];
+const STEPS = BOOKING_STEPS.map((s, i) => ({
+  no: String(s.no),
+  title: s.title,
+  short: s.short,
+  desc: s.desc,
+  optional: !!s.optional,
+  icon: ICONS[i] || Sparkles,
+  highlight: i === 0,
+}));
 
 export const HeroProcessSteps: React.FC<{ variant?: 'mobile' | 'desktop' }> = ({ variant = 'mobile' }) => {
   const desktop = variant === 'desktop';
@@ -45,11 +29,11 @@ export const HeroProcessSteps: React.FC<{ variant?: 'mobile' | 'desktop' }> = ({
         <div className="flex items-center justify-between mb-1.5">
           <span className="flex items-center gap-1.5 text-[11px] font-black text-[#38BDF8]">
             <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
-            제주에 없어도 안심되는 4단계
+            청소 예약 진행 순서
           </span>
           <span className="text-[9px] text-slate-400">눌러서 설명 보기</span>
         </div>
-        <div className="grid grid-cols-2 gap-1.5">
+        <div className="grid grid-cols-5 gap-1">
           {STEPS.map((s) => {
             const on = open === s.no;
             return (
@@ -58,7 +42,7 @@ export const HeroProcessSteps: React.FC<{ variant?: 'mobile' | 'desktop' }> = ({
                 type="button"
                 onClick={() => setOpen(on ? null : s.no)}
                 aria-expanded={on}
-                className={`flex items-center gap-1.5 rounded-xl border px-2 py-2 text-left cursor-pointer transition-colors ${
+                className={`flex flex-col items-center gap-1 rounded-xl border px-0.5 py-1.5 text-center cursor-pointer transition-colors ${
                   on
                     ? 'bg-[#38BDF8] border-[#38BDF8] text-[#0A1D37]'
                     : s.highlight
@@ -73,8 +57,8 @@ export const HeroProcessSteps: React.FC<{ variant?: 'mobile' | 'desktop' }> = ({
                 >
                   {s.no}
                 </span>
-                <span className="flex-1 min-w-0 text-[11px] font-extrabold truncate">{s.title}</span>
-                <span className={`text-[9px] transition-transform ${on ? 'rotate-180' : ''}`}>▾</span>
+                <span className="w-full text-[10px] font-extrabold leading-tight whitespace-nowrap">{s.short}</span>
+                {s.optional && <span className={`text-[8px] leading-none ${on ? 'text-[#0A1D37]' : 'text-slate-400'}`}>필요시</span>}
               </button>
             );
           })}
@@ -96,15 +80,15 @@ export const HeroProcessSteps: React.FC<{ variant?: 'mobile' | 'desktop' }> = ({
     <div className={desktop ? '' : 'mb-3.5'}>
       <div className={`flex items-center gap-1.5 font-black text-[#38BDF8] ${desktop ? 'text-xs mb-3' : 'text-[11px] mb-2'}`}>
         <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
-        제주에 없어도 안심되는 4단계 진행
+        청소 예약 진행 순서 · 제주에 안 계셔도 사진 리포트로 확인
       </div>
 
-      <ol className={desktop ? 'grid grid-cols-2 lg:grid-cols-4 gap-2.5' : 'space-y-1.5'}>
+      <ol className={desktop ? 'grid grid-cols-2 lg:grid-cols-5 gap-2.5' : 'space-y-1.5'}>
         {STEPS.map((s) => (
           <li
             key={s.no}
             className={`flex gap-2.5 rounded-xl border ${desktop ? 'p-3' : 'p-2.5'} ${
-              s.highlight ? 'bg-[#38BDF8]/10 border-[#38BDF8]/50' : 'bg-white/5 border-white/10'
+              s.highlight ? 'bg-[#38BDF8]/10 border-[#38BDF8]/50' : s.optional ? 'bg-white/5 border-white/20 border-dashed' : 'bg-white/5 border-white/10'
             }`}
           >
             <span
@@ -119,7 +103,7 @@ export const HeroProcessSteps: React.FC<{ variant?: 'mobile' | 'desktop' }> = ({
                 <s.icon className="w-3.5 h-3.5 text-[#38BDF8] shrink-0" />
                 {s.title}
                 {s.highlight && (
-                  <span className="text-[9px] font-black bg-amber-400 text-[#0A1D37] px-1.5 py-0.5 rounded-full">육지 고객 인기</span>
+                  <span className="text-[9px] font-black bg-amber-400 text-[#0A1D37] px-1.5 py-0.5 rounded-full">먼저!</span>
                 )}
               </div>
               <p className={`text-slate-300 leading-snug mt-0.5 ${desktop ? 'text-xs' : 'text-[11px]'}`}>{s.desc}</p>

@@ -1,4 +1,5 @@
 import React from 'react';
+import { BOOKING_STEPS } from '../data/bookingProcess';
 import { useApp } from '../context/AppContext';
 import {
   Calendar,
@@ -167,7 +168,7 @@ export const WhyView: React.FC = () => {
             {
               num: '04',
               title: '끝까지 책임지는 케어',
-              desc: '예약부터 방문 견적, 청소 시공 및 고객 검수까지 불편함 없도록 밀착 안내합니다.'
+              desc: '날짜 예약부터 확인 전화, 청소 시공 및 고객 검수까지 불편함 없도록 밀착 안내합니다.'
             }
           ].map((card) => (
             <div
@@ -210,38 +211,18 @@ export const WhyView: React.FC = () => {
                 링크클린이 처음부터 안내해드립니다.
               </h2>
               <p className="text-slate-300 text-xs sm:text-sm mt-1">
-                신청부터 청소 완료까지 투명하고 체계적인 5단계 프로세스를 진행합니다.
+                청소 날짜 예약부터 청소 완료까지, 투명한 5단계로 진행합니다.
               </p>
             </div>
 
             {/* Mobile: 1-row scroll / Desktop: 5-col grid */}
             <div className="flex overflow-x-auto snap-x snap-mandatory gap-2.5 pb-2 -mx-2 px-2 sm:mx-0 sm:px-0 sm:grid sm:grid-cols-5 sm:gap-3 sm:overflow-visible no-scrollbar">
               {[
-                {
-                  step: 'STEP 01',
-                  title: '방문 견적 신청',
-                  desc: '원하는 날짜와 시간을 선택하고 간단한 정보를 입력해주세요.'
-                },
-                {
-                  step: 'STEP 02',
-                  title: '현장 방문',
-                  desc: '담당자가 직접 방문하여 공간의 상태와 필요한 작업을 확인합니다.'
-                },
-                {
-                  step: 'STEP 03',
-                  title: '견적 안내',
-                  desc: '현장 상태를 바탕으로 필요한 청소 범위와 견적을 안내합니다.'
-                },
-                {
-                  step: 'STEP 04',
-                  title: '청소 진행',
-                  desc: '협의된 작업 내용을 기준으로 꼼꼼하게 청소를 진행합니다.'
-                },
-                {
-                  step: 'STEP 05',
-                  title: '깨끗해진 공간',
-                  desc: '청소 전과 달라진 공간을 직접 확인해보세요.'
-                }
+                ...BOOKING_STEPS.map((b) => ({
+                  step: `STEP 0${b.no}`,
+                  title: b.title,
+                  desc: b.desc
+                }))
               ].map((p, index) => (
                 <div
                   key={p.step}
@@ -275,7 +256,7 @@ export const WhyView: React.FC = () => {
               onClick={() => goToReservationWithService('move-in')}
               className="px-6 py-3 rounded-xl bg-[#38BDF8] hover:bg-[#0EA5E9] text-[#0A1D37] font-black text-sm cursor-pointer"
             >
-              견적 예약하기
+              청소 예약하기
             </button>
             <button
               type="button"
