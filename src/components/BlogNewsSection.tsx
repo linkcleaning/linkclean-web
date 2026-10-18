@@ -21,6 +21,7 @@ interface BlogPost {
 }
 
 const BLOG_URL = 'https://blog.naver.com/linkcleaning';
+// 손없는날 글은 홈페이지에 손없는날 달력이 따로 있어서 새소식에서는 빼고 다음 글을 보여줌
 
 const todayKst = () => new Date(Date.now() + 9 * 3600 * 1000).toISOString().slice(0, 10);
 const daysAgo = (date: string) => {
@@ -52,7 +53,7 @@ export const BlogNewsSection: React.FC = () => {
     let alive = true;
     fetch('/blog.json', { cache: 'no-cache' })
       .then((r) => (r.ok ? r.json() : null))
-      .then((d) => alive && setPosts(Array.isArray(d?.posts) ? d.posts.slice(0, 3) : []))
+      .then((d) => alive && setPosts(Array.isArray(d?.posts) ? d.posts.filter((p: BlogPost) => !/손\s*없는/.test(`${p.title} ${p.category}`)).slice(0, 3) : []))
       .catch(() => alive && setPosts([]));
     return () => {
       alive = false;

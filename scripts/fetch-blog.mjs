@@ -7,7 +7,7 @@ import path from 'node:path';
 const BLOG_ID = 'linkcleaning';
 const RSS = `https://rss.blog.naver.com/${BLOG_ID}.xml`;
 const OUT = path.resolve('public/blog.json');
-const MAX = 6;
+const MAX = 12;
 
 const decode = (s = '') =>
   s
