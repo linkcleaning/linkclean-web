@@ -1,1 +1,1 @@
-build: weather-dates
+build: blog-news
