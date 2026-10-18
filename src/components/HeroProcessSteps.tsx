@@ -91,17 +91,30 @@ export const HeroProcessSteps: React.FC<{ variant?: 'mobile' | 'desktop' }> = ({
         {STEPS.map((s, i) => (
           <li
             key={s.no}
-            className={`relative flex gap-2.5 rounded-xl border ${desktop ? 'p-3' : 'p-2.5'} ${
+            className={`relative flex rounded-xl border ${desktop ? 'flex-col p-3' : 'gap-2.5 p-2.5'} ${
               s.highlight ? 'bg-[#38BDF8]/10 border-[#38BDF8]/50' : s.optional ? 'bg-white/5 border-white/20 border-dashed' : 'bg-white/5 border-white/10'
             }`}
           >
-            <span
-              className={`shrink-0 rounded-full font-black flex items-center justify-center shadow-lg bg-[#38BDF8] text-[#0A1D37] ${
-                desktop ? 'w-11 h-11 text-xl' : 'w-9 h-9 text-lg'
-              }`}
-            >
-              {s.no}
-            </span>
+            {s.highlight && desktop && (
+              <span className="absolute -top-2 right-2 text-[9px] font-black bg-amber-400 text-[#0A1D37] px-1.5 py-0.5 rounded-full">먼저!</span>
+            )}
+            <div className="flex items-center gap-2">
+              <span
+                className={`shrink-0 rounded-full font-black flex items-center justify-center shadow-lg bg-[#38BDF8] text-[#0A1D37] ${
+                  desktop ? 'w-10 h-10 text-lg' : 'w-9 h-9 text-lg'
+                }`}
+              >
+                {s.no}
+              </span>
+              <div className="min-w-0">
+                <div className={`font-extrabold text-white flex items-center gap-1 whitespace-nowrap ${desktop ? 'text-sm' : 'text-xs'}`}>
+                  <s.icon className="w-3.5 h-3.5 text-[#38BDF8] shrink-0" />
+                  {s.title.replace(/\s*\(필요할 때만\)/, '')}
+                </div>
+                {s.optional && <span className="text-[10px] text-slate-400 font-bold">필요할 때만</span>}
+              </div>
+            </div>
+            <p className={`text-slate-300 leading-snug ${desktop ? 'text-xs mt-2' : 'text-[11px]'}`}>{s.desc}</p>
             {desktop && i < STEPS.length - 1 && (
               <span
                 className="hidden lg:flex absolute top-1/2 -right-[19px] -translate-y-1/2 z-10 w-6 h-6 rounded-full bg-[#0A1D37] border border-[#38BDF8]/60 text-[#38BDF8] text-sm font-black items-center justify-center"
@@ -110,16 +123,6 @@ export const HeroProcessSteps: React.FC<{ variant?: 'mobile' | 'desktop' }> = ({
                 ›
               </span>
             )}
-            <div className="min-w-0">
-              <div className={`font-extrabold text-white flex items-center gap-1.5 ${desktop ? 'text-sm' : 'text-xs'}`}>
-                <s.icon className="w-3.5 h-3.5 text-[#38BDF8] shrink-0" />
-                {s.title}
-                {s.highlight && (
-                  <span className="text-[9px] font-black bg-amber-400 text-[#0A1D37] px-1.5 py-0.5 rounded-full">먼저!</span>
-                )}
-              </div>
-              <p className={`text-slate-300 leading-snug mt-0.5 ${desktop ? 'text-xs' : 'text-[11px]'}`}>{s.desc}</p>
-            </div>
           </li>
         ))}
       </ol>

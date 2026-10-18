@@ -4,7 +4,7 @@ import { INSTAGRAM_REELS, INSTAGRAM_PROFILE, InstaPost } from '../data/instagram
 
 /** 인스타 게시물 주소 → 임베드 주소 (reel / p / tv 모두) */
 const embedUrl = (url: string) => {
-  const m = url.match(/instagram\.com\/(reel|reels|p|tv)\/([A-Za-z0-9_-]+)/);
+  const m = url.match(/instagram\.com\/(?:[A-Za-z0-9_.]+\/)?(reel|reels|p|tv)\/([A-Za-z0-9_-]+)/);
   if (!m) return '';
   const kind = m[1] === 'reels' ? 'reel' : m[1];
   return `https://www.instagram.com/${kind}/${m[2]}/embed/`;
