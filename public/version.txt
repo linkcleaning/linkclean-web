@@ -1,1 +1,1 @@
-build: insta-thumbs
+build: news-reel

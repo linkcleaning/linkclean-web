@@ -39,9 +39,6 @@ jobs:
       - name: Fetch Naver blog latest posts (RSS)
         run: node scripts/fetch-blog.mjs || true
 
-      - name: Fetch Instagram cover images
-        run: node scripts/fetch-insta-thumbs.mjs || true
-
       - name: Fetch Instagram latest posts (needs INSTAGRAM_TOKEN secret)
         run: node scripts/fetch-instagram.mjs || true
         env:
