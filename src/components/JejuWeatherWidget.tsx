@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { WeatherIcon } from './WeatherIcon';
 import { JejuCityType, JejuDailyWeather } from '../types';
 import { useJejuWeather } from '../utils/liveWeather';
 import { 
@@ -44,21 +45,9 @@ export const JejuWeatherWidget: React.FC<JejuWeatherWidgetProps> = ({ className 
     : '';
 
   // Weather icon helper
-  const renderWeatherIcon = (condition: JejuDailyWeather['condition'], iconClassName = 'w-5 h-5') => {
-    switch (condition) {
-      case 'sunny':
-        return <Sun className={`${iconClassName} text-amber-400`} />;
-      case 'cloudy':
-      case 'fog':
-        return <Cloud className={`${iconClassName} text-sky-200`} />;
-      case 'rain':
-        return <CloudRain className={`${iconClassName} text-blue-300`} />;
-      case 'windy':
-        return <Wind className={`${iconClassName} text-teal-200`} />;
-      default:
-        return <Sun className={`${iconClassName} text-amber-400`} />;
-    }
-  };
+  const renderWeatherIcon = (condition: JejuDailyWeather['condition'], iconClassName = 'w-5 h-5') => (
+    <WeatherIcon condition={condition} className={iconClassName} />
+  );
 
   const getCleaningBadgeColor = (index: JejuDailyWeather['cleaningIndex']) => {
     switch (index) {
@@ -112,7 +101,7 @@ export const JejuWeatherWidget: React.FC<JejuWeatherWidgetProps> = ({ className 
         /* 휴대폰용 컴팩트 날씨 카드 */
         <div className={`rounded-2xl bg-[#0A1D37] text-white px-3 py-2.5 shadow-sm border border-slate-700 ${className}`}>
           <div className="flex items-center gap-2">
-            <div className="shrink-0">{renderWeatherIcon(activeDay.condition, 'w-5 h-5')}</div>
+            <div className="shrink-0">{renderWeatherIcon(activeDay.condition, 'w-8 h-8')}</div>
             <div className="flex items-baseline gap-1 min-w-0">
               <span className="text-base font-black">{activeDay.tempHigh}°</span>
               <span className="text-[11px] font-bold text-amber-300 truncate">{activeDay.conditionText}</span>
@@ -152,7 +141,7 @@ export const JejuWeatherWidget: React.FC<JejuWeatherWidgetProps> = ({ className 
               <span key={day.date} className={`flex flex-col items-center leading-none py-1 rounded-lg ${idx === 0 ? 'bg-[#38BDF8]/25 ring-1 ring-[#38BDF8] text-white' : 'bg-white/10 text-white'}`}>
                 <span className="text-[11px] font-black text-white">{parseInt(day.date.slice(8), 10)}일</span>
                 <span className={`mt-0.5 text-[9px] font-bold ${idx === 0 ? 'text-[#7DD3FC]' : 'text-slate-300'}`}>{idx === 0 ? '오늘' : day.dayOfWeek}</span>
-                <span className="my-0.5">{renderWeatherIcon(day.condition, 'w-3.5 h-3.5')}</span>
+                <span className="my-0.5">{renderWeatherIcon(day.condition, 'w-6 h-6')}</span>
                 <span className="text-[11px] font-black">{day.tempHigh}°</span>
               </span>
             ))}
@@ -239,7 +228,7 @@ export const JejuWeatherWidget: React.FC<JejuWeatherWidgetProps> = ({ className 
             <div className="flex items-center justify-between mb-1.5">
               <div className="flex items-center gap-2">
                 <div className="p-1.5 rounded-xl bg-white/15 border border-white/20">
-                  {renderWeatherIcon(activeDay.condition, 'w-5 h-5')}
+                  {renderWeatherIcon(activeDay.condition, 'w-8 h-8')}
                 </div>
                 <div>
                   <div className="flex items-baseline gap-1.5">
@@ -322,7 +311,7 @@ export const JejuWeatherWidget: React.FC<JejuWeatherWidgetProps> = ({ className 
                     {idx === 0 ? '오늘' : day.dayOfWeek}
                   </span>
                   <div className="my-0.5 flex justify-center">
-                    {renderWeatherIcon(day.condition, isSelected ? 'w-3.5 h-3.5' : 'w-3 h-3')}
+                    {renderWeatherIcon(day.condition, isSelected ? 'w-6 h-6' : 'w-5 h-5')}
                   </div>
                   <span className={`text-[9px] font-black leading-none ${isSelected ? 'text-[#0A1D37]' : 'text-white'}`}>
                     {day.tempHigh}°
@@ -420,7 +409,7 @@ export const JejuWeatherWidget: React.FC<JejuWeatherWidgetProps> = ({ className 
                     {/* Left: Date & Condition */}
                     <div className="flex items-center gap-3">
                       <div className="p-2 bg-white rounded-xl shadow-2xs border border-slate-100">
-                        {renderWeatherIcon(day.condition, 'w-5 h-5')}
+                        {renderWeatherIcon(day.condition, 'w-7 h-7')}
                       </div>
                       <div>
                         <div className="flex items-center gap-2">

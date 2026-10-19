@@ -1,1 +1,1 @@
-build: news-colors
+build: weather-icons
