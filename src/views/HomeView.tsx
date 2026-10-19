@@ -15,6 +15,7 @@ import { MobileCollapse } from '../components/MobileCollapse';
 import { PromoSongPlayer } from '../components/PromoSongPlayer';
 import { SwipeRow } from '../components/SwipeRow';
 import { MagazineCard } from '../components/MagazineCard';
+import { LinkAppsCard } from '../components/LinkAppsCard';
 import { BlogNewsSection } from '../components/BlogNewsSection';
 import { FinalBookingCta } from '../components/FinalBookingCta';
 import { ReviewSourceBadge } from '../components/ReviewSourceBadge';
@@ -458,8 +459,11 @@ export const HomeView: React.FC = () => {
       {/* 오늘의 링크클린 새소식 (네이버 블로그 최신 글 자동) */}
       <BlogNewsSection />
 
-      {/* 월간 링크 매거진 (작은 카드 → 누르면 플립북) */}
-      <MagazineCard />
+      {/* 월간 링크 매거진 + 링크클린이 만든 무료 생활앱 (PC: 나란히) */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4">
+        <MagazineCard bare />
+        <LinkAppsCard />
+      </section>
 
       {/* 신축 입주 안내 — 피톤치드는 링크클린이, 베이크아웃은 고객님이 (누르면 방법 페이지) */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

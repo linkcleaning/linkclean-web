@@ -1,1 +1,1 @@
-build: full-dates-2
+build: link-apps
