@@ -1,1 +1,1 @@
-build: weather-icons
+build: sonday-bold

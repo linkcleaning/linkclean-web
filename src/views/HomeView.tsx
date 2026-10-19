@@ -216,20 +216,20 @@ export const HomeView: React.FC = () => {
 
             <button
               onClick={() => setIsSonEopNeunNalModalOpen(true)}
-              className="col-span-2 p-2.5 bg-white rounded-xl border border-rose-200 shadow-xs text-left flex items-center gap-2 active:bg-rose-50 cursor-pointer"
+              className="col-span-2 p-2.5 rounded-xl bg-gradient-to-r from-rose-500 via-red-500 to-orange-500 text-white shadow-sm text-left cursor-pointer active:opacity-90"
             >
-              <span className="shrink-0 flex items-center gap-1 text-xs font-black text-[#0A1D37]">
-                <Calendar className="w-4 h-4 text-rose-500" />
-                {bentoMonth}월 손없는 날
+              <span className="flex items-center gap-1.5">
+                <span className="text-[10px] font-black bg-white text-red-600 px-1.5 py-0.5 rounded-full shrink-0">손없는 날</span>
+                <span className="text-xs font-black">🧹 이런 날 청소·이사하세요!</span>
+                <span className="ml-auto text-[10px] font-bold flex items-center shrink-0">{bentoMonth}월 달력<ChevronRight className="w-3.5 h-3.5" /></span>
               </span>
-              <span className="flex-1 min-w-0 flex gap-1 overflow-x-auto no-scrollbar">
+              <span className="mt-1.5 flex gap-1 overflow-x-auto no-scrollbar">
                 {bentoAuspiciousDays.map((d) => (
-                  <span key={d.dateString} className="shrink-0 text-[10px] font-black text-white bg-red-500 px-1.5 py-0.5 rounded">
+                  <span key={d.dateString} className="shrink-0 text-[11px] font-black text-red-600 bg-white px-1.5 py-0.5 rounded">
                     {d.day}일({d.dayOfWeek})
                   </span>
                 ))}
               </span>
-              <ChevronRight className="w-3.5 h-3.5 text-slate-400 shrink-0" />
             </button>
 
             <button
@@ -388,63 +388,65 @@ export const HomeView: React.FC = () => {
             </button>
           </div>
 
-          {/* Bento Cell 3: 손없는 날 — 가로 한 줄 */}
+          {/* Bento Cell 3: 손없는 날 — 눈에 띄게 (PC: 날씨와 한 줄) */}
           <div
             id="bento-cell-son-eop-neun-nal"
             onClick={() => setIsSonEopNeunNalModalOpen(true)}
-            className="sm:col-span-2 lg:col-span-12 bg-white rounded-3xl border border-rose-200/80 hover:border-rose-400 shadow-sm hover:shadow-md transition-all px-5 py-3.5 flex flex-wrap lg:flex-nowrap items-center gap-3 cursor-pointer group"
+            className="sm:col-span-2 lg:col-span-7 rounded-3xl bg-gradient-to-br from-rose-500 via-red-500 to-orange-500 text-white shadow-md hover:shadow-lg transition-all px-5 py-4 flex flex-col justify-center gap-2.5 cursor-pointer group relative overflow-hidden"
           >
-            <span className="shrink-0 flex items-center gap-1.5 text-sm font-black text-[#0A1D37]">
-              <span className="w-7 h-7 rounded-lg bg-rose-50 text-rose-600 flex items-center justify-center">
-                <Calendar className="w-4 h-4" />
+            <span className="absolute -right-6 -top-8 text-[110px] leading-none opacity-15 select-none" aria-hidden="true">🏠</span>
+            <div className="relative flex items-center gap-2 flex-wrap">
+              <span className="text-[11px] font-black bg-white text-red-600 px-2 py-0.5 rounded-full">손없는 날</span>
+              <span className="text-base xl:text-lg font-black tracking-tight">🧹 이런 날 청소·이사하세요!</span>
+              <span className="ml-auto flex items-center gap-0.5 bg-white/15 rounded-full px-1">
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setBentoMonthOffset((prev) => prev - 1);
+                  }}
+                  className="p-1 rounded-full hover:bg-white/20 cursor-pointer"
+                  title="이전 달"
+                >
+                  <ChevronLeft className="w-3.5 h-3.5" />
+                </button>
+                <span className="text-xs font-black whitespace-nowrap">
+                  {bentoYear}년 {bentoMonth}월
+                </span>
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setBentoMonthOffset((prev) => prev + 1);
+                  }}
+                  className="p-1 rounded-full hover:bg-white/20 cursor-pointer"
+                  title="다음 달"
+                >
+                  <ChevronRight className="w-3.5 h-3.5" />
+                </button>
               </span>
-              손없는 날
-            </span>
-            <span className="shrink-0 flex items-center gap-0.5">
-              <button
-                type="button"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setBentoMonthOffset((prev) => prev - 1);
-                }}
-                className="p-1 rounded-md hover:bg-slate-100 text-slate-600 cursor-pointer"
-                title="이전 달"
-              >
-                <ChevronLeft className="w-3.5 h-3.5" />
-              </button>
-              <span className="text-xs font-black text-[#0A1D37] whitespace-nowrap">
-                {bentoYear}년 {bentoMonth}월
-              </span>
-              <button
-                type="button"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setBentoMonthOffset((prev) => prev + 1);
-                }}
-                className="p-1 rounded-md hover:bg-slate-100 text-slate-600 cursor-pointer"
-                title="다음 달"
-              >
-                <ChevronRight className="w-3.5 h-3.5" />
-              </button>
-            </span>
-            <span className="flex-1 min-w-0 flex gap-1.5 overflow-x-auto no-scrollbar">
+            </div>
+            <div className="relative flex flex-wrap gap-1.5">
               {bentoAuspiciousDays.map((d) => (
                 <span
                   key={d.dateString}
-                  className="shrink-0 text-[11px] font-black text-white bg-red-500 px-2 py-1 rounded-md whitespace-nowrap"
+                  className="text-xs font-black text-red-600 bg-white px-2.5 py-1 rounded-lg shadow-sm whitespace-nowrap"
                 >
-                  {d.day}일({d.dayOfWeek})
+                  {d.day}일 ({d.dayOfWeek})
                 </span>
               ))}
-              {bentoAuspiciousDays.length === 0 && <span className="text-xs text-slate-400">이 달은 손없는 날이 없습니다</span>}
-            </span>
-            <span className="shrink-0 text-[11px] font-bold text-[#38BDF8] group-hover:text-rose-600 flex items-center gap-0.5 whitespace-nowrap">
-              달력 크게보기 <ChevronRight className="w-3.5 h-3.5" />
-            </span>
+              {bentoAuspiciousDays.length === 0 && <span className="text-xs text-white/80">이 달은 손없는 날이 없습니다</span>}
+            </div>
+            <div className="relative flex items-center justify-between text-[11px] text-white/90">
+              <span>이사·입주 길일이라 예약이 빨리 차요. 미리 잡아두세요!</span>
+              <span className="font-black flex items-center gap-0.5 whitespace-nowrap group-hover:underline">
+                달력 크게보기 <ChevronRight className="w-3.5 h-3.5" />
+              </span>
+            </div>
           </div>
 
-          {/* Bento Cell 4: 제주도 날씨 & 1주일 청소 예보 (제주시 / 서귀포시) */}
-          <JejuWeatherWidget compact className="sm:col-span-2 lg:col-span-12 rounded-3xl! px-5! py-3.5!" />
+          {/* Bento Cell 4: 제주도 날씨 & 1주일 청소 예보 (PC: 오른쪽 좁게) */}
+          <JejuWeatherWidget compact className="sm:col-span-2 lg:col-span-5 rounded-3xl! px-4! py-3!" />
         </div>
       </section>
 
