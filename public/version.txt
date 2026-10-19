@@ -1,1 +1,1 @@
-build: news-no-sonday
+build: google-blog

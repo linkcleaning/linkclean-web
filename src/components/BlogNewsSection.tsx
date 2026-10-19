@@ -12,6 +12,7 @@ const embedUrl = (url: string) => {
  * 배포할 때(3시간마다 자동) scripts/fetch-blog.mjs 가 블로그 RSS를 읽어 public/blog.json 을 만듭니다.
  */
 interface BlogPost {
+  source?: 'naver' | 'google';
   title: string;
   link: string;
   summary: string;
@@ -22,6 +23,18 @@ interface BlogPost {
 
 const BLOG_URL = 'https://blog.naver.com/linkcleaning';
 // 손없는날 글은 홈페이지에 손없는날 달력이 따로 있어서 새소식에서는 빼고 다음 글을 보여줌
+
+// 손없는날 글 제외, 구글 블로그 최신 1개는 꼭 포함 + 나머지는 최신순 (총 3개)
+const pickPosts = (all: BlogPost[]): BlogPost[] => {
+  const list = all.filter((p) => !/손\s*없는/.test(`${p.title} ${p.category}`));
+  const google = list.find((p) => p.source === 'google');
+  const picked = google ? [google] : [];
+  for (const p of list) {
+    if (picked.length >= 3) break;
+    if (p !== google) picked.push(p);
+  }
+  return picked.sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+};
 
 const todayKst = () => new Date(Date.now() + 9 * 3600 * 1000).toISOString().slice(0, 10);
 const daysAgo = (date: string) => {
@@ -53,7 +66,7 @@ export const BlogNewsSection: React.FC = () => {
     let alive = true;
     fetch('/blog.json', { cache: 'no-cache' })
       .then((r) => (r.ok ? r.json() : null))
-      .then((d) => alive && setPosts(Array.isArray(d?.posts) ? d.posts.filter((p: BlogPost) => !/손\s*없는/.test(`${p.title} ${p.category}`)).slice(0, 3) : []))
+      .then((d) => alive && setPosts(Array.isArray(d?.posts) ? pickPosts(d.posts) : []))
       .catch(() => alive && setPosts([]));
     return () => {
       alive = false;
@@ -70,16 +83,27 @@ export const BlogNewsSection: React.FC = () => {
             <Newspaper className="w-4 h-4 sm:w-5 sm:h-5 text-[#03C75A]" />
             오늘의 링크클린 새소식
           </h2>
-          <a
-            href={BLOG_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="shrink-0 inline-flex items-center gap-1 text-[11px] sm:text-xs font-bold text-[#03C75A] hover:underline"
-          >
-            <span className="w-4 h-4 rounded bg-[#03C75A] text-white flex items-center justify-center font-black text-[9px]">N</span>
-            블로그 전체
-            <ChevronRight className="w-3.5 h-3.5" />
-          </a>
+          <span className="shrink-0 flex items-center gap-2.5">
+            <a
+              href={BLOG_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 text-[11px] sm:text-xs font-bold text-[#03C75A] hover:underline"
+            >
+              <span className="w-4 h-4 rounded bg-[#03C75A] text-white flex items-center justify-center font-black text-[9px]">N</span>
+              네이버
+            </a>
+            <a
+              href="https://linkdole.blogspot.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 text-[11px] sm:text-xs font-bold text-orange-500 hover:underline"
+            >
+              <span className="w-4 h-4 rounded bg-orange-500 text-white flex items-center justify-center font-black text-[9px]">B</span>
+              구글 블로그
+              <ChevronRight className="w-3.5 h-3.5" />
+            </a>
+          </span>
         </div>
 
         <div className={`grid grid-cols-1 gap-2 sm:gap-3 ${reel ? 'lg:grid-cols-4' : ''}`}>
@@ -115,11 +139,14 @@ export const BlogNewsSection: React.FC = () => {
                         onError={(e) => ((e.currentTarget as HTMLImageElement).style.display = 'none')}
                       />
                     ) : (
-                      <span className="w-16 h-16 sm:w-20 sm:h-20 shrink-0 rounded-lg bg-emerald-50 text-[#03C75A] flex items-center justify-center font-black text-lg">N</span>
+                      <span className={`w-16 h-16 sm:w-20 sm:h-20 shrink-0 rounded-lg flex items-center justify-center font-black text-lg ${p.source === 'google' ? 'bg-orange-50 text-orange-500' : 'bg-emerald-50 text-[#03C75A]'}`}>{p.source === 'google' ? 'B' : 'N'}</span>
                     )}
                     <span className="min-w-0 flex-1">
                       <span className="flex items-center gap-1.5 text-[10px] sm:text-[11px] text-slate-400 font-bold">
                         {isNew && <span className="px-1.5 py-0.5 rounded bg-red-500 text-white text-[9px] font-black">NEW</span>}
+                        <span className={`px-1 py-0.5 rounded text-[9px] font-black text-white ${p.source === 'google' ? 'bg-orange-500' : 'bg-[#03C75A]'}`}>
+                          {p.source === 'google' ? '구글 블로그' : '네이버'}
+                        </span>
                         {whenLabel(p.date)}
                         {p.category && <span className="truncate">· {p.category}</span>}
                       </span>
