@@ -13,16 +13,16 @@ const MAGAZINE = {
   cover: 'https://cdnm.heyzine.com/files/uploaded/v3/b9ddb9090b54fda8e90dcde0d7e49c92a9892eca.pdf-thumb.jpg',
 };
 
-export const MagazineCard: React.FC = () => {
+export const MagazineCard: React.FC<{ bare?: boolean }> = ({ bare = false }) => {
   const [open, setOpen] = useState(false);
   const [coverOk, setCoverOk] = useState(true);
 
   return (
-    <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className={bare ? 'h-full' : 'max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'}>
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="w-full text-left rounded-2xl sm:rounded-3xl border border-indigo-200 bg-gradient-to-r from-indigo-50 via-white to-violet-50 shadow-sm hover:shadow-md transition-all p-3 sm:p-4 flex items-center gap-3 sm:gap-5 cursor-pointer"
+        className="w-full h-full text-left rounded-2xl sm:rounded-3xl border border-indigo-200 bg-gradient-to-r from-indigo-50 via-white to-violet-50 shadow-sm hover:shadow-md transition-all p-3 sm:p-4 flex items-center gap-3 sm:gap-5 cursor-pointer"
       >
         {/* 표지 (작게) */}
         <span className="relative w-14 h-[72px] sm:w-16 sm:h-20 shrink-0 rounded-lg overflow-hidden bg-indigo-100 shadow-md ring-1 ring-indigo-200 flex items-center justify-center">
