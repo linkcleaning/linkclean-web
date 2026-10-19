@@ -23,7 +23,7 @@ const APPS = [
     emoji: '🔮',
     name: '띠링 오늘의 운세',
     desc: '재미로 보는 오늘 운세',
-    url: '', // 배포되면 주소 입력
+    url: 'https://ttiring.han0829.workers.dev/',
     tone: 'from-violet-100 to-purple-50 border-violet-200',
   },
 ];
