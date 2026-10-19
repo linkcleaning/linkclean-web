@@ -56,6 +56,15 @@ async function readFeed(url, source) {
 async function main() {
   const results = await Promise.allSettled([readFeed(RSS, 'naver'), readFeed(GOOGLE_RSS, 'google')]);
   results.forEach((r) => r.status === 'rejected' && console.warn('건너뜀:', r.reason?.message));
+  // 진단용: 각 블로그를 몇 개 읽었는지 기록 (public/blog-status.json)
+  fs.writeFileSync(
+    path.resolve('public/blog-status.json'),
+    JSON.stringify({
+      at: new Date().toISOString(),
+      naver: results[0].status === 'fulfilled' ? results[0].value.length : String(results[0].reason?.message),
+      google: results[1].status === 'fulfilled' ? results[1].value.length : String(results[1].reason?.message),
+    })
+  );
   const items = results
     .flatMap((r) => (r.status === 'fulfilled' ? r.value : []))
     .sort((a, b) => b.ts - a.ts)
