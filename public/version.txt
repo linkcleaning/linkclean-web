@@ -1,1 +1,1 @@
-build: sonday-bold
+build: full-dates

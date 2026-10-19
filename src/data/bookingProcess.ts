@@ -10,6 +10,9 @@
 export const TEAMS_PER_DAY = 2;
 export const BUSY_UNTIL = '2026-11-20';
 
+/** 실제로 예약이 꽉 찬 날 (무조건 '마감' 표시). 날짜만 추가/삭제하면 됩니다. */
+export const FULL_DATES: string[] = ['2026-10-26', '2026-11-15'];
+
 export interface BookingStep {
   no: number;
   title: string;
@@ -71,6 +74,7 @@ const seeded = (text: string) => {
 
 /** 기존 일정으로 이미 잡혀 있는 팀 수 (0~2) */
 export const getScheduledTeams = (dateString: string, isSonEopNeunNal = false): number => {
+  if (FULL_DATES.includes(dateString)) return TEAMS_PER_DAY;
   if (dateString > BUSY_UNTIL) return 0;
   const r = seeded(`linkclean-team-${dateString}`);
   const dow = new Date(dateString + 'T00:00:00').getDay();
