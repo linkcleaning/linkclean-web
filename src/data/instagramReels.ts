@@ -15,8 +15,8 @@ export const INSTAGRAM_PROFILE = 'https://www.instagram.com/linkcleaning/';
 
 export const INSTAGRAM_REELS: InstaPost[] = [
   {
-    url: 'https://www.instagram.com/reel/DemXO4SMCv1/',
-    caption: '화장실 물때, 색깔부터 보세요',
-    thumbnail: '/insta/DemXO4SMCv1.jpg',
+    url: 'https://www.instagram.com/reel/Ddxvcxos8oB/',
+    caption: '이게 정말 치워질까요? 쓰레기집 청소 BEFORE & AFTER',
+    thumbnail: '/insta/Ddxvcxos8oB.jpg',
   },
 ];

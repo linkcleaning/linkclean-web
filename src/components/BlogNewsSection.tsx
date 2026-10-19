@@ -24,17 +24,19 @@ interface BlogPost {
 const BLOG_URL = 'https://blog.naver.com/linkcleaning';
 // 손없는날 글은 홈페이지에 손없는날 달력이 따로 있어서 새소식에서는 빼고 다음 글을 보여줌
 
-// 손없는날 글 제외, 구글 블로그 최신 1개는 꼭 포함 + 나머지는 최신순 (총 3개)
+// 손없는날 글 제외 → 네이버 최신 2개 먼저, 그다음 구글 블로그 최신 1개 (구글 글이 없으면 네이버 3개)
 const pickPosts = (all: BlogPost[]): BlogPost[] => {
   const list = all.filter((p) => !/손\s*없는/.test(`${p.title} ${p.category}`));
+  const naver = list.filter((p) => p.source !== 'google');
   const google = list.find((p) => p.source === 'google');
-  const picked = google ? [google] : [];
-  for (const p of list) {
-    if (picked.length >= 3) break;
-    if (p !== google) picked.push(p);
-  }
-  return picked.sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+  return google ? [...naver.slice(0, 2), google] : naver.slice(0, 3);
 };
+
+// 출처별 색 (칸 구분)
+const SRC = {
+  naver: { label: '네이버 블로그', mark: 'N', card: 'border-[#03C75A]/50 bg-emerald-50/60 hover:border-[#03C75A]', chip: 'bg-[#03C75A]' },
+  google: { label: '구글 블로그', mark: 'B', card: 'border-orange-300 bg-orange-50/60 hover:border-orange-500', chip: 'bg-orange-500' },
+} as const;
 
 const todayKst = () => new Date(Date.now() + 9 * 3600 * 1000).toISOString().slice(0, 10);
 const daysAgo = (date: string) => {
@@ -127,31 +129,27 @@ export const BlogNewsSection: React.FC = () => {
                     href={p.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex gap-2.5 rounded-xl border border-slate-200 hover:border-[#03C75A]/60 hover:bg-emerald-50/40 p-2 transition-colors h-full"
+                    className={`flex flex-col gap-1.5 rounded-xl border-2 p-2 transition-colors h-full ${SRC[p.source === 'google' ? 'google' : 'naver'].card}`}
                   >
-                    {p.image ? (
-                      <img
-                        src={p.image}
-                        alt=""
-                        referrerPolicy="no-referrer"
-                        loading="lazy"
-                        className="w-16 h-16 sm:w-20 sm:h-20 shrink-0 rounded-lg object-cover bg-slate-100"
-                        onError={(e) => ((e.currentTarget as HTMLImageElement).style.display = 'none')}
-                      />
-                    ) : (
-                      <span className={`w-16 h-16 sm:w-20 sm:h-20 shrink-0 rounded-lg flex items-center justify-center font-black text-lg ${p.source === 'google' ? 'bg-orange-50 text-orange-500' : 'bg-emerald-50 text-[#03C75A]'}`}>{p.source === 'google' ? 'B' : 'N'}</span>
-                    )}
-                    <span className="min-w-0 flex-1">
-                      <span className="flex items-center gap-1.5 text-[10px] sm:text-[11px] text-slate-400 font-bold">
-                        {isNew && <span className="px-1.5 py-0.5 rounded bg-red-500 text-white text-[9px] font-black">NEW</span>}
-                        <span className={`px-1 py-0.5 rounded text-[9px] font-black text-white ${p.source === 'google' ? 'bg-orange-500' : 'bg-[#03C75A]'}`}>
-                          {p.source === 'google' ? '구글 블로그' : '네이버'}
-                        </span>
-                        {whenLabel(p.date)}
-                        {p.category && <span className="truncate">· {p.category}</span>}
+                    <span className="flex items-center gap-1.5 text-[10px] sm:text-[11px] font-bold text-slate-500 whitespace-nowrap overflow-hidden">
+                      <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-black text-white ${SRC[p.source === 'google' ? 'google' : 'naver'].chip}`}>
+                        {SRC[p.source === 'google' ? 'google' : 'naver'].mark} · {SRC[p.source === 'google' ? 'google' : 'naver'].label}
                       </span>
-                      <span className="block mt-0.5 text-xs sm:text-sm font-extrabold text-[#0A1D37] leading-snug line-clamp-2">{p.title}</span>
-                      {p.summary && <span className="hidden sm:block mt-0.5 text-[11px] text-slate-500 line-clamp-1">{p.summary}</span>}
+                      {isNew && <span className="px-1.5 py-0.5 rounded bg-red-500 text-white text-[9px] font-black">NEW</span>}
+                      <span className="ml-auto">{whenLabel(p.date)}</span>
+                    </span>
+                    <span className="flex gap-2.5">
+                      {p.image ? (
+                        <img
+                          src={p.image}
+                          alt=""
+                          referrerPolicy="no-referrer"
+                          loading="lazy"
+                          className="w-16 h-16 shrink-0 rounded-lg object-cover bg-white"
+                          onError={(e) => ((e.currentTarget as HTMLImageElement).style.display = 'none')}
+                        />
+                      ) : null}
+                      <span className="min-w-0 flex-1 text-xs sm:text-sm font-extrabold text-[#0A1D37] leading-snug line-clamp-3">{p.title}</span>
                     </span>
                   </a>
                 </li>
@@ -168,9 +166,24 @@ export const BlogNewsSection: React.FC = () => {
             tabIndex={0}
             onClick={() => setReelOpen(true)}
             onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && setReelOpen(true)}
-            className="flex gap-2.5 rounded-xl border border-pink-200 hover:border-pink-400 hover:bg-pink-50/50 p-2 text-left cursor-pointer transition-colors"
+            className="flex flex-col gap-1.5 rounded-xl border-2 border-pink-300 bg-pink-50/60 hover:border-pink-500 p-2 text-left cursor-pointer transition-colors"
           >
-            <span className="relative w-16 h-20 sm:w-20 sm:h-24 shrink-0 rounded-lg overflow-hidden bg-gradient-to-br from-amber-400 via-pink-500 to-purple-600">
+            <span className="flex items-center gap-1.5 text-[10px] sm:text-[11px] font-bold whitespace-nowrap">
+              <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-black text-white bg-gradient-to-r from-amber-500 via-pink-500 to-purple-600">
+                <Instagram className="w-3 h-3" /> 인스타 릴스
+              </span>
+              <a
+                href={INSTAGRAM_PROFILE}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={(e) => e.stopPropagation()}
+                className="ml-auto text-slate-500 hover:text-pink-600"
+              >
+                팔로우 →
+              </a>
+            </span>
+            <span className="flex gap-2.5">
+            <span className="relative w-16 h-20 shrink-0 rounded-lg overflow-hidden bg-gradient-to-br from-amber-400 via-pink-500 to-purple-600">
               {reel.thumbnail && (
                 <img src={reel.thumbnail} alt="" loading="lazy" referrerPolicy="no-referrer" className="absolute inset-0 w-full h-full object-cover" />
               )}
@@ -180,22 +193,9 @@ export const BlogNewsSection: React.FC = () => {
                 </span>
               </span>
             </span>
-            <span className="min-w-0 flex-1">
-              <span className="inline-flex items-center gap-1 text-[10px] sm:text-[11px] font-black text-pink-600">
-                <Instagram className="w-3.5 h-3.5" /> 인스타 릴스
-              </span>
-              <span className="block mt-0.5 text-xs sm:text-sm font-extrabold text-[#0A1D37] leading-snug line-clamp-2">
-                {reel.caption || '링크클린 현장 릴스'}
-              </span>
-              <a
-                href={INSTAGRAM_PROFILE}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={(e) => e.stopPropagation()}
-                className="inline-block mt-0.5 text-[10px] sm:text-[11px] font-bold text-slate-400 hover:text-pink-600"
-              >
-                @linkcleaning 팔로우 →
-              </a>
+            <span className="min-w-0 flex-1 text-xs sm:text-sm font-extrabold text-[#0A1D37] leading-snug line-clamp-3">
+              {reel.caption || '링크클린 현장 릴스'}
+            </span>
             </span>
           </div>
         )}
