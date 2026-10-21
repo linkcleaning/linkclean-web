@@ -16,6 +16,7 @@ import {
 } from '../data/initialData';
 import { notifyReservation } from '../utils/notifyReservation';
 import { fetchSheetPortfolio } from '../utils/sheetPortfolio';
+import seoData from '../data/seoPages.json';
 
 export const STANDARD_TIME_SLOTS = [
   '10:00',
@@ -95,6 +96,18 @@ export const getLimitedAllowedSlots = (dateString: string): string[] | null => {
   return picked.sort();
 };
 
+// 페이지별 검색용 주소·제목 (src/data/seoPages.json — 빌드 때 정적 페이지도 같은 내용으로 만듦)
+export const SEO_SITE: string = seoData.site;
+const SEO_PAGE_BY_VIEW: Record<string, { path: string; title: string; description: string }> = Object.fromEntries(
+  seoData.pages.map((p) => [p.view, p])
+);
+const viewFromPath = (pathname: string): AppView | null => {
+  const clean = '/' + pathname.replace(/^\/+|\/+$/g, '') + (pathname.replace(/^\/+|\/+$/g, '') ? '/' : '');
+  if (clean === '/') return null;
+  const hit = seoData.pages.find((p) => p.path === clean);
+  return hit ? (hit.view as AppView) : null;
+};
+
 export type AppView = 
   | 'home'
   | 'about'
@@ -168,6 +181,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   // 주소에 ?view=checklist 처럼 붙어 있으면 그 페이지로 바로 열기 (카톡으로 공유한 링크용)
   const [currentView, setCurrentView] = useState<AppView>(() => {
     try {
+      // 페이지별 주소(/about/, /services/ 등)로 들어오면 그 페이지로
+      const fromPath = viewFromPath(window.location.pathname);
+      if (fromPath) return fromPath;
       const v = new URLSearchParams(window.location.search).get('view');
       if (v && ['checklist', 'defect', 'refund', 'login', 'bakeout', 'why', 'event', 'review', 'portfolio', 'about'].includes(v)) return v as AppView;
     } catch {
@@ -193,6 +209,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     try {
       // 공유 링크(?view=...)로 특정 페이지를 바로 연 경우에는 이벤트 창을 띄우지 않음
       if (new URLSearchParams(window.location.search).get('view')) return false;
+      if (viewFromPath(window.location.pathname)) return false;
       const today = new Date().toISOString().split('T')[0];
       const dismissedDate = localStorage.getItem('linkclean_dismiss_notice_date');
       return dismissedDate !== today;
@@ -362,6 +379,32 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       // ignore
     }
   }, [currentUser]);
+
+  // 페이지가 바뀌면 주소창·제목·설명도 그 페이지에 맞게 (검색·공유용)
+  useEffect(() => {
+    try {
+      const page = SEO_PAGE_BY_VIEW[currentView];
+      if (!page) return;
+      if (window.location.pathname !== page.path) {
+        window.history.pushState({ view: currentView }, '', page.path);
+      }
+      document.title = page.title;
+      document.querySelector('meta[name="description"]')?.setAttribute('content', page.description);
+      document.querySelector('link[rel="canonical"]')?.setAttribute('href', SEO_SITE + page.path);
+    } catch {
+      /* 무시 */
+    }
+  }, [currentView]);
+
+  // 뒤로가기/앞으로가기 버튼
+  useEffect(() => {
+    const onPop = () => {
+      const v = viewFromPath(window.location.pathname);
+      setCurrentView(v || 'home');
+    };
+    window.addEventListener('popstate', onPop);
+    return () => window.removeEventListener('popstate', onPop);
+  }, []);
 
   // Sync with window scroll on view change
   useEffect(() => {
