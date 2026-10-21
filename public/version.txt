@@ -1,1 +1,1 @@
-build: ttiring
+build: seo-pages

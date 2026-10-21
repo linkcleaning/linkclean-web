@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /?view=login
 
-Sitemap: https://linkclean.co.kr/sitemap.xml
+Sitemap: https://www.linkclean.co.kr/sitemap.xml
