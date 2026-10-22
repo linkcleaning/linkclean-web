@@ -4,7 +4,7 @@ import { Phone, Mail, ExternalLink, ChevronDown, BookOpen, MessageCircle, Instag
 import { BrandLogo } from './BrandLogo';
 
 export const Footer: React.FC = () => {
-  const { goToReservationWithService, setCurrentView, currentUser } = useApp();
+  const { goToReservationWithService, setCurrentView, currentUser, goToArea } = useApp();
 
   // 사장님만 아는 관리자 입구: 맨 아래 '© 2016 LINKCLEAN' 글씨를 3초 안에 5번 누르면 로그인 화면으로 이동
   const secretTaps = useRef<number[]>([]);
@@ -150,6 +150,27 @@ const naverPhoneConversion = () => {
               <ChevronDown className={`w-3 h-3 transition-transform ${showDetails ? 'rotate-180' : ''}`} />
             </button>
           </div>
+
+          {/* 지역 안내 페이지 링크 (검색엔진도 따라갈 수 있게 실제 주소로) */}
+          <nav aria-label="서비스 지역" className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] sm:text-xs">
+            <span className="text-slate-300 font-semibold">서비스 지역</span>
+            {[
+              { id: 'jeju-si', href: '/jeju-si/', label: '제주시 입주청소' },
+              { id: 'seogwipo', href: '/seogwipo/', label: '서귀포 입주청소' },
+            ].map((a) => (
+              <a
+                key={a.id}
+                href={a.href}
+                onClick={(e) => {
+                  e.preventDefault();
+                  goToArea(a.id);
+                }}
+                className="underline underline-offset-2 hover:text-slate-200"
+              >
+                {a.label}
+              </a>
+            ))}
+          </nav>
 
           {/* Address Details: Always visible on Desktop, collapsible on Mobile */}
           <div className={`${showDetails ? 'block' : 'hidden'} sm:block text-[11px] text-slate-400 space-y-0.5`}>

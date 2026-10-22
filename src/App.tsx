@@ -9,6 +9,7 @@ import { HomeView } from './views/HomeView';
 import { AboutView } from './views/AboutView';
 import { ServiceListView } from './views/ServiceListView';
 import { ServiceDetailView } from './views/ServiceDetailView';
+import { AreaView } from './views/AreaView';
 import { PortfolioView } from './views/PortfolioView';
 import { ReviewView } from './views/ReviewView';
 import { LoginView } from './views/LoginView';
@@ -42,6 +43,7 @@ const AppContent: React.FC = () => {
         {currentView === 'about' && <AboutView />}
         {currentView === 'services' && <ServiceListView />}
         {currentView === 'service-detail' && <ServiceDetailView />}
+        {currentView === 'area' && <AreaView />}
         {currentView === 'portfolio' && <PortfolioView />}
         {currentView === 'review' && <ReviewView />}
         {currentView === 'event' && <EventView />}

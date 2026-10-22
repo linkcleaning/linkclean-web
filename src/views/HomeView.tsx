@@ -148,10 +148,11 @@ export const HomeView: React.FC = () => {
                   비대면 사진 리포트 안심 시공
                 </span>
               </div>
-              <h1 className="text-xl sm:text-2xl font-black leading-tight mb-2 tracking-tight text-white">
+              <h1 className="text-[11px] font-bold text-blue-200 mb-1 tracking-tight">제주 입주청소·이사청소 전문 링크클린</h1>
+              <p className="text-xl sm:text-2xl font-black leading-tight mb-2 tracking-tight text-white">
                 "제주에 없어도 괜찮아요.<br />
                 <span className="text-[#38BDF8]">청소 전·후를 사진으로</span> 보내드립니다."
-              </h1>
+              </p>
               {/* 4단계 진행 과정 (예전 아래쪽 섹션을 위로 합침) */}
               <HeroProcessSteps />
 
@@ -274,10 +275,11 @@ export const HomeView: React.FC = () => {
               <span className="inline-block bg-[#38BDF8] text-[#0A1D37] px-3 py-1 rounded-full text-[11px] font-black mb-4 tracking-wider">
                 제주 전지역 • 비대면 사진 리포트 안심 시공
               </span>
-              <h1 className="text-3xl sm:text-4xl lg:text-[34px] xl:text-[40px] font-black leading-[1.2] mb-5 tracking-tight text-white lg:whitespace-nowrap">
+              <h2 className="text-sm font-bold text-blue-200 mb-2 tracking-tight">제주 입주청소·이사청소 전문 링크클린</h2>
+              <p className="text-3xl sm:text-4xl lg:text-[34px] xl:text-[40px] font-black leading-[1.2] mb-5 tracking-tight text-white lg:whitespace-nowrap">
                 "제주에 없어도 괜찮아요.<br className="lg:hidden" />{' '}
                 <span className="text-[#38BDF8]">청소 전·후를 사진으로</span> 보내드립니다."
-              </h1>
+              </p>
               <p className="text-slate-300 text-sm sm:text-base mb-7 max-w-lg lg:max-w-none leading-relaxed">
                 육지에서 이사 오시거나 현장에 직접 오지 못하셔도 걱정 마세요.<br />
                 구역별 실시간 고화질 사진 전송과 고객 확인 후 안심 결제로 멀리서도 100% 믿고 맡기실 수 있습니다.

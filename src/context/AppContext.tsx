@@ -98,13 +98,21 @@ export const getLimitedAllowedSlots = (dateString: string): string[] | null => {
 
 // 페이지별 검색용 주소·제목 (src/data/seoPages.json — 빌드 때 정적 페이지도 같은 내용으로 만듦)
 export const SEO_SITE: string = seoData.site;
-const SEO_PAGE_BY_VIEW: Record<string, { path: string; title: string; description: string }> = Object.fromEntries(
-  seoData.pages.map((p) => [p.view, p])
+type SeoPage = { view: string; path: string; title: string; description: string; service?: string; area?: string };
+const SEO_PAGES = seoData.pages as SeoPage[];
+// 페이지 구분 키: 서비스 상세는 서비스별, 지역 페이지는 지역별로 주소가 따로 있음
+const seoKey = (view: string, serviceId?: string, areaId?: string) =>
+  view === 'service-detail' ? `service-detail:${serviceId}` : view === 'area' ? `area:${areaId}` : view;
+const SEO_PAGE_BY_KEY: Record<string, SeoPage> = Object.fromEntries(
+  SEO_PAGES.map((p) => [seoKey(p.view, p.service, p.area), p])
 );
-const viewFromPath = (pathname: string): AppView | null => {
+const pageFromPath = (pathname: string): SeoPage | null => {
   const clean = '/' + pathname.replace(/^\/+|\/+$/g, '') + (pathname.replace(/^\/+|\/+$/g, '') ? '/' : '');
   if (clean === '/') return null;
-  const hit = seoData.pages.find((p) => p.path === clean);
+  return SEO_PAGES.find((p) => p.path === clean) || null;
+};
+const viewFromPath = (pathname: string): AppView | null => {
+  const hit = pageFromPath(pathname);
   return hit ? (hit.view as AppView) : null;
 };
 
@@ -113,6 +121,7 @@ export type AppView =
   | 'about'
   | 'services'
   | 'service-detail'
+  | 'area'
   | 'portfolio'
   | 'review'
   | 'event'
@@ -132,6 +141,8 @@ interface AppContextType {
   setCurrentView: (view: AppView) => void;
   selectedServiceId: ServiceType;
   setSelectedServiceId: (id: ServiceType) => void;
+  selectedAreaId: string;
+  goToArea: (areaId: string) => void;
   currentUser: User | null;
   reservations: Reservation[];
   portfolio: PortfolioItem[];
@@ -191,7 +202,20 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     }
     return 'home';
   });
-  const [selectedServiceId, setSelectedServiceId] = useState<ServiceType>('move-in');
+  const [selectedServiceId, setSelectedServiceId] = useState<ServiceType>(() => {
+    try {
+      return (pageFromPath(window.location.pathname)?.service as ServiceType) || 'move-in';
+    } catch {
+      return 'move-in';
+    }
+  });
+  const [selectedAreaId, setSelectedAreaId] = useState<string>(() => {
+    try {
+      return pageFromPath(window.location.pathname)?.area || 'jeju-si';
+    } catch {
+      return 'jeju-si';
+    }
+  });
   const [preselectedReservationService, setPreselectedReservationService] = useState<ServiceType>('move-in');
 
   // Persistence with LocalStorage
@@ -383,7 +407,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   // 페이지가 바뀌면 주소창·제목·설명도 그 페이지에 맞게 (검색·공유용)
   useEffect(() => {
     try {
-      const page = SEO_PAGE_BY_VIEW[currentView];
+      const page = SEO_PAGE_BY_KEY[seoKey(currentView, selectedServiceId, selectedAreaId)];
       if (!page) return;
       if (window.location.pathname !== page.path) {
         window.history.pushState({ view: currentView }, '', page.path);
@@ -394,13 +418,15 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     } catch {
       /* 무시 */
     }
-  }, [currentView]);
+  }, [currentView, selectedServiceId, selectedAreaId]);
 
   // 뒤로가기/앞으로가기 버튼
   useEffect(() => {
     const onPop = () => {
-      const v = viewFromPath(window.location.pathname);
-      setCurrentView(v || 'home');
+      const hit = pageFromPath(window.location.pathname);
+      if (hit?.service) setSelectedServiceId(hit.service as ServiceType);
+      if (hit?.area) setSelectedAreaId(hit.area);
+      setCurrentView((hit?.view as AppView) || 'home');
     };
     window.addEventListener('popstate', onPop);
     return () => window.removeEventListener('popstate', onPop);
@@ -746,6 +772,11 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setCurrentView('service-detail');
   };
 
+  const goToArea = (areaId: string) => {
+    setSelectedAreaId(areaId);
+    setCurrentView('area');
+  };
+
   const goToReservationWithService = (serviceId: ServiceType = 'move-in') => {
     setPreselectedReservationService(serviceId);
     setCurrentView('reservation');
@@ -758,6 +789,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         setCurrentView,
         selectedServiceId,
         setSelectedServiceId,
+        selectedAreaId,
+        goToArea,
         currentUser,
         reservations: normalizedReservations,
         userReservations,
