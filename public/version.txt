@@ -1,1 +1,1 @@
-build: naver-verify
+build: naver-verify-2
