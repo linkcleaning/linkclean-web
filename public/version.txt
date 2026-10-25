@@ -1,1 +1,1 @@
-build: seo-pages
+build: naver-verify
