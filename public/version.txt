@@ -1,1 +1,1 @@
-build: naver-verify-2
+build: desc-80
