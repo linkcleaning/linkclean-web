@@ -8,7 +8,8 @@
 //    (TS 파일을 읽으므로 tsx 로 실행: npx tsx scripts/prerender-pages.mjs)
 import fs from 'node:fs';
 import path from 'node:path';
-import { SERVICE_DETAILS } from '../src/data/initialData.ts';
+import { SERVICE_DETAILS, INITIAL_REVIEWS } from '../src/data/initialData.ts';
+import { HOME_FAQS } from '../src/data/homeFaqs.ts';
 
 const DIST = path.resolve('dist');
 const { site, pages } = JSON.parse(fs.readFileSync(path.resolve('src/data/seoPages.json'), 'utf8'));
@@ -38,6 +39,89 @@ function serviceBody(id) {
 }
 for (const p of pages) if (p.service && p.body.length === 0) p.body = serviceBody(p.service);
 
+// AI·검색엔진이 그대로 인용하기 좋은 '한눈에 보기' 사실 요약 (홈)
+const FACTS = [
+  '업체명: 링크클린 (LINKCLEAN) · 제주 청소 전문업체 · 제주에서 12년째 운영',
+  '서비스: 입주청소, 이사청소, 거주청소, 준공청소, 상가청소, 사무실청소, 부분청소, 쓰레기집 특수청소, 고소외벽청소(클린앤스카이), 오존 살균 탈취',
+  '자매업체: 서귀포 및 타운하우스 관리는 이케이클린(여성기업)과 함께 운영',
+  '서비스 지역: 제주시·서귀포시 등 제주특별자치도 전지역',
+  '사업장: 서귀포점 서귀포시 서호호근로 86-6 / 제주시점 제주시 도령북길 8 제일상가 2층',
+  '특징: 청소관리사 1급 대표 직접 시공, 품질을 위해 하루 2팀만 운영, 청소 전·후 사진 리포트 확인 후 잔금 결제, 사전 협의 없는 당일 추가금 없음, 미흡한 부분 무상 보완',
+  '견적: 평수·오염도에 따른 현장 실측·사진 기반 맞춤 견적, 필요 시 무료 방문 견적',
+  '연락처: 064-763-4545 (연중무휴 08:30~20:00) · 카카오톡 채널 상담 · 홈페이지 www.linkclean.co.kr 에서 날짜 예약',
+];
+
+// 홈: 사실 요약 + 자주 묻는 질문 본문
+const homePage = pages.find((p) => p.view === 'home');
+if (homePage) {
+  homePage.body = [
+    ...homePage.body,
+    '링크클린 한눈에 보기 — ' + FACTS.join(' | '),
+    ...HOME_FAQS.map((f) => `Q. ${f.q} A. ${f.a}`),
+  ];
+}
+
+// 후기: 네이버 플레이스·당근 실제 후기 원문을 본문에 (검색 로봇·AI가 읽을 수 있게)
+const reviewPage = pages.find((p) => p.path === '/review/');
+if (reviewPage) {
+  reviewPage.body = [
+    ...reviewPage.body,
+    ...INITIAL_REVIEWS.filter((r) => r.isVisible).map(
+      (r) => `${r.source === 'daangn' ? '당근마켓' : '네이버 플레이스'} 후기 (${r.serviceType}, ★${r.rating}): ${r.content}`
+    ),
+  ];
+}
+
+// 페이지별 구조화데이터(JSON-LD): 이동경로, 서비스, 자주 묻는 질문
+const BIZ = { '@id': `${site}/#business` };
+const faqLd = (list) => ({
+  '@type': 'FAQPage',
+  mainEntity: list.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+});
+function pageJsonLd(page) {
+  const url = site + page.path;
+  const graph = [];
+  if (page.view === 'home') {
+    graph.push(faqLd(HOME_FAQS));
+  } else {
+    graph.push({
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: '링크클린', item: `${site}/` },
+        { '@type': 'ListItem', position: 2, name: page.h1, item: url },
+      ],
+    });
+  }
+  const d = page.service && SERVICE_DETAILS[page.service];
+  if (d) {
+    graph.push({
+      '@type': 'Service',
+      '@id': `${url}#service`,
+      name: page.h1,
+      serviceType: page.h1.replace(/^제주\s*/, ''),
+      description: page.description,
+      url,
+      provider: BIZ,
+      areaServed: [{ '@type': 'City', name: '제주시' }, { '@type': 'City', name: '서귀포시' }],
+    });
+    if (d.faqs?.length) graph.push(faqLd(d.faqs.map((f) => ({ q: f.question, a: f.answer }))));
+  }
+  if (page.path === '/jeju-si/' || page.path === '/seogwipo/') {
+    const city = page.path === '/jeju-si/' ? '제주시' : '서귀포시';
+    graph.push({
+      '@type': 'Service',
+      '@id': `${url}#service`,
+      name: page.h1,
+      serviceType: '입주청소·이사청소',
+      description: page.description,
+      url,
+      provider: { '@id': `${site}/#${page.path === '/jeju-si/' ? 'jeju-si' : 'seogwipo'}` },
+      areaServed: { '@type': 'City', name: city },
+    });
+  }
+  return `<script type="application/ld+json">${JSON.stringify({ '@context': 'https://schema.org', '@graph': graph }).replace(/</g, '\\u003c')}</script>`;
+}
+
 function render(page) {
   const url = site + page.path;
   let html = base
@@ -48,7 +132,8 @@ function render(page) {
     .replace(/(<meta property="og:url" content=")[^"]*(")/, `$1${url}$2`)
     .replace(/(<meta name="twitter:title" content=")[^"]*(")/, `$1${esc(page.title)}$2`)
     .replace(/(<meta name="twitter:description" content=")[^"]*(")/, `$1${esc(page.description)}$2`)
-    .replace(/(<link rel="canonical" href=")[^"]*(")/, `$1${url}$2`);
+    .replace(/(<link rel="canonical" href=")[^"]*(")/, `$1${url}$2`)
+    .replace('</head>', () => `    ${pageJsonLd(page)}\n  </head>`);
 
   const content = `
       <div id="seo-content" style="max-width:860px;margin:0 auto;padding:24px 16px;font-family:sans-serif;color:#0A1D37">

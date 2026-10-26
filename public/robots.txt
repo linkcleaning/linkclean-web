@@ -1,4 +1,22 @@
+# 링크클린 — 검색엔진과 AI 검색(ChatGPT·Claude·Perplexity·Gemini 등) 모두 환영합니다
 User-agent: *
+Allow: /
+Disallow: /?view=login
+
+# AI 검색·답변용 로봇 (명시적 허용)
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: GPTBot
+User-agent: ClaudeBot
+User-agent: Claude-SearchBot
+User-agent: Claude-User
+User-agent: PerplexityBot
+User-agent: Perplexity-User
+User-agent: Google-Extended
+User-agent: Applebot-Extended
+User-agent: Bingbot
+User-agent: Yeti
+User-agent: Daumoa
 Allow: /
 Disallow: /?view=login
 

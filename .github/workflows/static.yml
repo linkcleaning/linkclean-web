@@ -62,3 +62,10 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+      # 내용이 바뀌어 배포될 때만(3시간마다 자동 배포는 제외) 검색엔진에 바로 알림
+      - name: Notify search engines (IndexNow → Bing·Naver)
+        if: github.event_name != 'schedule'
+        run: |
+          sleep 30
+          node scripts/indexnow.mjs || true
