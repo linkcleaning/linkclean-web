@@ -535,7 +535,7 @@ export const HomeView: React.FC = () => {
               id: 'residential' as ServiceType,
               title: '거주청소',
               desc: '생활하면서 쌓인 먼지와 오염을 정리하고 쾌적한 생활공간을 만들어드립니다.',
-              img: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&q=80'
+              img: '/images/services/res_living.jpg'
             },
             {
               id: 'commercial' as ServiceType,
