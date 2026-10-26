@@ -1,1 +1,1 @@
-build: glass-photos
+build: movein-photos

@@ -6,7 +6,7 @@ export const SERVICE_DETAILS: Record<string, ServiceDetail> = {
     name: '입주·이사청소',
     tagline: '새로운 시작을 위한 완벽한 첫걸음, 미세먼지와 시공 잔여물까지 철저하게 제거합니다.',
     description: '신축 입주 시 발생하는 시공 분진, 시멘트 가루, 유해 화학물질 및 기존 거주자의 찌든 때와 묵은 먼지를 고온 스팀과 친환경 세제로 완벽히 케어합니다.',
-    mainImage: 'https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?auto=format&fit=crop&w=1200&q=80',
+    mainImage: '/images/services/movein_living.jpg',
     recommendedFor: [
       '신축 아파트, 신축 오피스텔 분진과 독성 물질 제거가 필요한 분',
       '기존 거주자의 흔적, 기름때, 곰팡이가 남아 있는 주택으로 이사하는 분',
@@ -32,9 +32,9 @@ export const SERVICE_DETAILS: Record<string, ServiceDetail> = {
       }
     ],
     workImages: [
-      'https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80'
+      '/images/services/movein_kitchen.jpg',
+      '/images/services/movein_stair.jpg',
+      '/images/portfolio/movein_living_before.jpg'
     ],
     processSteps: [
       { step: '01', title: '현장 실측 및 오염 진단', desc: '자재별(원목, 대리석, 하이그로시 등) 특성을 파악하고 맞춤 전용 약품과 장비를 배정합니다.' },
@@ -504,6 +504,17 @@ export const INITIAL_PORTFOLIO: PortfolioItem[] = [
     beforeImage: '/images/portfolio/waste_room_before.jpg',
     afterImage: '/images/portfolio/waste_room_after.jpg',
     description: '작은방에 쌓인 가구와 짐을 모두 들어내 반출했습니다. 짐 밑에 가려져 있던 바닥 오염까지 드러나 다음 단계 청소를 준비했습니다.',
+    createdAt: '2026-10-26'
+  },
+  {
+    id: 'p-18',
+    title: '[제주시 노형동] 바다 전망 신축 입주청소 — 거실',
+    location: '제주시 노형동',
+    category: '거실',
+    representativeImage: '/images/portfolio/movein_living_after.jpg',
+    beforeImage: '/images/portfolio/movein_living_before.jpg',
+    afterImage: '/images/portfolio/movein_living_after.jpg',
+    description: '제주시 노형동 신축 입주청소 현장입니다. 3명이 함께 작업했습니다. 공사 후 바닥에 내려앉은 시공 분진을 걷어내고 바닥을 닦아 원래 결과 광을 살렸습니다.',
     createdAt: '2026-10-26'
   }
 ];
