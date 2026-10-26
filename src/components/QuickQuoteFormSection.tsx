@@ -135,7 +135,8 @@ export const QuickQuoteFormSection: React.FC = () => {
                   <option value="partial">🏖️ 숙소·펜션·에어비앤비</option>
                   <option value="commercial">☕ 상가·매장청소</option>
                   <option value="office">🏢 사무실청소</option>
-                  <option value="trash">🧹 쓰레기집·특수청소</option>
+                  <option value="trash">🧹 쓰레기집청소</option>
+                  <option value="memorial">🕊️ 유품정리·특수청소</option>
                 </select>
               </div>
               <div className="grid grid-cols-2 sm:contents gap-2 sm:gap-3">

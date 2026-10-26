@@ -1,9 +1,12 @@
 import React from 'react';
 import { useApp } from '../context/AppContext';
-import { Sparkles, Calendar, ShieldCheck, Award, Users, FileCheck } from 'lucide-react';
+import { Sparkles, Calendar, ShieldCheck, Award, Users, FileCheck, ChevronRight } from 'lucide-react';
+import { PressMentionCard } from '../components/PressMentionCard';
+import { SERVICE_DETAILS } from '../data/initialData';
 
 export const AboutView: React.FC = () => {
-  const { goToReservationWithService } = useApp();
+  const { goToReservationWithService, goToServiceDetail } = useApp();
+  const press = SERVICE_DETAILS['memorial']?.press;
 
   return (
     <div className="py-10 sm:py-16 space-y-10 sm:space-y-14 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -97,6 +100,26 @@ export const AboutView: React.FC = () => {
           <p className="text-[11px] text-slate-400 mt-1.5 text-center">사진을 누르면 크게 볼 수 있습니다</p>
         </div>
       </div>
+
+      {/* 언론 보도 */}
+      {press && (
+        <div className="space-y-4">
+          <div>
+            <span className="text-xs font-extrabold text-[#38BDF8] uppercase tracking-wider">PRESS</span>
+            <h3 className="text-2xl sm:text-3xl font-extrabold text-[#0A1D37] tracking-tight mt-1">
+              언론 보도
+            </h3>
+          </div>
+          <PressMentionCard press={press} />
+          <button
+            onClick={() => goToServiceDetail('memorial')}
+            className="inline-flex items-center gap-1 text-xs sm:text-sm font-bold text-slate-600 hover:text-[#0A1D37] cursor-pointer"
+          >
+            유품정리·특수청소 서비스 안내 보기
+            <ChevronRight className="w-4 h-4" />
+          </button>
+        </div>
+      )}
 
       {/* 4 Core Service Principles - Bento 4 Grid */}
       <div className="space-y-6">

@@ -13,7 +13,8 @@ export const ServiceListView: React.FC = () => {
     'commercial',
     'office',
     'partial',
-    'trash'
+    'trash',
+    'memorial'
   ];
 
   const services = SERVICE_IDS.map((id) => SERVICE_DETAILS[id]).filter(Boolean);

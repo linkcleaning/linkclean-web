@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useApp } from '../context/AppContext';
 import { 
   Sparkles, Calendar, User as UserIcon, Shield, Menu, X, LogIn, LogOut, 
-  ChevronDown, ChevronRight, Home, Building2, Briefcase, Trash2, Wrench, 
+  ChevronDown, ChevronRight, Home, Building2, Briefcase, Trash2, Wrench, HeartHandshake, 
   Star, Image as ImageIcon, ExternalLink, MessageCircle, Instagram, BookOpen, Clock
 } from 'lucide-react';
 import { BrandLogo } from './BrandLogo';
@@ -41,7 +41,7 @@ export const Header: React.FC = () => {
     { id: 'event', label: '🎁 이벤트' },
   ] as const;
 
-  // 6 Specialty Cleaning Services
+  // Specialty Cleaning Services
   const cleaningServices: { id: ServiceType; title: string; desc: string; icon: any; badge?: string }[] = [
     { id: 'move-in', title: '입주·이사청소', desc: '신축 분진 & 이전 세입자 흔적 완벽 제거', icon: Home, badge: '인기' },
     { id: 'residential', title: '거주청소', desc: '생활 찌든때, 묵은 곰팡이 대청소', icon: Sparkles },
@@ -49,6 +49,7 @@ export const Header: React.FC = () => {
     { id: 'office', title: '사무실청소', desc: '바닥 왁스 코팅 & 쾌적한 오피스 케어', icon: Briefcase },
     { id: 'partial', title: '부분청소', desc: '주방 기름때, 욕실 곰팡이, 창틀 집중', icon: Wrench },
     { id: 'trash', title: '쓰레기집청소', desc: '100% 비밀보장, 특수소독 & 공간복원', icon: Trash2, badge: '특수' },
+    { id: 'memorial', title: '유품정리·특수청소', desc: '유품 분류·전달부터 오염 제거·탈취까지', icon: HeartHandshake },
   ];
 
   // Quick Links

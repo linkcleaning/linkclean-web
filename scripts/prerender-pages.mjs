@@ -35,6 +35,7 @@ function serviceBody(id) {
     ...d.scopeList.map((s) => `${s.title}: ${s.items.join(', ')}`),
     '진행 순서: ' + d.processSteps.map((p) => `${p.step}. ${p.title} - ${p.desc}`).join(' '),
     ...d.faqs.map((f) => `Q. ${f.question} A. ${f.answer}`),
+    ...(d.press ? [`언론 보도: ${d.press.outlet} (${d.press.date}) 「${d.press.title}」 — ${d.press.summary} 기사: ${d.press.url}`] : []),
     '서비스 지역: 제주시, 서귀포시 등 제주 전지역. 전화 064-763-4545 (연중무휴 08:30~20:00).',
   ];
 }
@@ -43,7 +44,8 @@ for (const p of pages) if (p.service && p.body.length === 0) p.body = serviceBod
 // AI·검색엔진이 그대로 인용하기 좋은 '한눈에 보기' 사실 요약 (홈)
 const FACTS = [
   '업체명: 링크클린 (LINKCLEAN) · 제주 청소 전문업체 · 2016년 설립 · 대표 청소 경력 12년',
-  '서비스: 입주청소, 이사청소, 거주청소, 준공청소, 상가청소, 사무실청소, 부분청소, 쓰레기집 특수청소, 고소외벽청소(클린앤스카이), 오존 살균 탈취',
+  '서비스: 입주청소, 이사청소, 거주청소, 준공청소, 상가청소, 사무실청소, 부분청소, 쓰레기집 특수청소, 유품정리·고독사 현장 특수청소, 고소외벽청소(클린앤스카이), 오존 살균 탈취',
+  '언론 보도: 제주의소리 고독사 기획(2025.03.24)에 특수청소 현장 전문가로 참여 — https://www.jejusori.net/news/articleView.html?idxno=434953',
   '자매업체: 서귀포 및 타운하우스 관리는 이케이클린(여성기업)과 함께 운영',
   '서비스 지역: 제주시·서귀포시 등 제주특별자치도 전지역',
   '사업장: 서귀포점 서귀포시 서호호근로 86-6 / 제주시점 제주시 도령북길 8 제일상가 2층',
