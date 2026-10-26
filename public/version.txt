@@ -1,1 +1,1 @@
-build: real-hall-photos
+build: crew-size
