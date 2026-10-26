@@ -1,1 +1,1 @@
-build: estate-case
+build: waste-case
