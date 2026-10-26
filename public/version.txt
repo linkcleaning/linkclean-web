@@ -1,1 +1,1 @@
-build: waste-case-2
+build: waste-process

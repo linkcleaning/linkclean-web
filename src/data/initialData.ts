@@ -288,9 +288,9 @@ export const SERVICE_DETAILS: Record<string, ServiceDetail> = {
       }
     ],
     workImages: [
-      'https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?auto=format&fit=crop&w=800&q=80'
+      '/images/services/waste_bags_room.jpg',
+      '/images/services/waste_bags_parking.jpg',
+      '/images/services/waste_truck.jpg'
     ],
     processSteps: [
       { step: '01', title: '비대면 안심 상담 및 견적', desc: '사진 접수 또는 방문을 통해 프라이버시를 철저히 지키며 폐기물 양과 작업 범위를 산출합니다.' },
