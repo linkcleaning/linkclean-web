@@ -1,1 +1,1 @@
-build: waste-process
+build: seogwipo-text
