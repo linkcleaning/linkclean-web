@@ -111,7 +111,7 @@ export const SERVICE_DETAILS: Record<string, ServiceDetail> = {
     name: '상가청소',
     tagline: '고객이 문을 열고 들어서는 첫인상, 매출을 올리는 청결한 매장을 완성합니다.',
     description: '카페, 식당, 헤어샵, 피트니스, 학원 등 고객 접객 공간의 바닥 왁스 코팅, 유리창 투명도 복원, 주방 후드 유지관리 및 오픈 전 클리닝을 제공합니다.',
-    mainImage: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1200&q=80',
+    mainImage: '/images/services/hall_stage_floor.jpg',
     recommendedFor: [
       '신규 매장 인테리어 공사 후 그랜드 오픈을 앞둔 대표님',
       '바닥 찌든 때 제거 및 데코타일/에폭시 왁스 코팅이 필요한 매장',
@@ -133,9 +133,9 @@ export const SERVICE_DETAILS: Record<string, ServiceDetail> = {
       }
     ],
     workImages: [
-      'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=800&q=80'
+      '/images/services/hall_seats.jpg',
+      '/images/services/hall_vent.jpg',
+      '/images/services/hall_seat_vacuum.jpg'
     ],
     processSteps: [
       { step: '01', title: '상업 공간 현장 진단', desc: '업종 특성과 동선, 바닥 재질(타일, 에폭시, 원목)에 따른 전용 공법을 수립합니다.' },
@@ -159,7 +159,7 @@ export const SERVICE_DETAILS: Record<string, ServiceDetail> = {
     name: '사무실청소',
     tagline: '직원의 업무 몰입도와 건강을 지키는 쾌적하고 청결한 비즈니스 환경을 만듭니다.',
     description: '오피스 사옥 이전, 리모델링 준공 청소, 바닥 카페트 세척, 유리 파티션 클리닝, 탕비실 및 회의실 위생 관리를 전담합니다.',
-    mainImage: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80',
+    mainImage: '/images/services/hall_aerial.jpg',
     recommendedFor: [
       '사무실 이전 및 인테리어 공사 후 입주 청소가 필요한 기업',
       '공용 카페트 얼룩, 진드기, 미세먼지 습식 세척이 필요한 오피스',
@@ -181,9 +181,9 @@ export const SERVICE_DETAILS: Record<string, ServiceDetail> = {
       }
     ],
     workImages: [
-      'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?auto=format&fit=crop&w=800&q=80'
+      '/images/services/hall_team_wall.jpg',
+      '/images/services/stair_down.jpg',
+      '/images/services/stair_landing.jpg'
     ],
     processSteps: [
       { step: '01', title: '기업 현장 방문 견적', desc: '사무공간 평수, 파티션 소재, 바닥 마감재를 점검하고 보안 준수 사항을 확인합니다.' },
@@ -409,14 +409,14 @@ export const INITIAL_PORTFOLIO: PortfolioItem[] = [
   },
   {
     id: 'p-9',
-    title: '[서귀포시 안덕면] 오션뷰 베이커리 카페 오픈 전 주방 닥트 및 타일 위생 세척',
-    location: '서귀포시 안덕면',
+    title: '[제주] 교육기관 대강당·계단실 청소 — 객석 300여 석, 무대 바닥, 벽면·송풍구까지',
+    location: '제주',
     category: '상가',
-    representativeImage: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=800&q=80',
-    beforeImage: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=800&q=80',
-    afterImage: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=800&q=80',
-    description: '서귀포시 안덕면 카페 오픈 현장입니다. 주방 배기 닥트와 오븐 주변 조리대 기름때를 전용 케미컬로 분해하고, 홀 바닥 미끄럼 방지 논슬립 세척을 완료했습니다.',
-    createdAt: '2026-07-28'
+    representativeImage: '/images/services/hall_aerial.jpg',
+    beforeImage: '/images/portfolio/hall_before.jpg',
+    afterImage: '/images/portfolio/hall_after.jpg',
+    description: '제주 교육기관 대강당과 계단실 현장입니다. 객석 의자 사이 먼지를 흡입하고, 벽면 패널·창틀·무대 아래 송풍구를 하나하나 닦아낸 뒤 무대 원목 바닥을 광이 나게 마무리했습니다. 계단실 계단·점자블록·난간까지 함께 청소했습니다.',
+    createdAt: '2026-10-26'
   },
   {
     id: 'p-10',

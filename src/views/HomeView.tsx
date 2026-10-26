@@ -541,13 +541,13 @@ export const HomeView: React.FC = () => {
               id: 'commercial' as ServiceType,
               title: '상가청소',
               desc: '고객에게 보여지는 공간인 만큼 청결하고 깔끔한 매장을 만들어드립니다.',
-              img: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=600&q=80'
+              img: '/images/services/hall_stage_floor.jpg'
             },
             {
               id: 'office' as ServiceType,
               title: '사무실청소',
               desc: '직원과 방문객 모두가 쾌적하게 느낄 수 있도록 업무공간을 깨끗하게 관리합니다.',
-              img: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=600&q=80'
+              img: '/images/services/hall_aerial.jpg'
             },
             {
               id: 'partial' as ServiceType,
