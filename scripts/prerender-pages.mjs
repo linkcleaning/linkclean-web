@@ -10,6 +10,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { SERVICE_DETAILS, INITIAL_REVIEWS } from '../src/data/initialData.ts';
 import { HOME_FAQS } from '../src/data/homeFaqs.ts';
+import { QNA_SECTIONS, QNA_ALL } from '../src/data/qnaGuide.ts';
 
 const DIST = path.resolve('dist');
 const { site, pages } = JSON.parse(fs.readFileSync(path.resolve('src/data/seoPages.json'), 'utf8'));
@@ -61,6 +62,10 @@ if (homePage) {
   ];
 }
 
+// Q&A·비용 안내: 질문·답변 전체를 본문에
+const qnaPage = pages.find((p) => p.path === '/qna/');
+if (qnaPage) qnaPage.body = QNA_SECTIONS.flatMap((s) => [`[${s.title}]`, ...s.items.map((f) => `Q. ${f.q} A. ${f.a}`)]);
+
 // 후기: 네이버 플레이스·당근 실제 후기 원문을 본문에 (검색 로봇·AI가 읽을 수 있게)
 const reviewPage = pages.find((p) => p.path === '/review/');
 if (reviewPage) {
@@ -92,6 +97,7 @@ function pageJsonLd(page) {
       ],
     });
   }
+  if (page.path === '/qna/') graph.push(faqLd(QNA_ALL));
   const d = page.service && SERVICE_DETAILS[page.service];
   if (d) {
     graph.push({

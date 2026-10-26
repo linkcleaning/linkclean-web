@@ -172,6 +172,21 @@ const naverPhoneConversion = () => {
             ))}
           </nav>
 
+          <nav aria-label="안내" className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] sm:text-xs">
+            <span className="text-slate-300 font-semibold">안내</span>
+            <a
+              href="/qna/"
+              onClick={(e) => {
+                e.preventDefault();
+                setCurrentView('qna');
+                window.scrollTo({ top: 0 });
+              }}
+              className="underline underline-offset-2 hover:text-slate-200"
+            >
+              제주 청소 Q&amp;A·비용 안내
+            </a>
+          </nav>
+
           {/* Address Details: Always visible on Desktop, collapsible on Mobile */}
           <div className={`${showDetails ? 'block' : 'hidden'} sm:block text-[11px] text-slate-400 space-y-0.5`}>
             <p>제주시: 제주특별자치도 제주시 도령북길 8 제일상가 2층 | 서귀포시: 제주특별자치도 서귀포시 서호호근로 86-6</p>

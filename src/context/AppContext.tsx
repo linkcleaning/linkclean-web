@@ -130,6 +130,7 @@ export type AppView =
   | 'checklist'
   | 'defect'
   | 'refund'
+  | 'qna'
   | 'reservation'
   | 'login'
   | 'register'
@@ -196,7 +197,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       const fromPath = viewFromPath(window.location.pathname);
       if (fromPath) return fromPath;
       const v = new URLSearchParams(window.location.search).get('view');
-      if (v && ['checklist', 'defect', 'refund', 'login', 'bakeout', 'why', 'event', 'review', 'portfolio', 'about'].includes(v)) return v as AppView;
+      if (v && ['checklist', 'defect', 'refund', 'login', 'bakeout', 'why', 'event', 'review', 'portfolio', 'about', 'qna'].includes(v)) return v as AppView;
     } catch {
       /* 무시 */
     }

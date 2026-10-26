@@ -21,6 +21,7 @@ import { WhyView } from './views/WhyView';
 import { BakeoutView } from './views/BakeoutView';
 import { ChecklistView } from './views/ChecklistView';
 import { RefundView } from './views/RefundView';
+import { QnaView } from './views/QnaView';
 import { MascotScrollTrigger } from './components/MascotScrollTrigger';
 import { RenewalNoticeModal } from './components/RenewalNoticeModal';
 
@@ -52,6 +53,7 @@ const AppContent: React.FC = () => {
         {currentView === 'checklist' && <ChecklistView key="newhome" kind="newhome" />}
         {currentView === 'defect' && <ChecklistView key="defect" kind="defect" />}
         {currentView === 'refund' && <RefundView />}
+        {currentView === 'qna' && <QnaView />}
         {currentView === 'reservation' && <ReservationWizard />}
         {currentView === 'login' && <LoginView />}
         {currentView === 'register' && <RegisterView />}
