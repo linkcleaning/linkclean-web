@@ -558,6 +558,28 @@ export const INITIAL_PORTFOLIO: PortfolioItem[] = [
     createdAt: '2026-10-26'
   },
   {
+    id: 'p-20',
+    title: '[제주시] 원룸 유품정리·특수청소 — 방',
+    location: '제주시',
+    category: '기타',
+    representativeImage: '/images/portfolio/ara_room_after.jpg',
+    beforeImage: '/images/portfolio/ara_room_before.jpg',
+    afterImage: '/images/portfolio/ara_room_after.jpg',
+    description: '제주시 원룸 유품정리 현장입니다. 옷가지와 이불, 생활용품을 하나하나 분류해 귀중품·서류·사진은 따로 모아 유족께 전달하고, 나머지 물건은 모두 반출한 뒤 바닥을 청소해 빈 방으로 마무리했습니다. (개인 물품이 보이는 부분은 흐리게 처리했습니다)',
+    createdAt: '2026-10-26'
+  },
+  {
+    id: 'p-21',
+    title: '[제주시] 원룸 유품정리·특수청소 — 주방·욕실 쪽',
+    location: '제주시',
+    category: '기타',
+    representativeImage: '/images/portfolio/ara_kitchen_after.jpg',
+    beforeImage: '/images/portfolio/ara_kitchen_before.jpg',
+    afterImage: '/images/portfolio/ara_kitchen_after.jpg',
+    description: '같은 원룸의 주방과 욕실 쪽입니다. 침구와 선풍기, 주방 살림을 정리·반출하고 싱크대 주변과 바닥을 청소해 다음 사람이 들어올 수 있는 상태로 정리했습니다.',
+    createdAt: '2026-10-26'
+  },
+  {
     id: 'p-15',
     title: '[제주시 이도동] 집안 폐기물 처리 — 주방',
     location: '제주시 이도동',
