@@ -21,3 +21,6 @@ Allow: /
 Disallow: /?view=login
 
 Sitemap: https://www.linkclean.co.kr/sitemap.xml
+
+# 다음 웹마스터도구 소유확인
+#DaumWebMasterTool:5c658b2888aeb964c723cf2e55bb6427bba99703aa04653a4a348d89b6788feb:dSlZXvWuL7UAVoESNn1QCg==

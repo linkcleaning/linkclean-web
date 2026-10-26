@@ -1,1 +1,1 @@
-build: crew-size
+build: daum-verify
