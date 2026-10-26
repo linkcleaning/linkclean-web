@@ -553,7 +553,7 @@ export const HomeView: React.FC = () => {
               id: 'partial' as ServiceType,
               title: '부분청소',
               desc: '주방, 욕실, 창틀 등 필요한 구역만 골라 진행하는 알뜰하고 꼼꼼한 맞춤 청소입니다.',
-              img: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=600&q=80'
+              img: '/images/services/glass_lift_1.jpg'
             },
             {
               id: 'trash' as ServiceType,

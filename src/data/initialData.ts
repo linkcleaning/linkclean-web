@@ -207,7 +207,7 @@ export const SERVICE_DETAILS: Record<string, ServiceDetail> = {
     name: '부분청소',
     tagline: '원하는 구역만 콕 찝어 집중 케어, 주방·욕실·창틀 맞춤 부분 클리닝 솔루션을 드립니다.',
     description: '전체 청소가 부담스러우시거나 관리가 시급한 주방 기름때, 욕실 물때 및 곰팡이, 베란다 및 창틀 묵은 때 등 필요한 공간만 선택하여 합리적인 견적으로 진행합니다.',
-    mainImage: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1200&q=80',
+    mainImage: '/images/services/glass_lift_1.jpg',
     recommendedFor: [
       '전체 청소 대신 주방 또는 화장실만 집중 청소하고 싶은 분',
       '베란다 벽면과 결로 곰팡이가 심해 특수 약품 처리가 필요한 가정',
@@ -229,9 +229,9 @@ export const SERVICE_DETAILS: Record<string, ServiceDetail> = {
       }
     ],
     workImages: [
-      'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80'
+      '/images/services/glass_lift_2.jpg',
+      '/images/services/glass_squeegee.jpg',
+      '/images/services/glass_building.jpg'
     ],
     processSteps: [
       { step: '01', title: '상태 사진 및 현장 상담', desc: '고객님이 필요로 하는 부위를 정확히 파악하여 필요한 범위만 견적을 산출합니다.' },
