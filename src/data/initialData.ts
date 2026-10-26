@@ -472,6 +472,39 @@ export const INITIAL_PORTFOLIO: PortfolioItem[] = [
     afterImage: '/images/portfolio/apt_veranda_after.jpg',
     description: '유품정리 현장의 베란다입니다. 선반과 바닥에 쌓여 있던 짐을 모두 정리·반출하고 바닥을 쓸고 닦아 비웠습니다.',
     createdAt: '2026-10-26'
+  },
+  {
+    id: 'p-15',
+    title: '[제주] 집안 폐기물 처리 — 주방',
+    location: '제주',
+    category: '주방',
+    representativeImage: '/images/portfolio/waste_kitchen_after.jpg',
+    beforeImage: '/images/portfolio/waste_kitchen_before.jpg',
+    afterImage: '/images/portfolio/waste_kitchen_after.jpg',
+    description: '주방에 쌓여 있던 살림살이와 집기, 생활 쓰레기를 모두 분리해 반출했습니다. 싱크대와 상·하부장을 비워 다음 청소를 바로 할 수 있는 상태로 만들었습니다.',
+    createdAt: '2026-10-26'
+  },
+  {
+    id: 'p-16',
+    title: '[제주] 집안 폐기물 처리 — 거실',
+    location: '제주',
+    category: '거실',
+    representativeImage: '/images/portfolio/waste_living_after.jpg',
+    beforeImage: '/images/portfolio/waste_living_before.jpg',
+    afterImage: '/images/portfolio/waste_living_after.jpg',
+    description: '거실과 복도를 가득 채운 가구·선반·생활용품을 해체·분리해 반출하고 빈 공간으로 비웠습니다.',
+    createdAt: '2026-10-26'
+  },
+  {
+    id: 'p-17',
+    title: '[제주] 집안 폐기물 처리 — 작은방',
+    location: '제주',
+    category: '쓰레기집',
+    representativeImage: '/images/portfolio/waste_room_after.jpg',
+    beforeImage: '/images/portfolio/waste_room_before.jpg',
+    afterImage: '/images/portfolio/waste_room_after.jpg',
+    description: '작은방에 쌓인 가구와 짐을 모두 들어내 반출했습니다. 짐 밑에 가려져 있던 바닥 오염까지 드러나 다음 단계 청소를 준비했습니다.',
+    createdAt: '2026-10-26'
   }
 ];
 
