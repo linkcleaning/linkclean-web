@@ -49,7 +49,7 @@ export const FinalBookingCta: React.FC<{ onReserve: () => void }> = ({ onReserve
           {/* 왼쪽: 문구 + 버튼 */}
           <div className="lg:col-span-5 text-center lg:text-left space-y-2 sm:space-y-3">
             <span className="inline-block text-[#38BDF8] font-bold text-[10px] tracking-wider bg-[#38BDF8]/20 px-2.5 py-0.5 rounded-full">
-              하루 2팀만 · 제주 12년 링크클린
+              하루 2팀만 · 청소 경력 12년 링크클린
             </span>
             <h2 className="text-xl sm:text-3xl font-black tracking-tight leading-snug">
               원하는 날짜,
