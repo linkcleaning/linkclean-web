@@ -1,1 +1,1 @@
-build: movein-photos
+build: residential-photos

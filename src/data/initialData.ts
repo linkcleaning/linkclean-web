@@ -63,7 +63,7 @@ export const SERVICE_DETAILS: Record<string, ServiceDetail> = {
     name: '거주청소',
     tagline: '일상 속에 쌓인 묵은 때와 보이지 않는 세균까지, 가족의 건강을 되찾아드립니다.',
     description: '가구와 짐이 있는 상태에서 생활 오염, 주방 찌든 기름때, 화장실 곰팡이, 창틀 미세먼지를 안전하게 집중 케어하여 호텔 같은 쾌적함을 선사합니다.',
-    mainImage: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80',
+    mainImage: '/images/services/res_living.jpg',
     recommendedFor: [
       '맞벌이, 육아 등으로 바빠 대청소를 미뤄두셨던 가정',
       '환절기 비염, 아토피 등으로 집안 대청소 및 살균이 시급한 고객',
@@ -85,9 +85,9 @@ export const SERVICE_DETAILS: Record<string, ServiceDetail> = {
       }
     ],
     workImages: [
-      'https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=800&q=80'
+      '/images/services/res_bedroom.jpg',
+      '/images/portfolio/res_vanity_before.jpg',
+      '/images/portfolio/res_vanity_after.jpg'
     ],
     processSteps: [
       { step: '01', title: '사전 보호 작업', desc: '고객님의 소중한 가구 및 물품을 안전하게 보호하고 작업 동선을 확보합니다.' },
@@ -515,6 +515,17 @@ export const INITIAL_PORTFOLIO: PortfolioItem[] = [
     beforeImage: '/images/portfolio/movein_living_before.jpg',
     afterImage: '/images/portfolio/movein_living_after.jpg',
     description: '제주시 노형동 신축 입주청소 현장입니다. 3명이 함께 작업했습니다. 공사 후 바닥에 내려앉은 시공 분진을 걷어내고 바닥을 닦아 원래 결과 광을 살렸습니다.',
+    createdAt: '2026-10-26'
+  },
+  {
+    id: 'p-19',
+    title: '[제주시 외도동] 아파트 거주청소 — 화장대',
+    location: '제주시 외도동',
+    category: '기타',
+    representativeImage: '/images/portfolio/res_vanity_after.jpg',
+    beforeImage: '/images/portfolio/res_vanity_before.jpg',
+    afterImage: '/images/portfolio/res_vanity_after.jpg',
+    description: '제주시 외도동 아파트 거주청소 현장입니다. 3명이 함께 작업했습니다. 생활하시는 집이라 물건은 버리지 않고 제자리를 찾아 정리한 뒤, 상판과 서랍 주변 먼지·얼룩을 닦아냈습니다.',
     createdAt: '2026-10-26'
   }
 ];
