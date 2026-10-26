@@ -529,7 +529,7 @@ export const HomeView: React.FC = () => {
               id: 'move-in' as ServiceType,
               title: '입주·이사청소',
               desc: '새로운 공간에서 기분 좋은 시작을 할 수 있도록 생활 흔적과 먼지를 꼼꼼하게 정리합니다.',
-              img: 'https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?auto=format&fit=crop&w=600&q=80'
+              img: '/images/services/movein_living.jpg'
             },
             {
               id: 'residential' as ServiceType,
