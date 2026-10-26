@@ -398,14 +398,14 @@ export const INITIAL_PORTFOLIO: PortfolioItem[] = [
   },
   {
     id: 'p-8',
-    title: '[서귀포시 서호동] 혁신도시 신축 아파트 입주청소 시공분진·도배풀 완벽 제거',
-    location: '서귀포시 서호동',
-    category: '거실',
-    representativeImage: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80',
-    beforeImage: 'https://images.unsplash.com/photo-1507652313519-d4e9174996dd?auto=format&fit=crop&w=800&q=80',
-    afterImage: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80',
-    description: '서귀포시 서호동 혁신도시 신축 아파트 입주 현장입니다. 몰딩과 걸레받이, 전등갓, 수납장 서랍 안쪽까지 깊숙이 침투해 있던 미세 시공 분진과 도배풀 가루를 전용 집진기로 3회 이상 완벽 흡입 및 닦아냈습니다.',
-    createdAt: '2026-08-01'
+    title: '[제주시 화북동] 아파트 유품정리 후 청소 — 거실',
+    location: '제주시 화북동',
+    category: '기타',
+    representativeImage: '/images/portfolio/apt_living_after.jpg',
+    beforeImage: '/images/portfolio/apt_living_before.jpg',
+    afterImage: '/images/portfolio/apt_living_after.jpg',
+    description: '제주시 화북동 아파트 유품정리 현장입니다. 4명이 함께 작업했습니다. 거실에 남아 있던 가구와 생활용품을 정성껏 정리해 반출한 뒤, 바닥과 벽 주변을 청소해 빈 공간으로 마무리했습니다.',
+    createdAt: '2026-10-26'
   },
   {
     id: 'p-9',
@@ -439,6 +439,39 @@ export const INITIAL_PORTFOLIO: PortfolioItem[] = [
     afterImage: '/images/portfolio/mold_after.jpg',
     description: '습한 제주 날씨에 천장·벽 타일 전체에 번진 검은 곰팡이 반점을 전용 약품으로 제거해 원래 색으로 되돌렸습니다.',
     createdAt: '2026-10-09'
+  },
+  {
+    id: 'p-12',
+    title: '[제주시 화북동] 아파트 유품정리 후 청소 — 주방',
+    location: '제주시 화북동',
+    category: '주방',
+    representativeImage: '/images/portfolio/apt_kitchen_after.jpg',
+    beforeImage: '/images/portfolio/apt_kitchen_before.jpg',
+    afterImage: '/images/portfolio/apt_kitchen_after.jpg',
+    description: '유품정리 현장의 주방입니다. 냉장고와 식기·조리도구를 모두 정리해 반출하고, 싱크대 상판과 수납장 문, 바닥을 닦아 정돈했습니다.',
+    createdAt: '2026-10-26'
+  },
+  {
+    id: 'p-13',
+    title: '[제주시 화북동] 아파트 유품정리 후 청소 — 욕실',
+    location: '제주시 화북동',
+    category: '화장실',
+    representativeImage: '/images/portfolio/apt_bath_after.jpg',
+    beforeImage: '/images/portfolio/apt_bath_before.jpg',
+    afterImage: '/images/portfolio/apt_bath_after.jpg',
+    description: '유품정리 현장의 욕실입니다. 남은 생활용품을 치우고 세면대·변기·바닥 타일을 세척했습니다.',
+    createdAt: '2026-10-26'
+  },
+  {
+    id: 'p-14',
+    title: '[제주시 화북동] 아파트 유품정리 후 청소 — 베란다',
+    location: '제주시 화북동',
+    category: '베란다',
+    representativeImage: '/images/portfolio/apt_veranda_after.jpg',
+    beforeImage: '/images/portfolio/apt_veranda_before.jpg',
+    afterImage: '/images/portfolio/apt_veranda_after.jpg',
+    description: '유품정리 현장의 베란다입니다. 선반과 바닥에 쌓여 있던 짐을 모두 정리·반출하고 바닥을 쓸고 닦아 비웠습니다.',
+    createdAt: '2026-10-26'
   }
 ];
 
