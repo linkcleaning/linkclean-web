@@ -1,1 +1,1 @@
-build: waste-case
+build: waste-case-2
