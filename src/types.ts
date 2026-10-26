@@ -1,4 +1,4 @@
-export type ServiceType = 'move-in' | 'residential' | 'commercial' | 'office' | 'partial' | 'special' | 'trash';
+export type ServiceType = 'move-in' | 'residential' | 'commercial' | 'office' | 'partial' | 'special' | 'trash' | 'memorial';
 
 export type PropertyType = '아파트' | '빌라' | '원룸/오피스텔' | '주택' | '상가' | '사무실' | '기타';
 
@@ -107,6 +107,14 @@ export interface ReviewItem {
 export type Review = ReviewItem;
 export type CustomerReview = ReviewItem;
 
+export interface PressMention {
+  outlet: string;   // 매체명
+  date: string;     // 보도일 (예: 2025.03.24)
+  title: string;    // 기사 제목
+  url: string;      // 기사 링크
+  summary: string;  // 링크클린이 직접 쓴 한두 줄 소개 (기사 본문 복사 금지)
+}
+
 export interface ServiceDetail {
   id: ServiceType;
   name: string;
@@ -128,6 +136,14 @@ export interface ServiceDetail {
     question: string;
     answer: string;
   }[];
+  /** 언론 보도 (있으면 상세 페이지에 카드로 표시) */
+  press?: PressMention;
+  /** true면 예약보다 상담 전화를 먼저 안내 (유품정리 등) */
+  callFirst?: boolean;
+  /** 상세 페이지 상단 배지 문구 (없으면 '링크클린 프리미엄 라인') */
+  heroBadge?: string;
+  /** '주요 청소 상세 범위' 아래 설명 문구 */
+  scopeNote?: string;
 }
 
 // ==========================================

@@ -59,12 +59,13 @@ export const HomeView: React.FC = () => {
   // 서비스 카드 슬라이드 (휴대폰)
   const svcScrollRef = useRef<HTMLDivElement>(null);
   const [svcIndex, setSvcIndex] = useState(0);
+  const SVC_LAST = 6; // 홈 서비스 카드 7개 (0~6)
   const onSvcScroll = () => {
     const el = svcScrollRef.current;
     if (!el) return;
     const card = el.firstElementChild as HTMLElement | null;
     const step = card ? card.offsetWidth + 12 : 240;
-    setSvcIndex(Math.min(5, Math.max(0, Math.round(el.scrollLeft / step))));
+    setSvcIndex(Math.min(SVC_LAST, Math.max(0, Math.round(el.scrollLeft / step))));
   };
   const svcScroll = (dir: 1 | -1) => {
     const el = svcScrollRef.current;
@@ -522,7 +523,7 @@ export const HomeView: React.FC = () => {
         <div
           ref={svcScrollRef}
           onScroll={onSvcScroll}
-          className="flex overflow-x-auto snap-x snap-mandatory gap-3 pb-3 pt-1 -mx-4 px-4 sm:mx-0 sm:px-0 sm:grid sm:grid-cols-3 lg:grid-cols-6 sm:gap-3 sm:overflow-visible no-scrollbar"
+          className="flex overflow-x-auto snap-x snap-mandatory gap-3 pb-3 pt-1 -mx-4 px-4 sm:mx-0 sm:px-0 sm:grid sm:grid-cols-4 lg:grid-cols-7 sm:gap-3 sm:overflow-visible no-scrollbar"
         >
           {[
             {
@@ -560,6 +561,12 @@ export const HomeView: React.FC = () => {
               title: '쓰레기집청소',
               desc: '혼자서 해결하기 힘든 방치된 대량 폐기물 분리 배출과 악취 탈취, 100% 비밀보장 특수 정리입니다.',
               img: '/images/portfolio/trash_before.jpg'
+            },
+            {
+              id: 'memorial' as ServiceType,
+              title: '유품정리·특수청소',
+              desc: '고인의 물건을 정중하게 분류해 귀중품·서류·사진은 유족께 전달하고, 오염 제거와 탈취까지 마무리합니다.',
+              img: '/images/portfolio/apt_living_after.jpg'
             }
           ].map((svc) => (
             <div
@@ -618,7 +625,7 @@ export const HomeView: React.FC = () => {
             <ChevronLeft className="w-5 h-5" />
           </button>
         )}
-        {svcIndex < 5 && (
+        {svcIndex < SVC_LAST && (
           <>
             <div className="sm:hidden pointer-events-none absolute right-[-16px] top-1 bottom-3 w-10 bg-gradient-to-l from-[#F8FAFC] to-transparent" />
             <button
@@ -635,10 +642,10 @@ export const HomeView: React.FC = () => {
 
         {/* 휴대폰: 몇 번째 카드인지 점으로 표시 */}
         <div className="sm:hidden flex items-center justify-center gap-1.5 mt-1">
-          {[0, 1, 2, 3, 4, 5].map((i) => (
+          {Array.from({ length: SVC_LAST + 1 }, (_, i) => i).map((i) => (
             <span key={i} className={`h-1.5 rounded-full transition-all ${i === svcIndex ? 'w-5 bg-[#38BDF8]' : 'w-1.5 bg-slate-300'}`} />
           ))}
-          <span className="ml-1.5 text-[10px] font-bold text-slate-400">{svcIndex + 1} / 6 · 옆으로 밀어보세요</span>
+          <span className="ml-1.5 text-[10px] font-bold text-slate-400">{svcIndex + 1} / {SVC_LAST + 1} · 옆으로 밀어보세요</span>
         </div>
 
         {/* 서비스별 견적 기준 · 작업 범위 (예전 '현장 맞춤 견적 기준' 섹션을 여기로 합침) */}

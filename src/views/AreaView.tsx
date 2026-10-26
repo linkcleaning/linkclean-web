@@ -15,6 +15,7 @@ const SERVICE_LINKS: { id: ServiceType; label: string }[] = [
   { id: 'office', label: '사무실청소' },
   { id: 'partial', label: '부분청소' },
   { id: 'trash', label: '쓰레기집청소' },
+  { id: 'memorial', label: '유품정리·특수청소' },
 ];
 
 export const AreaView: React.FC = () => {

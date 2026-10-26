@@ -11,8 +11,12 @@ import {
   ArrowLeft,
   ShieldCheck,
   Award,
-  ChevronRight
+  ChevronRight,
+  Phone
 } from 'lucide-react';
+import { PressMentionCard } from '../components/PressMentionCard';
+
+const PHONE_HREF = 'tel:064-763-4545';
 
 export const ServiceDetailView: React.FC = () => {
   const { selectedServiceId, setCurrentView, goToReservationWithService } = useApp();
@@ -55,7 +59,7 @@ export const ServiceDetailView: React.FC = () => {
           <div className="absolute bottom-6 left-6 right-6 sm:bottom-10 sm:left-10 sm:right-10 space-y-3">
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#38BDF8]/20 text-[#38BDF8] text-xs font-bold border border-[#38BDF8]/30">
               <Sparkles className="w-3.5 h-3.5 text-[#38BDF8]" />
-              링크클린 프리미엄 라인
+              {service.heroBadge || '링크클린 프리미엄 라인'}
             </div>
             <h1 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-white">
               {service.name}
@@ -70,17 +74,40 @@ export const ServiceDetailView: React.FC = () => {
           <p className="text-slate-300 text-xs sm:text-sm leading-relaxed">
             {service.description}
           </p>
-          <div className="mt-6 flex flex-wrap items-center gap-4">
-            <button
-              onClick={() => goToReservationWithService(service.id)}
-              className="px-6 py-3 rounded-xl bg-[#38BDF8] hover:bg-[#0EA5E9] text-white font-bold text-xs sm:text-sm shadow-sm transition-all flex items-center gap-2 cursor-pointer"
-            >
-              <Calendar className="w-4 h-4 text-white" />
-              이 서비스 청소 예약하기
-            </button>
+          <div className="mt-6 flex flex-wrap items-center gap-3 sm:gap-4">
+            {service.callFirst ? (
+              <>
+                <a
+                  href={PHONE_HREF}
+                  className="px-6 py-3 rounded-xl bg-[#38BDF8] hover:bg-[#0EA5E9] text-white font-bold text-xs sm:text-sm shadow-sm transition-all flex items-center gap-2"
+                >
+                  <Phone className="w-4 h-4 text-white" />
+                  상담 전화 064-763-4545
+                </a>
+                <button
+                  onClick={() => goToReservationWithService(service.id)}
+                  className="px-6 py-3 rounded-xl border border-slate-600 hover:bg-slate-800 text-slate-200 font-bold text-xs sm:text-sm transition-all flex items-center gap-2 cursor-pointer"
+                >
+                  <Calendar className="w-4 h-4" />
+                  날짜 먼저 예약하기
+                </button>
+                <span className="w-full text-[11px] sm:text-xs text-slate-400">연중무휴 08:30~20:00 · 제주 전 지역</span>
+              </>
+            ) : (
+              <button
+                onClick={() => goToReservationWithService(service.id)}
+                className="px-6 py-3 rounded-xl bg-[#38BDF8] hover:bg-[#0EA5E9] text-white font-bold text-xs sm:text-sm shadow-sm transition-all flex items-center gap-2 cursor-pointer"
+              >
+                <Calendar className="w-4 h-4 text-white" />
+                이 서비스 청소 예약하기
+              </button>
+            )}
           </div>
         </div>
       </div>
+
+      {/* 언론 보도 */}
+      {service.press && <PressMentionCard press={service.press} />}
 
       {/* 추천 고객 (이런 고객에게 추천합니다) */}
       <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-100 shadow-sm">
@@ -113,7 +140,7 @@ export const ServiceDetailView: React.FC = () => {
             주요 청소 상세 범위
           </h2>
           <p className="text-xs text-slate-500 mt-1">
-            보이지 않는 틈새와 탈거 가능한 모든 부품을 분리하여 정밀 시공합니다.
+            {service.scopeNote || '보이지 않는 틈새와 탈거 가능한 모든 부품을 분리하여 정밀 시공합니다.'}
           </p>
         </div>
 
@@ -244,12 +271,27 @@ export const ServiceDetailView: React.FC = () => {
       <div className="bg-[#0A1D37] text-white rounded-3xl p-8 sm:p-12 text-center space-y-5 shadow-sm border border-slate-800 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-64 h-64 bg-[#38BDF8] opacity-10 rounded-full pointer-events-none" />
         <div className="relative z-10 space-y-4">
-          <h3 className="text-xl sm:text-3xl font-extrabold tracking-tight">
-            {service.name}, 지금 청소 날짜를 먼저 예약하세요.
+          <h3 className="text-xl sm:text-3xl font-extrabold tracking-tight break-keep">
+            {service.callFirst
+              ? '전화 한 통이면 현장 확인부터 함께하겠습니다.'
+              : `${service.name}, 지금 청소 날짜를 먼저 예약하세요.`}
           </h3>
-          <p className="text-slate-300 text-xs sm:text-sm max-w-lg mx-auto">
-            날짜를 잡아두시면 확인 전화로 금액을 안내하고, 필요할 때만 방문 견적을 진행합니다.
+          <p className="text-slate-300 text-xs sm:text-sm max-w-lg mx-auto break-keep">
+            {service.callFirst
+              ? '상담 064-763-4545 · 연중무휴 08:30~20:00. 경황이 없으셔도 괜찮습니다. 주소와 상황만 알려주세요.'
+              : '날짜를 잡아두시면 확인 전화로 금액을 안내하고, 필요할 때만 방문 견적을 진행합니다.'}
           </p>
+          {service.callFirst && (
+            <div className="pt-2">
+              <a
+                href={PHONE_HREF}
+                className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-[#38BDF8] hover:bg-[#0EA5E9] text-white font-bold text-xs sm:text-sm shadow-lg shadow-blue-400/20 transition-all inline-flex items-center justify-center gap-2"
+              >
+                <Phone className="w-4 h-4 text-white" />
+                지금 상담 전화하기
+              </a>
+            </div>
+          )}
           <div className="pt-2">
             <button
               onClick={() => goToReservationWithService(service.id)}
