@@ -15,6 +15,7 @@ import { MobileCollapse } from '../components/MobileCollapse';
 import { PromoSongPlayer } from '../components/PromoSongPlayer';
 import { SwipeRow } from '../components/SwipeRow';
 import { MagazineCard } from '../components/MagazineCard';
+import { WeeklyPosterCard } from '../components/WeeklyPosterCard';
 import { LinkAppsCard } from '../components/LinkAppsCard';
 import { BlogNewsSection } from '../components/BlogNewsSection';
 import { FinalBookingCta } from '../components/FinalBookingCta';
@@ -461,6 +462,9 @@ export const HomeView: React.FC = () => {
 
       {/* 오늘의 링크클린 새소식 (네이버 블로그 최신 글 자동) */}
       <BlogNewsSection />
+
+      {/* 이번 주 링크클린 포스터 (매주 월요일 자동 교체) */}
+      <WeeklyPosterCard />
 
       {/* 월간 링크 매거진 + 링크클린이 만든 무료 생활앱 (PC: 나란히) */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4">
