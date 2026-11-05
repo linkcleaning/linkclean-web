@@ -18,7 +18,7 @@ export const WEEKLY_POSTERS: WeeklyPoster[] = [
   { src: '/posters/weekly-06.jpg', title: '이 냄새, 어디서 나지? · 오존 탈취', alt: '오존 살균 탈취 포스터 — 담배, 반려동물, 곰팡이, 음식, 새집 냄새' },
   { src: '/posters/weekly-07.jpg', title: '높이? 그게 뭔데요? · 외벽·고소', alt: '링크클린 × 클린앤스카이 외벽·유리창·간판 고소 청소 포스터 — 스카이차, 로프 작업' },
   { src: '/posters/weekly-08.jpg', title: '후기 쓰면 커피가 공짜! · 이벤트', alt: '링크클린 고객 이벤트 포스터 — 네이버 플레이스 후기, 지인 소개 시 커피 1잔' },
-  { src: '/posters/weekly-09.jpg', title: '버리는 날 놓쳤다면? · 문앞비움', alt: '문앞비움 문 앞 쓰레기 수거 포스터 — 소량 수거 9,900원, 밤 10시~아침 6시 수거' },
+  { src: '/posters/weekly-09.jpg', title: '버리는 날 놓쳤수꽈? · 비워마심', alt: '비워마심 제주 문 앞 쓰레기 수거 포스터 — 소량 수거 9,900원, 밤 10시~아침 6시 수거' },
   { src: '/posters/weekly-10.jpg', title: '청소 경력 12년 · 청소관리사 1급', alt: '제주 청소업체 링크클린 포스터 — 2016년 설립, 제주 전 지역, 무료 견적' },
   { src: '/posters/weekly-11.jpg', title: '월요일 아침이 상쾌해진다 · 사무실 청소', alt: '사무실 청소 포스터 — 책상, 바닥, 탕비실, 화장실까지' },
   { src: '/posters/weekly-12.jpg', title: '제주 어디든 달려갑니다!', alt: '제주 전 지역 출장 포스터 — 연중무휴 08:30~20:00, 방문 견적 무료' },
