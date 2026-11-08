@@ -142,7 +142,7 @@ export const BlogNewsSection: React.FC = () => {
                       {p.image ? (
                         <img
                           src={p.image}
-                          alt=""
+                          alt={p.title}
                           referrerPolicy="no-referrer"
                           loading="lazy"
                           className="w-16 h-16 shrink-0 rounded-lg object-cover bg-white"
@@ -185,7 +185,7 @@ export const BlogNewsSection: React.FC = () => {
             <span className="flex gap-2.5">
             <span className="relative w-16 h-20 shrink-0 rounded-lg overflow-hidden bg-gradient-to-br from-amber-400 via-pink-500 to-purple-600">
               {reel.thumbnail && (
-                <img src={reel.thumbnail} alt="" loading="lazy" referrerPolicy="no-referrer" className="absolute inset-0 w-full h-full object-cover" />
+                <img src={reel.thumbnail} alt="링크클린 인스타 릴스" loading="lazy" referrerPolicy="no-referrer" className="absolute inset-0 w-full h-full object-cover" />
               )}
               <span className="absolute inset-0 flex items-center justify-center">
                 <span className="w-7 h-7 rounded-full bg-white/90 text-pink-600 flex items-center justify-center shadow">
