@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>빼기 · 전국 공중화장실 찾기 앱 다운로드</title>
+<meta name="description" content="급할 땐, 빼기. 전국 공중화장실 5만여 곳, 내 위치에서 가장 가까운 곳으로 바로 길안내. 앱스토어·구글플레이 무료 다운로드.">
+<meta property="og:title" content="빼기 · 전국 공중화장실 찾기">
+<meta property="og:description" content="급할 땐, 빼기. 내 위치에서 가장 가까운 화장실로 바로 길안내. 무료 다운로드">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.linkclean.co.kr/bbaegi/">
+<meta name="theme-color" content="#8E1F45">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=IBM+Plex+Sans+KR:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#8E1F45;--deep:#5E1230;--pink:#F7A8C4;--cream:#FFF4F7;--ink:#2A0E19}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{font-family:"IBM Plex Sans KR",system-ui,sans-serif;background:var(--bg);color:var(--cream);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100%;
+    padding:40px 22px calc(28px + env(safe-area-inset-bottom));text-align:center;
+    background-image:repeating-conic-gradient(from 0deg at 50% 38%,rgba(255,255,255,.05) 0 10deg,transparent 10deg 20deg)}
+  .kicker{font-weight:700;font-size:18px;letter-spacing:.02em;color:var(--pink)}
+  h1{font-family:"Black Han Sans",sans-serif;font-weight:400;font-size:96px;line-height:1;margin:6px 0 4px;
+    color:var(--cream);text-shadow:0 4px 0 var(--deep)}
+  .poo{font-size:72px;line-height:1;margin:6px 0 14px;display:inline-block;animation:bob 1.6s ease-in-out infinite}
+  @keyframes bob{50%{transform:translateY(-8px)}}
+  .lead{font-size:17px;line-height:1.55;max-width:320px;margin:0 auto 26px;color:#FBE3EC}
+  .lead b{color:#fff}
+  .btns{display:flex;flex-direction:column;gap:12px;width:100%;max-width:340px}
+  a.btn{display:flex;align-items:center;justify-content:center;gap:10px;height:58px;border-radius:999px;
+    font-weight:700;font-size:18px;text-decoration:none;transition:transform .1s}
+  a.btn:active{transform:scale(.97)}
+  .ios{background:var(--cream);color:var(--ink)}
+  .and{background:var(--pink);color:var(--ink)}
+  a.btn.me{outline:3px solid #fff;outline-offset:3px}
+  .note{margin-top:18px;font-size:13px;color:#F3C6D6;min-height:18px}
+  .foot{margin-top:34px;font-size:12px;color:#E9A9BF}
+  .foot a{color:#E9A9BF}
+  .v{position:fixed;right:8px;bottom:6px;font-size:9px;color:rgba(255,255,255,.25)}
+</style>
+</head>
+<body>
+  <div class="kicker">급할 땐,</div>
+  <h1>빼기</h1>
+  <div class="poo" aria-hidden="true">💩</div>
+  <p class="lead"><b>전국 공중화장실 5만여 곳</b><br>내 위치에서 가장 가까운 곳으로<br>바로 길안내해 드려요. 무료!</p>
+  <div class="btns">
+    <a class="btn ios" id="ios" href="https://apps.apple.com/kr/app/id6822303047"> App Store에서 받기</a>
+    <a class="btn and" id="and" href="https://play.google.com/store/apps/details?id=com.linkdole.ddong">▶ Google Play에서 받기</a>
+  </div>
+  <p class="note" id="note"></p>
+  <p class="foot">만든 곳 · <a href="https://www.linkclean.co.kr/">링크클린</a> · 문의 linkdole@naver.com</p>
+  <span class="v">v1</span>
+<script>
+(function(){
+  var ua = navigator.userAgent || "";
+  var ios = /iPhone|iPad|iPod/i.test(ua) || (/Macintosh/.test(ua) && 'ontouchend' in document);
+  var and = /Android/i.test(ua);
+  var target = ios ? document.getElementById('ios') : and ? document.getElementById('and') : null;
+  if (!target) return;
+  target.classList.add('me');
+  document.getElementById('note').textContent = '잠시 후 ' + (ios ? '앱스토어' : '구글플레이') + '로 이동해요…';
+  setTimeout(function(){ location.href = target.href; }, 900);
+})();
+</script>
+</body>
+</html>
