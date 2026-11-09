@@ -1,0 +1,36 @@
+<!DOCTYPE html><html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>월간 링크 매거진 2호 (2026.12) | 링크클린</title>
+<meta name="description" content="제주 청소 전문 링크클린의 월간 링크 매거진 12월호 — 쓰레기집 현장, 겨울 결로 홈케어, 9년의 출근길, 비움 서비스와 링크클린 앱 소개.">
+<meta property="og:title" content="월간 링크 매거진 2호 (2026.12)"><meta property="og:image" content="https://www.linkclean.co.kr/magazine/2/pages/p-1.jpg">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}html,body{margin:0;height:100%}
+body{background:radial-gradient(circle at 50% 30%,#14585E,#0B3B40 70%);color:#F4F1EA;font-family:'Noto Serif KR',serif;display:flex;flex-direction:column;align-items:center;overflow:hidden}
+header{padding:14px 10px 6px;text-align:center}
+header h1{margin:0;font-size:18px;letter-spacing:.08em}header small{color:#D9691F;font-size:12px;letter-spacing:.2em}
+#wrap{flex:1;min-height:0;width:100%;display:flex;align-items:center;justify-content:center;padding:6px 10px}
+#book{margin:0 auto}
+.page{background:#F4F1EA;overflow:hidden}.page img{width:100%;height:100%;object-fit:cover;display:block}
+nav{display:flex;gap:14px;align-items:center;padding:8px 0 18px}
+nav button{background:#D9691F;color:#fff;border:0;border-radius:22px;width:44px;height:44px;font-size:20px;cursor:pointer}
+#cnt{min-width:70px;text-align:center;font-size:14px}
+.hint{font-size:11px;opacity:.6;padding-bottom:8px}
+</style></head><body>
+<header><small>LINK MAGAZINE</small><h1>월간 링크 매거진 2호 · 2026.12</h1></header>
+<div id="wrap"><div id="book"><div class="page"><img src="pages/p-1.jpg" alt="월간 링크 매거진 2호 1쪽"></div><div class="page"><img src="pages/p-2.jpg" alt="월간 링크 매거진 2호 2쪽"></div><div class="page"><img src="pages/p-3.jpg" alt="월간 링크 매거진 2호 3쪽"></div><div class="page"><img src="pages/p-4.jpg" alt="월간 링크 매거진 2호 4쪽" loading="lazy"></div><div class="page"><img src="pages/p-5.jpg" alt="월간 링크 매거진 2호 5쪽" loading="lazy"></div><div class="page"><img src="pages/p-6.jpg" alt="월간 링크 매거진 2호 6쪽" loading="lazy"></div><div class="page"><img src="pages/p-7.jpg" alt="월간 링크 매거진 2호 7쪽" loading="lazy"></div></div></div></div>
+<nav><button id="pv" aria-label="이전">‹</button><span id="cnt">1 / 7</span><button id="nx" aria-label="다음">›</button></nav>
+<div class="hint">모서리를 잡아 넘기거나 옆으로 밀어 보세요 · <a href="link-magazine-02.pdf" style="color:#F4F1EA">PDF</a> · <a href="https://heyzine.com/flip-book/b9ddb9090b.html" style="color:#F4F1EA">창간호</a> · <a href="/" style="color:#F4F1EA">홈페이지</a></div>
+<script src="../page-flip.browser.js"></script>
+<script>
+const W=1165,H=1490;
+function size(){const mh=innerHeight-150, mw=innerWidth-20;
+ const two=mw>mh*1.1; let h=mh, w=h*W/H; const cols=two?2:1; if(w*cols>mw){w=mw/cols;h=w*H/W} return {w:Math.floor(w),h:Math.floor(h)}}
+const s=size();
+const pf=new St.PageFlip(document.getElementById('book'),{width:s.w,height:s.h,size:'fixed',showCover:true,usePortrait:true,maxShadowOpacity:.5,mobileScrollSupport:false,flippingTime:800});
+pf.loadFromHTML(document.querySelectorAll('.page'));
+const c=document.getElementById('cnt');pf.on('flip',e=>c.textContent=(e.data+1)+' / 7');
+document.getElementById('pv').onclick=()=>pf.flipPrev();document.getElementById('nx').onclick=()=>pf.flipNext();
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight')pf.flipNext();if(e.key==='ArrowLeft')pf.flipPrev()});
+let t,lw=innerWidth;addEventListener('resize',()=>{if(Math.abs(innerWidth-lw)<40)return;clearTimeout(t);t=setTimeout(()=>location.reload(),400)});
+</script></body></html>

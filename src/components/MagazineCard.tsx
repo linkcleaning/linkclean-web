@@ -2,15 +2,15 @@ import React, { useState } from 'react';
 import { BookOpen, X, ExternalLink } from 'lucide-react';
 
 /**
- * 월간 링크 매거진 (Heyzine 플립북)
+ * 월간 링크 매거진 (자체 플립북: public/magazine/<호>/)
  * 첫 화면에는 작은 카드만 보이고, 누르면 창이 열려 책장을 넘기며 볼 수 있습니다.
  * 새 호가 나오면 아래 주소와 표지만 바꾸면 됩니다.
  */
 const MAGAZINE = {
   title: '월간 링크 매거진',
-  issue: '창간호',
-  url: 'https://heyzine.com/flip-book/b9ddb9090b.html',
-  cover: 'https://cdnm.heyzine.com/files/uploaded/v3/b9ddb9090b54fda8e90dcde0d7e49c92a9892eca.pdf-thumb.jpg',
+  issue: '2호 · 12월호',
+  url: '/magazine/2/',
+  cover: '/magazine/2/pages/p-1.jpg',
 };
 
 export const MagazineCard: React.FC<{ bare?: boolean }> = ({ bare = false }) => {
@@ -43,8 +43,8 @@ export const MagazineCard: React.FC<{ bare?: boolean }> = ({ bare = false }) => 
 
         <span className="flex-1 min-w-0">
           <span className="block text-[10px] sm:text-xs font-black text-indigo-600 tracking-wider">LINK MAGAZINE · {MAGAZINE.issue}</span>
-          <span className="block text-base sm:text-xl font-black text-[#0A1D37]">📖 {MAGAZINE.title} 창간!</span>
-          <span className="block text-[11px] sm:text-sm text-slate-500 truncate">제주 청소 이야기와 생활 꿀팁을 책장 넘기듯 읽어보세요</span>
+          <span className="block text-base sm:text-xl font-black text-[#0A1D37]">📖 {MAGAZINE.title} 12월호</span>
+          <span className="block text-[11px] sm:text-sm text-slate-500 truncate">9년의 출근길 · 겨울 결로 홈케어 · 비움 서비스와 앱 소개</span>
         </span>
         <span className="shrink-0 px-3 py-2 rounded-xl bg-indigo-600 text-white text-xs sm:text-sm font-black">펼쳐보기</span>
       </button>
