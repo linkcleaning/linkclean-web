@@ -10,7 +10,7 @@ import path from 'node:path';
 
 const esc = (s = '') => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
-function shell({ site, url, title, description, image, jsonLd, body }) {
+export function shell({ site, url, title, description, image, jsonLd, body }) {
   return `<!doctype html>
 <html lang="ko">
 <head>

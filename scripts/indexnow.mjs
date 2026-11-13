@@ -19,6 +19,13 @@ const body = {
     ...pages.map((p) => site + p.path),
     `${site}/llms.txt`,
     `${site}/stories/`,
+    `${site}/guide/`,
+    // 제주 청소 상식 Q&A 전체
+    ...(() => {
+      try {
+        return JSON.parse(fs.readFileSync(path.resolve('src/data/guides.json'), 'utf8')).map((g) => `${site}/guide/${g.slug}/`);
+      } catch { return []; }
+    })(),
     // 최근 현장 기록 10개도 같이 알림
     ...(() => {
       try {

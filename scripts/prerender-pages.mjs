@@ -12,6 +12,7 @@ import { SERVICE_DETAILS, INITIAL_REVIEWS } from '../src/data/initialData.ts';
 import { HOME_FAQS } from '../src/data/homeFaqs.ts';
 import { QNA_SECTIONS, QNA_ALL } from '../src/data/qnaGuide.ts';
 import { renderStories } from './render-stories.mjs';
+import { renderGuides } from './render-guides.mjs';
 
 const DIST = path.resolve('dist');
 const { site, pages } = JSON.parse(fs.readFileSync(path.resolve('src/data/seoPages.json'), 'utf8'));
@@ -23,7 +24,7 @@ const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, 
 const nav = pages
   .filter((p) => p.view !== 'home')
   .map((p) => `<li><a href="${p.path}">${esc(p.h1)}</a></li>`)
-  .join('') + '<li><a href="/stories/">제주 청소 현장 기록</a></li>';
+  .join('') + '<li><a href="/stories/">제주 청소 현장 기록</a></li><li><a href="/guide/">제주 청소 상식 Q&amp;A</a></li>';
 
 // 서비스 상세 페이지 본문: 추천 대상·작업 범위·진행 순서·자주 묻는 질문
 function serviceBody(id) {
@@ -170,6 +171,8 @@ fs.writeFileSync(
 
 // 현장 기록(찰칵 블로그 앱이 올린 글) 페이지
 const storyPaths = renderStories({ DIST, site, today });
+// 제주 청소 상식 Q&A (AI 검색 인용용)
+const guidePaths = renderGuides({ DIST, site, today });
 
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -182,6 +185,7 @@ ${pages
   </url>`
   )
   .join('\n')}
+${guidePaths.map((p) => `  <url>\n    <loc>${site}${p}</loc>\n    <lastmod>${today}</lastmod>\n    <priority>0.7</priority>\n  </url>`).join('\n')}
 ${storyPaths.map((p) => `  <url>\n    <loc>${site}${p}</loc>\n    <lastmod>${today}</lastmod>\n    <priority>0.6</priority>\n  </url>`).join('\n')}
 </urlset>
 `;
