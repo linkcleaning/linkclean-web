@@ -15,7 +15,17 @@ const body = {
   host,
   key,
   keyLocation: `${site}/${keyFile}`,
-  urlList: [...pages.map((p) => site + p.path), `${site}/llms.txt`],
+  urlList: [
+    ...pages.map((p) => site + p.path),
+    `${site}/llms.txt`,
+    `${site}/stories/`,
+    // 최근 현장 기록 10개도 같이 알림
+    ...(() => {
+      try {
+        return JSON.parse(fs.readFileSync(path.resolve('src/data/stories.json'), 'utf8')).slice(-10).map((s) => `${site}/stories/${s.slug}/`);
+      } catch { return []; }
+    })(),
+  ],
 };
 
 for (const endpoint of ['https://api.indexnow.org/indexnow', 'https://searchadvisor.naver.com/indexnow']) {
