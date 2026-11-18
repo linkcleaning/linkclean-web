@@ -117,12 +117,12 @@ export const FinalBookingCta: React.FC<{ onReserve: () => void }> = ({ onReserve
 
   return (
     <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div className="rounded-2xl sm:rounded-3xl bg-[#0B0D14] p-2.5 sm:p-4 shadow-lg border-[6px] border-[#2A2F3A]">
+      <div className="rounded-2xl sm:rounded-3xl bg-[#0A1D37] p-2.5 sm:p-4 shadow-lg border-[6px] border-[#16325A]">
         {/* 위: 안내판 머리글 */}
-        <div className="flex items-center justify-between gap-2 rounded-t-lg bg-[#22262F] px-3 py-2 sm:px-4">
+        <div className="flex items-center justify-between gap-2 rounded-t-lg bg-[#0F2747] px-3 py-2 sm:px-4">
           <div className="flex items-center gap-2 min-w-0">
             <span className="grid h-7 w-7 sm:h-8 sm:w-8 shrink-0 place-items-center rounded bg-[#2CC4A8]">
-              <Plane className="h-4 w-4 sm:h-5 sm:w-5 text-[#0B0D14] -rotate-12" />
+              <Plane className="h-4 w-4 sm:h-5 sm:w-5 text-[#0A1D37] -rotate-12" />
             </span>
             <div className="min-w-0 leading-tight">
               <p className="truncate text-[15px] sm:text-xl text-white" style={flapFont}>
@@ -142,7 +142,7 @@ export const FinalBookingCta: React.FC<{ onReserve: () => void }> = ({ onReserve
         </div>
 
         {/* 표 */}
-        <div ref={boardRef} className="bg-[#141826] rounded-b-lg overflow-hidden" style={flapFont}>
+        <div ref={boardRef} className="bg-[#0C223F] rounded-b-lg overflow-hidden" style={flapFont}>
           <div className="grid grid-cols-[4.6rem_1fr_3rem_5.6rem] sm:grid-cols-[6.5rem_1fr_7rem_4.5rem_8.5rem] items-end gap-x-2 px-3 sm:px-4 pt-2 pb-1 text-[10px] sm:text-xs text-[#C9CEDB]">
             <span>날짜 Date</span>
             <span>행선지 To</span>
@@ -167,8 +167,8 @@ export const FinalBookingCta: React.FC<{ onReserve: () => void }> = ({ onReserve
                     disabled={full}
                     onClick={() => pick(x.date)}
                     className={`w-full grid grid-cols-[4.6rem_1fr_3rem_5.6rem] sm:grid-cols-[6.5rem_1fr_7rem_4.5rem_8.5rem] items-center gap-x-2 px-3 sm:px-4 py-1.5 sm:py-2 text-left border-t border-black/40 transition-colors ${
-                      i % 2 ? 'bg-[#1A1F30]' : 'bg-[#141826]'
-                    } ${full ? 'cursor-not-allowed' : 'cursor-pointer hover:bg-[#25304A]'}`}
+                      i % 2 ? 'bg-[#11294B]' : 'bg-[#0C223F]'
+                    } ${full ? 'cursor-not-allowed' : 'cursor-pointer hover:bg-[#1B3A66]'}`}
                   >
                     <span className={`text-[15px] sm:text-xl tabular-nums ${full ? 'text-[#8A8F9E]' : 'text-[#F4E3B1]'}`}>
                       <Flap text={`${x.m}/${x.d}`} run={run} delay={i * 70} />{' '}
@@ -190,7 +190,7 @@ export const FinalBookingCta: React.FC<{ onReserve: () => void }> = ({ onReserve
                     <span className="flex justify-center">
                       <span
                         className={`min-w-[2rem] rounded-sm px-1.5 text-center text-[17px] sm:text-xl leading-6 sm:leading-7 tabular-nums ${
-                          full ? 'bg-[#3A3F4C] text-[#8A8F9E]' : 'bg-[#F4E3B1] text-[#141826]'
+                          full ? 'bg-[#23406A] text-[#8A8F9E]' : 'bg-[#F4E3B1] text-[#141826]'
                         }`}
                       >
                         {x.left}
@@ -224,7 +224,7 @@ export const FinalBookingCta: React.FC<{ onReserve: () => void }> = ({ onReserve
             <button
               type="button"
               onClick={onReserve}
-              className="py-2.5 rounded-xl bg-[#3EE0A0] hover:bg-[#2CC4A8] text-[#0B0D14] font-black text-xs sm:text-sm inline-flex items-center justify-center gap-1 cursor-pointer"
+              className="py-2.5 rounded-xl bg-[#3EE0A0] hover:bg-[#2CC4A8] text-[#0A1D37] font-black text-xs sm:text-sm inline-flex items-center justify-center gap-1 cursor-pointer"
               id="final-cta-reserve-btn"
             >
               <Calendar className="w-4 h-4" /> 청소 예약
