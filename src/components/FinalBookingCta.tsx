@@ -125,14 +125,14 @@ export const FinalBookingCta: React.FC<{ onReserve: () => void }> = ({ onReserve
               <Plane className="h-4 w-4 sm:h-5 sm:w-5 text-[#101114] -rotate-12" />
             </span>
             <div className="min-w-0 leading-tight">
-              <p className="truncate text-[15px] sm:text-xl text-white" style={flapFont}>
+              <p className="text-[15px] sm:text-xl text-white leading-snug" style={flapFont}>
                 링크클린 청소 출발 안내
               </p>
-              <p className="truncate text-[9px] sm:text-[11px] font-semibold tracking-[0.18em] text-slate-400">LINKCLEAN DEPARTURES · 하루 2팀</p>
+              <p className="text-[9px] sm:text-[11px] font-semibold tracking-[0.14em] text-slate-400">LINKCLEAN DEPARTURES<span className="hidden sm:inline"> · 하루 2팀</span></p>
             </div>
           </div>
           <div className="flex items-baseline gap-1.5 shrink-0" style={flapFont}>
-            <span className="text-[11px] sm:text-sm text-[#FF6B4A]">
+            <span className="hidden sm:inline text-sm text-[#FF6B4A]">
               {MON_EN[now.getMonth()]} {now.getDate()}
             </span>
             <span className="text-2xl sm:text-4xl leading-none text-[#FF6B4A] tabular-nums">
@@ -174,7 +174,7 @@ export const FinalBookingCta: React.FC<{ onReserve: () => void }> = ({ onReserve
                       <Flap text={`${x.m}/${x.d}`} run={run} delay={i * 70} />{' '}
                       <span className={`text-[12px] sm:text-base ${dayCls}`}>{DOW[x.dow]}</span>
                     </span>
-                    <span className={`min-w-0 truncate text-[15px] sm:text-xl ${full ? 'text-[#8A8F9E]' : 'text-[#F4E3B1]'}`}>
+                    <span className={`min-w-0 break-keep text-[15px] sm:text-xl ${full ? 'text-[#8A8F9E]' : 'text-[#F4E3B1]'}`}>
                       <span className="sm:hidden"><Flap text="제주" run={run} delay={i * 70 + 40} /></span>
                       <span className="hidden sm:inline"><Flap text="제주 전지역" run={run} delay={i * 70 + 40} /></span>
                       {x.son && (
