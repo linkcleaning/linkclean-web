@@ -94,6 +94,36 @@
     },
     {
       "view": "service-detail",
+      "service": "construction",
+      "path": "/services/construction/",
+      "title": "제주 준공청소 | 신축·리모델링·인테리어 공사 후 청소 - 링크클린",
+      "description": "제주 신축·리모델링·인테리어 공사 후 준공청소. 공사 분진·시멘트·실리콘 자국 제거, 전·후 사진 리포트. 064-763-4545",
+      "priority": "0.8",
+      "h1": "제주 준공청소",
+      "body": []
+    },
+    {
+      "view": "service-detail",
+      "service": "exterior",
+      "path": "/services/exterior/",
+      "title": "제주 외벽청소·고층 유리청소 | 고소작업 클린앤스카이 - 링크클린",
+      "description": "제주 건물 외벽청소·고층 유리청소. 고소작업·로프 장비로 해풍 소금 얼룩·물때 제거, 상가·숙소·신축 건물. 064-763-4545",
+      "priority": "0.8",
+      "h1": "제주 외벽청소·고층 유리청소",
+      "body": []
+    },
+    {
+      "view": "service-detail",
+      "service": "special",
+      "path": "/services/special/",
+      "title": "제주 특수청소 | 악취·오염 제거, 오존 살균 탈취 - 링크클린",
+      "description": "제주 특수청소·악취 제거. 쓰레기집·반려동물·담배 냄새, 곰팡이 오염을 원인부터 제거하고 오존 살균 탈취. 064-763-4545",
+      "priority": "0.8",
+      "h1": "제주 특수청소",
+      "body": []
+    },
+    {
+      "view": "service-detail",
       "service": "memorial",
       "path": "/services/memorial/",
       "title": "제주 유품정리·특수청소 | 고독사 현장, 귀중품 전달·오존 탈취 - 링크클린",

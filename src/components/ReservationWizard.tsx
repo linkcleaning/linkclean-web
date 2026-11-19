@@ -31,6 +31,9 @@ const SERVICE_OPTIONS: { id: ServiceType; name: string; desc: string; icon: stri
   { id: 'office', name: '사무실청소', desc: '직원의 쾌적한 업무 몰입을 위한 카페트, 파티션, 사옥 관리', icon: '🏢' },
   { id: 'partial', name: '부분청소', desc: '주방, 욕실, 창틀 등 필요한 공간만 골라 진행하는 알뜰 맞춤 케어', icon: '✨' },
   { id: 'trash', name: '쓰레기집청소', desc: '대량 폐기물 분리 배출 및 악취 탈취, 100% 비밀보장 특수 정리', icon: '🧹' },
+  { id: 'construction', name: '준공청소', desc: '신축·리모델링·인테리어 공사 후 분진·자재 오염 정리', icon: '🏗️' },
+  { id: 'exterior', name: '외벽·고층 유리청소', desc: '고소작업으로 건물 외벽·고층 유리 세척 (클린앤스카이)', icon: '🏢' },
+  { id: 'special', name: '특수청소·악취 제거', desc: '오염 원인 제거, 소독, 오존 살균 탈취', icon: '🧪' },
   { id: 'memorial', name: '유품정리·특수청소', desc: '유품 분류·귀중품 전달, 폐기물 반출, 오염 제거·오존 탈취', icon: '🕊️' },
 ];
 

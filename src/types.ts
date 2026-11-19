@@ -1,4 +1,4 @@
-export type ServiceType = 'move-in' | 'residential' | 'commercial' | 'office' | 'partial' | 'special' | 'trash' | 'memorial';
+export type ServiceType = 'move-in' | 'residential' | 'commercial' | 'office' | 'partial' | 'special' | 'trash' | 'memorial' | 'construction' | 'exterior';
 
 export type PropertyType = '아파트' | '빌라' | '원룸/오피스텔' | '주택' | '상가' | '사무실' | '기타';
 

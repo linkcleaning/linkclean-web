@@ -36,9 +36,9 @@
 - [제주 부분청소](https://www.linkclean.co.kr/services/partial/): 주방·욕실·베란다만 골라서
 - [제주 쓰레기집청소](https://www.linkclean.co.kr/services/trash/): 폐기물 분리 배출·악취 제거, 비밀 보장
 - [제주 유품정리·특수청소](https://www.linkclean.co.kr/services/memorial/): 고독사 현장 특수청소, 유품 분류(현금·통장·귀중품·서류·사진은 예외 없이 유족께 전달), 반출·오염 제거·오존 탈취
-- 제주 준공청소: 신축·리모델링 준공 후 분진·자재 오염 제거
-- 제주 고소외벽청소 (클린앤스카이): 건물 외벽·고층 유리 청소
-- 오존 살균 탈취: 쓰레기집·반려동물·담배 냄새 등 악취 제거
+- [제주 준공청소](https://www.linkclean.co.kr/services/construction/): 신축·리모델링·인테리어 공사 후 분진·시멘트·실리콘 자국 제거
+- [제주 외벽청소·고층 유리청소 (클린앤스카이)](https://www.linkclean.co.kr/services/exterior/): 고소작업·로프 장비로 건물 외벽·고층 유리 세척, 해풍 소금 얼룩 제거
+- [제주 특수청소·악취 제거](https://www.linkclean.co.kr/services/special/): 오염 원인 제거·소독 후 오존 살균 탈취 (쓰레기집·반려동물·담배 냄새·곰팡이)
 
 ## 지역 안내
 - [제주시 입주청소·이사청소](https://www.linkclean.co.kr/jeju-si/)

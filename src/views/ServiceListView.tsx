@@ -13,7 +13,10 @@ export const ServiceListView: React.FC = () => {
     'commercial',
     'office',
     'partial',
+    'construction',
+    'exterior',
     'trash',
+    'special',
     'memorial'
   ];
 

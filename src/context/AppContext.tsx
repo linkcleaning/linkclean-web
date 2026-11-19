@@ -707,6 +707,12 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         ? '쓰레기집청소'
         : r.service_type === 'memorial'
         ? '유품정리·특수청소'
+        : r.service_type === 'construction'
+        ? '준공청소'
+        : r.service_type === 'exterior'
+        ? '외벽·고층 유리청소'
+        : r.service_type === 'special'
+        ? '특수청소'
         : '부분청소'),
     spaceType: r.spaceType || r.property_type,
     sizePyung: r.sizePyung || r.area,

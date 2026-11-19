@@ -49,6 +49,9 @@ export const Header: React.FC = () => {
     { id: 'office', title: '사무실청소', desc: '바닥 왁스 코팅 & 쾌적한 오피스 케어', icon: Briefcase },
     { id: 'partial', title: '부분청소', desc: '주방 기름때, 욕실 곰팡이, 창틀 집중', icon: Wrench },
     { id: 'trash', title: '쓰레기집청소', desc: '100% 비밀보장, 특수소독 & 공간복원', icon: Trash2, badge: '특수' },
+    { id: 'construction', title: '준공청소', desc: '신축·리모델링 공사 후 분진·자재 오염 정리', icon: Building2 },
+    { id: 'exterior', title: '외벽·고층 유리청소', desc: '고소작업으로 외벽·유리 소금 얼룩 제거', icon: Building2 },
+    { id: 'special', title: '특수청소·악취 제거', desc: '오염 원인 제거 후 오존 살균 탈취', icon: Sparkles },
     { id: 'memorial', title: '유품정리·특수청소', desc: '유품 분류·전달부터 오염 제거·탈취까지', icon: HeartHandshake },
   ];
 
